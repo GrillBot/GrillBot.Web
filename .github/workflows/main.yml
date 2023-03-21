@@ -12,7 +12,7 @@ jobs:
   PathsFilter:
     runs-on: ubuntu-latest
     outputs:
-      PrivateAdmin: ${{ steps.filter.output.PrivateAdmin }}
+      PrivateAdmin: ${{ steps.filter.outputs.PrivateAdmin }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
