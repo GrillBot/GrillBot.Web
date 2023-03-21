@@ -1,0 +1,37 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [size]="'lg'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md form-group">
+                <label>Odesílatel</label>
+                <app-search-input [searchSource]="'users'" formControlName="fromUserId"></app-search-input>
+            </div>
+
+            <div class="col-md form-group">
+                <label>Obsah zprávy</label>
+                <input type="text" formControlName="messageContains" class="form-control" />
+            </div>
+
+            <div class="col-md form-group">
+                <label>Vytvořeno (Od)</label>
+                <input type="datetime-local" formControlName="createdFrom" class="form-control" />
+            </div>
+
+            <div class="col-md form-group">
+                <label>Vytvořeno (Do)</label>
+                <input type="datetime-local" formControlName="createdTo" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col d-flex align-items-center">
+                <app-checkbox [id]="'only-waiting'" formControlName="onlyWaiting" [label]="'Zobrazit pouze neoznámené připomenutí'">
+                </app-checkbox>
+            </div>
+
+            <div class="col d-flex justify-content-end align-items-end">
+                <button class="btn btn-link text-dark me-3" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" type="button" (click)="cleanFilter()">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

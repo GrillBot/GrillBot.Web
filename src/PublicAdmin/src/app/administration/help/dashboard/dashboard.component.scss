@@ -1,0 +1,40 @@
+@import "/node_modules/bootstrap/scss/functions";
+@import "/node_modules/bootstrap/scss/variables";
+
+.param {
+    background-color: lighten($secondary, 10%);
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+    margin-right: 5px;
+
+    &::before {
+        content: "{";
+    }
+
+    &::after {
+        content: "}";
+    }
+}
+
+.menu-link {
+    & img {
+        width: 32px;
+        height: 32px;
+        margin-right: 5px;
+        border-radius: 10px;
+        border: 2px solid lightgray;
+    }
+
+    color: black;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 12px;
+
+    &.active {
+        border: 1px solid dimgray;
+        background: rgba(lightgray, 0.3);
+    }
+}

@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-center align-items-center">
+    <h1 *ngIf="!small">
+        <ng-container *ngTemplateOutlet="spinner"></ng-container>
+    </h1>
+
+    <p *ngIf="small" class="mb-0">
+        <ng-container *ngTemplateOutlet="spinner"></ng-container>
+    </p>
+
+    <h3 class="font-weight-light" *ngIf="!noText && !small">Probíhá načítání</h3>
+    <p *ngIf="!noText && small" class="mb-0 ms-1">Probíhá načítání</p>
+</div>
+
+<ng-template #spinner>
+    <i class="fas fa-spin fa-circle-notch"></i>
+</ng-template>

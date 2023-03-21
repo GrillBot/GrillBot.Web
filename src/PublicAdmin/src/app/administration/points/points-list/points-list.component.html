@@ -1,0 +1,46 @@
+<div class="row ms-0 me-0 mt-3">
+    <div class="col">
+        <app-card [title]="'Statistika bodů'" *ngIf="points | async as pointsListResult; else loading" [icon]="'fa fa-list'">
+            <table class="table table-sm table-striped auto-column-width">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="4" style="border-left-width: 1px">Body</th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Uživatel (Nick)</th>
+                        <th>Server</th>
+                        <th style="border-left-width: 1px">Za posl. rok</th>
+                        <th>Za posl. měsíc</th>
+                        <th>Dnes</th>
+                        <th>Celkem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of pointsListResult; let i = index">
+                        <td>{{(i + 1)}}.</td>
+                        <td *ngIf="!user.nickname">{{user.user.fullUsername}}</td>
+                        <td *ngIf="user.nickname">{{user.nickname}} ({{user.user.fullUsername}})</td>
+                        <td>{{user.guild.name}}</td>
+                        <td style="border-left-width: 1px">{{user.pointsYearBack.toLocaleString()}}</td>
+                        <td>{{user.pointsMonthBack.toLocaleString()}}</td>
+                        <td>{{user.pointsToday.toLocaleString()}}</td>
+                        <td>{{user.totalPoints.toLocaleString()}}</td>
+                    </tr>
+                    <tr *ngIf="pointsListResult.length === 0">
+                        <td colspan="4">Ještě nebyla zanamenána žádná aktivita.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </app-card>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="mt-3">
+        <app-loading></app-loading>
+    </div>
+</ng-template>

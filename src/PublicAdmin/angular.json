@@ -1,0 +1,115 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "cli": {
+        "analytics": false
+    },
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "GrillBotPublicClient": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss",
+                    "skipTests": true
+                },
+                "@schematics/angular:class": {
+                    "skipTests": true
+                },
+                "@schematics/angular:directive": {
+                    "skipTests": true
+                },
+                "@schematics/angular:guard": {
+                    "skipTests": true
+                },
+                "@schematics/angular:interceptor": {
+                    "skipTests": true
+                },
+                "@schematics/angular:module": {},
+                "@schematics/angular:pipe": {
+                    "skipTests": true
+                },
+                "@schematics/angular:service": {
+                    "skipTests": true
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/GrillBotPublicClient",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss"
+                        ],
+                        "scripts": [],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true,
+                        "allowedCommonJsDependencies": [
+                            "jwt-decode"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "8mb",
+                                    "maximumError": "10mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    },
+                    "defaultConfiguration": ""
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "GrillBotPublicClient:build",
+                        "ssl": true,
+                        "sslKey": "localhost.key",
+                        "sslCert": "localhost.crt"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "GrillBotPublicClient:build:production"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "GrillBotPublicClient"
+}

@@ -1,0 +1,86 @@
+html,
+body {
+    height: 100%;
+}
+
+.container,
+.container-fluid {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+}
+
+.btn-blurple {
+    background-color: $discord-blurple;
+    border-color: darken($discord-blurple, 1%);
+    color: white;
+
+    &:hover {
+        color: white;
+        background-color: darken($discord-blurple, 10%);
+        border-color: darken($discord-blurple, 10%);
+    }
+}
+
+.cursor-ptr {
+    cursor: pointer !important;
+}
+
+.mr-0 {
+    margin-right: 0 !important;
+}
+
+.ml-0 {
+    margin-left: 0 !important;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.m-0 {
+    @extend .mb-0;
+    @extend .mt-0;
+    @extend .mr-0;
+    @extend .ml-0;
+}
+
+.font-weight-light {
+    font-weight: lighter;
+}
+
+app-data-list table {
+    & td {
+        &.badge-list {
+            & span:not(:last-child) {
+                margin-right: 5px;
+            }
+        }
+
+        &:not(.badge-list) {
+            & .badge {
+                font-size: 0.6em;
+            }
+        }
+    }
+}
+
+select.form-control {
+    appearance: auto !important;
+    -webkit-appearance: auto !important;
+}
+
+.modal {
+    z-index: 10000;
+}
+
+textarea {
+    resize: none;
+}
+
+.smaller {
+    font-size: 75%;
+}

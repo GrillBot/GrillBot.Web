@@ -14,6 +14,7 @@ jobs:
     outputs:
       PrivateAdmin: ${{ steps.filter.outputs.PrivateAdmin }}
       Navigation: ${{ steps.filter.outputs.Navigation }}
+      PublicAdmin: ${{ steps.filter.outputs.PublicAdmin }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -28,6 +29,9 @@ jobs:
             Navigation:
               - .github/workflows/**
               - 'src/Navigation/**'
+            PublicAdmin:
+              - .github/workflows/**
+              - 'src/PublicAdmin/**'
   PrivateAdmin_Build:
     runs-on: ubuntu-latest
     needs: PathsFilter
@@ -126,3 +130,55 @@ jobs:
           password: ${{ secrets.SSH_Password }}
           port: 22
           script: echo '${{ secrets.SSH_Password }}' | sudo -S /scripts/podman-reload.py grillbot-navigation
+  PublicAdmin_Build:
+    runs-on: ubuntu-latest
+    needs: PathsFilter
+    if: needs.PathsFilter.outputs.PublicAdmin == 'true'
+    defaults:
+      run:
+        working-directory: src/PublicAdmin/
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build
+        run: npm run build
+  PublicAdmin_BuildContainer:
+    runs-on: ubuntu-latest
+    needs: PublicAdmin_Build
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Log in to the container repository
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container
+        run: docker build -t ghcr.io/grillbot/grillbot.web:public_admin src/PublicAdmin
+      - name: Push container
+        run: docker push ghcr.io/grillbot/grillbot.web:public_admin
+  PublicAdmin_Deploy_Production:
+    runs-on: ubuntu-latest
+    environment: "Production_PublicAdmin"
+    needs: PublicAdmin_BuildContainer
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Execute deployment on SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_Username }}
+          password: ${{ secrets.SSH_Password }}
+          port: 22
+          script: echo '${{ secrets.SSH_Password }}' | sudo -S /scripts/podman-reload.py grillbot-public-web

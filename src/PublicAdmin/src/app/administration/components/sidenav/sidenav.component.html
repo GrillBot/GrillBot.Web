@@ -1,0 +1,43 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <ng-container *ngTemplateOutlet="menuItem; context: {link: '/users/me', icon:'fa-user', title:'Můj účet', id: 'users'}">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="menuItem;context:{link:'/points', icon:'fa-list-ul', title: 'Body', id: 'points'}">
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link: '/channels', icon:'fa-envelope-open-text', title:'Kanály', id: 'channels'}">
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link: '/unverify', icon:'fa-skull-crossbones', title:'Unverify', id: 'unverify'}">
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link: '/unverify/logs', icon:'fa-skull-crossbones', title:'Unverify log', id: 'unverify'}">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="menuItem; context: {link: '/reminder', icon:'fa-bell', title:'Reminder', id:'reminder'}">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="menuItem; context: {link: '/search', icon:'fa-search', title:'Hledání', id:'searching'}">
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link: '/help', icon:'fa-question-circle', title: 'Nápověda k příkazům', id: 'help'}">
+                </ng-container>
+                <a class="nav-link cursor-ptr" (click)="authService.logout()">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    Odhlásit se
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<ng-template #menuItem let-link="link" let-icon="icon" let-title="title" let-id="id">
+    <a class="nav-link" [routerLink]="'/admin' + link" [class.active]="id == activeRoute">
+        <div class="sb-nav-link-icon">
+            <i class="fas {{icon}}"></i>
+        </div>
+        {{title}}
+    </a>
+</ng-template>

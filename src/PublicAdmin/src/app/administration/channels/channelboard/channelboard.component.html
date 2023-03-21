@@ -1,0 +1,37 @@
+<div class="row ml-0 mr-0 mt-2">
+    <div class="col">
+        <app-card [title]="'Statistika kanálů'" *ngIf="channelboard | async as channelboardResult" [icon]="'fas fa-envelope-open-text'">
+            <table class="table table-sm table-striped auto-column-width">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Server</th>
+                        <th>Kanál</th>
+                        <th style="border-left-width: 1px">Počet zpráv</th>
+                        <th>První zpráva</th>
+                        <th>Posl. zpráva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of channelboardResult; let i = index">
+                        <td>{{(i + 1)}}.</td>
+                        <td>{{row.channel.guild.name ?? 'Neznámý server'}}</td>
+                        <td>{{row.channel.name}}</td>
+                        <td style="border-left-width: 1px">{{row.count.toLocaleString()}}</td>
+                        <td>{{row.firstMessageAt.binding}}</td>
+                        <td>{{row.lastMessageAt.binding}}</td>
+                    </tr>
+                    <tr *ngIf="channelboardResult.length === 0">
+                        <td colspan="5">Nebyly nalezeny žádné kanály nebo k žádnému kanálu nemáš přístup.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </app-card>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="mt-3">
+        <app-loading></app-loading>
+    </div>
+</ng-template>

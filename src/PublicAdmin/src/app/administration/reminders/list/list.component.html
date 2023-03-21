@@ -1,0 +1,36 @@
+<app-card #card [title]="'Seznam notifikací'" [icon]="'fas fa-bell'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <ng-container *ngIf="list.isDataLoaded">
+            <app-card *ngIf="list.isEmpty" [header]="false" [classes]="['mb-3']">
+                <h6 class="mb-0">Nebyly nalezeny žádné oznámení.</h6>
+            </app-card>
+
+            <table class="table table-sm table-bordered table-striped auto-column-width clickable" *ngIf="!list.isEmpty">
+                <thead>
+                    <tr>
+                        <th sortable [key]="'Id'" [sort]="sort" (clicked)="setSort($event)">#</th>
+                        <th sortable [key]="'FromUser'" [sort]="sort" (clicked)="setSort($event)">Odesílatel</th>
+                        <th sortable [key]="'At'" [sort]="sort" (clicked)="setSort($event)">Oznámit v</th>
+                        <th sortable [key]="'Postpone'" [sort]="sort" (clicked)="setSort($event)">Odloženo</th>
+                        <th>Oznámeno</th>
+                        <th class="no-print">Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of list.items" (click)="showMessage(item, $event)">
+                        <td>{{item.id}}</td>
+                        <td>{{item.fromUser?.fullUsername}}</td>
+                        <td>{{item.at.toLocaleString()}}</td>
+                        <td>{{item.postpone}}</td>
+                        <td>{{item.notified | czechBooleanPipe}}</td>
+                        <td class="no-print">
+                            <list-button (clicked)="showMessage(item, $event)" title="Zobrazit zprávu" icon="info"></list-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </app-data-list>
+</app-card>

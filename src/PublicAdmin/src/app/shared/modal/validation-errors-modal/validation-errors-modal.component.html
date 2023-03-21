@@ -1,0 +1,7 @@
+<app-modal [type]="'notification'" [title]="'Chybně zadané parametry.'">
+    <p>Na serveru nebyly splněny následující validační podmínky:</p>
+
+    <ul>
+        <li *ngFor="let error of errors">{{error}}</li>
+    </ul>
+</app-modal>

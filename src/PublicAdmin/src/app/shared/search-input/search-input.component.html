@@ -1,0 +1,46 @@
+<ng-container *ngIf="data">
+    <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="!isMultiSelect" [clearable]="true" [items]="data" [multiple]="isMultiSelect"
+        [notFoundText]="'Nenalezena žádná položka'" [searchable]="true" [(ngModel)]="selected" [disabled]="disabled" (blur)="onBlur()"
+        (change)="onValueChanged($event)">
+        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngIf="items.length > 1">
+                <span class="ng-value-template p-1">
+                    {{items.length}}
+                    <ng-container *ngIf="searchSource === 'bots'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">boti</ng-container>
+                        <ng-container *ngIf="items.length >= 5">botů</ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="searchSource === 'channels'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">kanály</ng-container>
+                        <ng-container *ngIf="items.length >= 5">kanálů</ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="searchSource === 'commands'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">příkazy</ng-container>
+                        <ng-container *ngIf="items.length >= 5">příkazů</ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="searchSource === 'guilds'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">servery</ng-container>
+                        <ng-container *ngIf="items.length >= 5">serverů</ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="searchSource === 'roles'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">role</ng-container>
+                        <ng-container *ngIf="items.length >= 5">rolí</ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="searchSource === 'users'">
+                        <ng-container *ngIf="items.length > 1 && items.length < 5">uživatelé</ng-container>
+                        <ng-container *ngIf="items.length >= 5">uživatelů</ng-container>
+                    </ng-container>
+                </span>
+            </div>
+            <div class="ng-value" *ngIf="items.length === 1">
+                <span class="ng-value-icon left" (click)="clear(items[0])" aria-hidden="true">×</span>
+                <span class="ng-value-template ms-1">{{items[0].value}}</span>
+            </div>
+        </ng-template>
+    </ng-select>
+</ng-container>

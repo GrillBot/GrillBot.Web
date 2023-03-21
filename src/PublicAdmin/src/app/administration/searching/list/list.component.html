@@ -1,0 +1,29 @@
+<app-card #card [title]="'Hledání'" [icon]="'fas fa-search'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-sm table-bordered table-striped auto-column-width clickable" *ngIf="list.isDataLoaded">
+            <thead>
+                <tr>
+                    <th style="min-width: 60px" sortable [key]="'Id'" [sort]="sort" (clicked)="setSort($event)">ID</th>
+                    <th sortable [key]="'Guild'" [sort]="sort" (clicked)="setSort($event)">Server</th>
+                    <th sortable [key]="'Channel'" [sort]="sort" (clicked)="setSort($event)">Kanál</th>
+                    <th class="no-print">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list.items" (click)="showMessage(item, $event)">
+                    <td>{{item.id}}</td>
+                    <td>{{item.guild.name}}</td>
+                    <td>{{item.channel.name}}</td>
+                    <td class="no-print">
+                        <list-button (clicked)="showMessage(item, $event)" icon="info" title="Zobrazit zprávu"></list-button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.isEmpty">
+                    <td colspan="6">Pro zadaný filtr nebyly nalezeny žádné hledání.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+    <button type="button" class="close btn btn-outline-dark" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <p [innerHtml]="text" class="mb-0"></p>
+    <ng-content></ng-content>
+</div>
+
+<div class="modal-footer">
+    <button type="button" *ngIf="type === 'notification'" (click)="modal.close(null)" class="btn btn-outline-secondary">Zavřít</button>
+
+    <ng-container *ngIf="type === 'question'">
+        <button type="button" (click)="modal.close(true)" class="btn btn-outline-success">Ano</button>
+        <button type="button" (click)="modal.close(false)" class="btn btn-outline-danger">Ne</button>
+    </ng-container>
+
+    <ng-container *ngIf="type === 'form'">
+        <button type="button" (click)="modal.close(true)" class="btn btn-outline-success">Uložit</button>
+        <button type="button" (click)="modal.close(false)" class="btn btn-outline-danger">Zrušit</button>
+    </ng-container>
+</div>
