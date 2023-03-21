@@ -1,0 +1,16 @@
+.btn-blurple {
+    background-color: #7289DA;
+    border-color: #6e86d9;
+    color: #fff;
+}
+
+.btn-blurple:hover {
+    background-color: #4a67cf;
+    border-color: #4a67cf;
+    color: #fff;
+}
+
+img {
+    width: 64px;
+    margin-right: 15px;
+}
