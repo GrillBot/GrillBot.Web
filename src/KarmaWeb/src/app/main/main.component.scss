@@ -1,0 +1,91 @@
+.content-data {
+    margin: auto;
+    width: 100%;
+    padding-top: 1vh;
+
+    & .items-container {
+        margin-bottom: 30px;
+
+        & .container-item {
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: grid;
+
+            grid-template-columns: 80px 80px 60% auto;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba(81, 85, 90, 1);
+            }
+
+            &:first-child {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+            & .profile-image {
+                max-width: 100px;
+            }
+
+            & .name {
+                font-weight: 100;
+                display: flex;
+                align-items: center;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            & .count {
+                margin-bottom: 0px;
+
+                & .giving {
+                    display: block;
+                    font-size: 15px;
+                }
+            }
+
+            & .position-container {
+                display: flex;
+                align-items: center;
+
+                & .position {
+                    border: 1px solid;
+                    border-radius: 50%;
+                    min-width: 40px;
+                    min-height: 40px;
+                    height: 40px;
+                    padding: 5px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    margin-right: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .content-data {
+        & .items-container {
+            & .container-item {
+                grid-template-columns: 80px 50px auto;
+
+                & .count {
+                    grid-column: 1/4;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

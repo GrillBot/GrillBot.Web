@@ -1,0 +1,8 @@
+<div class="h-100 row justify-content-center me-0 ms-0 mt-5">
+    <div class="col-md-9">
+        <app-main #main [data]="data" *ngIf="isLoaded" [currentPage]="data?.page || 1" (pageChanged)="onPageChanged($event)"
+            [pageSize]="pageSize">
+        </app-main>
+        <app-loader *ngIf="!isLoaded"></app-loader>
+    </div>
+</div>

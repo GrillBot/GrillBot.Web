@@ -1,0 +1,24 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+html,
+body {
+    background-color: #23272a;
+}
+
+.pagination {
+    $color: #7289da;
+    $dark-color: #2C2F33;
+
+    & .page-item {
+        &.active .page-link {
+            background-color: $color;
+            border-color: $color;
+        }
+
+        &:not(.active) .page-link {
+            color: $color;
+            background-color: $dark-color;
+            border-color: lighten($dark-color, 10%);
+        }
+    }
+}
