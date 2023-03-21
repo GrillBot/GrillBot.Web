@@ -1,0 +1,51 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Kód</label>
+                    <input type="text" formControlName="code" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Server</label>
+                    <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Zakladatel</label>
+                    <app-search-input [searchSource]="'users'" formControlName="creatorId" [guildId]="guildId"></app-search-input>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Vytvořeno od</label>
+                    <input type="datetime-local" class="form-control" formControlName="createdFrom" />
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Vytvořeno do</label>
+                    <input type="datetime-local" class="form-control" formControlName="createdTo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md">
+                <app-checkbox [label]="'Zobrazit nepoužívané pozvánky'" [id]="'showUnused'" formControlName="showUnused"></app-checkbox>
+            </div>
+
+            <div class="col-md d-flex align-items-end justify-content-end">
+                <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" type="button" (click)="cleanFilter()">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

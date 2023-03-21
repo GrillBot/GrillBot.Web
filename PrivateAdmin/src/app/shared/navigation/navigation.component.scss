@@ -1,0 +1,26 @@
+@import "../../styles/variables.scss";
+
+.menu-link {
+    img {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        border: 2px solid lightgray;
+    }
+
+    span {
+        margin-left: 5px;
+    }
+
+    color: black;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 8px;
+
+    &.active {
+        border: 1px solid dimgray;
+        background-color: rgba(lightgray, 0.3);
+    }
+}

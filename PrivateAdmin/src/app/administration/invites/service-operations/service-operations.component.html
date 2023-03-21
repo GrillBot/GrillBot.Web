@@ -1,0 +1,12 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<div class="row mt-3 ms-0 me-0">
+    <div class="col-4">
+        <app-card [title]="'Metadata'">
+            <div class="d-flex justify-content-between">
+                Aktuálně je v cache záznamů: {{metadataCount | async}}
+                <button class="btn btn-outline-dark btn-sm" (click)="refreshMetadataCache()">Obnovit cache</button>
+            </div>
+        </app-card>
+    </div>
+</div>

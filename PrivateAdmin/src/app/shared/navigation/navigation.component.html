@@ -1,0 +1,9 @@
+<div class="row ms-0 me-0 mt-2">
+    <div class="col-2" *ngFor="let item of navigation.getItems()">
+        <a [routerLink]="item.routerLink" [title]="item.title" class="menu-link" [class.active]="navigation.isActive(item)">
+            <img *ngIf="item.icon && item.iconAsImg" [src]="item.icon" [alt]="item.label">
+            <i [class]="item.icon" *ngIf="item.icon && !item.iconAsImg"></i>
+            <span>{{item.label}}</span>
+        </a>
+    </div>
+</div>

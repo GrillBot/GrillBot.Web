@@ -1,0 +1,20 @@
+<app-modal [title]="modalTitle" [type]="'form'">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md">
+                <input type="text" formControlName="name" placeholder="Název" class="form-control" maxlength="100" />
+                <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'name')">
+                    <span *ngIf="validationHelper.isInvalid(form, 'name', 'required')">Název klienta je povinný.</span>
+                    <span *ngIf="validationHelper.isInvalid(form, 'name', 'maxlength')">Název klienta může mít maximálně 100 znaků.</span>
+                </small>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md form-group">
+                <label>Povolené metody</label>
+                <app-search-input [isMultiSelect]="true" [searchSource]="'public-api-methods'" formControlName="allowedMethods"></app-search-input>
+            </div>
+        </div>
+    </form>
+</app-modal>

@@ -1,0 +1,46 @@
+<app-card #card [title]="'Seznam transakcí'" [icon]="'fas fa-comments'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-bordered table-sm auto-column-width table-striped">
+            <thead>
+                <tr>
+                    <th>Server</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'User'" [sort]="sort">Uživatel</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'AssignedAt'" [sort]="sort">Založeno</th>
+                    <th>ID zprávy</th>
+                    <th>Z reakce?</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'Points'" [sort]="sort">Body</th>
+                    <ng-container *ngIf="isMerged">
+                        <th>Sloučené období</th>
+                        <th>Poč. sloučených transakcí</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list.items">
+                    <td>
+                        <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark">{{item.guild.name}}</a>
+                    </td>
+                    <td>
+                        <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.fullUsername}}</a>
+                    </td>
+                    <td>{{item.assignedAt.binding}}</td>
+                    <td>{{item.messageId}}</td>
+                    <td>{{item.isReaction | czechBooleanPipe}}</td>
+                    <td>{{item.points.toLocaleString()}}</td>
+                    <ng-container *ngIf="isMerged">
+                        <td>
+                            {{item.mergeInfo.mergeRangeFrom.binding}}
+                            <span *ngIf="item.mergeInfo.mergeRangeTo"> - {{item.mergeInfo.mergeRangeTo.binding}}</span>
+                        </td>
+                        <td>{{item.mergeInfo.mergedItemsCount.toLocaleString()}}</td>
+                    </ng-container>
+                </tr>
+                <tr *ngIf="list.isEmpty">
+                    <td [attr.colspan]="isMerged ? 8 : 6">Nebyly nalezeny žádné transakce.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

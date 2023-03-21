@@ -1,0 +1,13 @@
+<ng-select [closeOnSelect]="!isMultiSelect" [clearable]="true" [multiple]="isMultiSelect" [notFoundText]="'Nenalezena žádná položka'"
+    [searchable]="searchable" [(ngModel)]="selected" [disabled]="disabled" (blur)="onBlur()" (change)="onValueChange($event)"
+    [items]="items" [bindLabel]="'key'" [bindValue]="'value'">
+    <ng-template ng-label-tmp let-item="item">
+        <span *ngIf="item.background" class="{{( 'bg-' + item.background )}} original" style="padding-left: 16px;">&nbsp;</span>
+        <span [style.margin-left]="item.background ? '5px' : '0px'">{{item.key}}</span>
+    </ng-template>
+
+    <ng-template ng-option-tmp let-item="item">
+        <span *ngIf="item.background" class="{{( 'bg-' + item.background )}} original" style="padding-left: 16px;">&nbsp;</span>
+        <span [style.margin-left]="item.background ? '5px' : '0px'">{{item.key}}</span>
+    </ng-template>
+</ng-select>

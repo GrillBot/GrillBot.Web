@@ -1,0 +1,39 @@
+.bg-success {
+    &.original {
+        background-color: $success !important;
+    }
+
+    background-color: lighten($success, 20%) !important;
+}
+
+.bg-warning {
+    &.original {
+        background-color: $warning !important;
+    }
+
+    background-color: lighten($warning, 20%) !important;
+}
+
+.bg-danger {
+    &.original {
+        background-color: $danger !important;
+    }
+
+    background-color: lighten($danger, 20%) !important;
+}
+
+.bg-primary {
+    &.original {
+        background-color: $primary !important;
+    }
+
+    background-color: lighten($primary, 30%) !important;
+}
+
+.bg-secondary {
+    &.original {
+        background-color: $secondary !important;
+    }
+
+    background-color: lighten($secondary, 30%) !important;
+}

@@ -1,0 +1,10 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <h3 class="fw-normal">Databáze</h3>
+    <app-bar-chart [data]="stats.database"></app-bar-chart>
+    <h3 class="fw-normal">Cache</h3>
+    <app-bar-chart [data]="stats.cache"></app-bar-chart>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

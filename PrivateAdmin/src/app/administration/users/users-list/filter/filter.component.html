@@ -1,0 +1,37 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col form-group">
+                <label>Uživatelské jméno</label>
+                <input type="text" formControlName="username" class="form-control" />
+            </div>
+
+            <div class="col form-group">
+                <label>Server</label>
+                <app-search-input formControlName="guildId" [searchSource]="'guilds'"></app-search-input>
+            </div>
+
+            <div class="col form-group">
+                <label>Použitý kód pozvánky</label>
+                <input type="text" formControlName="usedInviteCode" class="form-control" />
+            </div>
+
+            <div class="col form-group">
+                <label>Stav</label>
+                <app-select [items]="statusItems" formControlName="status"></app-select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-8">
+                <label>Vybrat uživatele, kteří splňují</label>
+                <checkbox-bitmask [options]="flagsMask" formControlName="flags"></checkbox-bitmask>
+            </div>
+
+            <div class="col d-flex align-items-end justify-content-end">
+                <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" type="button" (click)="cleanFilter()">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

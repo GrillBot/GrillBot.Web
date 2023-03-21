@@ -1,0 +1,21 @@
+<app-modal [title]="'Obnovení cache metadat'">
+    Data byla úspěšně obnovena.
+
+    <div class="mt-2">
+        Report:
+        <table class="table table-sm table-bordered auto-column-width mb-0">
+            <thead>
+                <tr>
+                    <th>Server</th>
+                    <th>Počet obnovených pozvánek</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of report">
+                    <td>{{item.key}}</td>
+                    <td>{{item.value.toLocaleString()}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</app-modal>

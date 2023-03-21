@@ -1,0 +1,9 @@
+.items-list {
+    & span:not(:last-child):after {
+        content: ', ';
+    }
+
+    & a {
+        color: black;
+    }
+}

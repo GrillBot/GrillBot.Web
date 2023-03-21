@@ -1,0 +1,18 @@
+<app-card [header]="false">
+    <p class="fw-bold">Naplánované úlohy</p>
+
+    <app-loading *ngIf="loading; else view"></app-loading>
+    <ng-template #view>
+        <span class="text-danger" *ngIf="!data.jobs">
+            <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst poslední naplánované úlohy.
+        </span>
+
+        <ng-container *ngIf="data.jobs">
+            <div *ngFor="let job of data.jobs" class="d-flex justify-content-between border-bottom" [class.text-danger]="!job.success"
+                [class.text-warning]="job.duration >= 5000">
+                <b>{{job.name}}</b>
+                <span>{{job.duration | timeDuration}}</span>
+            </div>
+        </ng-container>
+    </ng-template>
+</app-card>

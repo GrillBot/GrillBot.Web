@@ -1,0 +1,26 @@
+<div class="card {{size}}" [ngClass]="classes" [ngStyle]="{'max-width': maxWidth}">
+    <div class="card-header" *ngIf="header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4>
+                <i [class]="icon" *ngIf="icon"></i>
+                {{title}}
+            </h4>
+
+            <div>
+                <small *ngIf="recordsCount != undefined">Počet záznamů: {{recordsCount}}</small>
+
+                <button class="btn btn-link p-0 no-print" *ngIf="allowHideButton" (click)="toggleVisiblity()">
+                    <ng-container *ngIf="visible">Skrýt</ng-container>
+                    <ng-container *ngIf="!visible">Zobrazit</ng-container>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body" [ngClass]="bodyClasses" *ngIf="visible">
+        <ng-content></ng-content>
+    </div>
+    <div class="card-footer" *ngIf="visible && footer">
+        <ng-container [ngTemplateOutlet]="footer.template" [ngTemplateOutletContext]="footer.context"></ng-container>
+    </div>
+</div>

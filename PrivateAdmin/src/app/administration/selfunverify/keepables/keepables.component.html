@@ -1,0 +1,95 @@
+<div class="row ms-0 me-0 mt-3">
+    <div class="col">
+        <app-card [title]="'Ponechatelné přístupy'" [icon]="'fas fa-book-dead'">
+            <i class="mt-0 no-print"><small>Kliknutím na koš smažete celou skupinu. Kliknutím na položku smažete pouze jednu položku.</small></i>
+
+            <table class="table table-sm table-bordered auto-column-width mb-0" *ngIf="$keepablesRequest | async as response; else loading">
+                <thead>
+                    <tr>
+                        <th>Skupina</th>
+                        <th>Položky</th>
+                        <th style="width: 100px !important;" class="no-print">Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of response">
+                        <td>{{(item.key == '_' ? 'Ostatní' : item.key)}}</td>
+                        <td class="text-wrap items-list">
+                            <ng-container *ngFor="let value of item.value">
+                                <a (click)="remove(item.key, value)" href="javascript:;">{{value}}</a>
+                                <span></span>
+                            </ng-container>
+                        </td>
+                        <td style="width: 100px !important;" class="no-print">
+                            <list-button title="Smazat skupinu" icon="trash-alt" (clicked)="remove(item.key)"></list-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </app-card>
+    </div>
+</div>
+
+<div class="row ms-0 me-0 mt-3 no-print">
+    <div class="col">
+        <app-card [title]="'Přidání přístupu'">
+            <i><small>Je možné přidávat více přístupů najednou. Tlačítko + přidá řádek.</small></i>
+
+            <form [formGroup]="form">
+                <div class="row" formArrayName="items" *ngFor="let item of formItems.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="col-md">
+                            <label>Skupina</label>
+                            <input type="text" class="form-control" #group formControlName="group" />
+                            <app-checkbox [id]="'no-group' + i" [label]="'Nemá skupinu'" formControlName="noGroup"></app-checkbox>
+                        </div>
+
+                        <div class="col-md">
+                            <label>Položka</label>
+                            <input type="text" class="form-control" #name formControlName="name" />
+                            <small class="text-danger" *ngIf="item.hasError('exists')">Tato položka již existuje.</small>
+                            <small class="text-danger" *ngIf="item.get('name').hasError('required')">Toto pole je povinné.</small>
+                        </div>
+                    </ng-container>
+
+                    <div class="col-md-auto d-flex align-items-center">
+                        <button class="btn btn-danger" (click)="removeItemRow(i)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md">
+                        <label>Skupina</label>
+                        <input type="text" class="form-control" #group />
+                        <app-checkbox [id]="'no-group'" [label]="'Nemá skupinu'" #noGroup></app-checkbox>
+                    </div>
+
+                    <div class="col-md">
+                        <label>Položka</label>
+                        <input type="text" class="form-control" #name />
+                    </div>
+
+                    <div class="col-md-auto d-flex align-items-center">
+                        <button class="btn btn-success" (click)="addItemRow(group, name, noGroup)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-success" (click)="submitForm(group, name, noGroup)">
+                            Uložit přístupy
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

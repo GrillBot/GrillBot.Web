@@ -1,0 +1,21 @@
+<ng-content></ng-content>
+
+<form [formGroup]="form" class="row no-print">
+    <div class="col-md-2">
+        <div class="d-flex align-items-center mb-3">
+            Zobrazit
+            <select formControlName="limit" class="form-control" no-validation>
+                <option *ngFor="let item of pageSizes" value="{{item}}">{{item}}</option>
+            </select>
+            záznamů
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="d-flex justify-content-sm-end align-content-center">
+            <ngb-pagination [(page)]="currentPage" [collectionSize]="totalItemsCount" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                [maxSize]="10" (pageChange)="pageChange($event)" [pageSize]="pageSize">
+            </ngb-pagination>
+        </div>
+    </div>
+</form>

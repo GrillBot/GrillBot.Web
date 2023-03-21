@@ -1,0 +1,34 @@
+<app-card #card [title]="'Seznam serverů'" [icon]="'fas fa-server'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-sm table-bordered table-striped clickable auto-column-width" *ngIf="list.isDataLoaded">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Název</th>
+                    <th>Počet členů</th>
+                    <th class="no-print">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr route-click *ngFor="let item of list.items" [route]="'/admin/servers/' + item.id">
+                    <td>{{item.id}}</td>
+                    <td>
+                        {{item.name}}
+                        <small class="badge bg-danger original" title="Bot není připojen na server"
+                            *ngIf="!item.isConnected">Nepřipojen</small>
+                    </td>
+                    <td>{{item.memberCount}}</td>
+                    <td class="no-print">
+                        <list-button link="/admin/servers/{{item.id}}" title="Detail serveru {{item.name}}" icon="info"
+                            *ngIf="item.isConnected"></list-button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.isEmpty">
+                    <td colspan="4">Nebyly nalezeny žádné servery.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

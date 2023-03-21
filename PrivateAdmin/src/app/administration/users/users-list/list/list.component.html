@@ -1,0 +1,53 @@
+<app-card #card [title]="'Seznam uživatelů'" [icon]="'fas fa-users'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-sm table-bordered table-striped clickable auto-column-width" *ngIf="list.isDataLoaded">
+            <thead>
+                <tr>
+                    <th sortable (clicked)="setSort()" [sort]="sort">Uživatelské jméno
+                    </th>
+                    <th>Stav</th>
+                    <th>Servery</th>
+                    <th>Registrován</th>
+                    <th>Doplňující informace</th>
+                    <th class="no-print">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr route-click *ngFor="let item of list.items" [route]="'/admin/users/' + item.id">
+                    <td>
+                        {{item.username}}
+                        <span class="badge bg-secondary original" *ngIf="item.isBot">Bot</span>
+                        <span class="badge bg-success original" *ngIf="item.isWebAdminOnline"
+                            title="Uživatel je přihlášen do administrace">WebAdmin</span>
+                    </td>
+                    <td class="badge-list">
+                        <span class="badge bg-{{item.statusColor}} original">{{item.status}}</span>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <span *ngFor="let guild of item.guilds" [class.text-danger]="!guild.value">{{guild.key}}</span>
+                        </div>
+                    </td>
+                    <td>{{(item.registeredAt?.binding ?? '')}}</td>
+                    <td class="badge-list">
+                        <span class="badge bg-{{(item.haveBirthday ? 'success' : 'danger')}} original"
+                            title="Uživatel {{(item.haveBirthday ? 'má' : 'nemá')}} uložené datum narození">Narozeniny</span>
+                        <span class="badge bg-{{(item.isBotAdmin ? 'success' : 'danger')}} original"
+                            title="Uživatel {{(item.isBotAdmin ? 'je' : 'není')}} administrátor bota">BotAdmin</span>
+                        <span class="badge bg-{{(item.haveWebAdmin ? 'success' : 'danger')}} original"
+                            title="Uživatel {{(item.haveWebAdmin ? 'má' : 'nemá')}} přístup do webové administrace">WebAdmin</span>
+                    </td>
+                    <td class="no-print">
+                        <list-button [link]="'/admin/users/' + item.id" title="Detail uživatele {{item.username}}" icon="info">
+                        </list-button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.items.length === 0">
+                    <td colspan="6">Nebyly nalezeni žádní uživatelé.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

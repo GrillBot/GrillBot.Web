@@ -1,0 +1,51 @@
+<div class="row ms-0 me-0 mt-2 no-print">
+    <div class="col-md">
+        <a class="text-dark cursor-ptr" (click)="openEdit(true, null)">Vytvořit klienta</a>
+    </div>
+</div>
+
+<app-loading *ngIf="!clients"></app-loading>
+
+<div class="row mt-5 ml-0 mr-0" *ngIf="clients && clients.length === 0">
+    <div class="col d-flex justify-content-center">
+        <h1 class="fw-normal">Nebyl nalezen žádný klient.</h1>
+    </div>
+</div>
+
+<ng-container *ngIf="clients && clients.length > 0">
+    <div class="row ms-0 me-0 mt-3 mb-3" *ngFor="let client of clients">
+        <div class="col-md-12">
+            <ng-container *ngTemplateOutlet="clientCard;context:{client: client}"></ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #clientCard let-client="client">
+    <app-card [header]="false">
+        <div class="d-flex align-items-end">
+            <h4 class="fw-normal">{{client.name}}</h4>
+            <h5 class="fw-normal text-secondary ms-3">{{client.id}}</h5>
+        </div>
+
+        <p class="allowedMethods">
+            Povolené metody:
+            <b *ngIf="client.allowedMethods.length === 0">Žádné</b>
+            <b *ngIf="client.allowedMethods.length > 0">
+                <span *ngFor="let method of client.allowedMethods" class="allowedMethod">{{method}}</span>
+            </b>
+        </p>
+
+        <p>Počet použití: <b>{{client.useCount.toLocaleString()}}</b></p>
+        <p *ngIf="client.useCount > 0">Naposledy použito: <b>{{client.lastUse.binding}}</b></p>
+
+        <div class="btn-group mt-2 no-print">
+            <a class="btn btn-outline-primary" title="Upravit klienta" (click)="openEdit(false, client)">
+                <i class="fas fa-edit"></i>
+            </a>
+
+            <button class="btn btn-outline-danger" title="Smazat klienta" (click)="deleteClient(client)">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    </app-card>
+</ng-template>

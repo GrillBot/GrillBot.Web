@@ -1,0 +1,11 @@
+.allowedMethods {
+    & .allowedMethod:not(:last-child) {
+        &:after {
+            content: ', ';
+        }
+    }
+}
+
+p {
+    margin: 0;
+}

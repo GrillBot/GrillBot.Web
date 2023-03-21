@@ -1,0 +1,47 @@
+<app-card [title]="'Nastavení uživatele'" [allowHideButton]="true" icon="fas fa-user-cog" [classes]="['mb-3']" [bodyClasses]="['pt-2']">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="row">
+            <div class="col-auto">
+                <div class="badge bg-success only-print me-2" *ngIf="user.isBotAdmin">Administrátor </div>
+                <div class="badge bg-success only-print me-2" *ngIf="user.haveWebAdmin">Webová administrace </div>
+                <div class="badge bg-success only-print me-2" *ngIf="user.commandsDisabled">Příkazy deaktivovány </div>
+                <div class="badge bg-success only-print me-2" *ngIf="user.pointsDisabled">Body deaktivovány</div>
+
+                <div class="checkboxes-group no-print">
+                    <app-checkbox title="Administrátor obdrží plná práva nad GrillBot." [id]="'bot-admin'" [label]="'Administrátor'"
+                        formControlName="botAdmin"></app-checkbox>
+                    <app-checkbox title="Přístup do webové administrace" [id]="'web-admin'" [label]="'Webová administrace'"
+                        formControlName="webAdmin"></app-checkbox>
+                    <app-checkbox title="Zablokovány všechny příkazy." [id]="'commands-disabled'" [label]="'Příkazy deaktivovány'"
+                        formControlName="commandsDisabled"></app-checkbox>
+                    <app-checkbox title="Výpočet bodů deaktivován" [id]="'points-disabled'" [label]="'Body deaktivovány'"
+                        formControlName="pointsDisabled"></app-checkbox>
+                </div>
+            </div>
+
+            <div class="only-print" *ngIf="user.note && user.note.length > 0">
+                <label class="fw-bold">Poznámka</label><br>
+                <span>{{user.note}}</span>
+            </div>
+
+            <div class="col-md-4 no-print">
+                <label class="fw-bold">Poznámka</label>
+                <textarea class="form-control" formControlName="note"></textarea>
+            </div>
+
+            <div class="only-print" *ngIf="user.selfUnverifyMinimalTime">
+                <b>Minimální čas pro selfunverify</b><br>
+                <span>{{user.selfUnverifyMinimalTime}}</span>
+            </div>
+
+            <div class="col-md-4 no-print">
+                <b>Minimální čas pro selfunverify</b>
+                <app-time-span-input formControlName="selfUnverifyMinimalTime"></app-time-span-input>
+            </div>
+
+            <div class="col d-flex align-items-end justify-content-end no-print">
+                <button class="btn btn-success">Uložit změny</button>
+            </div>
+        </div>
+    </form>
+</app-card>

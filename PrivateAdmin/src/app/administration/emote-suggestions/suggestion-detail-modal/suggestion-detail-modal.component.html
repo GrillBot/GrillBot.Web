@@ -1,0 +1,75 @@
+<app-modal [title]="'Detail návrhu #' + suggestion.id">
+    <table class="table table-sm table-bordered auto-column-width">
+        <tbody>
+            <tr>
+                <th>Vytvořeno</th>
+                <td>{{suggestion.createdAt.binding}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.voteEndsAt">
+                <th>Konec hlasování</th>
+                <td>{{suggestion.voteEndsAt.binding}}</td>
+            </tr>
+
+            <tr>
+                <th>Server</th>
+                <td>
+                    <a routerLink="/admin/servers/{{suggestion.guild.id}}" class="text-dark"
+                        (click)="modal.close()">{{suggestion.guild.name}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Navrhovatel</th>
+                <td>
+                    <a routerLink="/admin/users/{{suggestion.fromUser.id}}" class="text-dark"
+                        (click)="modal.close()">{{suggestion.fromUser.fullUsername}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Název emote</th>
+                <td>{{suggestion.emoteName}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.description">
+                <th>Popis</th>
+                <td>
+                    <pre class="p-2 alert alert-secondary">{{suggestion.description}}</pre>
+                </td>
+            </tr>
+
+            <tr *ngIf="suggestion.approvedForVote != null">
+                <th>Schválen k hlasování</th>
+                <td>{{suggestion.approvedForVote | czechBooleanPipe}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.voteEndsAt != null">
+                <th>Hlasování skončilo</th>
+                <td>{{suggestion.voteFinished | czechBooleanPipe}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.voteFinished">
+                <th>Schváleno komunitou</th>
+                <td>{{suggestion.communityApproved | czechBooleanPipe}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.voteFinished">
+                <th>Pozitivních hlasů</th>
+                <td>{{suggestion.upVotes.toLocaleString()}}</td>
+            </tr>
+
+            <tr *ngIf="suggestion.voteFinished">
+                <th>Negativních hlasů</th>
+                <td>{{suggestion.downVotes.toLocaleString()}}</td>
+            </tr>
+
+            <tr>
+                <th>Emote</th>
+                <td>
+                    <img src="{{'data:image/png;base64,' + suggestion.imageData}}" alt="{{suggestion.emoteName}}" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</app-modal>

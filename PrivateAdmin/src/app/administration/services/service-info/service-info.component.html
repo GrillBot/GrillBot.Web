@@ -1,0 +1,85 @@
+<div class="row ms-0 me-0 mt-2">
+    <div class="col-md">
+        <app-card [header]="false" *ngIf="request$ | async as data; else loading"
+            [footer]="data.apiErrorMessage ? {template: footer, context:{errorMessage: data.apiErrorMessage}} : null">
+            <div class="d-flex align-items-baseline">
+                <h3 class="fw-normal me-2">{{data.name}}</h3>
+                <p class="text-muted">{{data.url}}</p>
+            </div>
+
+            <ng-container *ngIf="data.diagnosticInfo">
+                <div class="row mt-1">
+                    <div class="col-md">
+                        <p>Timeout: <b>{{data.timeout | timeDuration}}</b></p>
+                        <p>Čas CPU: <b>{{data.diagnosticInfo.cpuTime | timeDuration}}</b></p>
+                    </div>
+                    <div class="col-md">
+                        <p>Počet požadavků: <b>{{data.diagnosticInfo.requestsCount.toLocaleString()}}</b></p>
+                        <p>Statistiky měřeny od: <b>{{data.diagnosticInfo.measuredFrom.binding}}</b></p>
+                    </div>
+                    <div class="col-md">
+                        <p>Využitá paměť: <b>{{data.diagnosticInfo.usedMemory | filesize}}</b></p>
+                        <p>Uptime: <b>{{data.diagnosticInfo.uptime | timeDuration}}</b></p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md">
+                        <h5 class="fw-normal">Požadavky</h5>
+                        <table class="table table-sm table-responsive auto-column-width">
+                            <thead>
+                                <tr>
+                                    <th>Endpoint</th>
+                                    <th>Počet požadavků</th>
+                                    <th>Poslední požadavek</th>
+                                    <th>Doba všech požadavků</th>
+                                    <th>Průměrná doba požadavků</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data.diagnosticInfo.endpoints">
+                                    <td>{{item.endpoint}}</td>
+                                    <td>{{item.count.toLocaleString()}}</td>
+                                    <td>{{item.lastRequestAt.binding}} ({{item.lastTime | timeDuration}})</td>
+                                    <td>{{item.totalTime | timeDuration}}</td>
+                                    <td>{{item.avgTime | timeDuration}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row" *ngIf="data.diagnosticInfo.database">
+                        <div class="col-md">
+                            <h5 class="fw-normal">Databáze</h5>
+                            <table class="table table-sm table-responsive auto-column-width">
+                                <thead>
+                                    <tr>
+                                        <th>Tabulka</th>
+                                        <th>Počet záznamů</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data.diagnosticInfo.database">
+                                        <td>{{item.key}}</td>
+                                        <td>{{item.value.toLocaleString()}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </app-card>
+    </div>
+</div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>
+
+<ng-template #footer let-errorMessage="errorMessage">
+    <p class="text-danger">
+        <i class="fas fa-exclamation-triangle me-1"></i>
+        {{errorMessage}}
+    </p>
+</ng-template>

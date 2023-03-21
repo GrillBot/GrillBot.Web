@@ -1,0 +1,54 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [size]="'lg'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col form-group">
+                <label>Návrh vytvořen (Od)</label>
+                <input type="datetime-local" formControlName="createdAtFrom" class="form-control" />
+            </div>
+
+            <div class="col form-group">
+                <label>Návrh vytvořen (Do)</label>
+                <input type="datetime-local" formControlName="createdAtTo" class="form-control" />
+            </div>
+
+            <div class="col form-group">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+            </div>
+
+            <div class="col form-group">
+                <label>Navrhovatel</label>
+                <app-search-input [searchSource]="'users'" formControlName="fromUserId" [guildId]="guildId"></app-search-input>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3 form-group">
+                <label>Název navrhovaného emote</label>
+                <input type="text" formControlName="emoteName" class="form-control">
+            </div>
+
+            <div class="col form-group">
+                <label>&nbsp;</label>
+                <app-checkbox [id]="'onlyApprovedToVote'" [label]="'Pouze schválené k hlasování'" formControlName="onlyApprovedToVote">
+                </app-checkbox>
+                <app-checkbox [id]="'onlyUnfinishedVotes'" [label]="'Pouze probíhající hlasování'" formControlName="onlyUnfinishedVotes">
+                </app-checkbox>
+
+            </div>
+
+            <div class="col form-group">
+                <label>&nbsp;</label>
+                <app-checkbox [id]="'onlyCommunityApproved'" [label]="'Pouze schválené z hlasování veřejností'"
+                    formControlName="onlyCommunityApproved"></app-checkbox>
+            </div>
+
+            <div class="col d-flex justify-content-end align-items-end">
+                <div class="mt-2">
+                    <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                    <button class="btn btn-danger" (click)="cleanFilter()">Smazat filtr</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-card>

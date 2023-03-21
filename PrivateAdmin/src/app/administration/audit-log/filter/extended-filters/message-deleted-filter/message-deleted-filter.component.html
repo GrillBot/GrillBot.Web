@@ -1,0 +1,29 @@
+<app-card [header]="false" [classes]="['mb-3']">
+    <h5>Smazané zprávy</h5>
+
+    <form [formGroup]="form">
+        <div class="row mt-2">
+            <div class="col-2 d-flex align-items-center">Obsahuje embed</div>
+
+            <div class="col">
+                <app-select [items]="containsEmbedItems" formControlName="containsEmbed"></app-select>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2 d-flex align-items-center">Zpráva obsahuje</div>
+
+            <div class="col">
+                <input type="text" placeholder="Zpráva obsahuje" class="form-control" formControlName="contentContains" />
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2 d-flex align-items-center">Autor zprávy</div>
+
+            <div class="col">
+                <app-search-input [searchSource]="'users'" formControlName="authorId"></app-search-input>
+            </div>
+        </div>
+    </form>
+</app-card>

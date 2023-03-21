@@ -1,0 +1,30 @@
+<app-card [header]="false">
+    <p class="fw-bold d-inline me-3">Základní informace</p>
+
+    <app-loading *ngIf="loading; else view"></app-loading>
+    <ng-template #view>
+        <span class="badge bg-secondary original me-1" *ngIf="data.isDevelopment">Development</span>
+        <span class="badge bg-success original me-1" *ngIf="!data.isDevelopment">Production</span>
+        <span class="badge bg-{{connectionColor}} original me-1">{{connectionText}}</span>
+        <span class="badge bg-{{(data.isActive ? 'success' : 'danger')}} original cursor-ptr text-decoration-underline"
+            (click)="toggleState(!data.isActive)">{{(!data.isActive ? 'Neaktivní' : 'Aktivní')}}</span>
+        <div class="row mt-1">
+            <div keyValueItem class="col-md" [key]="'Čas na serveru'" [value]="data.currentDateTime.binding"></div>
+            <div keyValueItem class="col-md" [key]="'Bot spuštěn'" [value]="data.startAt.binding"></div>
+            <div keyValueItem class="col-md" [key]="'Uptime'" [value]="data.uptime | timeDuration"></div>
+            <div keyValueItem class="col-md" [key]="'Aktivní čas'" [value]="data.cpuTime | timeDuration"></div>
+            <div keyValueItem class="col-md" [key]="'Využitá paměť'" [value]="data.usedMemory | filesize"></div>
+        </div>
+
+        <ng-container *ngIf="data.services.length > 0">
+            <p class="fw-bold mt-3 mb-0">Služby</p>
+            <div class="d-flex">
+                <a class="badge bg-{{service.isAvailable ? 'success' : 'danger'}} original text-white me-1"
+                    *ngFor="let service of data.services" routerLink="/admin/services/{{service.id}}">{{service.name}}</a>
+            </div>
+        </ng-container>
+        <span class="text-danger" *ngIf="!data.services">
+            <i class="fas fa-exclamation-triangle me-1"></i> Nepodařilo se načíst informace o službách.
+        </span>
+    </ng-template>
+</app-card>

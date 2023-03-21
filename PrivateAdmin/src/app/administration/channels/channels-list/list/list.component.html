@@ -1,0 +1,52 @@
+<app-card #card [title]="'Kanály'" [icon]="'fas fa-envelope-open-text'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-bordered table-sm table-striped clickable auto-column-width" *ngIf="list.isDataLoaded">
+            <thead>
+                <tr>
+                    <th sortable (clicked)="setSort($event)" [key]="'Name'" [sort]="sort">Název</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'Type'" [sort]="sort">Typ</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'MessageCount'" [sort]="sort">Počet zpráv</th>
+                    <th>Zpráv v cache</th>
+                    <th>První zpráva</th>
+                    <th>Posl. zpráva</th>
+                    <th>Server</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'RolePermissions'" [sort]="sort">Počet práv (role)</th>
+                    <th sortable (clicked)="setSort($event)" [key]="'UserPermissions'" [sort]="sort">Počet práv (uživatel)</th>
+                    <th class="no-print">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr route-click *ngFor="let item of list.items" [route]="'/admin/channels/' + item.id">
+                    <td [class.text-danger]="item.isDeleted">{{item.name}}</td>
+                    <td>{{item.channelTypeName}}</td>
+                    <td>
+                        <ng-container *ngIf="!item.isCategory">{{item.messagesCount.toLocaleString()}}</ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!item.isCategory">{{item.cachedMessagesCount.toLocaleString()}}</ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!item.isCategory">{{item.firstMessageAt?.binding ?? ''}}</ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!item.isCategory">{{item.lastMessageAt?.binding ?? ''}}</ng-container>
+                    </td>
+                    <td>
+                        <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark"
+                            (click)="$event.stopPropagation()">{{item.guild.name}}</a>
+                    </td>
+                    <td>{{item.rolePermissionsCount?.toLocaleString()}}</td>
+                    <td>{{item.userPermissionsCount?.toLocaleString()}}</td>
+                    <td class="no-print">
+                        <list-button [link]="'/admin/channels/' + item.id" [icon]="'info'"></list-button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.items.length === 0">
+                    <td colspan="10">Pro zadaný filtr nebyly nalezeny žádné kanály.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

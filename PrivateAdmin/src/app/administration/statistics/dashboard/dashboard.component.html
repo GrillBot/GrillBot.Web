@@ -1,0 +1,20 @@
+<div class="row m-3">
+    <div class="col-md-3 border rounded me-3 pb-3">
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'AuditLog',url:'./auditLog',id:'auditLog'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Databáze',url:'./database',id:'database'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Unverify',url:'./unverify',id:'unverify'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Příkazy',url:'./interactions',id:'interactions'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'API',url:'./api',id:'api'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Události',url:'./events',id:'events'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Průměrné časy',url:'./avgTimes',id:'avgTimes'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'Operace',url:'./operations',id:'operations'}"></ng-container>
+    </div>
+    <div class="col-md-9 border pt-3 rounded h-100" style="max-width: 74%;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<ng-template #menuItem let-name="name" let-url="url" let-id="id">
+    <span *ngIf="isActivated(id)" class="btn btn-link border w-100 bg-secondary original text-white mt-2">{{name}}</span>
+    <a [routerLink]="url" *ngIf="!isActivated(id)" class="btn btn-link border w-100 mt-2">{{name}}</a>
+</ng-template>

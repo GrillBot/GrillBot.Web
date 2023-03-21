@@ -1,0 +1,10 @@
+<ng-container *ngIf="data">
+    <ng-select appearance="outline" [searchable]="true" [clearable]="true" labelForId="fullId" [closeOnSelect]="!isMultiSelect"
+        [multiple]="isMultiSelect" [notFoundText]="'Nenalezen žádný emote'" [(ngModel)]="selected" [disabled]="disabled" (blur)="onBlur()"
+        (change)="onValueChanged($event)">
+        <ng-option *ngFor="let item of data" value="{{item.fullId}}">
+            <img src="{{item.imageUrl}}" width="32px" height="32px" />
+            {{item.name}}
+        </ng-option>
+    </ng-select>
+</ng-container>

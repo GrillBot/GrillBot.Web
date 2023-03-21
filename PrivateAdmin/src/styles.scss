@@ -1,0 +1,30 @@
+// Import Custom Variables
+@import "./app/styles/variables.scss";
+
+// Import Bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+// Import Custom SCSS
+@import "./app/styles/globals.scss";
+@import "./app/styles/colors.scss";
+@import "./app/styles/print.scss";
+
+// Layout
+@import "./app/styles/layout/authentication.scss";
+@import "./app/styles/layout/dashboard-default.scss";
+@import "./app/styles/layout/dashboard-fixed.scss";
+@import "./app/styles/layout/error.scss";
+@import "./app/styles/layout/table.scss";
+@import "./app/styles/layout/modals.scss";
+@import "./app/styles/layout/forms.scss";
+
+// Navigation
+@import "./app/styles/navigation/nav.scss";
+@import "./app/styles/navigation/topnav.scss";
+@import "./app/styles/navigation/sidenav/sidenav.scss";
+@import "./app/styles/navigation/sidenav/sidenav-dark.scss";
+@import "./app/styles/navigation/sidenav/sidenav-light.scss";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+// @ng-select
+@import "~@ng-select/ng-select/themes/default.theme.css";

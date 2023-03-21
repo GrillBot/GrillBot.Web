@@ -1,0 +1,73 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col form-group">
+                <label>ID záznamů (oddělovat čárkou)</label>
+                <input type="text" formControlName="ids" class="form-control" />
+                <small class="text-danger" *ngIf="form.invalid">
+                    <span *ngIf="form.get('ids').hasError('pattern')">Zadání obsahuje nepovolené znaky.</span>
+                </small>
+            </div>
+
+            <div class="col form-group">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+            </div>
+
+            <div class="col form-group">
+                <label>Kanál</label>
+                <app-search-input [searchSource]="'channels'" [guildId]="guildId" formControlName="channelId"></app-search-input>
+            </div>
+
+            <div class="col form-group">
+                <label>Uživatel</label>
+                <app-search-input [searchSource]="'users'" formControlName="processedUserIds" [isMultiSelect]="true" [guildId]="guildId"></app-search-input>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-group">
+                <label>Zapsáno od</label>
+                <input type="datetime-local" class="form-control" formControlName="createdFrom" />
+            </div>
+
+            <div class="col form-group">
+                <label>Zapsáno do</label>
+                <input type="datetime-local" class="form-control" formControlName="createdTo" />
+            </div>
+
+            <div class="col form-group">
+                <label>Typy operací (k zobrazení)</label>
+                <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="false" [clearable]="true" [items]="types"
+                    [multiple]="true" [notFoundText]="'Nenalezen žádný typ'" [searchable]="true" formControlName="types"></ng-select>
+            </div>
+
+            <div class="col form-group">
+                <label>Typy operací (k vynechání)</label>
+                <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="false" [clearable]="true" [items]="types"
+                    [multiple]="true" [notFoundText]="'Nenalezen žádný typ'" [searchable]="true" formControlName="excludedTypes"></ng-select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md d-flex flex-column">
+                <app-checkbox [id]="'ignore-bots'" formControlName="ignoreBots" [label]="'Ignorovat operace provedené boty'"></app-checkbox>
+                <app-checkbox [id]="'only-from-start'" formControlName="onlyFromStart" [label]="'Pouze záznamy od startu bota'"></app-checkbox>
+            </div>
+
+            <div class="col-md d-flex flex-column">
+                <app-checkbox [id]="'only-with-files'" formControlName="onlyWithFiles" [label]="'Pouze záznamy obsahující soubory'"></app-checkbox>
+            </div>
+
+            <div class="col-md d-flex align-items-center justify-content-center">
+                <button *ngIf="allowExtendedFilters" class="btn btn-link" type="button" (click)="openExtendedFiltersModal()">Pokročilé
+                    vyhledávání</button>
+            </div>
+
+            <div class="col-md d-flex justify-content-end align-items-end">
+                <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" (click)="cleanFilter()">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

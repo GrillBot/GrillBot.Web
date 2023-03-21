@@ -1,0 +1,143 @@
+<app-card #card [title]="'Unverify log'" [icon]="'fas fa-skull-crossbones'" [header]="false">
+    <app-data-list #list (readData)="readData($event)">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <ng-container *ngIf="list.isDataLoaded">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered table-sm no-print">
+                        <thead>
+                            <tr>
+                                <th>Seřadit podle: </th>
+                                <th sortable style="width: 150px" (clicked)="setSort($event)" [key]="'Operation'" [sort]="sort">Operace</th>
+                                <th sortable style="width: 150px;" (clicked)="setSort($event)" [key]="'Guild'" [sort]="sort">Server</th>
+                                <th sortable style="width: 150px" (clicked)="setSort($event)" [key]="'FromUser'" [sort]="sort">Provedl</th>
+                                <th sortable style="width: 250px" (clicked)="setSort($event)" [key]="'ToUser'" [sort]="sort">Cílový uživatel
+                                </th>
+                                <th sortable (clicked)="setSort($event)" [key]="'CreatedAt'" [sort]="sort">Datum a čas provedení</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="col-auto mt-1" *ngIf="!list.isEmpty">
+                    <app-items-count></app-items-count>
+                </div>
+            </div>
+
+            <app-card *ngIf="list.isEmpty" [header]="false" [classes]="['mb-3']">
+                <h5>Nebyl nalezen žádný záznam o provedení operace.</h5>
+            </app-card>
+
+            <app-card *ngFor="let item of list.items" [header]="false" [classes]="['mb-3']">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h6>
+                                    #{{item.id}} ({{item.formattedOperation}}) - {{item.createdAt.binding}}
+                                    <span class="badge bg-secondary original" *ngIf="item.anyData && item.removeData?.fromWeb">Web</span>
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p class="m-0">
+                                    Server: <b><a routerLink="/admin/servers/{{item.guild.id}}"
+                                            class="text-dark">{{item.guild.name}}</a></b>
+                                </p>
+                                <p class="m-0">
+                                    Provedl: <b><a routerLink="/admin/users/{{item.fromUser.id}}"
+                                            class="text-dark">{{item.fromUser.fullname}}</a></b>
+                                </p>
+                                <p class="m-0">
+                                    Cílový uživatel: <b><a routerLink="/admin/users/{{item.toUser.id}}"
+                                            class="text-dark">{{item.toUser.fullname}}</a></b>
+                                </p>
+                            </div>
+
+                            <div class="col" *ngIf="item.anyData">
+                                <ng-container *ngIf="item.setData">
+                                    <p class="m-0">Začátek: <b>{{item.setData.start.binding}}</b></p>
+                                    <p class="m-0">Konec: <b>{{item.setData.end.binding}}</b></p>
+                                    <p class="m-0" *ngIf="item.setData.reason">Důvod: <b>{{item.setData.reason}}</b></p>
+                                </ng-container>
+
+                                <ng-container *ngIf="item.updateData">
+                                    <p class="m-0">Nový začátek: <b>{{item.updateData.start.binding}}</b></p>
+                                    <p class="m-0">Nový konec: <b>{{item.updateData.end.binding}}</b></p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2" *ngIf="item.anyData">
+                            <div class="col">
+                                <ng-container *ngIf="item.setData">
+                                    <ng-container *ngIf="item.setData.rolesToKeep && item.setData.rolesToKeep.length > 0">
+                                        <h5>Ponechané role</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let role of item.setData.rolesToKeep" class="badge"
+                                                [style.background-color]="role.color">{{role.name}}</span>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="item.setData.rolesToRemove && item.setData.rolesToRemove.length > 0">
+                                        <h5>Odebrané role</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let role of item.setData.rolesToRemove" class="badge"
+                                                [style.background-color]="role.color">{{role.name}}</span>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="item.setData.channelsToKeep && item.setData.channelsToKeep.length > 0">
+                                        <h5>Ponechané kanály</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let channel of item.setData.channelsToKeep" class="badge bg-dark">
+                                                {{resolveChannelName(channel)}}
+                                            </span>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="item.setData.channelsToRemove && item.setData.channelsToRemove.length > 0">
+                                        <h5>Odebrané kanály</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let channel of item.setData.channelsToRemove" class="badge bg-dark">
+                                                {{resolveChannelName(channel)}}</span>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+
+                                <ng-container *ngIf="item.removeData">
+                                    <ng-container *ngIf="item.removeData.returnedRoles && item.removeData.returnedRoles.length > 0">
+                                        <h5>Vrácené role</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let role of item.removeData.returnedRoles" class="badge"
+                                                [style.background-color]="role.color">{{role.name}}</span>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="item.removeData.returnedChannels && item.removeData.returnedChannels.length > 0">
+                                        <h5>Vrácené kanály</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <span *ngFor="let channel of item.removeData.returnedChannels"
+                                                class="badge bg-dark">{{resolveChannelName(channel)}}</span>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 d-flex justify-content-end no-print" *ngIf="item.isUnverify">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <button class="btn btn-outline-success" (click)="recoverState(item)">Obnovit stav</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </ng-container>
+    </app-data-list>
+</app-card>

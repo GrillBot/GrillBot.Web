@@ -1,0 +1,10 @@
+<app-modal [title]="'Graf '+ (isMerged ? 'archivních ' : '') +'bodů za jednotlivé dny'">
+    <h5>Zprávy</h5>
+    <app-line-chart [data]="messagePoints"></app-line-chart>
+
+    <h5>Reakce</h5>
+    <app-line-chart [data]="reactionPoints"></app-line-chart>
+
+    <h5>Celkem</h5>
+    <app-line-chart [data]="totalPoints"></app-line-chart>
+</app-modal>

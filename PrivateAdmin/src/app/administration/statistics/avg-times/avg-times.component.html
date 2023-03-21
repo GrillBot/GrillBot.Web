@@ -1,0 +1,14 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <h3 class="fw-normal">Interní API</h3>
+    <app-line-chart [data]="stats.internalApi"></app-line-chart>
+    <h3 class="fw-normal">Veřejné API</h3>
+    <app-line-chart [data]="stats.externalApi"></app-line-chart>
+    <h3 class="fw-normal">Příkazy</h3>
+    <app-line-chart [data]="stats.interactions"></app-line-chart>
+    <h3 class="fw-normal">Naplánované úlohy</h3>
+    <app-line-chart [data]="stats.jobs"></app-line-chart>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

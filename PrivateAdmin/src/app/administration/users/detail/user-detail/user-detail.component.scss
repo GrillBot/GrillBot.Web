@@ -1,0 +1,40 @@
+.server-pfp {
+    max-width: 200px;
+
+    & img {
+        border-width: 5px !important;
+    }
+}
+
+.flags {
+    & span {
+        margin-right: 5px;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+@media (max-width: 1100px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.profile-card {
+    min-width: 250px;
+}

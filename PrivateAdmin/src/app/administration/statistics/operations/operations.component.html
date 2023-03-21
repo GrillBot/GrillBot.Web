@@ -1,0 +1,35 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <table class="table table-sm table-bordered auto-column-width">
+        <thead>
+            <tr>
+                <th>Operace</th>
+                <th>Počet</th>
+                <th>Průměrný čas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of readStatistics(stats.statistics)" [class.bg-secondary]="item.level === 0 && item.item.count == 0"
+                [class.bg-warning]="item.item.averageTime >= 5000">
+                <td>
+                    <span [style.margin-left]="(item.level * 40) + 'px'">{{item.item.section}}</span>
+                </td>
+                <td>
+                    <ng-container *ngIf="item.item.count > 0">{{item.item.count.toLocaleString()}}</ng-container>
+                </td>
+                <td>
+                    <ng-container *ngIf="item.item.count > 0">{{item.item.averageTime | timeDuration}}</ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="fw-normal">Počty operací</h3>
+    <app-bar-chart [data]="stats.countChartData"></app-bar-chart>
+
+    <h3 class="fw-normal">Průměrné časy</h3>
+    <app-line-chart [data]="stats.timeChartData"></app-line-chart>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

@@ -1,0 +1,55 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label>Operace</label>
+                    <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="true" [clearable]="true" [items]="operations"
+                        [notFoundText]="'Nenalezen žádný typ operace'" [searchable]="true" formControlName="operation"></ng-select>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label>Server</label>
+                    <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label>Akci provedl</label>
+                    <app-search-input [searchSource]="'users'" formControlName="fromUserId" [guildId]="guildId"></app-search-input>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label>Cílový uživatel</label>
+                    <app-search-input [searchSource]="'users'" formControlName="toUserId" [guildId]="guildId"></app-search-input>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label>Vytvořeno (od)</label>
+                    <input type="datetime-local" class="form-control" formControlName="createdFrom" />
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label>Vytvořeno (do)</label>
+                    <input type="datetime-local" class="form-control" formControlName="createdTo" />
+                </div>
+            </div>
+
+            <div class="col-6 d-flex justify-content-end align-items-end">
+                <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" (click)="cleanFilter()" type="button">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

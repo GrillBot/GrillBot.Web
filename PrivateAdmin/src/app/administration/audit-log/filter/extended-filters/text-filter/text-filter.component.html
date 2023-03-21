@@ -1,0 +1,11 @@
+<app-card [header]="false" [classes]="['mb-3']">
+    <h5>{{label}}</h5>
+
+    <form class="row" [formGroup]="form">
+        <div class="col-2 d-flex align-items-center">Obsah textu</div>
+
+        <div class="col">
+            <input type="text" placeholder="Obsah textu" class="form-control" formControlName="text" />
+        </div>
+    </form>
+</app-card>

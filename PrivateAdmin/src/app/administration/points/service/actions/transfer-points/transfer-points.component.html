@@ -1,0 +1,33 @@
+<app-card [title]="'Převod bodů'" [icon]="'fas fa-exchange-alt'">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md form-group">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+            </div>
+
+            <div class="col-md form-group">
+                <label>Množství bodů</label>
+                <input type="number" min="0" placeholder="Množství bodů" formControlName="amount" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md form-group">
+                <label>Od uživatele</label>
+                <app-search-input [guildId]="guildId" [searchSource]="'users'" formControlName="fromUserId"></app-search-input>
+            </div>
+
+            <div class="col-md form-group">
+                <label>Cílový uživatel</label>
+                <app-search-input [guildId]="guildId" [searchSource]="'users'" formControlName="toUserId"></app-search-input>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md d-flex justify-content-end align-items-end">
+                <button class="btn btn-success" (click)="submitForm()" [disabled]="form.invalid">Zapsat body</button>
+            </div>
+        </div>
+    </form>
+</app-card>

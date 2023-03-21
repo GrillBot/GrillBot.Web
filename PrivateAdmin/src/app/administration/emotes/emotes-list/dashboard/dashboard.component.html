@@ -1,0 +1,6 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<common-dashboard>
+    <app-filter filter (filterChanged)="list.filterChanged($event)"></app-filter>
+    <app-list #list list></app-list>
+</common-dashboard>

@@ -1,0 +1,15 @@
+<app-card [header]="false">
+    <p class="fw-bold">Aktivní operace</p>
+
+    <app-loading *ngIf="loading; else view"></app-loading>
+    <ng-template #view>
+        <span *ngIf="data.activeOperations.length === 0; else operations">Aktuálně neprobíhá žádná operace.</span>
+
+        <ng-template #operations>
+            <div *ngFor="let item of data.activeOperations" class="d-flex justify-content-between border-bottom">
+                <b>{{item.key}}</b>
+                <span>{{item.value.toLocaleString()}}</span>
+            </div>
+        </ng-template>
+    </ng-template>
+</app-card>

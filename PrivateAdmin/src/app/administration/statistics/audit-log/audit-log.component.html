@@ -1,0 +1,14 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <h3 class="fw-normal">Podle typu</h3>
+    <app-bar-chart [data]="stats.byType"></app-bar-chart>
+    <h3 class="fw-normal">Podle období</h3>
+    <app-line-chart [data]="stats.byDate"></app-line-chart>
+    <h3 class="fw-normal">Počet souborů</h3>
+    <app-bar-chart [data]="stats.fileCounts"></app-bar-chart>
+    <h3 class="fw-normal">Objem souborů</h3>
+    <app-bar-chart [data]="stats.fileSizes"></app-bar-chart>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

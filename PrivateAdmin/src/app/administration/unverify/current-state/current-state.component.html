@@ -1,0 +1,81 @@
+<div class="mt-3">
+    <app-loading *ngIf="!profiles"></app-loading>
+</div>
+
+<ng-container *ngIf="profiles && profiles.length > 0">
+    <div class="row ms-0 me-0" *ngFor="let profile of profiles">
+        <div class="col-12">
+            <ng-container *ngTemplateOutlet="unverifyCard;context:{unverify: profile}"></ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<div class="row mt-5 ml-0 mr-0" *ngIf="profiles && profiles.length === 0">
+    <div class="col d-flex justify-content-center">
+        <h1 class="fw-normal">Momentálně nikdo nemá odebraný přístup.</h1>
+    </div>
+</div>
+
+<ng-template #unverifyCard let-unverify="unverify">
+    <app-card [header]="false">
+        <span>
+            <h4 class="fw-normal d-inline me-2">{{unverify.user.fullUsername}}</h4>
+            <h6 class="badge bg-dark" *ngIf="unverify.isSelfUnverify">Selfunverify</h6>
+        </span>
+
+
+        <p>Začátek: <b>{{unverify.start.binding}}</b></p>
+        <p>Konec: <b>{{unverify.end.binding}}</b></p>
+        <p>Konec za: <b>{{unverify.endTo}}</b></p>
+
+        <div class="box" *ngIf="unverify.rolesToKeep && unverify.rolesToKeep.length > 0">
+            <h5>Ponechané role</h5>
+            <div class="d-flex flex-wrap">
+                <span class="badge" *ngFor="let role of unverify.rolesToKeep" [style.background-color]="role.color">{{role.name}}</span>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="unverify.rolesToRemove && unverify.rolesToRemove.length > 0">
+            <h5>Odebrané role</h5>
+            <div class="d-flex flex-wrap badge-list">
+                <span class="badge" *ngFor="let role of unverify.rolesToRemove" [style.background-color]="role.color">{{role.name}}</span>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="unverify.channelsToKeep && unverify.channelsToKeep.length > 0">
+            <h5>Ponechané kanály</h5>
+            <div class="d-flex flex-wrap badge-list">
+                <span class="badge bg-dark" *ngFor="let channel of unverify.channelsToKeep">{{resolveChannelName(channel)}}</span>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="unverify.channelsToRemove && unverify.channelsToRemove.length > 0">
+            <h5>Odebrané kanály</h5>
+            <div class="d-flex flex-wrap badge-list">
+                <span class="badge bg-dark" *ngFor="let channel of unverify.channelsToRemove">{{resolveChannelName(channel)}}</span>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="!unverify.isSelfUnverify">
+            <h5>Důvod</h5>
+            <pre class="alert alert-secondary pt-3">{{unverify.reason}}</pre>
+        </div>
+
+        <div class="btn-group mt-2 no-print">
+            <button #edit_button class="btn btn-outline-primary d-flex" (click)="openTimeUpdate(unverify, edit_button)">
+                Upravit čas
+                <app-loading [small]="true" [noText]="true" *ngIf="edit_button.disabled"></app-loading>
+            </button>
+            <button #remove_button class="btn btn-outline-danger d-flex" (click)="removeUnverify(unverify, remove_button, false)">
+                Odebrat
+                <app-loading [small]="true" [noText]="true" *ngIf="remove_button.disabled"></app-loading>
+            </button>
+            <button #force_remove_button class="btn btn-outline-danger d-flex align-items-center"
+                (click)="removeUnverify(unverify, force_remove_button, true)">
+                Smazat
+                <i class="fas fa-exclamation-triangle"></i>
+                <app-loading [small]="true" [noText]="true" *ngIf="remove_button.disabled"></app-loading>
+            </button>
+        </div>
+    </app-card>
+</ng-template>

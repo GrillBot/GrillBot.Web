@@ -1,0 +1,29 @@
+<app-modal [title]="'Sloučení statistik emote'">
+    <div class="row">
+        <div class="col">
+            <app-card [header]="false">
+                <h6 class="card-title">Zdrojový emote</h6>
+
+                <p>ID: <b>{{sourceItem.emote.id}}</b></p>
+                <p>Název: <b>{{sourceItem.emote.name}}</b></p>
+                <p>Počet použití: <b>{{sourceItem.useCount.toLocaleString()}}</b></p>
+                <p>První výskyt: <b>{{sourceItem.firstOccurence.toLocaleString()}}</b></p>
+                <p>Poslední výskyt: <b>{{sourceItem.lastOccurence.toLocaleString()}}</b></p>
+                <p>Použilo uživatelů: <b>{{sourceItem.usedUsersCount.toLocaleString()}}</b></p>
+            </app-card>
+        </div>
+
+        <div class="col">
+            <app-card [header]="false">
+                <h6 class="card-title">Cílový emote:</h6>
+                <app-emote-picker [(ngModel)]="destinationEmote"></app-emote-picker>
+
+                <div class="row mt-3">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-outline-success" (click)="process()" [disabled]="!destinationEmote">Provést sloučení</button>
+                    </div>
+                </div>
+            </app-card>
+        </div>
+    </div>
+</app-modal>

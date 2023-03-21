@@ -1,0 +1,36 @@
+<app-card [title]="'Automatické odpovědi'" [icon]="'fas fa-reply-all'" [recordsCount]="data?.length">
+    <app-loading *ngIf="!data"></app-loading>
+
+    <table class="table table-sm table-bordered table-striped auto-column-width">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Šablona</th>
+                <th>Odpověď</th>
+                <th>Detaily</th>
+                <th class="no-print">Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td>{{item.id}}</td>
+                <td>
+                    <code>{{item.template}}</code>
+                </td>
+                <td>
+                    <code>{{item.reply}}</code>
+                </td>
+                <td>
+                    <span class="badge bg-secondary original me-1" title="Odpověď je deaktivována" *ngIf="item.isDisabled">Deaktivováno</span>
+                    <span class="badge bg-secondary original" title="Odpověď reaguje na velké/malé znaky" *ngIf="item.caseSensitive">Velké/Malé znaky</span>
+                </td>
+                <td class="no-print">
+                    <list-button title="Upravit odpověď" icon="edit" [link]="'/admin/auto-reply/' + item.id"></list-button>
+                    <list-button title="Smazat odpověď" icon="trash-alt" (clicked)="removeItem(item)"></list-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a routerLink="/admin/auto-reply/create" class="no-print">Vytvořit novou odpověď</a>
+</app-card>

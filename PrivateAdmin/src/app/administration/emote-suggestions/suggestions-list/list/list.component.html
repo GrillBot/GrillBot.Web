@@ -1,0 +1,61 @@
+<app-card #card [title]="'Seznam návrhů'" [icon]="'far fa-smile-wink'">
+    <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+        <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+        <table class="table table-bordered table-sm auto-column-width clickable" *ngIf="list.isDataLoaded">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th sortable (clicked)="setSort()" [sort]="sort">Vytvořeno</th>
+                    <th>Vytvořil</th>
+                    <th>Emote</th>
+                    <th>Stav</th>
+                    <th class="no-print">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list.items" [class.bg-success]="item.approvedForVote && item.voteFinished && item.communityApproved"
+                    [class.bg-danger]="item.approvedForVote && item.voteFinished && !item.communityApproved"
+                    [class.bg-warning]="item.approvedForVote && !item.voteFinished && item.voteEndsAt == null"
+                    [class.bg-primary]="item.approvedForVote && !item.voteFinished && item.voteEndsAt != null" (click)="showDetail(item)">
+                    <td>{{item.id}}</td>
+                    <td>{{item.createdAt.binding}}</td>
+                    <td>
+                        <a routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark"
+                            (click)="$event.stopPropagation()">{{item.fromUser.fullUsername}}</a>
+                    </td>
+                    <td>{{item.emoteName}}</td>
+                    <td>
+                        <ng-container *ngIf="item.approvedForVote && item.voteFinished">
+                            Hlasování skončilo {{item.voteEndsAt.binding}}, veřejností {{(item.communityApproved ? 'schválen' :
+                            'zamítnut')}} ({{item.upVotes}}/{{item.downVotes}})
+                        </ng-container>
+
+                        <ng-container *ngIf="item.approvedForVote && !item.voteFinished && item.voteEndsAt != null">
+                            Spuštěno hlasování. Skončí {{item.voteEndsAt.binding}}
+                        </ng-container>
+
+                        <ng-container *ngIf="item.approvedForVote && !item.voteFinished && item.voteEndsAt == null">
+                            Schválen k hlasování. Hlasování zatím nebylo spuštěno.
+                        </ng-container>
+
+                        <ng-container *ngIf="item.approvedForVote == false">
+                            Zamítnut k hlasování.
+                        </ng-container>
+
+                        <ng-container *ngIf="item.approvedForVote == null">
+                            K hlasování se zatím nikdo nevyjádřil.
+                        </ng-container>
+                    </td>
+                    <td class="no-print">
+                        <list-button (clicked)="showDetail(item)" [title]="'Zobrazit detail'" [iconGroup]="'fas'" [icon]="'info'">
+                        </list-button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.isEmpty">
+                    <td colspan="6">Nebyly nalezeny žádné návrhy.</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-data-list>
+</app-card>

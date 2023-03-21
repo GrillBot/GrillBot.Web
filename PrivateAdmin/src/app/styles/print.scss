@@ -1,0 +1,28 @@
+@media print {
+    @page {
+        size: landscape;
+    }
+
+    app-filter,
+    .no-print,
+    app-loading,
+    app-navigation {
+        display: none !important;
+    }
+
+    div.only-print {
+        display: initial !important;
+    }
+
+    nav {
+        position: relative !important;
+    }
+
+    div#layoutSidenav_content {
+        margin-top: 0 !important;
+    }
+}
+
+div.only-print {
+    display: none;
+}

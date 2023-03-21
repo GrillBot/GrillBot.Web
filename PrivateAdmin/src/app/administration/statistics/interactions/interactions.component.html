@@ -1,0 +1,36 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <table class="table table-sm table-bordered table-striped auto-column-width">
+        <thead>
+            <tr>
+                <th>Příkaz</th>
+                <th>Poslední volání</th>
+                <th>
+                    Úspěšnost<br>
+                    <span style="font-size: 10px" class="m-0 p-0 d-block">OK / S chybou ( % )</span>
+                </th>
+                <th>Min. doba</th>
+                <th>Max. doba</th>
+                <th>Celk. doba</th>
+                <th>Posl. běh</th>
+                <th>Prům. doba</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of stats" [class.bg-warning]="item.successRate > 25 && item.successRate < 50"
+                [class.bg-danger]="item.successRate <= 25">
+                <td [title]="item.key">{{item.key | cut:30}}</td>
+                <td>{{item.last.binding}}</td>
+                <td>{{item.successCount}} / {{item.failedCount}} ({{item.successRate}} %)</td>
+                <td>{{item.minDuration | timeDuration}}</td>
+                <td>{{item.maxDuration | timeDuration}}</td>
+                <td>{{item.totalDuration | timeDuration}}</td>
+                <td>{{item.lastRunDuration | timeDuration}}</td>
+                <td>{{item.avgDuration | timeDuration}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

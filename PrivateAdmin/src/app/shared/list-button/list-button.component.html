@@ -1,0 +1,12 @@
+<a [routerLink]="link" class="btn-secondary btn-sm" title="{{title}}" [ngClass]="classList" *ngIf="link && !absoluteLink" (click)="onClicked($event)">
+    <i class="{{iconGroup}} fa-{{icon}}"></i>
+</a>
+
+<a [href]="link" class="btn-secondary btn-sm" title="{{title}}" [ngClass]="classList" *ngIf="link && absoluteLink" target="_blank"
+    (click)="onClicked($event)">
+    <i class="{{iconGroup}} fa-{{icon}}"></i>
+</a>
+
+<a class="btn-secondary btn-sm ptr" title="{{title}}" [ngClass]="classList" (click)="onClicked($event)" *ngIf="!link">
+    <i class="{{iconGroup}} fa-{{icon}}"></i>
+</a>

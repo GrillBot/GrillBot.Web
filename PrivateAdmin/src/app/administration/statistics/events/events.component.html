@@ -1,0 +1,14 @@
+<ng-container *ngIf="statistics$ | async as stats; else loading">
+    <h3 class="fw-normal">Statistika</h3>
+    <app-bar-chart [data]="stats.chart"></app-bar-chart>
+    <h3 class="fw-normal">Log</h3>
+    <ul>
+        <li *ngFor="let item of stats.log">
+            <code class="text-dark">{{item}}</code>
+        </li>
+    </ul>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

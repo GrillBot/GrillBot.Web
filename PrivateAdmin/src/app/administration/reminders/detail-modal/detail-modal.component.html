@@ -1,0 +1,48 @@
+<app-modal [title]="'Detail oznámení #' + item.id" #modal>
+    <table class="table table-sm table-stripped table-bordered auto-column-width">
+        <tbody>
+            <tr>
+                <th>Odesílatel</th>
+                <td>
+                    <a routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark"
+                        (click)="modal.modal.close()">{{item.fromUser.fullUsername}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Příjemce</th>
+                <td>
+                    <a routerLink="/admin/users/{{item.toUser.id}}" class="text-dark"
+                        (click)="modal.modal.close()">{{item.toUser.fullUsername}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Oznámit v</th>
+                <td>{{item.at.binding}}</td>
+            </tr>
+
+            <tr>
+                <th>Odloženo</th>
+                <td>{{item.postpone.toLocaleString()}}x</td>
+            </tr>
+
+            <tr>
+                <th>Oznámeno</th>
+                <td>{{item.notified | czechBooleanPipe}}</td>
+            </tr>
+
+            <tr>
+                <th>Jazyk</th>
+                <td>{{item.language}}</td>
+            </tr>
+
+            <tr>
+                <th>Zpráva</th>
+                <td>
+                    <pre class="alert alert-secondary mb-0">{{item.message}}</pre>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</app-modal>

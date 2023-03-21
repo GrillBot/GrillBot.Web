@@ -1,0 +1,26 @@
+<div class="row mt-2 ms-0 me-0">
+    <div class="col">
+        <app-card [title]="(isAdd ? 'Vytvoření' : 'Úprava') + ' automatické odpovědi'" [icon]="'fas fa-reply-all'" *ngIf="form">
+            <form [formGroup]="form" (ngSubmit)="submitForm()">
+                <div class="form-group">
+                    <label>Šablona</label>
+                    <textarea formControlName="template" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label>Odpověď</label>
+                    <textarea formControlName="reply" class="form-control"></textarea>
+                </div>
+
+                <div class="mt-2">
+                    <checkbox-bitmask [options]="flagsOptions" formControlName="flags"></checkbox-bitmask>
+                </div>
+
+                <div class="mt-2">
+                    <button class="btn btn-success" type="submit" [disabled]="form.invalid">Uložit</button>
+                    <a class="btn btn-link" routerLink="/admin/auto-reply">Zpět na seznam</a>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<app-loading *ngIf="!jobs"></app-loading>
+
+<div class="row mt-5 ml-0 mr-0" *ngIf="jobs && jobs.length === 0">
+    <div class="col d-flex justify-content-center">
+        <h1 class="fw-normal">Nebyla nalezena žádná naplánovaná úloha.</h1>
+    </div>
+</div>
+
+<ng-container *ngIf="jobs && jobs.length > 0">
+    <div class="row ms-0 me-0 mt-3 mb-3" *ngFor="let job of jobs">
+        <div class="col-md-12">
+            <ng-container *ngTemplateOutlet="jobCard;context:{job: job}"></ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #jobCard let-job="job">
+    <app-card [header]="false" [classes]="[job.running ? 'bg-success' : '']">
+        <div class="d-flex justify-content-between align-items-start">
+            <h4 class="fw-normal me-3">{{job.name}}</h4>
+            <h6 class="badge bg-danger original" *ngIf="!job.isActive">Neaktivní</h6>
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                <p>Počet spuštění: <b>{{job.startCount.toLocaleString()}}</b></p>
+                <p>Počet chyb: <b>{{job.failedCount.toLocaleString()}}</b></p>
+                <p>Posl. spuštění: <b>{{job.lastRun.binding}}</b></p>
+                <p>Příští spuštění: <b>{{job.nextRun.binding}}</b></p>
+            </div>
+
+            <div class="col-md">
+                <p>Posl. běh: <b>{{job.lastRunDuration | timeDuration}}</b></p>
+                <p>Nejrychlejší běh: <b>{{job.minTime | timeDuration}}</b></p>
+                <p>Nejpomalejší běh: <b>{{job.maxTime | timeDuration}}</b></p>
+            </div>
+
+            <div class="col-md">
+                <p>Celkový čas: <b>{{job.totalTime | timeDuration}}</b></p>
+                <p>Průměrný čas: <b>{{job.averageTime | timeDuration}}</b></p>
+            </div>
+        </div>
+
+        <div class="btn-group mt-2 no-print">
+            <button class="btn btn-outline-success" title="Spustit úlohu" *ngIf="job.isActive && !job.running" (click)="triggerJob(job)">
+                <i class="fas fa-play"></i>
+            </button>
+
+            <button class="btn btn-outline-success" title="Aktivovat úlohu" *ngIf="!job.isActive" (click)="updateJob(job, true)">
+                <i class="fas fa-power-off"></i>
+            </button>
+
+            <button class="btn btn-outline-danger" title="Deaktivovat úlohu" *ngIf="job.isActive && !job.running" (click)="updateJob(job, false)">
+                <i class="fas fa-power-off"></i>
+            </button>
+        </div>
+    </app-card>
+</ng-template>

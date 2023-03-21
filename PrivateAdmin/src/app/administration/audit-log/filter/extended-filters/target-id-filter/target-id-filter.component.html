@@ -1,0 +1,11 @@
+<app-card [header]="false" [classes]="['mb-3']">
+    <h5>{{label}}</h5>
+
+    <form class="row" [formGroup]="form">
+        <div class="col-2 d-flex align-items-center">ID cíle</div>
+
+        <div class="col">
+            <input type="text" placeholder="ID role/uživatele" class="form-control" formControlName="targetId">
+        </div>
+    </form>
+</app-card>

@@ -1,0 +1,187 @@
+<div class="d-flex justify-content-center mt-2">
+    <app-loading *ngIf="!data"></app-loading>
+</div>
+
+<ng-container *ngIf="data">
+    <div class="row ml-0 mr-0" *ngIf="!data.isConnected">
+        <div class="col">
+            <p class="alert alert-warning">
+                Server {{data.name}} byl nalezen v databázi, ale nelze o něm zobrazit detailní informace, protože není připojen na
+                server.<br>
+                <a routerLink="/admin/servers" class="btn btn-link p-0">
+                    <i class="fas fa-arrow-left"></i>
+                    Zpět na seznam serverů
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row ml-0 mr-0" *ngIf="data.isConnected">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xl-2 mb-3">
+            <app-card [header]="false">
+                <div class="d-flex justify-content-center server-pfp">
+                    <img width="150" height="150" [src]="data.iconUrl" [alt]="data.name" class="rounded-circle border" />
+                </div>
+
+                <div keyValueItem class="mt-2" [key]="'Název'" [value]="data.name"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Identifikátor'" [value]="data.id"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Vytvořen'" [value]="data.createdAt.toLocaleString()"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Vlastník'" [value]="data.owner.fullUsername"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Úroveň vylepšení'" [value]="'Level ' + data.premiumTier"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Univerzální pozvánka'" [value]="data.vanityUrl" *ngIf="data.vanityUrl">
+                </div>
+                <div keyValueItem class="border-top mt-2" [key]="'Booster role'" [value]="data.boosterRole?.name" *ngIf="data.boosterRole">
+                </div>
+            </app-card>
+        </div>
+
+        <div class="col">
+            <app-card icon="fas fa-server" [title]="'Informace o serveru'">
+                <div class="row">
+                    <p class="fw-bold mb-0">Omezení serveru</p>
+                </div>
+
+                <div class="row">
+                    <div keyValueItem class="col-md-auto" [key]="'Max. členů'" [value]="data.maxMembers?.toLocaleString() ?? 'Neznámé'">
+                    </div>
+                    <div keyValueItem class="col-md-auto" [key]="'Max. online uživatelů'"
+                        [value]="data.maxPresences?.toLocaleString() ?? 'Neznámé'"></div>
+                    <div keyValueItem class="col-md-auto" [key]="'Max. uživatelů s webkamerou'"
+                        [value]="data.maxVideoChannelUsers?.toLocaleString() ?? 'Není známo'"></div>
+                    <div keyValueItem class="col-md-auto" [key]="'Max. bitrate'" [value]="data.maxBitrate + ' kbps'"></div>
+                    <div keyValueItem class="col-md-auto" [key]="'Max. velikost souboru'" [value]="data.maxUploadLimit + ' MB'">
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="data.userStatusReport || data.clientTypeReport">
+                    <div class="col-md-4" *ngIf="data.userStatusReport">
+                        <div class="row mt-2 border-top">
+                            <p class="fw-bold mb-0">Statistiky uživatelů</p>
+                        </div>
+
+                        <div class="row">
+                            <div keyValueItem class="col-md-auto" [key]="'Online'" [value]="data.userStatusReport.online.toLocaleString()">
+                            </div>
+                            <div keyValueItem class="col-md-auto" [key]="'Neaktivní'" [value]="data.userStatusReport.idle.toLocaleString()">
+                            </div>
+                            <div keyValueItem class="col-md-auto" [key]="'Nerušit'"
+                                [value]="data.userStatusReport.doNotDisturb.toLocaleString()"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md" *ngIf="data.clientTypeReport">
+                        <div class="row mt-2 border-top">
+                            <p class="fw-bold mb-0">Statistiky aktivních zařízení</p>
+                        </div>
+
+                        <div class="row">
+                            <div keyValueItem class="col-md-auto" [key]="'Desktop'"
+                                [value]="data.clientTypeReport.desktop.toLocaleString()"></div>
+                            <div keyValueItem class="col-md-auto" [key]="'Telefon'" [value]="data.clientTypeReport.mobile.toLocaleString()">
+                            </div>
+                            <div keyValueItem class="col-md-auto" [key]="'Web'" [value]="data.clientTypeReport.web.toLocaleString()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="data.databaseReport">
+                    <div class="row mt-2 border-top">
+                        <p class="fw-bold mb-0">Statistiky databáze</p>
+                    </div>
+
+                    <div class="row">
+                        <div keyValueItem class="col-md-auto" [key]="'Uživatelé'" [value]="data.databaseReport.users.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Pozvánky'" [value]="data.databaseReport.invites.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Kanály'" [value]="data.databaseReport.channels.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Hledání'" [value]="data.databaseReport.searches.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Unverify'" [value]="data.databaseReport.unverifies.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Unverify logy'"
+                            [value]="data.databaseReport.unverifyLogs.toLocaleString()"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Logy'" [value]="data.databaseReport.auditLogs.toLocaleString()"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Cache zpráv'"
+                            [value]="data.databaseReport.cacheIndexes.toLocaleString()"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Emoty'" [value]="data.databaseReport.emoteStats.toLocaleString()">
+                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Návrhy na emoty'"
+                            [value]="data.databaseReport.emoteSuggestions.toLocaleString()"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Body (transakce)'"
+                            [value]="data.databaseReport.pointTransactions.toLocaleString()"></div>
+                    </div>
+                </ng-container>
+            </app-card>
+
+            <div class="mt-3">
+                <app-card icon="fas fa-cogs" [title]="'Nastavení'">
+                    <form [formGroup]="form" (ngSubmit)="submitSettings()">
+                        <div class="row mb-2">
+                            <div class="col-md form-group">
+                                <label>
+                                    Umlčující role
+                                    <i class="fas fa-info-circle"
+                                        title="Role, která zablokuje přístup do veřejných kanálů, znemožní psaní, ..."></i>
+                                </label>
+                                <app-search-input [searchSource]="'roles'" [guildId]="data.id" formControlName="mutedRole">
+                                </app-search-input>
+                            </div>
+
+                            <div class="col-md form-group">
+                                <label>Administrátorský kanál</label>
+                                <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id" formControlName="adminChannel">
+                                </app-search-input>
+                            </div>
+
+                            <div class="col-md form-group">
+                                <label>Kanál pro návrhy emotů</label>
+                                <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id"
+                                    formControlName="emoteSuggestionChannel"></app-search-input>
+                            </div>
+
+                            <div class="col-md form-group">
+                                <label>Kanál pro veřejná hlasování</label>
+                                <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id" formControlName="voteChannel">
+                                </app-search-input>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-3 form-group">
+                                <label>Kanál pro příkazy</label>
+                                <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id"
+                                    formControlName="botRoomChannel"></app-search-input>
+                            </div>
+                        </div>
+
+                        <b>Období hlasování o nových emotech</b>
+                        <div class="row">
+                            <div class="col-md form-group">
+                                <label>Období od</label>
+                                <input type="date" class="form-control" formControlName="emoteSuggestionsFrom" />
+                            </div>
+
+                            <div class="col-md form-group">
+                                <label>Období do</label>
+                                <input type="date" class="form-control" formControlName="emoteSuggestionsTo" />
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <span class="text-danger" *ngIf="form.hasError('emoteSuggestionsInvalid')">Je nutné zadat obě hodnoty období
+                                    pro hlasování o nových emotech.</span>
+                            </div>
+                            <div class="col-3 d-flex align-items-end justify-content-end no-print">
+                                <button class="btn btn-success" type="submit" [disabled]="form.invalid">Uložit změny</button>
+                            </div>
+                        </div>
+                    </form>
+                </app-card>
+            </div>
+        </div>
+    </div>
+</ng-container>
