@@ -48,8 +48,37 @@
                         </table>
                     </div>
 
-                    <div class="row" *ngIf="data.diagnosticInfo.database">
-                        <div class="col-md">
+                    <div class="row">
+                        <div class="col-md" *ngIf="data.diagnosticInfo.operations">
+                            <h5>Operace</h5>
+                            <table class="table table-sm table-bordered auto-column-width">
+                                <thead>
+                                    <tr>
+                                        <th>Operace</th>
+                                        <th>Počet</th>
+                                        <th>Průměrný čas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of readStatistics(data.diagnosticInfo.operations)"
+                                        [class.bg-secondary]="item.level === 0 && item.item.count == 0"
+                                        [class.bg-warning]="item.item.averageTime >= 5000">
+                                        <td>
+                                            <span [style.margin-left]="(item.level * 40) + 'px'">{{item.item.section}}</span>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="item.item.count > 0">{{item.item.count.toLocaleString()}}</ng-container>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="item.item.count > 0">{{item.item.averageTime |
+                                                timeDuration}}</ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md" *ngIf="data.diagnosticInfo.databaseStatistics">
                             <h5 class="fw-normal">Databáze</h5>
                             <table class="table table-sm table-responsive auto-column-width">
                                 <thead>
@@ -59,7 +88,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of data.diagnosticInfo.database">
+                                    <tr *ngFor="let item of data.diagnosticInfo.databaseStatistics">
                                         <td>{{item.key}}</td>
                                         <td>{{item.value.toLocaleString()}}</td>
                                     </tr>

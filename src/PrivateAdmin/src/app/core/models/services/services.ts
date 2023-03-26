@@ -1,6 +1,7 @@
 import { Support } from 'src/app/core/lib/support';
-import { Dictionary, List } from "../common";
-import { DateTime } from "../datetime";
+import { Dictionary, List } from '../common';
+import { DateTime } from '../datetime';
+import { OperationStatItem } from '../statistics';
 
 export class RequestStatistics {
     public endpoint: string;
@@ -26,7 +27,6 @@ export class RequestStatistics {
     }
 }
 
-
 export class DiagnosticInfo {
     public usedMemory: number;
     public uptime: number;
@@ -34,7 +34,8 @@ export class DiagnosticInfo {
     public measuredFrom: DateTime;
     public endpoints: List<RequestStatistics>;
     public cpuTime: number;
-    public database: Dictionary<string, number> | null;
+    public databaseStatistics: Dictionary<string, number> | null;
+    public operations: OperationStatItem[] = [];
 
     static create(data: any): DiagnosticInfo | null {
         if (!data) { return null; }
@@ -47,7 +48,8 @@ export class DiagnosticInfo {
         info.measuredFrom = DateTime.fromISOString(data.measuredFrom);
         info.endpoints = data.endpoints.map((o: any) => RequestStatistics.create(o));
         info.cpuTime = data.cpuTime;
-        info.database = data.database ? Support.createDictFromObj(data.database) : null;
+        info.databaseStatistics = data.databaseStatistics ? Support.createDictFromObj(data.databaseStatistics) : null;
+        info.operations = data.operations.map((o: any) => OperationStatItem.create(o));
 
         return info;
     }
