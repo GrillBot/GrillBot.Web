@@ -564,6 +564,16 @@
         <td>{{data.endAt | duration:data.startAt | timeDuration}}</td>
     </tr>
 
+    <tr *ngIf="data.startingUser">
+        <td>Spustil</td>
+        <td>
+            <a *ngIf="data.startingUser.userId" routerLink="/admin/users/{{data.startingUser.userId}}" class="text-dark"
+                (click)="modal.modal.close()">
+                {{data.startingUser.username}}#{{data.startingUser.discriminator}}
+            </a>
+        </td>
+    </tr>
+
     <tr>
         <td>Došlo k chybě</td>
         <td>{{data.wasError | czechBooleanPipe}}</td>
