@@ -1,3 +1,4 @@
+import { ObservablePaginatedData } from './../models/common';
 import { BaseService } from './base.service';
 import { Injectable } from "@angular/core";
 import { EmotesListParams, EmoteStatItem, MergeEmoteStatsParams } from '../models/emotes';
@@ -13,18 +14,8 @@ export class EmotesService {
         private base: BaseService
     ) { }
 
-    getStatsOfSupportedEmotes(params: EmotesListParams): Observable<PaginatedResponse<EmoteStatItem>> {
-        const url = this.base.createUrl('emotes/stats/supported/list');
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.post<PaginatedResponse<EmoteStatItem>>(url, params, { headers }).pipe(
-            map(data => PaginatedResponse.create(data, entity => EmoteStatItem.create(entity))),
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
-    getStatsOfUnsupportedEmotes(params: EmotesListParams): Observable<PaginatedResponse<EmoteStatItem>> {
-        const url = this.base.createUrl('emotes/stats/unsupported/list');
+    getStatsOfEmotes(params: EmotesListParams, unsupported: boolean): ObservablePaginatedData<EmoteStatItem> {
+        const url = this.base.createUrl(`emotes/stats/list/${unsupported ? 'true' : 'false'}`);
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.post<PaginatedResponse<EmoteStatItem>>(url, params, { headers }).pipe(

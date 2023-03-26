@@ -30,12 +30,7 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
 
     getRequest(pagination: PaginatedParams): Observable<PaginatedResponse<any>> {
         this.filter.set(pagination, this.sort);
-
-        if (this.unsupported) {
-            return this.emotesService.getStatsOfUnsupportedEmotes(this.filter);
-        } else {
-            return this.emotesService.getStatsOfSupportedEmotes(this.filter);
-        }
+        return this.emotesService.getStatsOfEmotes(this.filter, this.unsupported);
     }
 
     mergeStatsToAnother(row: EmoteStatItem): void {
