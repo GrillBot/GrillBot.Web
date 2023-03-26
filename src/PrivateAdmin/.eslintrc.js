@@ -11,7 +11,7 @@ https://github.com/typescript-eslint/tslint-to-eslint-config/blob/master/docs/FA
 
 Happy linting! 💖
 */
-module.exports = {
+export default {
     "env": {
         "browser": true,
         "es6": true,
@@ -23,7 +23,7 @@ module.exports = {
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "tsconfig.json",
+        "project": "tsconfig.app.json",
         "sourceType": "module"
     },
     "plugins": [
