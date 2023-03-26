@@ -25,7 +25,7 @@
                     <td>
                         <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.fullUsername}}</a>
                     </td>
-                    <td>{{item.assignedAt.binding}}</td>
+                    <td>{{item.createdAt.binding}}</td>
                     <td>{{item.messageId}}</td>
                     <td>{{item.isReaction | czechBooleanPipe}}</td>
                     <td>{{item.points.toLocaleString()}}</td>

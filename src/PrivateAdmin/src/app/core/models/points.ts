@@ -1,5 +1,4 @@
-import { number } from 'echarts';
-import { createRangeParams, FilterBase, RangeParams } from './common';
+import { FilterBase } from './common';
 import { DateTime } from './datetime';
 import { Guild } from './guilds';
 import { User } from './users';
@@ -26,7 +25,7 @@ export class PointsTransaction {
     public user: User;
     public messageId: string;
     public isReaction: boolean;
-    public assignedAt: DateTime;
+    public createdAt: DateTime;
     public points: number;
     public mergeInfo: PointsMergeInfo | null;
 
@@ -34,7 +33,7 @@ export class PointsTransaction {
         if (!data) { return null; }
 
         const transaction = new PointsTransaction();
-        transaction.assignedAt = DateTime.fromISOString(data.assignedAt);
+        transaction.createdAt = DateTime.fromISOString(data.createdAt);
         transaction.guild = Guild.create(data.guild);
         transaction.isReaction = data.isReaction;
         transaction.messageId = data.messageId;
@@ -46,43 +45,43 @@ export class PointsTransaction {
     }
 }
 
-export class PointsSummaryBase {
+export class PointsChartItem {
     public day: DateTime;
     public messagePoints: number;
     public reactionPoints: number;
-    public totalPoints: number;
 
-    static create(data: any): PointsSummaryBase | null {
-        if (!data) { return null; }
+    get totalPoints(): number {
+        return this.messagePoints + this.reactionPoints;
+    }
 
-        const result = new PointsSummaryBase();
+    static create(data: any): PointsChartItem {
+        const result = new PointsChartItem();
         result.day = DateTime.fromISOString(data.day);
         result.messagePoints = data.messagePoints;
         result.reactionPoints = data.reactionPoints;
-        result.totalPoints = data.totalPoints;
 
         return result;
     }
 }
 
-export class GetPointTransactionsParams extends FilterBase {
-    public merged: boolean = false;
+export class AdminListRequest extends FilterBase {
+    public showMerged: boolean = false;
     public guildId: string | null;
     public userId: string | null;
-    public assignedAt: RangeParams<string> | null;
+    public createdFrom: string | null;
+    public createdTo: string | null;
     public onlyReactions: boolean;
     public onlyMessages: boolean;
     public messageId: string | null;
 
-    static get empty(): GetPointTransactionsParams { return new GetPointTransactionsParams(); }
+    static get empty(): AdminListRequest { return new AdminListRequest(); }
 
-    static fromForm(form: any): GetPointTransactionsParams | null {
-        if (!form) { return null; }
-
-        const params = new GetPointTransactionsParams();
+    static fromForm(form: any): AdminListRequest | null {
+        const params = new AdminListRequest();
         params.guildId = form.guildId;
         params.userId = form.userId;
-        params.assignedAt = createRangeParams(form.assignedAtFrom, form.assignedAtTo);
+        params.createdFrom = form.assignedAtFrom;
+        params.createdTo = form.assignedAtTo;
         params.onlyReactions = form.onlyReactions ?? false;
         params.onlyMessages = form.onlyMessages ?? false;
         params.messageId = form.messageId;
@@ -94,8 +93,8 @@ export class GetPointTransactionsParams extends FilterBase {
         return {
             guildId: this.guildId,
             userId: this.userId,
-            assignedAtFrom: this.assignedAt?.from,
-            assignedAtTo: this.assignedAt?.to,
+            assignedAtFrom: this.createdFrom,
+            assignedAtTo: this.createdTo,
             onlyReactions: this.onlyReactions,
             onlyMessages: this.onlyMessages,
             messageId: this.messageId
@@ -115,7 +114,7 @@ export class UserPointsItem {
     get anyPoints(): boolean { return this.totalPoints > 0; }
 
     static create(data: any): UserPointsItem | null {
-        if(!data) {return null;}
+        if (!data) { return null; }
         const item = new UserPointsItem();
 
         item.user = User.create(data.user);
