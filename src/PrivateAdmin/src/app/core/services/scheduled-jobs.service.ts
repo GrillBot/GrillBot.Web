@@ -1,9 +1,9 @@
 import { QueryParam } from './../models/http';
 import { map, catchError } from 'rxjs';
-import { Injectable } from "@angular/core";
-import { EmptyObservable, List, ObservableList } from "../models/common";
-import { ScheduledJob } from "../models/scheduled-jobs";
-import { BaseService } from "./base.service";
+import { Injectable } from '@angular/core';
+import { EmptyObservable, List, ObservableList } from '../models/common';
+import { ScheduledJob } from '../models/scheduled-jobs';
+import { BaseService } from './base.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })

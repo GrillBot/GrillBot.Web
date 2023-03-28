@@ -1,7 +1,7 @@
 import { EmptyObservable, ObservableList } from './../models/common';
 import { Observable } from 'rxjs';
-import { Injectable } from "@angular/core";
-import { BaseService } from "./base.service";
+import { Injectable } from '@angular/core';
+import { BaseService } from './base.service';
 import { AutoReplyItem, AutoReplyItemParams } from '../models/auto-reply';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';

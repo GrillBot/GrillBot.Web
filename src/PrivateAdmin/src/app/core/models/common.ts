@@ -27,6 +27,7 @@ export class PaginatedResponse<TData> {
     public canNext: boolean;
     public canPrev: boolean;
 
+    // eslint-disable-next-line no-shadow
     static create<TData>(data: any, converter: (item: any) => TData): PaginatedResponse<TData> {
         const response = new PaginatedResponse<TData>();
 
@@ -57,9 +58,8 @@ export interface RangeParams<T> {
     to?: T;
 }
 
-export const createRangeParams = <T,>(from?: T, to?: T): RangeParams<T> | null => {
-    return !from && !to ? null : { from: from, to: to };
-}
+export const createRangeParams = <T, >(from?: T, to?: T): RangeParams<T> | null =>
+    !from && !to ? null : { from, to };
 
 export interface SortParams {
     orderBy?: string;
@@ -70,7 +70,7 @@ export class FilterBase {
     public pagination: PaginatedParams;
     public sort: SortParams;
 
-    set(pagination: PaginatedParams, sort: SortParams) {
+    set(pagination: PaginatedParams, sort: SortParams): void {
         const paginatedData = pagination.clone();
         paginatedData.page = Math.max(paginatedData.page - 1, 0);
 

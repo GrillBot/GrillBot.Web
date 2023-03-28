@@ -154,8 +154,8 @@ export class AuditLogListParams extends FilterBase {
     public memberUpdatedFilter: TargetIdFilter | null = null;
     public memberRoleUpdatedFilter: TargetIdFilter | null = null;
     public messageDeletedFilter: MessageDeletedFilter | null = null;
-    public onlyFromStart: boolean = false;
-    public onlyWithFiles: boolean = false;
+    public onlyFromStart = false;
+    public onlyWithFiles = false;
 
     static get empty(): AuditLogListParams {
         const params = new AuditLogListParams();
@@ -175,7 +175,7 @@ export class AuditLogListParams extends FilterBase {
         params.ignoreBots = data.ignoreBots ?? false;
         params.processedUserIds = data.processedUserIds;
         params.types = data.types ? data.types : [];
-        params.infoFilter = data.infoFilter ? TextFilter.create(data.infoFilter) : null
+        params.infoFilter = data.infoFilter ? TextFilter.create(data.infoFilter) : null;
         params.warningFilter = data.warningFilter ? TextFilter.create(data.warningFilter) : null;
         params.errorFilter = data.errorFilter ? TextFilter.create(data.errorFilter) : null;
         params.commandFilter = data.commandFilter ? ExecutionFilter.create(data.commandFilter) : null;

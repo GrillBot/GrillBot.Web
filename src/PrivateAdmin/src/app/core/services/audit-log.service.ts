@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { HttpErrorResponse } from '@angular/common/http';
 import { PaginatedResponse } from './../models/common';
 import { AuditLogFileMetadata, AuditLogListItem } from './../models/audit-log';

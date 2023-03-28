@@ -54,7 +54,7 @@ export class GetInviteListParams extends FilterBase {
     public code: string | null = null;
     public createdFrom: string | null = null;
     public createdTo: string | null = null;
-    public showUnused: boolean = false;
+    public showUnused = false;
 
     static get empty(): GetInviteListParams { return new GetInviteListParams(); }
 

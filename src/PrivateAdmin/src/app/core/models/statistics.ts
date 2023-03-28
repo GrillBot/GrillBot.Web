@@ -1,6 +1,6 @@
 import { Dictionary, List } from 'src/app/core/models/common';
 import { Support } from '../lib/support';
-import { DateTime } from "./datetime";
+import { DateTime } from './datetime';
 
 export class StatisticItem {
     public key: string;

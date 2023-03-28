@@ -1,5 +1,5 @@
 import { DateTime } from 'src/app/core/models/datetime';
-import { List } from "./common";
+import { List } from './common';
 
 export class ApiClient {
     public id: string;

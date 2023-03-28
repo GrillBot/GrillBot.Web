@@ -6,8 +6,8 @@ export class AutoReplyItem {
     public reply: string;
     public flags: AutoReplyItemFlags = 0;
 
-    get isDisabled(): boolean { return (this.flags & AutoReplyItemFlags.Disabled) != 0; }
-    get caseSensitive(): boolean { return (this.flags & AutoReplyItemFlags.CaseSensitive) != 0; }
+    get isDisabled(): boolean { return (this.flags & AutoReplyItemFlags.Disabled) !== 0; }
+    get caseSensitive(): boolean { return (this.flags & AutoReplyItemFlags.CaseSensitive) !== 0; }
 
     static create(data: any): AutoReplyItem | null {
         if (!data) { return null; }

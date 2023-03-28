@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { ClientLogItemRequest } from './../models/audit-log';
-import { ErrorHandler, Injectable } from "@angular/core";
+import { ErrorHandler, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { EmptyObservable } from '../models/common';
 import { catchError, EMPTY } from 'rxjs';

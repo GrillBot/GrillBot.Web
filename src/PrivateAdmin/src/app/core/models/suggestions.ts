@@ -46,9 +46,9 @@ export class GetSuggestionListParams extends FilterBase {
     public guildId: string | null;
     public fromUserId: string | null;
     public emoteName: string;
-    public onlyApprovedToVote: boolean = false;
-    public onlyUnfinishedVotes: boolean = false;
-    public onlyCommunityApproved: boolean = false;
+    public onlyApprovedToVote = false;
+    public onlyUnfinishedVotes = false;
+    public onlyCommunityApproved = false;
 
     static get empty(): GetSuggestionListParams { return new GetSuggestionListParams(); }
 

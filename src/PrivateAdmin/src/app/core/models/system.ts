@@ -1,6 +1,7 @@
 import { ConnectionState } from './enums/connection-state';
 import { DateTime } from './datetime';
 import { Dictionary, List } from './common';
+import { Support } from '../lib/support';
 
 export class CounterStats {
     public section: string;
@@ -126,10 +127,10 @@ export class Dashboard {
         dashboard.usedMemory = data.usedMemory;
         dashboard.isActive = data.isActive;
         dashboard.currentDateTime = DateTime.fromISOString(data.currentDateTime);
-        dashboard.activeOperations = Object.keys(data.activeOperations).map(k => ({ key: k, value: parseInt(data.activeOperations[k], 10) }));
+        dashboard.activeOperations = Support.createDictFromObj(data.activeOperations, val => parseInt(val, 10));
         dashboard.operationStats = data.operationStats.map((o: any) => CounterStats.create(o));
-        dashboard.todayAvgTimes = data.todayAvgTimes ? Object.keys(data.todayAvgTimes).map(k => ({ key: k, value: parseInt(data.todayAvgTimes[k], 10) })) : null;
-        dashboard.internalApiRequests = data.internalApiRequests ? data.internalApiRequests.map((o: any) => DashboardApiCall.create(o)) : null;
+        dashboard.todayAvgTimes = data.todayAvgTimes ? Support.createDictFromObj(data.todayAvgTimes, val => parseInt(val, 10)) : null;
+        dashboard.internalApiRequests = Support.mapOrNull((o: any) => DashboardApiCall.create(o), data.internalApiRequests);
         dashboard.publicApiRequests = data.publicApiRequests ? data.publicApiRequests.map((o: any) => DashboardApiCall.create(o)) : null;
         dashboard.jobs = data.jobs ? data.jobs.map((o: any) => DashboardJob.create(o)) : null;
         dashboard.commands = data.commands ? data.commands.map((o: any) => DashboardCommand.create(o)) : null;

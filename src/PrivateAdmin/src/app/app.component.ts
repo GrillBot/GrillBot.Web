@@ -19,7 +19,7 @@ export class AppComponent {
                 while (snapshot.firstChild !== null) {
                     snapshot = snapshot.firstChild;
                 }
-                this.titleService.setTitle(snapshot.data.title ? `${snapshot.data.title} | GrillBot` : 'GrillBot');
+                this.titleService.setTitle(snapshot.data.title ? `${snapshot.data.title as string} | GrillBot` : 'GrillBot');
             });
     }
 }

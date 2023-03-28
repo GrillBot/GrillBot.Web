@@ -5,6 +5,7 @@ import { GetInviteListParams, GuildInvite } from '../models/invites';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { Support } from '../lib/support';
 
 @Injectable({ providedIn: 'root' })
 export class InviteService {
@@ -27,7 +28,7 @@ export class InviteService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.post<Dictionary<string, number>>(url, null, { headers }).pipe(
-            map(data => Object.keys(data).map(k => ({ key: k, value: parseInt(data[k], 10) }))),
+            map(data => Support.createDictFromObj<number>(data, (value: string) => parseInt(value, 10))),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

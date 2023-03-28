@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow, @typescript-eslint/naming-convention */
 import { Support } from '../../lib/support';
 import { SelectItem } from './../../../shared/select/models';
 
@@ -36,4 +37,4 @@ export const getStatusSelectItem = (status: UserStatus): SelectItem => {
         value: status,
         background: StatusColorMapping[key] as string
     };
-}
+};

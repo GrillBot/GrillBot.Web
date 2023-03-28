@@ -1,5 +1,5 @@
-import { Dictionary } from "../models/common";
-import { Support } from "./support";
+import { Dictionary } from '../models/common';
+import { Support } from './support';
 
 export class FormsHelper {
     static createFlagsOptions(flagsType: any, textsType: any): Dictionary<number, string> {

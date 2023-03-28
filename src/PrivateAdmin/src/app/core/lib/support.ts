@@ -37,7 +37,17 @@ export class Support {
         }).filter(o => o !== null);
     }
 
-    static createDictFromObj<TValue>(obj: any): Dictionary<string, TValue> {
-        return Object.keys(obj).map(k => ({ key: k, value: obj[k] as TValue }));
+    static createDictFromObj<TValue>(obj: any, valueConverter?: (value: any) => TValue): Dictionary<string, TValue> {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        return Object.keys(obj)
+            .map(k => ({ key: k, value: valueConverter ? valueConverter(obj[k]) : obj[k] as TValue }));
+    }
+
+    static isEmpty(val?: string): boolean {
+        return !(val && val.length > 0);
+    }
+
+    static mapOrNull<TResult>(mapper: (val: any, index: number, arr: any[]) => TResult, collection?: any[] | null): TResult[] | null {
+        return collection ? collection.map(mapper) : null;
     }
 }

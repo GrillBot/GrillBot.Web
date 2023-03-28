@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from "@angular/common/http";
-import { catchError, map } from "rxjs/operators";
-import { Dictionary, ObservableDict, ObservableList } from "../models/common";
-import { ApiStatistics, AuditLogStatistics, AvgExecutionTimes, DatabaseStatistics, OperationStats, StatisticItem } from "../models/statistics";
-import { BaseService } from "./base.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { Dictionary, ObservableDict, ObservableList } from '../models/common';
+import {
+    ApiStatistics, AuditLogStatistics, AvgExecutionTimes,
+    DatabaseStatistics, OperationStats, StatisticItem
+} from '../models/statistics';
+import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

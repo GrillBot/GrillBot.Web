@@ -16,4 +16,4 @@ export class QueryParam {
     }
 }
 
-export type HTTPHeaders = HttpHeaders | { [header: string]: string | string[]; };
+export type HTTPHeaders = HttpHeaders | { [header: string]: string | string[] };

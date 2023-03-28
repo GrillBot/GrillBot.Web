@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 export enum ConnectionState {
     Disconnected = 0,
     Connecting = 1,

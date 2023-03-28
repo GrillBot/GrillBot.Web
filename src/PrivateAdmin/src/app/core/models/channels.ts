@@ -4,7 +4,6 @@ import { DateTime } from './datetime';
 import { ChannelFlagMapping, ChannelFlags } from './enums/channel-flags';
 import { ChannelType, ChannelTypeTexts } from './enums/channel-type';
 import { Guild } from './guilds';
-import { QueryParam } from './http';
 import { User } from './users';
 
 export class Channel {
@@ -81,7 +80,7 @@ export class GetChannelListParams extends FilterBase {
     public guildId: string | null = null;
     public nameContains: string | null = null;
     public channelType: ChannelType | null = null;
-    public hideDeleted: boolean = true;
+    public hideDeleted = true;
 
     static get empty(): GetChannelListParams { return new GetChannelListParams(); }
 

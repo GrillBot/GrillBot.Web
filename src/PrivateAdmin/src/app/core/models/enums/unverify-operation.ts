@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 export enum UnverifyOperation {
     Unverify = 0,
     Selfunverify = 1,

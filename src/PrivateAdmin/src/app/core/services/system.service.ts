@@ -29,7 +29,7 @@ export class SystemService {
 
         return this.base.http.get<string[]>(url, { headers }).pipe(
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        )
+        );
     }
 
     getDashboard(): Observable<Dashboard> {
@@ -37,7 +37,7 @@ export class SystemService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<Dashboard>(url, { headers }).pipe(
-            map((o: any) => Dashboard.create(o)),
+            map((o: Dashboard) => Dashboard.create(o)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
@@ -47,7 +47,7 @@ export class SystemService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<ServiceInfo>(url, { headers }).pipe(
-            map((o: any) => ServiceInfo.create(o)),
+            map((o: ServiceInfo) => ServiceInfo.create(o)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

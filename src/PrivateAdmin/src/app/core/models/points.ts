@@ -65,7 +65,7 @@ export class PointsChartItem {
 }
 
 export class AdminListRequest extends FilterBase {
-    public showMerged: boolean = false;
+    public showMerged = false;
     public guildId: string | null;
     public userId: string | null;
     public createdFrom: string | null;
@@ -106,10 +106,10 @@ export class UserPointsItem {
     public user: User | null = null;
     public guild: Guild | null = null;
     public nickname: string | null = null;
-    public pointsYearBack: number = 0;
-    public pointsMonthBack: number = 0;
-    public pointsToday: number = 0;
-    public totalPoints: number = 0;
+    public pointsYearBack = 0;
+    public pointsMonthBack = 0;
+    public pointsToday = 0;
+    public totalPoints = 0;
 
     get anyPoints(): boolean { return this.totalPoints > 0; }
 

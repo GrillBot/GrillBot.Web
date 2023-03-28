@@ -1,4 +1,4 @@
-import { QueryParam } from "./http";
+import { QueryParam } from './http';
 
 export class KeepableParams {
     public group: string;

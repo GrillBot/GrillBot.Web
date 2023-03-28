@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 export enum PremiumTier {
     None = 0,
     Tier1 = 1,

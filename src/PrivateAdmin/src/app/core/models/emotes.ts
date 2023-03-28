@@ -1,6 +1,5 @@
-import { createRangeParams, FilterBase, PaginatedParams, RangeParams, SortParams } from "./common";
-import { DateTime } from "./datetime";
-import { QueryParam } from "./http";
+import { createRangeParams, FilterBase, RangeParams } from './common';
+import { DateTime } from './datetime';
 
 export class EmoteItem {
     public id: string;
@@ -46,7 +45,7 @@ export class EmotesListParams extends FilterBase {
     public guildId: string;
     public useCount: RangeParams<number> | null;
     public lastOccurence: RangeParams<string> | null;
-    public filterAnimated: boolean = false;
+    public filterAnimated = false;
     public emoteName: string;
     public firstOccurence: RangeParams<string> | null;
 
@@ -79,7 +78,7 @@ export class EmotesListParams extends FilterBase {
             lastOccurenceTo: this.lastOccurence?.to,
             emoteName: this.emoteName,
             filterAnimated: this.filterAnimated
-        }
+        };
     }
 }
 

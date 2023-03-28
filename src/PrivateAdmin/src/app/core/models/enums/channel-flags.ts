@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 export enum ChannelFlags {
     StatsHidden = 1,
     CommandsDisabled = 2,

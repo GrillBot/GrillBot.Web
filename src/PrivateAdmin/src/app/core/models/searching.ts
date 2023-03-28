@@ -1,7 +1,6 @@
 import { FilterBase } from './common';
 import { Channel } from './channels';
 import { Guild } from './guilds';
-import { QueryParam } from './http';
 import { User } from './users';
 
 export class SearchingListItem {

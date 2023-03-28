@@ -26,7 +26,7 @@ export class ValidationHelper {
             err[errorCode] = true;
 
             return err;
-        }
+        };
     }
 
     static nonZeroNumber(): ValidatorFn {

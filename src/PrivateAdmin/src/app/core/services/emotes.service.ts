@@ -1,6 +1,6 @@
 import { ObservablePaginatedData } from './../models/common';
 import { BaseService } from './base.service';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { EmotesListParams, EmoteStatItem, MergeEmoteStatsParams } from '../models/emotes';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../models/common';
@@ -33,7 +33,7 @@ export class EmotesService {
         );
     }
 
-    removeStatistics(emoteId: string) {
+    removeStatistics(emoteId: string): Observable<number> {
         const url = this.base.createUrl('emotes/stats', [new QueryParam('emoteId', emoteId)]);
         const headers = this.base.getHttpHeaders();
 

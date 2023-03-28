@@ -51,6 +51,6 @@ export class SelfUnverifyService {
 
         return this.base.http.delete(url, { headers }).pipe(
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        )
+        );
     }
 }

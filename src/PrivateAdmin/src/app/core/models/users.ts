@@ -165,7 +165,7 @@ export class UserDetail {
     get isBot(): boolean { return (this.flags & UserFlags.NotUser) !== 0; }
     get isWebAdminOnline(): boolean { return (this.flags & UserFlags.WebAdminOnline) !== 0; }
     get isPublicAdminOnline(): boolean { return (this.flags & UserFlags.PublicAdminOnline) !== 0; }
-    get fullUsername(): string { return this.username + (!this.discriminator || this.discriminator.length == 0 ? '' : `#${this.discriminator}`); }
+    get fullUsername(): string { return this.username + (Support.isEmpty(this.discriminator) ? '' : `#${this.discriminator}`); }
     get commandsDisabled(): boolean { return (this.flags & UserFlags.CommandsDisabled) !== 0; }
     get pointsDisabled(): boolean { return (this.flags & UserFlags.PointsDisabled) !== 0; }
 

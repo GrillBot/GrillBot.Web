@@ -24,7 +24,8 @@ export class BaseService {
     catchError(err: HttpErrorResponse, suppressModal: boolean = false): Observable<never> {
         if (err.status === HttpStatusCode.BadRequest && err.error?.errors) {
             const modal = this.modal.showCustomModal<ValidationErrorsModalComponent>(ValidationErrorsModalComponent, 'lg');
-            modal.componentInstance.errors = Support.flattern<string>(Object.values(err.error.errors) as string[]) as string[];
+            const errors = err.error.errors as { [_: string]: string };
+            modal.componentInstance.errors = Support.flattern<string>(Object.values(errors) as string[]) as string[];
             return EMPTY;
         } else if (err.status === HttpStatusCode.Unauthorized) {
             this.storage.remove('AuthData');
@@ -35,9 +36,7 @@ export class BaseService {
 
             if (err.status > 0) {
                 if (err.error.message) {
-                    message += `<p>${err.error.message}</p>`;
-                } else if (err.error.errors) {
-                    message += `<ul class="mt-3">${err.error.errors.map(o => '<li>' + o + '</li>').join('')}</ul>`;
+                    message += `<p>${err.error.message as string}</p>`;
                 }
             } else {
                 message += `<p>${err.message}</p>`;
@@ -65,6 +64,7 @@ export class BaseService {
         const auth = AuthToken.create(this.storage.read<any>('AuthData'));
 
         return {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             Authorization: `Bearer ${auth.accessToken}`
         };
     }

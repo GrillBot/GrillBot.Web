@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
 export enum UserFlags {
     None = 0,
     BotAdmin = 1,
