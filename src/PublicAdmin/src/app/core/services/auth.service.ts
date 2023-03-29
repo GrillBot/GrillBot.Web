@@ -50,6 +50,6 @@ export class AuthService {
         ];
 
         const url = this.base.createUrl('auth/token', parameters);
-        return this.base.http.get<any>(url).pipe(map(data => AuthToken.create(data)),);
+        return this.base.http.get<any>(url).pipe(map(data => AuthToken.create(data)));
     }
 }

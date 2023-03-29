@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 import { UserFlags } from 'src/app/core/models/enums/user-flags';
 
 export enum UserFilterFlags {

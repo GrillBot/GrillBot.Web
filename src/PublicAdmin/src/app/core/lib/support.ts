@@ -19,4 +19,8 @@ export class Support {
 
         return result;
     }
+
+    static isEmpty(val?: string): boolean {
+        return !(val && val.length > 0);
+    }
 }

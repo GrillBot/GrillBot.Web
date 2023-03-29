@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention, no-shadow */
+
 export enum UserStatus {
     Offline = 0,
     Online = 1,

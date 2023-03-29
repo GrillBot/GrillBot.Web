@@ -1,19 +1,14 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivateChild {
     constructor(
-        private authService: AuthService,
-        private router: Router
+        private authService: AuthService
     ) { }
 
-    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
-        : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        console.log(`Called CanActivate on route ${childRoute.url}`);
-
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (!this.authService.isLogged) {
             this.authService.logout();
             return false;

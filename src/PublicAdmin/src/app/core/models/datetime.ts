@@ -5,6 +5,14 @@ export type DateTimeCompareResult = 'now' | 'before' | 'after';
 export class DateTime {
     constructor(public moment: Moment.Moment) { }
 
+    static get now(): DateTime {
+        return new DateTime(Moment());
+    }
+
+    get binding(): string {
+        return this.toLocaleString();
+    }
+
     static fromFormatedString(datetime: string, format: string | string[]): DateTime {
         const moment = Moment(datetime, format);
 
@@ -19,14 +27,10 @@ export class DateTime {
         const moment = Moment(datetime);
 
         if (!moment.isValid()) {
-            throw new Error(`Datetime is not valid ISO string.`);
+            throw new Error('Datetime is not valid ISO string.');
         }
 
         return new DateTime(moment);
-    }
-
-    static get now(): DateTime {
-        return new DateTime(Moment());
     }
 
     compare(datetime: DateTime): DateTimeCompareResult {
@@ -50,9 +54,5 @@ export class DateTime {
 
     toFormString(onlyDate: boolean): string {
         return this.moment.format(onlyDate ? 'YYYY-MM-DD' : 'YYYY-MM-DDTHH:mm');
-    }
-
-    get binding(): string {
-        return this.toLocaleString();
     }
 }

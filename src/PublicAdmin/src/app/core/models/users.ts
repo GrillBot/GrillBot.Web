@@ -7,6 +7,7 @@ import { UserStatus } from './enums/user-status';
 import { Guild } from './guilds';
 import { Invite, InviteBase } from './invites';
 import { Role } from './roles';
+import { Support } from '../lib/support';
 
 export class User {
     public id: string;
@@ -78,7 +79,7 @@ export class UserDetail {
     get isBot(): boolean { return (this.flags & UserFlags.NotUser) !== 0; }
     get isWebAdminOnline(): boolean { return (this.flags & UserFlags.WebAdminOnline) !== 0; }
     get isPublicAdminOnline(): boolean { return (this.flags & UserFlags.PublicAdminOnline) !== 0; }
-    get fullUsername(): string { return this.discriminator && this.discriminator.length > 0 ? `${this.username}#${this.discriminator}` : this.username; }
+    get fullUsername(): string { return !Support.isEmpty(this.discriminator) ? `${this.username}#${this.discriminator}` : this.username; }
 
     static create(data: any): UserDetail | null {
         if (!data) { return null; }
@@ -182,10 +183,10 @@ export class UserPointsItem {
     public user: User | null = null;
     public guild: Guild | null = null;
     public nickname: string | null = null;
-    public pointsYearBack: number = 0;
-    public pointsMonthBack: number = 0;
-    public pointsToday: number = 0;
-    public totalPoints: number = 0;
+    public pointsYearBack = 0;
+    public pointsMonthBack = 0;
+    public pointsToday = 0;
+    public totalPoints = 0;
 
     static create(data: any): UserPointsItem | null {
         if (!data) { return null; }
