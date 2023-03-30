@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md" *ngIf="data.diagnosticInfo.operations">
+                        <div class="col-md" *ngIf="data.diagnosticInfo.operations && data.diagnosticInfo.operations.length > 0">
                             <h5>Operace</h5>
                             <table class="table table-sm table-bordered auto-column-width">
                                 <thead>
@@ -78,7 +78,7 @@
                             </table>
                         </div>
 
-                        <div class="col-md" *ngIf="data.diagnosticInfo.databaseStatistics">
+                        <div class="col-md" *ngIf="data.diagnosticInfo.databaseStatistics && data.diagnosticInfo.databaseStatistics.length > 0">
                             <h5 class="fw-normal">Databáze</h5>
                             <table class="table table-sm table-responsive auto-column-width">
                                 <thead>
