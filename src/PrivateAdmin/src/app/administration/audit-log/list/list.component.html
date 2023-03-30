@@ -288,6 +288,11 @@
             <p *ngIf="data.note">Změněna poznámka</p>
             <p *ngIf="data.selfUnverifyMinimalTime">Změněn minimální čas selfunverify</p>
             <p *ngIf="data.flags">Změněny příznaky</p>
+            <p *ngIf="data.timeoutUntil">
+                <span *ngIf="!data.timeoutUntil.before && data.timeoutUntil.after">Udělen timeout</span>
+                <span *ngIf="data.timeoutUntil.before && !data.timeoutUntil.after">Odebrán timeout</span>
+                <span *ngIf="!data.timeoutUntil.before && !data.timeoutUntil.after">Upraven timeout</span>
+            </p>
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.MemberRoleUpdated">

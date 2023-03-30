@@ -1,4 +1,4 @@
-import { FilterBase } from './common';
+import { FilterBase, RangeParams } from './common';
 import { Dictionary } from 'src/app/core/models/common';
 import { Support } from '../lib/support';
 import { Channel, ChannelStatItem } from './channels';
@@ -208,6 +208,7 @@ export class GuildUserDetail {
     public visibleChannels: Channel[];
     public roles: Role[];
     public havePointsTransaction: boolean;
+    public timeoutHistory: RangeParams<DateTime>[];
 
     static create(data: any): GuildUserDetail | null {
         if (!data) { return null; }
@@ -228,6 +229,10 @@ export class GuildUserDetail {
         detail.visibleChannels = data.visibleChannels ? data.visibleChannels.map((o: any) => Channel.create(o)) : [];
         detail.roles = data.roles ? data.roles.map((o: any) => Role.create(o)) : [];
         detail.havePointsTransaction = data.havePointsTransaction;
+        detail.timeoutHistory = data.timeoutHistory.map((o: any) => ({
+            from: o.from ? DateTime.fromISOString(o.from) : null,
+            to: o.to ? DateTime.fromISOString(o.to) : null
+        }));
 
         return detail;
     }

@@ -305,6 +305,15 @@
         <td>{{data.flags.before}} ({{data.flags.before | bitmaskToString:32}})</td>
         <td>{{data.flags.after}} ({{data.flags.after | bitmaskToString:32}})</td>
     </tr>
+    <tr *ngIf="data.timeoutUntil">
+        <td>Timeout</td>
+        <td>
+            <span *ngIf="data.timeoutUntil.before">{{data.timeoutUntil.before | dateTimeFormatter}}</span>
+        </td>
+        <td>
+            <span *ngIf="data.timeoutUntil.after">{{data.timeoutUntil.after | dateTimeFormatter}}</span>
+        </td>
+    </tr>
 </ng-template>
 
 <ng-template #guildUpdated>
