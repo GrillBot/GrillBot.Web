@@ -30,7 +30,6 @@ export class UserDetailSettingsComponent implements OnInit {
     ngOnInit(): void {
         this.form = this.fb.group({
             botAdmin: [this.user.isBotAdmin],
-            note: [this.user.note],
             webAdmin: [this.user.haveWebAdmin],
             selfUnverifyMinimalTime: [this.user.selfUnverifyMinimalTime],
             commandsDisabled: [this.user.commandsDisabled],
@@ -48,7 +47,6 @@ export class UserDetailSettingsComponent implements OnInit {
     submitForm(): void {
         const params = new UpdateUserParams(
             this.isCurrentUser || this.user.isBot ? this.user.isBotAdmin : this.form.value.botAdmin,
-            this.form.value.note,
             this.isCurrentUser || this.user.isBot ? this.user.haveWebAdmin : this.form.value.webAdmin,
             this.form.value.selfUnverifyMinimalTime,
             this.form.value.commandsDisabled,

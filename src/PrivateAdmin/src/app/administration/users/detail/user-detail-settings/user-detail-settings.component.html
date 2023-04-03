@@ -19,22 +19,12 @@
                 </div>
             </div>
 
-            <div class="only-print" *ngIf="user.note && user.note.length > 0">
-                <label class="fw-bold">Poznámka</label><br>
-                <span>{{user.note}}</span>
-            </div>
-
-            <div class="col-md-4 no-print">
-                <label class="fw-bold">Poznámka</label>
-                <textarea class="form-control" formControlName="note"></textarea>
-            </div>
-
             <div class="only-print" *ngIf="user.selfUnverifyMinimalTime">
                 <b>Minimální čas pro selfunverify</b><br>
                 <span>{{user.selfUnverifyMinimalTime}}</span>
             </div>
 
-            <div class="col-md-4 no-print">
+            <div class="col-md-auto no-print">
                 <b>Minimální čas pro selfunverify</b>
                 <app-time-span-input formControlName="selfUnverifyMinimalTime"></app-time-span-input>
             </div>

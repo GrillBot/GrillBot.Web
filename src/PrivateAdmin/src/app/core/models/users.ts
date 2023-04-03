@@ -148,7 +148,6 @@ export class UserDetail {
     public id: string;
     public username: string;
     public discriminator: string;
-    public note: string;
     public flags: number;
     public haveBirthday: boolean;
     public guilds: GuildUserDetail[];
@@ -175,7 +174,6 @@ export class UserDetail {
 
         detail.id = data.id;
         detail.username = data.username;
-        detail.note = data.note;
         detail.flags = data.flags;
         detail.haveBirthday = data.haveBirthday ?? false;
         detail.guilds = data.guilds?.map((o: any) => GuildUserDetail.create(o)).filter((o: GuildUserDetail) => o);
@@ -241,7 +239,6 @@ export class GuildUserDetail {
 export class UpdateUserParams {
     constructor(
         public botAdmin: boolean,
-        public note: string,
         public webAdminAllowed: boolean,
         public selfUnverifyMinimalTime: string | null,
         public commandsDisabled: boolean,
