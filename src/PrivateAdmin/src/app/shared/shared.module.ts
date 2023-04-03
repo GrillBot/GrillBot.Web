@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card/card.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './loading/loading.component';
 import { ListButtonComponent } from './list-button/list-button.component';
 import { ModalComponent } from './modal/modal.component';
@@ -52,7 +52,8 @@ import { CommonPageModule } from './common-page/common-page.module';
         PipesModule,
         DataListModule,
         ChartsModule,
-        CommonPageModule
+        CommonPageModule,
+        NgbNavModule
     ],
     exports: [
         CommonModule,
@@ -77,7 +78,8 @@ import { CommonPageModule } from './common-page/common-page.module';
         DataListModule,
         SelectComponent,
         ChartsModule,
-        CommonPageModule
+        CommonPageModule,
+        NgbNavModule
     ]
 })
 export class SharedModule { }

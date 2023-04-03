@@ -17,8 +17,7 @@ export class CardComponent {
     @Input() recordsCount?: number;
     @Input() bodyClasses: string[];
     @Input() footer?: TemplateBinding;
-
-    visible = true;
+    @Input() visible = true;
 
     toggleVisiblity(): void {
         this.visible = !this.visible;
