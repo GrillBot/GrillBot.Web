@@ -1,0 +1,14 @@
+table {
+    & thead tr th {
+        vertical-align: bottom;
+        text-align: center;
+
+        & span {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            white-space: nowrap;
+            -ms-writing-mode: tb-rl;
+            -webkit-writing-mode: vertical-rl;
+        }
+    }
+}

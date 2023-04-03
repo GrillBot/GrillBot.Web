@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Dictionary, ObservableDict, ObservableList } from '../models/common';
 import {
     ApiStatistics, AuditLogStatistics, AvgExecutionTimes,
-    DatabaseStatistics, OperationStats, StatisticItem
+    DatabaseStatistics, OperationStats, StatisticItem, UserActionCountItem
 } from '../models/statistics';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
@@ -75,6 +75,26 @@ export class StatisticsService {
 
         return this.base.http.get<ApiStatistics>(url, { headers }).pipe(
             map(data => ApiStatistics.create(data)),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
+
+    getUserCommandStatistics(): ObservableList<UserActionCountItem> {
+        const url = this.base.createUrl('stats/interactions/users');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<UserActionCountItem[]>(url, { headers }).pipe(
+            map(data => data.map(o => UserActionCountItem.create(o))),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
+
+    getUserApiStatistics(): ObservableList<UserActionCountItem> {
+        const url = this.base.createUrl('stats/api/users');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<UserActionCountItem[]>(url, { headers }).pipe(
+            map(data => data.map(o => UserActionCountItem.create(o))),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

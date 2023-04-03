@@ -10,6 +10,8 @@ import { ApiComponent } from './api/api.component';
 import { EventsComponent } from './events/events.component';
 import { AvgTimesComponent } from './avg-times/avg-times.component';
 import { OperationsComponent } from './operations/operations.component';
+import { InteractionsUsersComponent } from './interactions-users/interactions-users.component';
+import { ApiUsersComponent } from './api-users/api-users.component';
 
 const routes: Routes = [
     {
@@ -23,7 +25,9 @@ const routes: Routes = [
             { path: 'api', component: ApiComponent },
             { path: 'events', component: EventsComponent },
             { path: 'avgTimes', component: AvgTimesComponent },
-            { path: 'operations', component: OperationsComponent }
+            { path: 'operations', component: OperationsComponent },
+            { path: 'interactions-users', component: InteractionsUsersComponent },
+            { path: 'api-users', component: ApiUsersComponent }
         ]
     }
 ];
@@ -38,7 +42,9 @@ const routes: Routes = [
         ApiComponent,
         EventsComponent,
         AvgTimesComponent,
-        OperationsComponent
+        OperationsComponent,
+        InteractionsUsersComponent,
+        ApiUsersComponent
     ],
     imports: [
         SharedModule,

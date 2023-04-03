@@ -4,7 +4,10 @@
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Databáze',url:'./database',id:'database'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Unverify',url:'./unverify',id:'unverify'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Příkazy',url:'./interactions',id:'interactions'}"></ng-container>
+        <ng-container
+            *ngTemplateOutlet="menuItem;context:{name:'Příkazy (za uživatele)',url:'./interactions-users',id:'interactions-users'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'API',url:'./api',id:'api'}"></ng-container>
+        <ng-container *ngTemplateOutlet="menuItem;context:{name:'API (za uživatele)',url:'./api-users',id:'api-users'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Události',url:'./events',id:'events'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Průměrné časy',url:'./avgTimes',id:'avgTimes'}"></ng-container>
         <ng-container *ngTemplateOutlet="menuItem;context:{name:'Operace',url:'./operations',id:'operations'}"></ng-container>

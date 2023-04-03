@@ -137,3 +137,19 @@ export class ApiStatistics {
         return result;
     }
 }
+
+export class UserActionCountItem {
+    public username: string;
+    public action: string;
+    public count: number;
+
+    static create(data: any): UserActionCountItem {
+        const result = new UserActionCountItem();
+
+        result.username = data.username;
+        result.action = data.action;
+        result.count = data.count;
+
+        return result;
+    }
+}
