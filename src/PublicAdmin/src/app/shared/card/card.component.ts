@@ -14,8 +14,7 @@ export class CardComponent {
     @Input() classes: string[];
     @Input() maxWidth?: string;
     @Input() recordsCount?: number;
-
-    visible = true;
+    @Input() visible = true;
 
     toggleVisiblity(): void {
         this.visible = !this.visible;

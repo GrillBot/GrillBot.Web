@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card/card.component';
 import { DataListComponent } from './data-list/data-list.component';
-import { NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbPaginationModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './loading/loading.component';
 import { KeyValueItemDirective } from './directives/key-value-item.directive';
 import { ModalComponent } from './modal/modal.component';
@@ -41,7 +41,8 @@ import { PipesModule } from './pipes/pipes.module';
         NgbModalModule,
         NgSelectModule,
         CommonPageModule,
-        PipesModule
+        PipesModule,
+        NgbNavModule
     ],
     exports: [
         CommonModule,
@@ -60,7 +61,8 @@ import { PipesModule } from './pipes/pipes.module';
         ListButtonComponent,
         CheckboxComponent,
         CommonPageModule,
-        PipesModule
+        PipesModule,
+        NgbNavModule
     ]
 })
 export class SharedModule { }
