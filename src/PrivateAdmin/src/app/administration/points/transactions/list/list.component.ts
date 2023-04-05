@@ -2,9 +2,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
-import { AdminListRequest } from 'src/app/core/models/points';
+import { AdminListRequest, PointsTransaction } from 'src/app/core/models/points';
 import { PointsService } from 'src/app/core/services/points.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
+import { ModalService } from 'src/app/shared/modal';
 
 @Component({
     selector: 'app-list',
@@ -13,13 +14,13 @@ import { ListComponentBase } from 'src/app/shared/common-page/list-component-bas
 export class ListComponent extends ListComponentBase<AdminListRequest> {
     constructor(
         private service: PointsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private modal: ModalService
     ) {
         super();
     }
 
     get isMerged(): boolean {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return this.route.snapshot.data?.merged ?? false;
     }
 
@@ -32,5 +33,17 @@ export class ListComponent extends ListComponentBase<AdminListRequest> {
         this.filter.showMerged = this.isMerged;
         this.filter.set(pagination, this.sort);
         return this.service.getTransactionList(this.filter);
+    }
+
+    removeTransaction(item: PointsTransaction): void {
+        const title = 'Smazání transakce';
+
+        this.modal.showQuestion(title,
+            `Opravdu si přejete smazat transakci pro zprávu s ID ${item.messageId} od uživatele ${item.user.fullUsername}?`
+        ).onAccept.subscribe(() => {
+            this.service.removeTransaction(item.guild.id, item.messageId, item.reactionId).subscribe(() => {
+                this.modal.showNotification(title, 'Transakce byla úspěšně smazána.').onClose.subscribe(() => this.reload());
+            });
+        });
     }
 }

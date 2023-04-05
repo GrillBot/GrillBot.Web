@@ -15,6 +15,7 @@
                         <th>Sloučené období</th>
                         <th>Poč. sloučených transakcí</th>
                     </ng-container>
+                    <th *ngIf="!isMerged">Akce</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +28,7 @@
                     </td>
                     <td>{{item.createdAt.binding}}</td>
                     <td>{{item.messageId}}</td>
-                    <td>{{item.isReaction | czechBooleanPipe}}</td>
+                    <td>{{!!(item.reactionId) | czechBooleanPipe}}</td>
                     <td>{{item.points.toLocaleString()}}</td>
                     <ng-container *ngIf="isMerged">
                         <td>
@@ -36,6 +37,9 @@
                         </td>
                         <td>{{item.mergeInfo.mergedItemsCount.toLocaleString()}}</td>
                     </ng-container>
+                    <td *ngIf="!isMerged">
+                        <list-button (clicked)="removeTransaction(item)" icon="trash-alt" title="Smazat transakci"></list-button>
+                    </td>
                 </tr>
                 <tr *ngIf="list.isEmpty">
                     <td [attr.colspan]="isMerged ? 8 : 6">Nebyly nalezeny žádné transakce.</td>

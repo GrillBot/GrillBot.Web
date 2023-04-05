@@ -53,4 +53,11 @@ export class PointsService {
 
         return this.base.http.put(url, {}, { headers }).pipe(catchError((err: HttpErrorResponse) => this.base.catchError(err)));
     }
+
+    removeTransaction(guildId: string, messageId: string, reactionId: string): EmptyObservable {
+        const url = this.base.createUrl(`user/points/${guildId}/${messageId}?reactionId=${reactionId}`);
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.delete(url, { headers }).pipe(catchError((err: HttpErrorResponse) => this.base.catchError(err)));
+    }
 }

@@ -24,7 +24,7 @@ export class PointsTransaction {
     public guild: Guild;
     public user: User;
     public messageId: string;
-    public isReaction: boolean;
+    public reactionId = '';
     public createdAt: DateTime;
     public points: number;
     public mergeInfo: PointsMergeInfo | null;
@@ -35,7 +35,7 @@ export class PointsTransaction {
         const transaction = new PointsTransaction();
         transaction.createdAt = DateTime.fromISOString(data.createdAt);
         transaction.guild = Guild.create(data.guild);
-        transaction.isReaction = data.isReaction;
+        transaction.reactionId = data.reactionId;
         transaction.messageId = data.messageId;
         transaction.points = data.points;
         transaction.user = User.create(data.user);
