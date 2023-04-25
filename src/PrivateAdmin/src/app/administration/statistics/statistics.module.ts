@@ -27,7 +27,9 @@ const routes: Routes = [
             { path: 'avgTimes', component: AvgTimesComponent },
             { path: 'operations', component: OperationsComponent },
             { path: 'interactions-users', component: InteractionsUsersComponent },
-            { path: 'api-users', component: ApiUsersComponent }
+            { path: 'api-users-v1-private', component: ApiUsersComponent, data: { criteria: 'v1-private' } },
+            { path: 'api-users-v1-public', component: ApiUsersComponent, data: { criteria: 'v1-public' } },
+            { path: 'api-users-v2', component: ApiUsersComponent, data: { criteria: 'v2' } }
         ]
     }
 ];

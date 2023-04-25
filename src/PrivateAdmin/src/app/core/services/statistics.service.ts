@@ -8,6 +8,7 @@ import {
 } from '../models/statistics';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
+import { QueryParam } from '../models/http';
 
 @Injectable({ providedIn: 'root' })
 export class StatisticsService {
@@ -89,8 +90,8 @@ export class StatisticsService {
         );
     }
 
-    getUserApiStatistics(): ObservableList<UserActionCountItem> {
-        const url = this.base.createUrl('stats/api/users');
+    getUserApiStatistics(criteria: string): ObservableList<UserActionCountItem> {
+        const url = this.base.createUrl('stats/api/users', [new QueryParam('criteria', criteria)]);
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<UserActionCountItem[]>(url, { headers }).pipe(
