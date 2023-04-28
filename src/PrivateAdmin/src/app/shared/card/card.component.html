@@ -1,5 +1,5 @@
 <div class="card {{size}}" [ngClass]="classes" [ngStyle]="{'max-width': maxWidth}">
-    <div class="card-header" *ngIf="header">
+    <div class="card-header" *ngIf="header" (click)="toggleVisiblity()">
         <div class="d-flex justify-content-between align-items-center">
             <h4>
                 <i [class]="icon" *ngIf="icon"></i>
