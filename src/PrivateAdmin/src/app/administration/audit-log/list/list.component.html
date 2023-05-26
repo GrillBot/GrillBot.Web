@@ -79,10 +79,9 @@
                 Provedl:
                 <b>
                     <a routerLink="/admin/users/{{item.processedUser.id}}" class="text-dark">
-                        <ng-container *ngIf="item.processedUser.nickname">{{item.processedUser.nickname}}
-                            ({{item.processedUser.fullUsername}})
+                        <ng-container *ngIf="item.processedUser.nickname">{{item.processedUser.nickname}} ({{item.processedUser.username}})
                         </ng-container>
-                        <ng-container *ngIf="!item.processedUser.nickname">{{item.processedUser.fullUsername}}</ng-container>
+                        <ng-container *ngIf="!item.processedUser.nickname">{{item.processedUser.username}}</ng-container>
                     </a>
                 </b>
             </p>
@@ -278,11 +277,11 @@
         <ng-container *ngIf="type === AuditLogItemType.Unban">
             <p *ngIf="data.id">ID: <b>{{data.id}}</b></p>
             <p *ngIf="data.userId">ID: <b>{{data.userId}}</b></p>
-            <p>Název: <b>{{data.username}}#{{data.discriminator}}</b></p>
+            <p>Název: <b>{{data.username}}</b></p>
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.MemberUpdated">
-            <p>Cílový uživatel: <b>{{data.target.username}}#{{data.target.discriminator}}</b></p>
+            <p>Cílový uživatel: <b>{{data.target.username}}</b></p>
             <p *ngIf="data.nickname">Změněna přezdívka</p>
             <p *ngIf="data.isDeaf || data.isMuted">Změněno umlčení</p>
             <p *ngIf="data.note">Změněna poznámka</p>
@@ -296,7 +295,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.MemberRoleUpdated">
-            <p>Cílový uživatel: <b>{{data.target.username}}#{{data.target.discriminator}}</b></p>
+            <p>Cílový uživatel: <b>{{data.target.username}}</b></p>
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.GuildUpdated">
@@ -330,7 +329,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.UserLeft">
-            <p>Uživatel: <b>{{data.user.username}}#{{data.user.discriminator}}</b></p>
+            <p>Uživatel: <b>{{data.user.username}}</b></p>
             <p>Počet členů (po odpojení): <b>{{data.memberCount}}</b></p>
             <p>BAN: <b>{{data.isBan | czechBooleanPipe}}</b></p>
             <p *ngIf="data.isBan">Důvod BANu: <b>{{data.banReason}}</b></p>
@@ -341,7 +340,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.MessageDeleted">
-            <p>Autor: <b>{{data.data.author.username}}#{{data.data.author.discriminator}}</b></p>
+            <p>Autor: <b>{{data.data.author.username}}</b></p>
             <p>Vytvořeno: <b>{{data.data.createdAt | dateTimeFormatter}}</b></p>
         </ng-container>
 

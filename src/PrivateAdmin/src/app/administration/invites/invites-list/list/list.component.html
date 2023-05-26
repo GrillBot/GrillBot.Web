@@ -20,8 +20,7 @@
                     </td>
                     <td>{{item.createdAt?.toLocaleString()}}</td>
                     <td>
-                        <a routerLink="/admin/users/{{item.creator.id}}" class="text-dark"
-                            *ngIf="item.creator">{{item.creator.fullUsername}}</a>
+                        <a routerLink="/admin/users/{{item.creator.id}}" class="text-dark" *ngIf="item.creator">{{item.creator.username}}</a>
                     </td>
                     <td>
                         <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark" *ngIf="item.guild">{{item.guild.name}}</a>

@@ -15,13 +15,8 @@ import { Role } from './roles';
 export class User {
     public id: string;
     public username: string;
-    public discriminator: string;
     public isBot: boolean;
     public avatarUrl: string;
-
-    get fullUsername(): string {
-        return this.discriminator ? `${this.username}#${this.discriminator}` : this.username;
-    }
 
     static create(data: any): User | null {
         if (!data) { return null; }
@@ -31,7 +26,6 @@ export class User {
         user.id = data.id;
         user.isBot = data.isBot;
         user.avatarUrl = data.avatarUrl;
-        user.discriminator = data.discriminator;
         user.username = data.username;
 
         return user;
@@ -46,7 +40,7 @@ export class GuildUser extends User {
     public nickname: string | null;
 
     get fullname(): string {
-        return !this.nickname ? this.fullUsername : `${this.nickname} (${this.fullUsername})`;
+        return !this.nickname ? this.username : `${this.nickname} (${this.username})`;
     }
 
     static create(data: any): GuildUser | null {
@@ -147,7 +141,6 @@ export class GetUserListParams extends FilterBase {
 export class UserDetail {
     public id: string;
     public username: string;
-    public discriminator: string;
     public flags: number;
     public haveBirthday: boolean;
     public guilds: GuildUserDetail[];
@@ -164,7 +157,6 @@ export class UserDetail {
     get isBot(): boolean { return (this.flags & UserFlags.NotUser) !== 0; }
     get isWebAdminOnline(): boolean { return (this.flags & UserFlags.WebAdminOnline) !== 0; }
     get isPublicAdminOnline(): boolean { return (this.flags & UserFlags.PublicAdminOnline) !== 0; }
-    get fullUsername(): string { return this.username + (Support.isEmpty(this.discriminator) ? '' : `#${this.discriminator}`); }
     get commandsDisabled(): boolean { return (this.flags & UserFlags.CommandsDisabled) !== 0; }
     get pointsDisabled(): boolean { return (this.flags & UserFlags.PointsDisabled) !== 0; }
 
@@ -183,7 +175,6 @@ export class UserDetail {
         detail.avatarUrl = data.avatarUrl;
         detail.selfUnverifyMinimalTime = data.selfUnverifyMinimalTime;
         detail.registeredAt = data.registeredAt ? DateTime.fromISOString(data.registeredAt) : null;
-        detail.discriminator = data.discriminator;
         detail.language = data.language;
 
         return detail;

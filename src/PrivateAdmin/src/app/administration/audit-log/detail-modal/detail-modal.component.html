@@ -5,7 +5,8 @@
         <div class="mb-3" *ngIf="item.type === AuditLogItemType.MemberUpdated && data.target">
             <span>
                 <b>Uživatel: </b>
-                {{data.target.username}}#{{data.target.discriminator}}
+                <a routerLink="/admin/users/{{data.target.userId}}" (click)="modal.modal.close()"
+                    class="text-dark">{{data.target.username}}</a>
             </span>
         </div>
 
@@ -161,13 +162,13 @@
                                 </ng-container>
                                 <ng-container *ngSwitchCase="'User'">
                                     <ng-container *ngIf="parameter.value">
-                                        {{parameter.value.Username}}#{{parameter.value.Discriminator}}
+                                        {{parameter.value.Username}}
                                         <ng-container *ngIf="parameter.value?.Id">({{parameter.value?.Id}})</ng-container>
                                         <ng-container *ngIf="parameter.value?.UserId">({{parameter.value?.UserId}})</ng-container>
                                     </ng-container>
                                 </ng-container>
                                 <ng-container *ngSwitchCase="'Message'">
-                                    Autor: {{parameter.value.Author.Username}}#{{parameter.value.Author.Discriminator}}
+                                    Autor: {{parameter.value.Author.Username}}
                                     ({{parameter.value.Author.Id}})<br>
                                     Vytvořeno: {{parameter.value.CreatedAt | dateTimeFormatter}}<br>
                                     Obsah zprávy: <code>{{parameter.value.Content}}</code>
@@ -359,8 +360,8 @@
     </tr>
     <tr *ngIf="data.owner">
         <td>Vlastník serveru</td>
-        <td>{{data.owner.before?.username}}#{{data.owner.before?.discriminator}}</td>
-        <td>{{data.owner.after?.username}}#{{data.owner.after?.discriminator}}</td>
+        <td>{{data.owner.before?.username}}</td>
+        <td>{{data.owner.after?.username}}</td>
     </tr>
     <tr *ngIf="data.publicUpdatesChannel">
         <td>Kanál na novinky</td>
@@ -577,9 +578,7 @@
         <td>Spustil</td>
         <td>
             <a *ngIf="data.startingUser.userId" routerLink="/admin/users/{{data.startingUser.userId}}" class="text-dark"
-                (click)="modal.modal.close()">
-                {{data.startingUser.username}}#{{data.startingUser.discriminator}}
-            </a>
+                (click)="modal.modal.close()">{{data.startingUser.username}}</a>
         </td>
     </tr>
 
@@ -705,14 +704,10 @@
         <td>Autor</td>
         <td>
             <a *ngIf="data.data.author.id" routerLink="/admin/users/{{data.data.author.id}}" class="text-dark"
-                (click)="modal.modal.close()">
-                {{data.data.author.username}}#{{data.data.author.discriminator}}
-            </a>
+                (click)="modal.modal.close()">{{data.data.author.username}}</a>
 
             <a *ngIf="data.data.author.userId" routerLink="/admin/users/{{data.data.author.userId}}" class="text-dark"
-                (click)="modal.modal.close()">
-                {{data.data.author.username}}#{{data.data.author.discriminator}}
-            </a>
+                (click)="modal.modal.close()">{{data.data.author.username}}</a>
         </td>
     </tr>
 

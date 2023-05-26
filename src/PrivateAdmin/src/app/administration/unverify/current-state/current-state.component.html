@@ -19,7 +19,7 @@
 <ng-template #unverifyCard let-unverify="unverify">
     <app-card [header]="false">
         <span>
-            <h4 class="fw-normal d-inline me-2">{{unverify.user.fullUsername}}</h4>
+            <h4 class="fw-normal d-inline me-2">{{unverify.user.username}}</h4>
             <h6 class="badge bg-dark" *ngIf="unverify.isSelfUnverify">Selfunverify</h6>
         </span>
 

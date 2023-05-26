@@ -5,7 +5,7 @@
                 <th>Odesílatel</th>
                 <td>
                     <a routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark"
-                        (click)="modal.modal.close()">{{item.fromUser.fullUsername}}</a>
+                        (click)="modal.modal.close()">{{item.fromUser.username}}</a>
                 </td>
             </tr>
 
@@ -13,7 +13,7 @@
                 <th>Příjemce</th>
                 <td>
                     <a routerLink="/admin/users/{{item.toUser.id}}" class="text-dark"
-                        (click)="modal.modal.close()">{{item.toUser.fullUsername}}</a>
+                        (click)="modal.modal.close()">{{item.toUser.username}}</a>
                 </td>
             </tr>
 

@@ -27,15 +27,13 @@
                     <div class="col" *ngIf="data.lastMessageFrom">
                         Poslední zpráva od<br>
                         <b>
-                            <a routerLink="/admin/users/{{data.lastMessageFrom.id}}"
-                                class="text-dark">{{data.lastMessageFrom.fullUsername}}</a>
+                            <a routerLink="/admin/users/{{data.lastMessageFrom.id}}" class="text-dark">{{data.lastMessageFrom.username}}</a>
                         </b>
                     </div>
                     <div class="col" *ngIf="data.mostActiveUser">
                         Nejaktivnější uživatel<br>
                         <b>
-                            <a routerLink="/admin/users/{{data.mostActiveUser.id}}"
-                                class="text-dark">{{data.mostActiveUser.fullUsername}}</a>
+                            <a routerLink="/admin/users/{{data.mostActiveUser.id}}" class="text-dark">{{data.mostActiveUser.username}}</a>
                         </b>
                     </div>
                 </div>
