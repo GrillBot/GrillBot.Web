@@ -1,7 +1,6 @@
 export interface User {
     id: string;
     username: string;
-    discriminator: string;
     isBot: boolean;
     avatarUrl: string;
 }

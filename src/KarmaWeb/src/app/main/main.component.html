@@ -12,7 +12,7 @@
     <div class="items-container">
         <div *ngFor="let item of data.data" class="container-item">
             <div class="profile-image">
-                <img [attr.src]="item.user.avatarUrl" [attr.alt]="item.user.discriminator" width="64" height="64" class="rounded-circle">
+                <img [attr.src]="item.user.avatarUrl" [attr.alt]="item.user.username" width="64" height="64" class="rounded-circle">
             </div>
 
             <div class="position-container">
