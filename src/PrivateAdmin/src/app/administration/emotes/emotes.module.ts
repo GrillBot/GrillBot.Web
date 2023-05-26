@@ -5,11 +5,13 @@ import { DashboardComponent } from './emotes-list/dashboard/dashboard.component'
 import { FilterComponent } from './emotes-list/filter/filter.component';
 import { ListComponent } from './emotes-list/list/list.component';
 import { MergeModalComponent } from './merge-modal/merge-modal.component';
+import { EmoteUsersListComponent } from './emote-users-list/emote-users-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'supported' },
     { path: 'supported', component: DashboardComponent },
-    { path: 'unsupported', component: DashboardComponent }
+    { path: 'unsupported', component: DashboardComponent },
+    { path: ':encodedEmoteId/users', component: EmoteUsersListComponent }
 ];
 
 @NgModule({
@@ -17,7 +19,8 @@ const routes: Routes = [
         DashboardComponent,
         FilterComponent,
         ListComponent,
-        MergeModalComponent
+        MergeModalComponent,
+        EmoteUsersListComponent
     ],
     imports: [
         SharedModule,

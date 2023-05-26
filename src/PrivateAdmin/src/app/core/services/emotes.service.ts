@@ -1,7 +1,7 @@
 import { ObservablePaginatedData } from './../models/common';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
-import { EmotesListParams, EmoteStatItem, MergeEmoteStatsParams } from '../models/emotes';
+import { EmotesListParams, EmoteStatItem, EmoteStatsUserListItem, EmoteStatsUserListParams, MergeEmoteStatsParams } from '../models/emotes';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../models/common';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -38,6 +38,16 @@ export class EmotesService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.delete<number>(url, { headers }).pipe(
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
+
+    getUserStatisticsOfEmote(params: EmoteStatsUserListParams): ObservablePaginatedData<EmoteStatsUserListItem> {
+        const url = this.base.createUrl('emotes/list/users');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.post<PaginatedResponse<EmoteStatsUserListItem>>(url, params, { headers }).pipe(
+            map(data => PaginatedResponse.create(data, entity => EmoteStatsUserListItem.create(entity))),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

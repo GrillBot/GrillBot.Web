@@ -1,5 +1,7 @@
 import { createRangeParams, FilterBase, RangeParams } from './common';
 import { DateTime } from './datetime';
+import { Guild } from './guilds';
+import { User } from './users';
 
 export class EmoteItem {
     public id: string;
@@ -7,9 +9,11 @@ export class EmoteItem {
     public imageUrl: string;
     public fullId: string;
 
-    static create(data: any): EmoteItem | null {
-        if (!data) { return null; }
+    get encodedId(): string {
+        return btoa(this.fullId);
+    }
 
+    static create(data: any): EmoteItem {
         const item = new EmoteItem();
         item.id = data.id;
         item.imageUrl = data.imageUrl;
@@ -27,8 +31,7 @@ export class EmoteStatItem {
     public lastOccurence: DateTime;
     public usedUsersCount: number;
 
-    static create(data: any): EmoteStatItem | null {
-        if (!data) { return null; }
+    static create(data: any): EmoteStatItem {
         const item = new EmoteStatItem();
 
         item.emote = EmoteItem.create(data.emote);
@@ -52,9 +55,6 @@ export class EmotesListParams extends FilterBase {
     static get empty(): EmotesListParams { return new EmotesListParams(); }
 
     static create(form: any): EmotesListParams {
-        if (!form) { return null; }
-        console.log(form);
-
         const params = new EmotesListParams();
 
         params.guildId = form.guildId;
@@ -87,4 +87,44 @@ export class MergeEmoteStatsParams {
         public sourceEmoteId: string,
         public destinationEmoteId: string
     ) { }
+}
+
+export class EmoteStatsUserListItem {
+    public user: User;
+    public guild: Guild;
+    public useCount: number;
+    public firstOccurence: DateTime;
+    public lastOccurence: DateTime;
+
+    static create(data: any): EmoteStatsUserListItem {
+        const item = new EmoteStatsUserListItem();
+
+        item.user = User.create(data.user);
+        item.guild = Guild.create(data.guild);
+        item.useCount = data.useCount;
+        item.firstOccurence = DateTime.fromISOString(data.firstOccurence);
+        item.lastOccurence = DateTime.fromISOString(data.lastOccurence);
+
+        return item;
+    }
+}
+
+export class EmoteStatsUserListParams extends FilterBase {
+    public emoteId: string;
+
+    static get empty(): EmoteStatsUserListParams { return new EmoteStatsUserListParams(); }
+
+    static create(data: any): EmoteStatsUserListParams {
+        const params = new EmoteStatsUserListParams();
+
+        params.emoteId = data.emoteId;
+
+        return params;
+    }
+
+    serialize(): any {
+        return {
+            emoteId: this.emoteId
+        };
+    }
 }

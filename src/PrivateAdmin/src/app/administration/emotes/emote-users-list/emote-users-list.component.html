@@ -1,0 +1,39 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<div class="row ml-0 mr-0 mt-2 pt-2">
+    <div class="col-md">
+        <app-card #card [title]="'Statistika použití emote'" [icon]="'far fa-smile'">
+            <app-data-list #list (readData)="readData($event)" [parentCard]="card">
+                <app-loading *ngIf="!list.isDataLoaded"></app-loading>
+
+                <table *ngIf="list.isDataLoaded" class="table table-striped table-bordered table-sm auto-column-width">
+                    <thead>
+                        <tr>
+                            <th>Uživatel</th>
+                            <th>Server</th>
+                            <th>Počet použití</th>
+                            <th>První použití</th>
+                            <th>Poslední použití</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list.items">
+                            <td>
+                                <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.fullUsername}}</a>
+                            </td>
+                            <td>
+                                <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark">{{item.guild.name}}</a>
+                            </td>
+                            <td>{{item.useCount.toLocaleString()}}</td>
+                            <td>{{item.firstOccurence.binding}}</td>
+                            <td>{{item.lastOccurence.binding}}</td>
+                        </tr>
+                        <tr *ngIf="list.items.length === 0">
+                            <td colspan="5">Tento emote žádný uživatel nepoužil.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </app-data-list>
+        </app-card>
+    </div>
+</div>

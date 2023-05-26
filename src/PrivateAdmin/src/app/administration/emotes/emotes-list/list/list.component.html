@@ -65,7 +65,10 @@
                             <span>Poprvé: <b>{{item.firstOccurence.toLocaleString()}}</b></span>
                             <span>Naposledy: <b>{{item.lastOccurence.toLocaleString()}}</b></span>
                             <span>Použilo (uživatelů): <b>{{item.usedUsersCount.toLocaleString()}}</b></span>
-                            <a href="javascript:;" class="text-dark no-print" (click)="removeStats(item)">Smazat statistiku</a>
+                            <div class="d-flex justify-content-between">
+                                <a routerLink="/admin/emotes/{{item.emote.encodedId}}/users" class="text-dark no-print">Seznam uživatelů</a>
+                                <a href="javascript:;" class="text-danger no-print" (click)="removeStats(item)">Smazat statistiku</a>
+                            </div>
                         </div>
                     </div>
                 </div>
