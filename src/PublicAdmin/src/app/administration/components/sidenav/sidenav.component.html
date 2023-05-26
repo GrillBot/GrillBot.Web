@@ -19,9 +19,6 @@
                 </ng-container>
                 <ng-container *ngTemplateOutlet="menuItem; context: {link: '/search', icon:'fa-search', title:'Hledání', id:'searching'}">
                 </ng-container>
-                <ng-container
-                    *ngTemplateOutlet="menuItem; context: {link: '/help', icon:'fa-question-circle', title: 'Nápověda k příkazům', id: 'help'}">
-                </ng-container>
                 <a class="nav-link cursor-ptr" (click)="authService.logout()">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-sign-out-alt"></i>

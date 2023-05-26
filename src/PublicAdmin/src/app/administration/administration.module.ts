@@ -30,11 +30,6 @@ const routes: Routes = [
                 data: { title: 'Unverify', id: 'unverify' }
             },
             {
-                path: 'help',
-                loadChildren: () => import('./help/help.module').then(mod => mod.HelpModule),
-                data: { title: 'Nápověda k příkazům', id: 'help' }
-            },
-            {
                 path: 'points',
                 loadChildren: () => import('./points/points.module').then(mod => mod.PointsModule),
                 data: { title: 'Statistika bodů', id: 'points' }
