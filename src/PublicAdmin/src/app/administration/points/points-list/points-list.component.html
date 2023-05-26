@@ -22,8 +22,8 @@
                 <tbody>
                     <tr *ngFor="let user of pointsListResult; let i = index">
                         <td>{{(i + 1)}}.</td>
-                        <td *ngIf="!user.nickname">{{user.user.fullUsername}}</td>
-                        <td *ngIf="user.nickname">{{user.nickname}} ({{user.user.fullUsername}})</td>
+                        <td *ngIf="!user.nickname">{{user.user.username}}</td>
+                        <td *ngIf="user.nickname">{{user.nickname}} ({{user.user.username}})</td>
                         <td>{{user.guild.name}}</td>
                         <td style="border-left-width: 1px">{{user.pointsYearBack.toLocaleString()}}</td>
                         <td>{{user.pointsMonthBack.toLocaleString()}}</td>

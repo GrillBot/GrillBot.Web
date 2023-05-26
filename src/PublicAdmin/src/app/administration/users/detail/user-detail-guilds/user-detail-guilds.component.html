@@ -80,7 +80,7 @@
                             {{guild.usedInvite.code}}
                             <ng-container *ngIf="guild.usedInvite.creator">
                                 (<a routerLink="/admin/users/{{guild.usedInvite.creator.id}}"
-                                    class="text-dark">{{guild.usedInvite.creator.fullUsername}}</a>)
+                                    class="text-dark">{{guild.usedInvite.creator.username}}</a>)
                             </ng-container>
                             <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.toLocaleString()}})
                             </ng-container>
