@@ -67,15 +67,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Log in to the container repository
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build container
-        run: docker build -t ghcr.io/grillbot/grillbot.web:private_admin src/PrivateAdmin
-      - name: Push container
-        run: docker push ghcr.io/grillbot/grillbot.web:private_admin
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: src/PrivateAdmin
+          push: true
+          tags: ghcr.io/grillbot/grillbot.web:private_admin
   PrivateAdmin_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_PrivateAdmin"
@@ -113,15 +115,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Log in to the container repository
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build container
-        run: docker build -t ghcr.io/grillbot/grillbot.web:navigation src/Navigation
-      - name: Push container
-        run: docker push ghcr.io/grillbot/grillbot.web:navigation
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: src/Navigation
+          push: true
+          tags: ghcr.io/grillbot/grillbot.web:navigation
   Navigation_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_Navigation"
@@ -167,15 +171,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Log in to the container repository
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build container
-        run: docker build -t ghcr.io/grillbot/grillbot.web:public_admin src/PublicAdmin
-      - name: Push container
-        run: docker push ghcr.io/grillbot/grillbot.web:public_admin
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: src/PublicAdmin
+          push: true
+          tags: ghcr.io/grillbot/grillbot.web:public_admin
   PublicAdmin_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_PublicAdmin"

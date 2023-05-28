@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -9,6 +11,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 })
 export class LoginComponent implements OnInit {
     errorMessage: string;
+    loading = false;
 
     constructor(
         private authService: AuthService,
@@ -34,11 +37,22 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/admin']);
                 }
             });
+        } else if (search.has('auto') && search.get('auto') === 'true') {
+            this.startSession();
+            return;
         }
     }
 
     startSession(): void {
-        this.authService.getLink().subscribe(url => location.href = url.url);
+        this.loading = true;
+        this.errorMessage = null;
+
+        this.authService.getLink().pipe(catchError(_ => {
+            this.loading = false;
+            this.errorMessage = 'Nepodařilo se připojit na server.';
+
+            return EMPTY;
+        })).subscribe(url => location.href = url.url);
     }
 
 }

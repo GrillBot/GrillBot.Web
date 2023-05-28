@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/admin']);
                 }
             });
+        } else if (search.has('auto') && search.get('auto') === 'true') {
+            this.startSession();
+            return;
         }
     }
 

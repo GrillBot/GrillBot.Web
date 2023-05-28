@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous"
         referrerpolicy="no-referrer" />
-    <script src="script.js"></script>
 
     <noscript>
         <style>
@@ -37,17 +36,19 @@
 
                 <div class="card">
                     <div class="card-body d-flex justify-content-between">
-                        <button class="btn btn-block btn-blurple js-required" onclick="login(false)">
+                        <a href="https://private.grillbot.cloud/login?auto=true" class="btn btn-block btn-blurple js-required"
+                            target="_blank">
                             <i class="fab fa-discord mr-2"></i>
                             Privátní administrace
                             <i class="fa-solid fa-right-to-bracket ms-2"></i>
-                        </button>
+                        </a>
 
-                        <button class="btn btn-block btn-blurple js-required" onclick="login(true)">
+                        <a href="https://public.grillbot.cloud/login?auto=true" class="btn btn-block btn-blurple js-required"
+                            target="_blank">
                             <i class="fab fa-discord mr-2"></i>
                             Veřejná administrace
                             <i class="fa-solid fa-right-to-bracket ms-2"></i>
-                        </button>
+                        </a>
 
                         <a class="btn btn-block btn-dark" href="https://docs.grillbot.cloud/">
                             <i class="fas fa-book mr-2"></i>
@@ -67,11 +68,6 @@
                         <p class="mb-0 d-none" id="login-loading">
                             <i class="fa-solid fa-spinner fa-spin me-2"></i>
                             Probíhá přesměrování
-                        </p>
-
-                        <p class="mb-0 d-none text-danger" id="login-error">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            Při pokusu o přesměrování k přihlášení došlo k chybě.
                         </p>
                     </div>
                 </div>
