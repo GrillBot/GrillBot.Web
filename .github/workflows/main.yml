@@ -230,10 +230,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build container
-        run: docker build -t ghcr.io/grillbot/grillbot.web:karma src/KarmaWeb
-      - name: Push container
-        run: docker push ghcr.io/grillbot/grillbot.web:karma
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: src/KarmaWeb
+          push: true
+          tags: ghcr.io/grillbot/grillbot.web:karma
   KarmaWeb_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_KarmaWeb"
