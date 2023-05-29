@@ -11,7 +11,6 @@ export class PaginationComponent {
     @Input() totalCount!: number;
     @Input() page: number = 1;
     @Input() pageSize!: number;
-    @Input() maxSize!: number;
 
     @Output() pageChange = new EventEmitter<number>();
 
