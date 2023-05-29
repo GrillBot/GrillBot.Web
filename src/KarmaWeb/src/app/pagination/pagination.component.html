@@ -1,0 +1,11 @@
+<div>
+    <button [disabled]="disabled('first')" (click)="click('first')">První strana</button>
+    <button [disabled]="disabled('prev')" (click)="click('prev')">Předchozí strana</button>
+
+    <span>
+        {{page}} / {{pageCount}}
+    </span>
+
+    <button [disabled]="disabled('next')" (click)="click('next')">Další strana</button>
+    <button [disabled]="disabled('last')" (click)="click('last')">Poslední strana</button>
+</div>

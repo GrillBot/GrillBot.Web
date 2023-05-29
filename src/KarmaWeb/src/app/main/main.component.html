@@ -1,7 +1,6 @@
 <div class="d-flex justify-content-center" *ngIf="data">
-    <ngb-pagination [collectionSize]="data.totalItemsCount" [(page)]="currentPage" [pageSize]="pageSize" [maxSize]="maxSize"
-        [boundaryLinks]="true" [rotate]="true" (pageChange)="onPageChange($event)">
-    </ngb-pagination>
+    <app-pagination [totalCount]="data.totalItemsCount" [(page)]="currentPage" [pageSize]="pageSize"
+        (pageChange)="onPageChange($event)"></app-pagination>
 </div>
 
 <div class="d-flex justify-content-center">

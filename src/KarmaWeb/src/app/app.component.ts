@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
         this.api.getKarmaData('karma', true, requestPage, this.pageSize).subscribe(data => {
             this.data = data;
             this.isLoaded = true;
+            data.page = data.page + 1;
 
             if (this.mainComponent) {
                 this.mainComponent.loading = false;
