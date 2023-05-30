@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { debounceTime } from 'rxjs/operators';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
 import { StorageService } from '../../core/services/storage.service';
 
@@ -11,12 +11,12 @@ import { StorageService } from '../../core/services/storage.service';
 export abstract class FilterComponentBase<TFilter> implements OnInit {
     @Output() filterChanged = new EventEmitter<TFilter>();
 
-    form: FormGroup;
+    form: UntypedFormGroup;
     filterId: string | null = null;
     autoSubmit = true;
 
     constructor(
-        protected fb: FormBuilder,
+        protected fb: UntypedFormBuilder,
         protected storage: StorageService
     ) { }
 

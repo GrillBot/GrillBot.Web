@@ -3,7 +3,7 @@ import { UnverifyOperation, UnverifyOperationTexts } from './../../../core/model
 import { StorageService } from 'src/app/core/services/storage.service';
 import { Dictionary } from './../../../core/models/common';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { UnverifyLogParams } from 'src/app/core/models/unverify';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
 
@@ -14,7 +14,7 @@ import { FilterComponentBase } from 'src/app/shared/common-page/filter-component
 export class FilterComponent extends FilterComponentBase<UnverifyLogParams> {
     operations: Dictionary<string, string>;
 
-    constructor(fb: FormBuilder, storage: StorageService) {
+    constructor(fb: UntypedFormBuilder, storage: StorageService) {
         super(fb, storage);
     }
 
