@@ -7,16 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card/card.component';
 import { DataListComponent } from './data-list/data-list.component';
-import { NgbModalModule, NgbPaginationModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './loading/loading.component';
 import { KeyValueItemDirective } from './directives/key-value-item.directive';
-import { ModalComponent } from './modal/modal.component';
-import { ValidationErrorsModalComponent } from './modal/validation-errors-modal/validation-errors-modal.component';
 import { SortingDirective } from './data-list/sorting.directive';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { PipesModule } from './pipes/pipes.module';
+import { PaginationComponent } from './pagination/pagination.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { ModalBoxComponent } from './modal-box/modal-box.component';
 
 @NgModule({
     declarations: [
@@ -24,25 +24,23 @@ import { PipesModule } from './pipes/pipes.module';
         DataListComponent,
         LoadingComponent,
         KeyValueItemDirective,
-        ModalComponent,
-        ValidationErrorsModalComponent,
         SortingDirective,
         SearchInputComponent,
         ListButtonComponent,
-        CheckboxComponent
+        CheckboxComponent,
+        PaginationComponent,
+        TabsComponent,
+        ModalBoxComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
         FormsModule,
-        NgbPaginationModule,
         RouterModule,
-        NgbModalModule,
         NgSelectModule,
         CommonPageModule,
-        PipesModule,
-        NgbNavModule
+        PipesModule
     ],
     exports: [
         CommonModule,
@@ -53,8 +51,6 @@ import { PipesModule } from './pipes/pipes.module';
         DataListComponent,
         LoadingComponent,
         KeyValueItemDirective,
-        ModalComponent,
-        ValidationErrorsModalComponent,
         SortingDirective,
         SearchInputComponent,
         NgSelectModule,
@@ -62,7 +58,9 @@ import { PipesModule } from './pipes/pipes.module';
         CheckboxComponent,
         CommonPageModule,
         PipesModule,
-        NgbNavModule
+        PaginationComponent,
+        TabsComponent,
+        ModalBoxComponent
     ]
 })
 export class SharedModule { }

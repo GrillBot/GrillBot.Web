@@ -4,7 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { UnverifyService } from 'src/app/core/services/unverify.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { forkJoin } from 'rxjs';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-current-state',
@@ -19,7 +20,7 @@ export class CurrentStateComponent implements OnInit {
     constructor(
         private unverifyService: UnverifyService,
         private dataService: DataService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -44,6 +45,6 @@ export class CurrentStateComponent implements OnInit {
     }
 
     showReason(profile: UnverifyUserProfile): void {
-        this.modalService.showNotification('Důvod odebrání přístupu', profile.reason);
+        this.modalBox.show(new InfoModal('Důvod odebrání přístupu', profile.reason));
     }
 }

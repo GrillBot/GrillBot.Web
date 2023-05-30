@@ -1,146 +1,134 @@
 <app-card [header]="true" [classes]="[(i > 0 ? 'mt-3' : '')]" *ngFor="let guild of userGuilds; let i = index" [title]="guild.guild.name"
     [allowHideButton]="true" [visible]="true">
-    <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeIds[i]">
-        <li [ngbNavItem]="'Common'">
-            <a ngbNavLink>Základní info</a>
-            <ng-template ngbNavContent>
-                <div class="row">
-                    <div keyValueItem class="col-md-auto" [key]="'Serverový nick'" [value]="guild.nickname ?? 'Nenastaven'"></div>
-                    <div keyValueItem class="col-md-auto" [key]="'Počet udělených reakcí'" [value]="guild.givenReactions.toLocaleString()">
-                    </div>
-                    <div keyValueItem class="col-md-auto" [key]="'Počet obdržených reakcí'"
-                        [value]="guild.obtainedReactions.toLocaleString()"></div>
-                </div>
+    <app-tabs [tabs]="{
+        'common': {name: 'Základní info', condition: true, template: common_info},
+        'points': {name: 'Body', condition: guild.havePointsTransaction, template: points},
+        'timeout_history': {name: 'Umlčení', condition: guild.timeoutHistory.length > 0, template: timeout_history},
+        'invite': {name: 'Pozvánky', condition: !!guild.usedInvite || guild.createdInvites.length > 0, template: invite},
+        'nicknames': {name: 'Přezdívky', condition: guild.nicknameHistory.length > 0, template: nicknames},
+        'channelActivity': {name: 'Aktivita v kanálech', condition: guild.channels && guild.channels.length > 0, template: channelActivity},
+        'emotes': {name: 'Použité emotikony', condition: guild.emotes && guild.emotes.length > 0, template: emotes}
+    }" [context]="{'guild': guild, 'i': i}"></app-tabs>
+</app-card>
 
-                <div class="row mt-3" *ngIf="guild.roles.length > 0">
-                    <div class="col-md">
-                        <span class="badge me-1" *ngFor="let role of guild.roles" [style.background-color]="role.color">{{role.name}}</span>
-                    </div>
-                </div>
+<ng-template #common_info let-guild="guild">
+    <div class="row">
+        <div keyValueItem class="col-md-auto" [key]="'Serverový nick'" [value]="guild.nickname ?? 'Nenastaven'"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Počet udělených reakcí'" [value]="guild.givenReactions.toLocaleString()">
+        </div>
+        <div keyValueItem class="col-md-auto" [key]="'Počet obdržených reakcí'" [value]="guild.obtainedReactions.toLocaleString()"></div>
+    </div>
 
-                <div class="alert alert-info mt-2 mb-0" *ngIf="guild.unverify">
-                    <i class="fas fa-info-circle"></i>
-                    Uděleno
-                    <ng-container *ngIf="!guild.unverify.isSelfUnverify">
-                        unverify od <b>{{guild.unverify.start.binding}}</b> do <b>{{guild.unverify.end.binding}}</b>. Důvod odebrání
-                        přístupu: <b>{{guild.unverify.reason}}</b>
-                    </ng-container>
+    <div class="row mt-3" *ngIf="guild.roles.length > 0">
+        <div class="col-md">
+            <span class="badge me-1" *ngFor="let role of guild.roles" [style.background-color]="role.color">{{role.name}}</span>
+        </div>
+    </div>
 
-                    <ng-container *ngIf="guild.unverify.isSelfUnverify">
-                        selfunverify od <b>{{guild.unverify.start.binding}}</b> do <b>{{guild.unverify.end.binding}}</b>.
-                    </ng-container>
-                </div>
+    <div class="alert alert-info mt-2 mb-0" *ngIf="guild.unverify">
+        <i class="fas fa-info-circle"></i>
+        Uděleno
+        <ng-container *ngIf="!guild.unverify.isSelfUnverify">
+            unverify od <b>{{guild.unverify.start.binding}}</b> do <b>{{guild.unverify.end.binding}}</b>. Důvod odebrání
+            přístupu: <b>{{guild.unverify.reason}}</b>
+        </ng-container>
 
-                <div class="alert alert-warning mt-2 mb-0" *ngIf="!guild.isGuildKnown">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    GrillBot se nenachází na tomto serveru. Data mohou být nekompletní.
-                </div>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'Points'" *ngIf="guild.havePointsTransaction">
-            <a ngbNavLink>Body</a>
-            <ng-template ngbNavContent>
-                <app-loading [small]="true" *ngIf="!points"></app-loading>
-                <div class="row">
-                    <div keyValueItem class="col-md-auto" [key]="'Dnes'" [value]="getGuildPoints(i).pointsToday.toLocaleString()"></div>
-                    <div keyValueItem class="col-md-auto" [key]="'Za poslední měsíc'"
-                        [value]="getGuildPoints(i).pointsMonthBack.toLocaleString()"></div>
-                    <div keyValueItem class="col-md-auto" [key]="'Za poslední rok'"
-                        [value]="getGuildPoints(i).pointsYearBack.toLocaleString()"></div>
-                    <div keyValueItem class="col-md-auto" [key]="'Celkem'" [value]="getGuildPoints(i).totalPoints.toLocaleString()">
-                    </div>
-                </div>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'TimeoutHistory'" *ngIf="guild.timeoutHistory.length > 0">
-            <a ngbNavLink>Umlčení</a>
-            <ng-template ngbNavContent>
-                <ul>
-                    <li *ngFor="let timeout of guild.timeoutHistory" class="fw-bold">
-                        {{timeout.from.binding}} - {{timeout.to.binding}}
-                    </li>
-                </ul>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'Invite'" *ngIf="guild.usedInvite || guild.createdInvites.length > 0">
-            <a ngbNavLink>Pozvánky</a>
-            <ng-template ngbNavContent>
-                <div class="row">
-                    <div class="col-md" *ngIf="guild.createdInvites.length > 0">
-                        <b>Vytvořené pozvánky</b>
-                        <ul class="mb-0">
-                            <li *ngFor="let invite of guild.createdInvites">
-                                {{invite.code}} ({{invite.createdAt.toLocaleString()}})
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md" *ngIf="guild.usedInvite">
-                        <h6 class="mb-0">Použitá pozvánka</h6>
-                        <b>
-                            {{guild.usedInvite.code}}
-                            <ng-container *ngIf="guild.usedInvite.creator">
-                                (<a routerLink="/admin/users/{{guild.usedInvite.creator.id}}"
-                                    class="text-dark">{{guild.usedInvite.creator.username}}</a>)
-                            </ng-container>
-                            <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.toLocaleString()}})
-                            </ng-container>
-                        </b>
-                    </div>
-                </div>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'Nicknames'" *ngIf="guild.nicknameHistory.length > 0">
-            <a ngbNavLink>Přezdívky</a>
-            <ng-template ngbNavContent>
-                <div class="row">
-                    <div class="col-md-auto" *ngFor="let column of toColumns(guild.nicknameHistory, 2)">
-                        <ul class="mb-0">
-                            <li *ngFor="let nickname of column" class="fw-bold">{{nickname}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'ChannelActivity'" *ngIf="guild.channels && guild.channels.length > 0">
-            <a ngbNavLink>Aktivita v kanálech</a>
-            <ng-template ngbNavContent>
-                <table class="table table-sm table-bordered table-striped mb-0 auto-column-width">
-                    <thead>
-                        <tr>
-                            <th>Kanál</th>
-                            <th>Počet zpráv</th>
-                            <th>První zpráva</th>
-                            <th>Poslední zpráva</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let channel of guild.channels">
-                            <td>{{channel.channel.name | cut:60}}</td>
-                            <td>{{channel.count.toLocaleString()}}</td>
-                            <td>{{channel.firstMessageAt.toLocaleString()}}</td>
-                            <td>{{channel.lastMessageAt.toLocaleString()}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ng-template>
-        </li>
-        <li [ngbNavItem]="'EmoteActivity'" *ngIf="guild.emotes && guild.emotes.length > 0">
-            <a ngbNavLink>Použité emotikony</a>
-            <ng-template ngbNavContent>
-                <div class="guild-emote-list">
-                    <div class="border rounded m-1 guild-emote-list-item" *ngFor="let emote of guild.emotes">
-                        <img class="card-img-top" [src]="emote.emote.imageUrl" [alt]="emote.emote.name">
-                        <div class="card-body pt-0 ps-1 pb-1 d-flex flex-column">
-                            <b>{{emote.emote.name}} ({{emote.useCount.toLocaleString()}}x)</b>
-                            <span>Poprvé: <b>{{emote.firstOccurence.toLocaleString()}}</b></span>
-                            <span>Naposledy: <b>{{emote.lastOccurence.toLocaleString()}}</b></span>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
+        <ng-container *ngIf="guild.unverify.isSelfUnverify">
+            selfunverify od <b>{{guild.unverify.start.binding}}</b> do <b>{{guild.unverify.end.binding}}</b>.
+        </ng-container>
+    </div>
+
+    <div class="alert alert-warning mt-2 mb-0" *ngIf="!guild.isGuildKnown">
+        <i class="fas fa-exclamation-triangle"></i>
+        GrillBot se nenachází na tomto serveru. Data mohou být nekompletní.
+    </div>
+</ng-template>
+
+<ng-template #points let-i="i">
+    <app-loading [small]="true" *ngIf="!points"></app-loading>
+    <div class="row">
+        <div keyValueItem class="col-md-auto" [key]="'Dnes'" [value]="getGuildPoints(i).pointsToday.toLocaleString()"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Za poslední měsíc'" [value]="getGuildPoints(i).pointsMonthBack.toLocaleString()">
+        </div>
+        <div keyValueItem class="col-md-auto" [key]="'Za poslední rok'" [value]="getGuildPoints(i).pointsYearBack.toLocaleString()"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Celkem'" [value]="getGuildPoints(i).totalPoints.toLocaleString()">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #timeout_history let-guild="guild">
+    <ul>
+        <li *ngFor="let timeout of guild.timeoutHistory" class="fw-bold">
+            {{timeout.from.binding}} - {{timeout.to.binding}}
         </li>
     </ul>
+</ng-template>
 
-    <div [ngbNavOutlet]="nav" class="border-start border-end border-bottom border-top-0 p-3"
-        style="border-style: solid; border-color: #dee2e6"></div>
-</app-card>
+<ng-template #invite let-guild="guild">
+    <div class="row">
+        <div class="col-md" *ngIf="guild.createdInvites.length > 0">
+            <b>Vytvořené pozvánky</b>
+            <ul class="mb-0">
+                <li *ngFor="let invite of guild.createdInvites">
+                    {{invite.code}} ({{invite.createdAt.toLocaleString()}})
+                </li>
+            </ul>
+        </div>
+        <div class="col-md" *ngIf="guild.usedInvite">
+            <h6 class="mb-0">Použitá pozvánka</h6>
+            <b>
+                {{guild.usedInvite.code}}
+                <ng-container *ngIf="guild.usedInvite.creator">
+                    (<a routerLink="/admin/users/{{guild.usedInvite.creator.id}}"
+                        class="text-dark">{{guild.usedInvite.creator.username}}</a>)
+                </ng-container>
+                <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.toLocaleString()}})
+                </ng-container>
+            </b>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #nicknames let-guild="guild">
+    <div class="row">
+        <div class="col-md-auto" *ngFor="let column of toColumns(guild.nicknameHistory, 2)">
+            <ul class="mb-0">
+                <li *ngFor="let nickname of column" class="fw-bold">{{nickname}}</li>
+            </ul>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #channelActivity let-guild="guild">
+    <table class="table table-sm table-bordered table-striped mb-0 auto-column-width">
+        <thead>
+            <tr>
+                <th>Kanál</th>
+                <th>Počet zpráv</th>
+                <th>První zpráva</th>
+                <th>Poslední zpráva</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let channel of guild.channels">
+                <td>{{channel.channel.name | cut:60}}</td>
+                <td>{{channel.count.toLocaleString()}}</td>
+                <td>{{channel.firstMessageAt.toLocaleString()}}</td>
+                <td>{{channel.lastMessageAt.toLocaleString()}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #emotes let-guild="guild">
+    <div class="guild-emote-list">
+        <div class="border rounded m-1 guild-emote-list-item" *ngFor="let emote of guild.emotes">
+            <img class="card-img-top" [src]="emote.emote.imageUrl" [alt]="emote.emote.name">
+            <div class="card-body pt-0 ps-1 pb-1 d-flex flex-column">
+                <b>{{emote.emote.name}} ({{emote.useCount.toLocaleString()}}x)</b>
+                <span>Poprvé: <b>{{emote.firstOccurence.toLocaleString()}}</b></span>
+                <span>Naposledy: <b>{{emote.lastOccurence.toLocaleString()}}</b></span>
+            </div>
+        </div>
+    </div>
+</ng-template>

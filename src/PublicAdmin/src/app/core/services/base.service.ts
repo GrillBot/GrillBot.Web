@@ -6,8 +6,9 @@ import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/h
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { HTTPHeaders, QueryParam } from '../models/http';
 import { AuthToken } from '../models/auth';
-import { ModalService, ValidationErrorsModalComponent } from 'src/app/shared/modal';
 import { Support } from '../lib/support';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal } from 'src/app/shared/modal-box/models';
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 @Injectable({
@@ -18,14 +19,15 @@ export class BaseService {
         public router: Router,
         public storage: StorageService,
         public http: HttpClient,
-        private modal: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     catchError(err: HttpErrorResponse, suppressModal: boolean = false): Observable<never> {
         if (err.status === HttpStatusCode.BadRequest && err.error?.errors) {
-            const modal = this.modal.showCustomModal<ValidationErrorsModalComponent>(ValidationErrorsModalComponent, 'lg');
             const errors = err.error.errors as { [s: string]: string };
-            modal.componentInstance.errors = Support.flattern<string>(Object.values(errors) as string[]) as string[];
+            const errorList = Support.flattern<string>(Object.values(errors) as string[]) as string[];
+
+            this.modalBox.show(new InfoModal('Chybně zadané parametry', this.createValidationErrHtml(errorList), true));
             return EMPTY;
         } else if (err.status === HttpStatusCode.Unauthorized) {
             this.storage.remove('GrillBot_Public_AuthData');
@@ -43,7 +45,7 @@ export class BaseService {
             }
 
             if (!suppressModal) {
-                this.modal.showNotification('Chyba požadavku', message, 'lg');
+                this.modalBox.show(new InfoModal('Chyba požadavku', message, true));
             }
         }
 
@@ -75,5 +77,13 @@ export class BaseService {
         }
 
         return url;
+    }
+
+    private createValidationErrHtml(errors: string[]): string {
+        return [
+            '<ul class="mb-0">',
+            ...errors.map(e => `<li>${e}</li>`),
+            '</ul>'
+        ].join('');
     }
 }

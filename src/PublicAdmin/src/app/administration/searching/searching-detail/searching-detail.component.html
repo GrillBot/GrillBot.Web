@@ -1,20 +1,18 @@
-<app-modal [title]="'Detail hledání #' + item.id">
-    <table class="table table-sm table-striped table-bordered auto-column-width">
-        <tbody>
-            <tr>
-                <th>Server</th>
-                <td>{{item.guild.name}}</td>
-            </tr>
-            <tr>
-                <th>Kanál</th>
-                <td>{{item.channel.name}}</td>
-            </tr>
-            <tr>
-                <th>Zpráva</th>
-                <td>
-                    <pre class="alert alert-secondary mb-0 p-2">{{item.message}}</pre>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</app-modal>
+<table class="table table-sm table-striped table-bordered auto-column-width mb-0">
+    <tbody>
+        <tr>
+            <th>Server</th>
+            <td>{{item.guild.name}}</td>
+        </tr>
+        <tr>
+            <th>Kanál</th>
+            <td>{{item.channel.name}}</td>
+        </tr>
+        <tr>
+            <th>Zpráva</th>
+            <td>
+                <pre class="alert alert-secondary mb-0 p-2 text-wrap">{{item.message}}</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>

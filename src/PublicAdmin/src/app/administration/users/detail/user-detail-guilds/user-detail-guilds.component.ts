@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { List } from 'src/app/core/models/common';
 import { GuildUserDetail, UserPointsItem } from 'src/app/core/models/users';
 
@@ -7,15 +7,9 @@ import { GuildUserDetail, UserPointsItem } from 'src/app/core/models/users';
     templateUrl: './user-detail-guilds.component.html',
     styleUrls: ['./user-detail-guilds.component.scss']
 })
-export class UserDetailGuildsComponent implements OnInit {
+export class UserDetailGuildsComponent {
     @Input() userGuilds: GuildUserDetail[];
     @Input() points: List<UserPointsItem>;
-
-    activeIds: string[] = [];
-
-    ngOnInit(): void {
-        this.activeIds = this.userGuilds.map(_ => 'Common');
-    }
 
     getGuildPoints(index: number): UserPointsItem {
         if (!this.points) { return new UserPointsItem(); }

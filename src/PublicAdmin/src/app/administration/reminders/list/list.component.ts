@@ -4,7 +4,8 @@ import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { GetReminderListParams, RemindMessage } from 'src/app/core/models/reminder';
 import { ReminderService } from 'src/app/core/services/reminder.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -13,7 +14,7 @@ import { ModalService } from 'src/app/shared/modal';
 export class ListComponent extends ListComponentBase<GetReminderListParams> {
     constructor(
         private reminderService: ReminderService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -32,6 +33,6 @@ export class ListComponent extends ListComponentBase<GetReminderListParams> {
             event.stopPropagation();
         }
 
-        this.modalService.showNotification(`Obsah notifikace #${item.id}`, item.message);
+        this.modalBox.show(new InfoModal(`Obsah notifikace #${item.id}`, item.message));
     }
 }

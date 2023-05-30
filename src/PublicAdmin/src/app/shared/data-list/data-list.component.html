@@ -13,9 +13,8 @@
 
     <div class="col-md">
         <div class="d-flex justify-content-sm-end align-content-center">
-            <ngb-pagination [(page)]="currentPage" [collectionSize]="totalItemsCount" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-                [maxSize]="10" (pageChange)="pageChange($event)" [pageSize]="pageSize">
-            </ngb-pagination>
+            <app-pagination [(page)]="currentPage" [totalCount]="totalItemsCount" (pageChange)="pageChange($event)"
+                [pageSize]="pageSize"></app-pagination>
         </div>
     </div>
 </form>

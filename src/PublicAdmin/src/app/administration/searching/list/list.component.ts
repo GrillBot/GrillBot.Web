@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { GetSearchingListParams } from 'src/app/core/models/searching';
 import { SearchingService } from 'src/app/core/services/searching.service';
-import { ModalService } from 'src/app/shared/modal';
 import { SearchingDetailComponent } from '../searching-detail/searching-detail.component';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 import { Observable } from 'rxjs';
+import { CustomComponentModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-list',
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
 export class ListComponent extends ListComponentBase<GetSearchingListParams> {
     constructor(
         private searchingService: SearchingService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -34,7 +35,6 @@ export class ListComponent extends ListComponentBase<GetSearchingListParams> {
             event.stopPropagation();
         }
 
-        const modal = this.modalService.showCustomModal<SearchingDetailComponent>(SearchingDetailComponent, 'xl');
-        modal.componentInstance.item = item;
+        this.modalBox.show(new CustomComponentModal(`Detail hledání #${item.id}`, SearchingDetailComponent, null, item));
     }
 }
