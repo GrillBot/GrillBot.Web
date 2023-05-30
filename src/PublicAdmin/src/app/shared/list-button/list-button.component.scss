@@ -2,3 +2,7 @@ a i {
     min-width: 10px;
     text-align: center;
 }
+
+.btn-sm {
+    --bs-btn-padding-y: 0.1rem;
+}

@@ -25,7 +25,7 @@
                         <td>{{item.at.toLocaleString()}}</td>
                         <td>{{item.postpone}}</td>
                         <td>{{item.notified | czechBooleanPipe}}</td>
-                        <td class="no-print">
+                        <td class="no-print" style="padding: 0.13rem 0.25rem">
                             <list-button (clicked)="showMessage(item, $event)" title="Zobrazit zprávu" icon="info"></list-button>
                         </td>
                     </tr>
