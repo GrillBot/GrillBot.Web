@@ -51,4 +51,14 @@ export class EmotesService {
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
+
+    getStatOfEmote(emoteId: string): Observable<EmoteStatItem> {
+        const url = this.base.createUrl('emotes/stats', [new QueryParam('emoteId', emoteId)]);
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<EmoteStatItem>(url, { headers }).pipe(
+            map(data => EmoteStatItem.create(data)),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err, err.status === 404))
+        );
+    }
 }

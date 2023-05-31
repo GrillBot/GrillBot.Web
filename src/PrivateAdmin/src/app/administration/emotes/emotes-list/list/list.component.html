@@ -39,8 +39,9 @@
                         <td>{{item.lastOccurence.toLocaleString()}}</td>
                         <td>{{item.usedUsersCount.toLocaleString()}}</td>
                         <td class="no-print">
-                            <list-button (clicked)="mergeStatsToAnother(item)" [title]="'Sloučit statistiky s jinou statistikou.'"
-                                [iconGroup]="'fas'" [icon]="'code-branch'"></list-button>
+                            <list-button [link]="'/admin/emotes/' + item.emote.encodedId + '/merge'"
+                                [title]="'Sloučit statistiky s jinou statistikou.'" [iconGroup]="'fas'"
+                                [icon]="'code-branch'"></list-button>
                             <list-button (clicked)="removeStats(item)" [title]="'Smazat statistiku'" [iconGroup]="'far'"
                                 [icon]="'trash-alt'"></list-button>
                         </td>

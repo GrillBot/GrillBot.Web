@@ -5,9 +5,8 @@ import { Component } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { EmotesListParams, EmoteStatItem } from 'src/app/core/models/emotes';
 import { EmotesService } from 'src/app/core/services/emotes.service';
-import { MergeModalComponent } from '../../merge-modal/merge-modal.component';
-import { CustomComponentModal, InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -32,18 +31,6 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
     getRequest(pagination: PaginatedParams): Observable<PaginatedResponse<any>> {
         this.filter.set(pagination, this.sort);
         return this.emotesService.getStatsOfEmotes(this.filter, this.unsupported);
-    }
-
-    mergeStatsToAnother(row: EmoteStatItem): void {
-        // TODO Rework to page
-        // const modal = new CustomComponentModal('Sloučení statistik emote', MergeModalComponent, null, row);
-        /* modal.onClose.subscribe(() => {
-            if (row.invalidated) {
-                //this.list.filterChanged();
-            }
-        });*/
-
-        // this.modalBox.show(modal);
     }
 
     removeStats(row: EmoteStatItem): void {

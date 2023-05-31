@@ -1,0 +1,40 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<div class="row mt-3 ms-0 me-0">
+    <div class="col-md" *ngIf="!sourceEmote">
+        <app-loading></app-loading>
+    </div>
+
+    <div class="col-md" *ngIf="sourceEmote">
+        <app-card [title]="title" [icon]="'fas fa-code-branch'">
+            <div class="row">
+                <div class="col-md-auto">
+                    <app-card [header]="false">
+                        <h6 class="card-title">Zdrojový emote</h6>
+
+                        <p class="m-0">ID: <b>{{sourceEmote.emote.id}}</b></p>
+                        <p class="m-0">Název: <b>{{sourceEmote.emote.name}}</b></p>
+                        <p class="m-0">Počet použití: <b>{{sourceEmote.useCount.toLocaleString()}}</b></p>
+                        <p class="m-0">První výskyt: <b>{{sourceEmote.firstOccurence.binding}}</b></p>
+                        <p class="m-0">Poslední výskyt: <b>{{sourceEmote.lastOccurence.binding}}</b></p>
+                        <p class="m-0">Použilo uživatelů: <b>{{sourceEmote.usedUsersCount.toLocaleString()}}</b></p>
+                    </app-card>
+                </div>
+
+                <div class="col-md-3">
+                    <app-card [header]="false">
+                        <h6 class="card-title">Cílový emote:</h6>
+                        <app-emote-picker [(ngModel)]="destinationEmote"></app-emote-picker>
+
+                        <div class="row mt-3">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-success" (click)="process()" [disabled]="!destinationEmote">Provést
+                                    sloučení</button>
+                            </div>
+                        </div>
+                    </app-card>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
