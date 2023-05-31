@@ -23,17 +23,14 @@
         </div>
 
         <div class="row">
-            <div class="col-md form-group" *ngIf="!isMerged">
+            <div class="col-md-3 form-group" *ngIf="!isMerged">
                 <label>ID zprávy</label>
                 <input type="text" formControlName="messageId" class="form-control" />
             </div>
 
-            <div class="col-md-3 form-group">
+            <div class="col-md-auto form-group">
+                <label>&nbsp;</label>
                 <app-checkbox [id]="'only-messages'" formControlName="onlyMessages" [label]="'Pouze transakce ze zpráv'"></app-checkbox>
-                <button class="btn btn-link" (click)="showGraph()">Zobrazit graf</button>
-            </div>
-
-            <div class="col-md-3 form-group">
                 <app-checkbox [id]="'only-reactions'" formControlName="onlyReactions" [label]="'Pouze transakce z reakcí'"></app-checkbox>
             </div>
 

@@ -15,8 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-    ],
+    declarations: [],
     imports: [
         SharedModule,
         RouterModule.forChild(routes),

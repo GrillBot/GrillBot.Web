@@ -4,11 +4,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterComponent } from './filter/filter.component';
 import { ListComponent } from './list/list.component';
-import { GraphModalComponent } from './graph-modal/graph-modal.component';
+import { ChartsComponent } from './charts/charts.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent, data: { merged: false } },
-    { path: 'merged', component: DashboardComponent, data: { merged: true } }
+    { path: 'merged', component: DashboardComponent, data: { merged: true } },
+    { path: 'charts', component: ChartsComponent }
 ];
 
 @NgModule({
@@ -16,7 +17,7 @@ const routes: Routes = [
         DashboardComponent,
         FilterComponent,
         ListComponent,
-        GraphModalComponent
+        ChartsComponent
     ],
     imports: [
         SharedModule,

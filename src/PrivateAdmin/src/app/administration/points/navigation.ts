@@ -9,7 +9,8 @@ export class PointsNavigation implements INavigation {
         return [
             new NavigationItem('/admin/points/transactions', 'Transakce - Aktivní'),
             new NavigationItem('/admin/points/transactions/merged', 'Transakce - Archivní'),
-            new NavigationItem('/admin/points/service', 'Servisní operace')
+            new NavigationItem('/admin/points/service', 'Servisní operace'),
+            new NavigationItem('/admin/points/transactions/charts', 'Grafy')
         ];
     }
 

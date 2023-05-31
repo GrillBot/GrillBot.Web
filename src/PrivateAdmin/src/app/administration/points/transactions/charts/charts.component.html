@@ -1,0 +1,33 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<div class="row mt-3 ms-0 me-0 pb-3">
+    <div class="col-md">
+        <app-card [title]="'Platné transakce'" [icon]="'fa-comments fas'">
+            <ng-container *ngIf="nonMerged.loaded">
+                <h5>Zprávy</h5>
+                <app-line-chart [data]="nonMerged.message"></app-line-chart>
+                <h5 class="border-top">Reakce</h5>
+                <app-line-chart [data]="nonMerged.reaction"></app-line-chart>
+                <h5 class="border-top">Celkem</h5>
+                <app-line-chart [data]="nonMerged.total"></app-line-chart>
+            </ng-container>
+
+            <app-loading *ngIf="!nonMerged.loaded"></app-loading>
+        </app-card>
+    </div>
+
+    <div class="col-md">
+        <app-card [title]="'Expirované transakce'" [icon]="'fa-comments fas'">
+            <ng-container *ngIf="merged.loaded">
+                <h5>Zprávy</h5>
+                <app-line-chart [data]="merged.message"></app-line-chart>
+                <h5 class="border-top">Reakce</h5>
+                <app-line-chart [data]="merged.reaction"></app-line-chart>
+                <h5 class="border-top">Celkem</h5>
+                <app-line-chart [data]="merged.total"></app-line-chart>
+            </ng-container>
+
+            <app-loading *ngIf="!merged.loaded"></app-loading>
+        </app-card>
+    </div>
+</div>
