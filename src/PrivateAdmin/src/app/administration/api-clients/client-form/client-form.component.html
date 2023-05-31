@@ -1,0 +1,43 @@
+<div class="row mt-3 ms-0 me-3">
+    <div class="col-md">
+        <app-card [title]="(isNew ? 'Vytvoření' : 'Úprava') + ' klienta'" [icon]="'fas fa-plus'">
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-md">
+                        <label>Název</label>
+                        <input type="text" formControlName="name" placeholder="Název" class="form-control" maxlength="100" />
+                        <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'name')">
+                            <span *ngIf="validationHelper.isInvalid(form, 'name', 'required')">Název klienta je povinný.</span>
+                            <span *ngIf="validationHelper.isInvalid(form, 'name', 'maxlength')">Název klienta může mít maximálně 100
+                                znaků.</span>
+                        </small>
+                    </div>
+
+                    <div class="col-md">
+                        <label>Povolené metody</label>
+                        <app-search-input [isMultiSelect]="true" [searchSource]="'public-api-methods'"
+                            formControlName="allowedMethods"></app-search-input>
+                    </div>
+
+                    <div class="col-md-auto d-flex align-items-end">
+                        <button class="btn btn-outline-success me-2" (click)="process()">Uložit</button>
+                        <a class="btn btn-outline-danger" routerLink="/admin/api-clients">Zrušit</a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row mt-2" *ngIf="!isNew">
+                <div class="col-md-auto">
+                    <p class="mb-0">Id:</p>
+                    <p class="mb-0">Poslední použití:</p>
+                    <p class="mb-0">Počet použití: <b>{{apiClient.useCount.toLocaleString()}}</b></p>
+                </div>
+
+                <div class="col-md-auto">
+                    <p class="mb-0"><b>{{apiClient.id}}</b></p>
+                    <p class="mb-0"><b>{{apiClient.lastUse.binding}}</b></p>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

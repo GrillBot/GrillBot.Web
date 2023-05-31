@@ -1,6 +1,6 @@
 <div class="row ms-0 me-0 mt-2 no-print">
     <div class="col-md">
-        <a class="text-dark cursor-ptr" (click)="openEdit(true, null)">Vytvořit klienta</a>
+        <a class="text-dark cursor-ptr" routerLink="/admin/api-clients/add">Vytvořit klienta</a>
     </div>
 </div>
 
@@ -39,7 +39,7 @@
         <p *ngIf="client.useCount > 0">Naposledy použito: <b>{{client.lastUse.binding}}</b></p>
 
         <div class="btn-group mt-2 no-print">
-            <a class="btn btn-outline-primary" title="Upravit klienta" (click)="openEdit(false, client)">
+            <a class="btn btn-outline-primary" title="Upravit klienta" routerLink="/admin/api-clients/{{client.id}}">
                 <i class="fas fa-edit"></i>
             </a>
 

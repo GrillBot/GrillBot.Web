@@ -2,16 +2,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ClientEditModalComponent } from './client-edit-modal/client-edit-modal.component';
+import { ClientFormComponent } from './client-form/client-form.component';
 
 const routes: Routes = [
-    { path: '', component: DashboardComponent }
+    { path: '', component: DashboardComponent },
+    { path: ':id', component: ClientFormComponent }
 ];
 
 @NgModule({
     declarations: [
         DashboardComponent,
-        ClientEditModalComponent
+        ClientFormComponent
     ],
     imports: [
         SharedModule,
