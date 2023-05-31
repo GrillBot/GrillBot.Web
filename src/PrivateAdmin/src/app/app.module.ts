@@ -38,7 +38,7 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         SharedModule,
-        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })
+        RouterModule.forRoot(routes, {})
     ],
     providers: [
         {

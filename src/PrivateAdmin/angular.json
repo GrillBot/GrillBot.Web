@@ -60,7 +60,7 @@
                         "optimization": false,
                         "namedChunks": true,
                         "allowedCommonJsDependencies": [
-                            "jwt-decode"
+                            "jwt-decode", "filesize", "moment", "file-saver"
                         ]
                     },
                     "configurations": {

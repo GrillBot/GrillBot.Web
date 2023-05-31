@@ -8,7 +8,7 @@ import { EmoteUsersListComponent } from './emote-users-list/emote-users-list.com
 import { EmotesMergeComponent } from './emotes-merge/emotes-merge.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'supported' },
+    { path: '', redirectTo: 'supported', pathMatch: 'full' },
     { path: 'supported', component: DashboardComponent },
     { path: 'unsupported', component: DashboardComponent },
     { path: ':encodedEmoteId/users', component: EmoteUsersListComponent },

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'transactions' },
+    { path: '', redirectTo: 'transactions', pathMatch: 'full' },
     {
         path: 'transactions',
         loadChildren: () => import('./transactions/transactions.module').then(mod => mod.TransactionsModule)
