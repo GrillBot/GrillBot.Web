@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Dictionary } from 'src/app/core/models/common';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { AuditLogListParams } from 'src/app/core/models/audit-log';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AuditLogItemType, AuditLogItemTypeTexts } from 'src/app/core/models/enums/audit-log-item-type';
@@ -21,7 +21,7 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     exFilters: ExtendedFilterData;
 
     constructor(
-        fb: FormBuilder,
+        fb: UntypedFormBuilder,
         storage: StorageService,
     ) { super(fb, storage); }
 

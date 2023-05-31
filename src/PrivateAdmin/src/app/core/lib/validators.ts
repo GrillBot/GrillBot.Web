@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn, ValidationErrors, FormGroup } from '@angular/forms';
+import { AbstractControl, ValidatorFn, ValidationErrors, UntypedFormGroup } from '@angular/forms';
 
 export class ValidationHelper {
     static isInvalid(form: AbstractControl, controlId: string, errorId: string = null): boolean {
@@ -10,7 +10,7 @@ export class ValidationHelper {
 
     static multipleRequired(errorCode: string, ...controlIds: string[]): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            const form = control as FormGroup;
+            const form = control as UntypedFormGroup;
 
             const formControls = controlIds.map(o => form.get(o));
             const values = formControls.map(o => o.value);

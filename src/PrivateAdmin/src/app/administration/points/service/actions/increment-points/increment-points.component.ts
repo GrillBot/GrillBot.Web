@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PointsService } from 'src/app/core/services/points.service';
 import { ValidationHelper } from 'src/app/core/lib/validators';
@@ -11,10 +11,10 @@ import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
     templateUrl: './increment-points.component.html'
 })
 export class IncrementPointsComponent implements OnInit {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private pointsService: PointsService,
         private modalBox: ModalBoxService
     ) { }

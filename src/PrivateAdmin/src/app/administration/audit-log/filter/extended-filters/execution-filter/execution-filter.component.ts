@@ -1,5 +1,5 @@
 import { SelectItems } from './../../../../../shared/select/models';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ExecutionFilter } from './../../../../../core/models/audit-log';
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { noop } from 'rxjs';
@@ -18,7 +18,7 @@ import { noop } from 'rxjs';
 export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     wasSuccessItems: SelectItems = [
         { key: 'Nerozhoduje', value: null },
@@ -28,7 +28,7 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
 
     private onChange: (obj: ExecutionFilter) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({

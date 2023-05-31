@@ -2,7 +2,7 @@ import { FilterComponentBase } from 'src/app/shared/common-page/filter-component
 import { Dictionary } from 'src/app/core/models/common';
 import { GetChannelListParams } from './../../../../core/models/channels';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { ChannelType } from 'src/app/core/models/enums/channel-type';
 import { Support } from 'src/app/core/lib/support';
@@ -14,7 +14,7 @@ import { Support } from 'src/app/core/lib/support';
 export class FilterComponent extends FilterComponentBase<GetChannelListParams> {
     channelTypes: Dictionary<number, string>;
 
-    constructor(fb: FormBuilder, storage: StorageService) {
+    constructor(fb: UntypedFormBuilder, storage: StorageService) {
         super(fb, storage);
     }
 

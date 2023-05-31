@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { TextFilter } from './../../../../../core/models/audit-log';
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { noop } from 'rxjs';
@@ -17,11 +17,11 @@ import { noop } from 'rxjs';
 export class TextFilterComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     private onChange: (obj: TextFilter) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({

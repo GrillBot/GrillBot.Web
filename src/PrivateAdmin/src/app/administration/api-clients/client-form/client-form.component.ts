@@ -7,7 +7,7 @@ import { ApiClient, ApiClientParams } from 'src/app/core/models/api-clients';
 import { ApiClientsService } from 'src/app/core/services/api-clients.service';
 import { EMPTY, throwError } from 'rxjs';
 import { ValidationHelper } from 'src/app/core/lib/validators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { InfoModal } from 'src/app/shared/modal-box/models';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
@@ -17,14 +17,14 @@ import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 })
 export class ClientFormComponent implements OnInit {
     apiClient: ApiClient;
-    form: FormGroup;
+    form: UntypedFormGroup;
     isNew = false;
 
     constructor(
         private route: ActivatedRoute,
         private apiClientsService: ApiClientsService,
         private router: Router,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private modalBox: ModalBoxService
     ) { }
 

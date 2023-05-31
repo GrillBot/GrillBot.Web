@@ -1,5 +1,5 @@
 import { noop } from 'rxjs';
-import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, UntypedFormGroup, UntypedFormBuilder, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { SelectItems } from 'src/app/shared/select/models';
 import { MessageDeletedFilter } from 'src/app/core/models/audit-log';
@@ -16,7 +16,7 @@ import { MessageDeletedFilter } from 'src/app/core/models/audit-log';
     ]
 })
 export class MessageDeletedFilterComponent implements OnInit, ControlValueAccessor {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     containsEmbedItems: SelectItems = [
         { key: 'Nerozhoduje', value: null },
@@ -26,7 +26,7 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
 
     private onChange: (obj: MessageDeletedFilter) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({

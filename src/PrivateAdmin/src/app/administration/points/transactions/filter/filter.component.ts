@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -11,7 +11,7 @@ import { AdminListRequest } from 'src/app/core/models/points';
 })
 export class FilterComponent extends FilterComponentBase<AdminListRequest> {
     constructor(
-        fb: FormBuilder,
+        fb: UntypedFormBuilder,
         storage: StorageService,
         private route: ActivatedRoute
     ) {

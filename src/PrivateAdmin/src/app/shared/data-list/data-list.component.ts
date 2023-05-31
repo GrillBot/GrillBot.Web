@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { CardComponent } from '../card/card.component';
 import { defaultPageSize, pageSizes } from './models';
@@ -18,12 +18,12 @@ export class DataListComponent implements OnInit {
     isDataLoaded = false;
     totalItemsCount = 0;
     items: any[] = [];
-    form: FormGroup;
+    form: UntypedFormGroup;
     currentPage = 1;
     pageSize: number;
 
     constructor(
-        private fb: FormBuilder
+        private fb: UntypedFormBuilder
     ) { }
 
     /* eslint-disable @typescript-eslint/no-unsafe-argument */

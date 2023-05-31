@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ValidationHelper } from 'src/app/core/lib/validators';
 import { GuildDetail, UpdateGuildParams } from 'src/app/core/models/guilds';
@@ -15,12 +15,12 @@ import { InfoModal } from 'src/app/shared/modal-box/models';
 })
 export class GuildDetailComponent implements OnInit {
     data: GuildDetail;
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
         private guildService: GuildService,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private modalBox: ModalBoxService
     ) { }
 

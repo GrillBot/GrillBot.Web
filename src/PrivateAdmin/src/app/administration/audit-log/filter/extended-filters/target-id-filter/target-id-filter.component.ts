@@ -1,6 +1,6 @@
 import { noop } from 'rxjs';
 import { TargetIdFilter } from './../../../../../core/models/audit-log';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 
 @Component({
@@ -17,11 +17,11 @@ import { Component, OnInit, forwardRef, Input } from '@angular/core';
 export class TargetIdFilterComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     private onChange: (obj: TargetIdFilter) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({

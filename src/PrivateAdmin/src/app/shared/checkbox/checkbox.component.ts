@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormBuilder, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { noop } from 'rxjs';
 
 @Component({
@@ -21,11 +21,11 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     @Input() disabled = false;
     @Output('onChange') onChangeEvent = new EventEmitter<boolean>();
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     private onChange: (_: any) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     get checkbox(): AbstractControl { return this.form.get('checkbox'); }
 

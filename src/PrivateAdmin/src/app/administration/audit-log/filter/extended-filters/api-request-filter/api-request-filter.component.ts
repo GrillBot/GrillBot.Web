@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { noop } from 'rxjs';
 import { ApiRequestFilter } from './../../../../../core/models/audit-log';
-import { NG_VALUE_ACCESSOR, FormGroup, FormBuilder, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, UntypedFormGroup, UntypedFormBuilder, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { SelectItems } from 'src/app/shared/select/models';
 
@@ -17,7 +17,7 @@ import { SelectItems } from 'src/app/shared/select/models';
     ]
 })
 export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     userRoles: SelectItems = [
         { key: 'Nerozhoduje', value: null },
@@ -43,7 +43,7 @@ export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
 
     private onChange: (obj: ApiRequestFilter) => void = noop;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({

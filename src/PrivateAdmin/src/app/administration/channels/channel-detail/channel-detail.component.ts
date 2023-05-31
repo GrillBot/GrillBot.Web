@@ -3,7 +3,7 @@ import { SendMessageToChannelParams, UpdateChannelParams } from './../../../core
 import { Dictionary, PaginatedParams } from 'src/app/core/models/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ChannelDetail } from 'src/app/core/models/channels';
 import { ChannelService } from 'src/app/core/services/channel.service';
 import { ValidationHelper } from 'src/app/core/lib/validators';
@@ -22,13 +22,13 @@ export class ChannelDetailComponent implements OnInit {
 
     data: ChannelDetail;
     channelId: string;
-    sendMessageForm: FormGroup;
-    settingsForm: FormGroup;
+    sendMessageForm: UntypedFormGroup;
+    settingsForm: UntypedFormGroup;
     flagsOptions: Dictionary<number, string>;
     settingsSaving = false;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private activatedRoute: ActivatedRoute,
         private channelService: ChannelService,
         private router: Router,

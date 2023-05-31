@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UpdateUserParams, UserDetail } from 'src/app/core/models/users';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { InfoModal } from 'src/app/shared/modal-box/models';
@@ -17,10 +17,10 @@ export class UserDetailSettingsComponent implements OnInit {
     @Input() user: UserDetail;
     @Output() userUpdated = new EventEmitter<UserDetail>();
 
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private authService: AuthService,
         private userService: UserService,
         private modalBox: ModalBoxService

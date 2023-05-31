@@ -1,5 +1,5 @@
 import { Component, forwardRef, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { noop } from 'rxjs';
 
 interface FormType {
@@ -21,13 +21,13 @@ interface FormType {
     ]
 })
 export class TimeSpanInputComponent implements OnInit, ControlValueAccessor {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     private parseRegex = new RegExp('(\\d+)?\\.?(\\d\\d):(60|([0-5][0-9])):(60|([0-5][0-9]))');
     private onChange: (value: string) => void = noop;
 
     constructor(
-        private fb: FormBuilder
+        private fb: UntypedFormBuilder
     ) { }
 
     ngOnInit(): void {

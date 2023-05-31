@@ -1,4 +1,4 @@
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { EmotesListParams } from 'src/app/core/models/emotes';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -9,7 +9,7 @@ import { FilterComponentBase } from 'src/app/shared/common-page/filter-component
     templateUrl: './filter.component.html'
 })
 export class FilterComponent extends FilterComponentBase<EmotesListParams> {
-    constructor(fb: FormBuilder, storage: StorageService) {
+    constructor(fb: UntypedFormBuilder, storage: StorageService) {
         super(fb, storage);
     }
 

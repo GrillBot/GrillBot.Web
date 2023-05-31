@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ValidationHelper } from 'src/app/core/lib/validators';
 import { PointsService } from 'src/app/core/services/points.service';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
@@ -11,10 +11,10 @@ import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
     templateUrl: './transfer-points.component.html'
 })
 export class TransferPointsComponent implements OnInit {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private pointsService: PointsService,
         private modalBox: ModalBoxService
     ) { }

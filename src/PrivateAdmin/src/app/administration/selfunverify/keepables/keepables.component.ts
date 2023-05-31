@@ -1,4 +1,4 @@
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ObservableDict } from './../../../core/models/common';
 import { Component, OnInit } from '@angular/core';
 import { SelfUnverifyService } from 'src/app/core/services/selfunverify.service';
@@ -15,16 +15,16 @@ import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 })
 export class KeepablesComponent implements OnInit {
     $keepablesRequest: ObservableDict<string, string[]>;
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(
         private selfunverifyService: SelfUnverifyService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private modalBox: ModalBoxService
     ) { }
 
-    get formItems(): FormArray {
-        return this.form.get('items') as FormArray;
+    get formItems(): UntypedFormArray {
+        return this.form.get('items') as UntypedFormArray;
     }
 
     ngOnInit(): void {

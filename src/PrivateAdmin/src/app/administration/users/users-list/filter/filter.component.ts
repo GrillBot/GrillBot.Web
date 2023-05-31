@@ -3,7 +3,7 @@ import { SelectItems } from './../../../../shared/select/models';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from './../../../../core/models/common';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { GetUserListParams } from 'src/app/core/models/users';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { Support } from 'src/app/core/lib/support';
@@ -25,7 +25,7 @@ export class FilterComponent extends FilterComponentBase<GetUserListParams> {
     ];
 
     constructor(
-        fb: FormBuilder,
+        fb: UntypedFormBuilder,
         storage: StorageService,
         private activatedRoute: ActivatedRoute
     ) { super(fb, storage); }

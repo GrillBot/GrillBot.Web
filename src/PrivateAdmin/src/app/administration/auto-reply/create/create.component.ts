@@ -4,7 +4,7 @@ import { AutoReplyItemFlagsTexts } from './../../../core/models/enums/auto-reply
 import { AutoReplyService } from 'src/app/core/services/auto-reply.service';
 import { Dictionary } from './../../../core/models/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutoReplyItemFlags } from 'src/app/core/models/enums/auto-reply-item-flags';
 import { Support } from 'src/app/core/lib/support';
@@ -16,13 +16,13 @@ import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
     templateUrl: './create.component.html'
 })
 export class CreateComponent implements OnInit {
-    form: FormGroup;
+    form: UntypedFormGroup;
     flagsOptions: Dictionary<number, string>;
     isAdd: boolean;
     id: number;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private autoReplyService: AutoReplyService,
         private router: Router,
         private route: ActivatedRoute,
