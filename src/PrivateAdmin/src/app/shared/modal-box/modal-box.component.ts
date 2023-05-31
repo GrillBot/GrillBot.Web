@@ -80,6 +80,19 @@ export class ModalBoxComponent implements OnInit {
         this.action(true);
     }
 
+    @HostListener('click', ['$event'])
+    onMouseClick(event: PointerEvent | MouseEvent): void {
+        let target = event.target as HTMLElement;
+        while (target !== null) {
+            if (target.classList.contains('box')) {
+                event.stopPropagation();
+                break;
+            }
+
+            target = target.parentElement;
+        }
+    }
+
     ngOnInit(): void {
         this.modalBoxService.register = description => this.render(description);
     }

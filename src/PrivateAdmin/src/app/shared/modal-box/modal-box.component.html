@@ -1,5 +1,5 @@
 <div class="background" [class.visible]="visible" (click)="action(null)">
-    <div class="box" (click)="$event.stopPropagation()" *ngIf="description">
+    <div class="box" *ngIf="description" (click)="onMouseClick($event)">
         <h3>{{description.title}}</h3>
 
         <div class="body">
