@@ -4,7 +4,7 @@ import { Role } from './roles';
 import { GuildUser, User } from './users';
 import { Guild } from './guilds';
 import { Support } from '../lib/support';
-import { FilterBase, RangeParams, createRangeParams } from './common';
+import { FilterBase, RangeParams, createRangeParams, TemplateBinding } from './common';
 
 export class UnverifyInfo {
     public start: DateTime;
@@ -39,6 +39,8 @@ export class UnverifyUserProfile extends UnverifyInfo {
     public reason: string | null;
     public isSelfUnverify: boolean;
     public guild: Guild;
+
+    public updateTimeBinding?: TemplateBinding;
 
     static create(data: any): UnverifyUserProfile | null {
         if (!data) { return null; }

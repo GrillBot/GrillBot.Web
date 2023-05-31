@@ -1,7 +1,6 @@
-import { UpdateUnverifyTimeModalComponent } from './../update-unverify-time-modal/update-unverify-time-modal.component';
 import { Dictionary } from './../../../core/models/common';
 import { UnverifyUserProfile, UpdateUnverifyParams } from './../../../core/models/unverify';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, TemplateRef } from '@angular/core';
 import { UnverifyService } from 'src/app/core/services/unverify.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { forkJoin } from 'rxjs';
@@ -71,21 +70,32 @@ export class CurrentStateComponent implements OnInit {
         this.modalBox.show(modal);
     }
 
-    openTimeUpdate(profile: UnverifyUserProfile, button: HTMLButtonElement): void {
-        // TODO Rework do stránky
-        // const modal = this.modalService.showCustomModal<UpdateUnverifyTimeModalComponent>(UpdateUnverifyTimeModalComponent);
-        //
-        // modal.componentInstance.profile = profile;
-        // modal.onAccept.subscribe(_ => {
-        //    const params = new UpdateUnverifyParams(modal.componentInstance.end, modal.componentInstance.reason);
-        //    button.disabled = true;
-        //
-        //    this.unverifyService.updateUnverifyTime(profile.guild.id, profile.user.id, params).subscribe(result => {
-        //        const infoModal = new InfoModal('Změna času odebrání přístupu', result.replace(/\*\*/g, ''));
-        //        infoModal.onClose.subscribe(() => this.reloadData());
-        //
-        //        this.modalBox.show(infoModal);
-        //    });
-        // });
+    openTimeUpdate(profile: UnverifyUserProfile, button: HTMLButtonElement, updateTimeTemplate: TemplateRef<any>): void {
+        if (profile.updateTimeBinding) {
+            profile.updateTimeBinding = null;
+            return;
+        }
+
+        profile.updateTimeBinding = {
+            template: updateTimeTemplate,
+            context: { unverify: profile }
+        };
+    }
+
+    confirmTimeUpdate(profile: UnverifyUserProfile, newTime: HTMLInputElement, reason: HTMLInputElement): void {
+        const modal = new QuestionModal('Změna času unverify',
+            `Opravdu si přejete změnit koncový čas pro uživatele <b>${profile.user.username}</b>?`, true);
+        modal.onAccept.subscribe(() => {
+            const parameters = new UpdateUnverifyParams(newTime.value, reason.value);
+
+            this.unverifyService.updateUnverifyTime(profile.guild.id, profile.user.id, parameters).subscribe(result => {
+                const infoModal = new InfoModal('Změna času odebrání přístupu', result.replace(/\*\*/g, ''));
+                infoModal.onClose.subscribe(() => this.reloadData());
+
+                this.modalBox.show(infoModal);
+            });
+        });
+
+        this.modalBox.show(modal);
     }
 }

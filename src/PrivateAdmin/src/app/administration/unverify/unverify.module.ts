@@ -4,7 +4,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterComponent } from './filter/filter.component';
 import { ListComponent } from './list/list.component';
 import { CurrentStateComponent } from './current-state/current-state.component';
-import { UpdateUnverifyTimeModalComponent } from './update-unverify-time-modal/update-unverify-time-modal.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -18,8 +17,7 @@ const routes: Routes = [
         DashboardComponent,
         FilterComponent,
         ListComponent,
-        CurrentStateComponent,
-        UpdateUnverifyTimeModalComponent
+        CurrentStateComponent
     ],
     imports: [
         SharedModule,

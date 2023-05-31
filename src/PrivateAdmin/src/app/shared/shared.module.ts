@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card/card.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './loading/loading.component';
 import { ListButtonComponent } from './list-button/list-button.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -52,7 +51,6 @@ import { PaginationComponent } from './pagination/pagination.component';
         HttpClientModule,
         FormsModule,
         RouterModule,
-        NgbModalModule,
         NgxFilesizeModule,
         NgSelectModule,
         DirectivesModule,

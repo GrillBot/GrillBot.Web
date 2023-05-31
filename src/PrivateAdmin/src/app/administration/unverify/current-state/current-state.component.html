@@ -17,12 +17,11 @@
 </div>
 
 <ng-template #unverifyCard let-unverify="unverify">
-    <app-card [header]="false">
+    <app-card [header]="false" [footer]="unverify.updateTimeBinding">
         <span>
             <h4 class="fw-normal d-inline me-2">{{unverify.user.username}}</h4>
             <h6 class="badge bg-dark" *ngIf="unverify.isSelfUnverify">Selfunverify</h6>
         </span>
-
 
         <p>Začátek: <b>{{unverify.start.binding}}</b></p>
         <p>Konec: <b>{{unverify.end.binding}}</b></p>
@@ -62,7 +61,7 @@
         </div>
 
         <div class="btn-group mt-2 no-print">
-            <button #edit_button class="btn btn-outline-primary d-flex" (click)="openTimeUpdate(unverify, edit_button)">
+            <button #edit_button class="btn btn-outline-primary d-flex" (click)="openTimeUpdate(unverify, edit_button, updateTime)">
                 Upravit čas
                 <app-loading [small]="true" [noText]="true" *ngIf="edit_button.disabled"></app-loading>
             </button>
@@ -78,4 +77,20 @@
             </button>
         </div>
     </app-card>
+</ng-template>
+
+<ng-template #updateTime let-unverify="unverify">
+    <div class="row">
+        <div class="col-md">
+            <label>Nový konec</label>
+            <input type="datetime-local" class="form-control" [value]="unverify.end.toFormString()" #newEnd />
+        </div>
+        <div class="col-md">
+            <label>Důvod</label>
+            <input type="text" class="form-control" #reason />
+        </div>
+        <div class="col-md-auto d-flex align-items-end">
+            <button class="btn btn-outline-success" (click)="confirmTimeUpdate(unverify, newEnd, reason)">Uložit</button>
+        </div>
+    </div>
 </ng-template>

@@ -1,4 +1,3 @@
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmoteStatItem, MergeEmoteStatsParams } from 'src/app/core/models/emotes';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { EmotesService } from 'src/app/core/services/emotes.service';
