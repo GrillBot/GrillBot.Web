@@ -1,8 +1,9 @@
 import { List } from './../../../core/models/common';
 import { ScheduledJobsService } from './../../../core/services/scheduled-jobs.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from 'src/app/shared/modal';
 import { ScheduledJob } from 'src/app/core/models/scheduled-jobs';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-dashboard',
@@ -13,8 +14,8 @@ export class DashboardComponent implements OnInit {
     jobs?: List<ScheduledJob>;
 
     constructor(
-        private modalService: ModalService,
-        private service: ScheduledJobsService
+        private service: ScheduledJobsService,
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -22,12 +23,15 @@ export class DashboardComponent implements OnInit {
     }
 
     triggerJob(job: ScheduledJob): void {
-        this.modalService.showQuestion('Spuštění úlohy', 'Opravdu si přejete spustit úlohu?').onAccept.subscribe(() => {
+        const modal = new QuestionModal('Spuštění úlohy', `Opravdu si přejete spustit úlohu ${job.name}?`);
+        modal.onAccept.subscribe(() => {
             this.service.runScheduledJob(job.name).subscribe(() => {
                 this.ngOnInit();
-                this.modalService.showNotification('Spuštění úlohy', 'Požadavek na spuštění úlohy byl odeslán.');
+                this.modalBox.show(new InfoModal('Spuštění úlohy', 'Požadavek na spuštění úlohy byl odeslán.'));
             });
         });
+
+        this.modalBox.show(modal);
     }
 
     updateJob(job: ScheduledJob, enabled: boolean): void {
@@ -35,11 +39,14 @@ export class DashboardComponent implements OnInit {
         const title = (enabled ? 'Aktivace' : 'Deaktivace') + ' naplánované úlohy';
         const successMessage = 'Úloha byla úspěšně ' + (enabled ? 'aktivována' : 'deaktivována') + '.';
 
-        this.modalService.showQuestion(title, message).onAccept.subscribe(() => {
+        const modal = new QuestionModal(title, message);
+        modal.onAccept.subscribe(() => {
             this.service.updateJob(job.name, enabled).subscribe(() => {
                 this.ngOnInit();
-                this.modalService.showNotification(title, successMessage);
+                this.modalBox.show(new InfoModal(title, successMessage));
             });
         });
+
+        this.modalBox.show(modal);
     }
 }

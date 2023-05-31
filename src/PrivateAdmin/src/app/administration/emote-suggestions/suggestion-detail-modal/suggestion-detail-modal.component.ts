@@ -1,6 +1,6 @@
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { EmoteSuggestion } from 'src/app/core/models/suggestions';
+import { DATA_INJECTION_TOKEN } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-suggestion-detail-modal',
@@ -8,7 +8,9 @@ import { EmoteSuggestion } from 'src/app/core/models/suggestions';
     styleUrls: ['./suggestion-detail-modal.component.scss']
 })
 export class SuggestionDetailModalComponent {
-    @Input() suggestion: EmoteSuggestion;
+    suggestion: EmoteSuggestion;
 
-    constructor(public modal: NgbActiveModal) { }
+    constructor(@Inject(DATA_INJECTION_TOKEN) injectedData: EmoteSuggestion) {
+        this.suggestion = injectedData;
+    }
 }

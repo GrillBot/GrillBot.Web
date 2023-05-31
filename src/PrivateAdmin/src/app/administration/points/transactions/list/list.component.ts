@@ -5,7 +5,8 @@ import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { AdminListRequest, PointsTransaction } from 'src/app/core/models/points';
 import { PointsService } from 'src/app/core/services/points.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
-import { ModalService } from 'src/app/shared/modal';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-list',
@@ -15,7 +16,7 @@ export class ListComponent extends ListComponentBase<AdminListRequest> {
     constructor(
         private service: PointsService,
         private route: ActivatedRoute,
-        private modal: ModalService
+        private modalBox: ModalBoxService
     ) {
         super();
     }
@@ -38,12 +39,15 @@ export class ListComponent extends ListComponentBase<AdminListRequest> {
     removeTransaction(item: PointsTransaction): void {
         const title = 'Smazání transakce';
 
-        this.modal.showQuestion(title,
-            `Opravdu si přejete smazat transakci pro zprávu s ID ${item.messageId} od uživatele ${item.user.username}?`
-        ).onAccept.subscribe(() => {
+        const modal = new QuestionModal(
+            title, `Opravdu si přejete smazat transakci pro zprávu s ID ${item.messageId} od uživatele ${item.user.username}?`);
+        modal.onAccept.subscribe(() => {
             this.service.removeTransaction(item.guild.id, item.messageId, item.reactionId).subscribe(() => {
-                this.modal.showNotification(title, 'Transakce byla úspěšně smazána.').onClose.subscribe(() => this.reload());
+                this.modalBox.show(new InfoModal(title, 'Transakce byla úspěšně smazána.'));
+                this.reload();
             });
         });
+
+        this.modalBox.show(modal);
     }
 }

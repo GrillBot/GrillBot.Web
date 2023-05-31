@@ -3,12 +3,13 @@ import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { GetSearchingListParams } from 'src/app/core/models/searching';
 import { SearchingService } from 'src/app/core/services/searching.service';
-import { ModalService } from 'src/app/shared/modal';
 import { CheckboxComponent } from 'src/app/shared/checkbox/checkbox.component';
 import { CardComponent } from 'src/app/shared/card/card.component';
 import { SearchingDetailComponent } from '../searching-detail/searching-detail.component';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 import { Observable } from 'rxjs';
+import { CustomComponentModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-list',
@@ -20,7 +21,7 @@ export class ListComponent extends ListComponentBase<GetSearchingListParams> {
 
     constructor(
         private searchingService: SearchingService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -37,9 +38,12 @@ export class ListComponent extends ListComponentBase<GetSearchingListParams> {
         const selectedItems = this.checkboxes.filter(o => o.checked).map(o => parseInt(o.id, 10));
         if (selectedItems.length === 0) { return; }
 
-        this.modalService.showQuestion('Smazat hledání', 'Opravdu si přejete smazat označená hledání?').onAccept.subscribe(_ => {
+        const modal = new QuestionModal('Smazat hledání', 'Opravdu si přejete smazat označená hledání?');
+        modal.onAccept.subscribe(() => {
             this.searchingService.removeSearches(selectedItems).subscribe(__ => this.list.filterChanged());
         });
+
+        this.modalBox.show(modal);
     }
 
     showMessage(item: SearchingListItem, event: Event): void {
@@ -48,7 +52,6 @@ export class ListComponent extends ListComponentBase<GetSearchingListParams> {
             event.stopPropagation();
         }
 
-        const modal = this.modalService.showCustomModal<SearchingDetailComponent>(SearchingDetailComponent, 'xl');
-        modal.componentInstance.item = item;
+        this.modalBox.show(new CustomComponentModal(`Detail hledání #${item.id}`, SearchingDetailComponent, null, item));
     }
 }

@@ -5,7 +5,8 @@ import { PaginatedParams } from 'src/app/core/models/common';
 import { GetInviteListParams, GuildInvite } from 'src/app/core/models/invites';
 import { InviteService } from 'src/app/core/services/invite.service';
 import { Observable } from 'rxjs';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -14,7 +15,7 @@ import { ModalService } from 'src/app/shared/modal';
 export class ListComponent extends ListComponentBase<GetInviteListParams> {
     constructor(
         private inviteService: InviteService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -28,14 +29,18 @@ export class ListComponent extends ListComponentBase<GetInviteListParams> {
     }
 
     deleteInvite(invite: GuildInvite): void {
+        const title = 'Smazat pozvánku';
         const message = `Opravdu si přejete smazat pozvánku s kódem <b>${invite.code}</b> ze serveru <b>${invite.guild.name}?</b><br>` +
             (invite.usedUsersCount > 0 ? `Počet použití pozvánky je <b>${invite.usedUsersCount}</b>.` : '');
 
-        this.modalService.showQuestion('Smazat pozvánku', message).onAccept.subscribe(() => {
+        const modal = new QuestionModal(title, message, true);
+        modal.onAccept.subscribe(() => {
             this.inviteService.deleteInvite(invite.guild.id, invite.code).subscribe(() => {
                 this.reload();
-                this.modalService.showNotification('Smazat pozvánku', 'Pozvánka byla úspěšně vymazána.');
+                this.modalBox.show(new InfoModal(title, 'Pozvánka byla úspěšně smazána.'));
             });
         });
+
+        this.modalBox.show(modal);
     }
 }

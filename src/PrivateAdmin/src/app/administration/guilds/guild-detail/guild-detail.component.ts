@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -7,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ValidationHelper } from 'src/app/core/lib/validators';
 import { GuildDetail, UpdateGuildParams } from 'src/app/core/models/guilds';
 import { GuildService } from 'src/app/core/services/guild.service';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-guild-detail',
@@ -22,7 +21,7 @@ export class GuildDetailComponent implements OnInit {
         private guildService: GuildService,
         private activatedRoute: ActivatedRoute,
         private fb: FormBuilder,
-        private modal: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -66,7 +65,7 @@ export class GuildDetailComponent implements OnInit {
         );
 
         this.guildService.updateGuild(this.data.id, params).subscribe(_ => {
-            this.modal.showNotification('Změna nastavení serveru', 'Nastavení serveru bylo úspěšně provedeno.');
+            this.modalBox.show(new InfoModal('Změna nastavení serveru', 'Nastavení serveru bylo úspěšně provedeno.'));
         });
     }
 

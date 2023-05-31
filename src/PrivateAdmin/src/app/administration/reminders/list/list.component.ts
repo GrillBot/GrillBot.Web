@@ -4,7 +4,8 @@ import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { GetReminderListParams, RemindMessage } from 'src/app/core/models/reminder';
 import { ReminderService } from 'src/app/core/services/reminder.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { CustomComponentModal, QuestionModal } from 'src/app/shared/modal-box/models';
 import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 
 @Component({
@@ -14,7 +15,7 @@ import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 export class ListComponent extends ListComponentBase<GetReminderListParams> {
     constructor(
         private reminderService: ReminderService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -28,16 +29,18 @@ export class ListComponent extends ListComponentBase<GetReminderListParams> {
     }
 
     cancel(item: RemindMessage, notify: boolean): void {
-        let message = `Opravdu si přeješ zrušit oznámení pro uživatele ${item.toUser?.username}? `;
+        let message = `Opravdu si přejete zrušit oznámení pro uživatele ${item.toUser?.username}? `;
         if (notify) { message += 'Uživateli přijde předčasně oznámení.'; }
 
-        this.modalService.showQuestion('Zrušení upozornění', message).onAccept.subscribe(_ => {
+        const modal = new QuestionModal('Zrušení upozornění', message);
+        modal.onAccept.subscribe(_ => {
             this.reminderService.cancelRemind(item.id, notify).subscribe(__ => this.list.filterChanged());
         });
+
+        this.modalBox.show(modal);
     }
 
     showMessage(item: RemindMessage): void {
-        const modal = this.modalService.showCustomModal<DetailModalComponent>(DetailModalComponent);
-        modal.componentInstance.item = item;
+        this.modalBox.show(new CustomComponentModal(`Detail oznámení #${item.id}`, DetailModalComponent, null, item));
     }
 }

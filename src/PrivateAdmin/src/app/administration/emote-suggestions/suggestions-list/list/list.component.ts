@@ -3,9 +3,10 @@ import { EmoteSuggestion, GetSuggestionListParams } from './../../../../core/mod
 import { Component } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { EmoteSuggestionService } from 'src/app/core/services/emote-suggestion.service';
-import { ModalService } from 'src/app/shared/modal';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 import { Observable } from 'rxjs';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { CustomComponentModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs';
 export class ListComponent extends ListComponentBase<GetSuggestionListParams> {
     constructor(
         private suggestionService: EmoteSuggestionService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -27,7 +28,6 @@ export class ListComponent extends ListComponentBase<GetSuggestionListParams> {
     }
 
     showDetail(suggestion: EmoteSuggestion): void {
-        const modal = this.modalService.showCustomModal<SuggestionDetailModalComponent>(SuggestionDetailModalComponent);
-        modal.componentInstance.suggestion = suggestion;
+        this.modalBox.show(new CustomComponentModal(`Detail záznamu #${suggestion.id}`, SuggestionDetailModalComponent, null, suggestion));
     }
 }

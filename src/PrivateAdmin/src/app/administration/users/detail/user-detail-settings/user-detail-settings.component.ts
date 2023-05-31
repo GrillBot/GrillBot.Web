@@ -5,7 +5,8 @@ import { UpdateUserParams, UserDetail } from 'src/app/core/models/users';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { ModalService } from 'src/app/shared/modal';
+import { InfoModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-user-detail-settings',
@@ -22,7 +23,7 @@ export class UserDetailSettingsComponent implements OnInit {
         private fb: FormBuilder,
         private authService: AuthService,
         private userService: UserService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     get isCurrentUser(): boolean { return this.authService.currentToken.jwt.id === this.user.id; }
@@ -54,8 +55,10 @@ export class UserDetailSettingsComponent implements OnInit {
         );
 
         this.userService.updateUser(this.user.id, params).subscribe(_ => {
-            this.modalService.showNotification('Nastavení uživatele', 'Nastavení uživatele byla úspěšně změněna.')
-                .onClose.subscribe(__ => this.userUpdated.emit());
+            const infoModal = new InfoModal('Nastavení uživatele', 'Nastavení uživatele byla úspěšně změněna.');
+            infoModal.onClose.subscribe(() => this.userUpdated.emit());
+
+            this.modalBox.show(infoModal);
         });
     }
 }

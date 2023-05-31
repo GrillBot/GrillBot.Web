@@ -9,7 +9,6 @@ import { AuditLogListParams } from 'src/app/core/models/audit-log';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AuditLogItemType, AuditLogItemTypeTexts } from 'src/app/core/models/enums/audit-log-item-type';
 import { Support } from 'src/app/core/lib/support';
-import { ModalService } from 'src/app/shared/modal';
 import { ExtendedFiltersModalComponent } from './extended-filters/extended-filters-modal/extended-filters-modal.component';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
 
@@ -24,7 +23,6 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     constructor(
         fb: FormBuilder,
         storage: StorageService,
-        private modal: ModalService
     ) { super(fb, storage); }
 
     get guildId(): string { return this.form.get('guildId').value as string; }
@@ -156,13 +154,14 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     }
 
     openExtendedFiltersModal(): void {
-        const modal = this.modal.showCustomModal<ExtendedFiltersModalComponent>(ExtendedFiltersModalComponent, 'xl');
-        modal.componentInstance.selectedTypes = this.selectedTypes;
-        modal.componentInstance.result = this.extendedFilters;
-
-        modal.onAccept.subscribe(_ => {
-            this.extendedFilters = modal.componentInstance.result;
-            this.submitForm();
-        });
+        // TODO Page integration
+        // const modal = this.modal.showCustomModal<ExtendedFiltersModalComponent>(ExtendedFiltersModalComponent, 'xl');
+        // modal.componentInstance.selectedTypes = this.selectedTypes;
+        // modal.componentInstance.result = this.extendedFilters;
+        //
+        // modal.onAccept.subscribe(_ => {
+        //     this.extendedFilters = modal.componentInstance.result;
+        //     this.submitForm();
+        // });
     }
 }

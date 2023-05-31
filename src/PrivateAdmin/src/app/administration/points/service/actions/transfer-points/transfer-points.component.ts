@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidationHelper } from 'src/app/core/lib/validators';
 import { PointsService } from 'src/app/core/services/points.service';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-transfer-points',
@@ -17,8 +15,8 @@ export class TransferPointsComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private modal: ModalService,
-        private pointsService: PointsService
+        private pointsService: PointsService,
+        private modalBox: ModalBoxService
     ) { }
 
     get guildId(): string { return this.form.get('guildId').value as string; }
@@ -34,12 +32,15 @@ export class TransferPointsComponent implements OnInit {
 
     submitForm(): void {
         if (this.form.invalid) { return; }
-
         const value = this.form.value;
-        this.modal.showQuestion('Převod bodů', 'Opravdu si přejete převést body?').onAccept.subscribe(() => {
+
+        const modal = new QuestionModal('Převod bodů', 'Opravdu si přejete převést body?');
+        modal.onAccept.subscribe(() => {
             this.pointsService.serviceTransferPoints(value.guildId, value.fromUserId, value.toUserId, value.amount).subscribe(() => {
-                this.modal.showNotification('Převod bodů', 'Body byly úspěšně převedeny.');
+                this.modalBox.show(new InfoModal('Převod bodů', 'Body byly úspěšně převedeny.'));
             });
         });
+
+        this.modalBox.show(modal);
     }
 }

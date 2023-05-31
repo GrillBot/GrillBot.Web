@@ -7,7 +7,8 @@ import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { AuditLogItemType } from 'src/app/core/models/enums/audit-log-item-type';
 import { AuditLogService } from 'src/app/core/services/audit-log.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { CustomComponentModal, InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 
 @Component({
@@ -18,7 +19,7 @@ import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 export class ListComponent extends ListComponentBase<AuditLogListParams> {
     constructor(
         private auditLogService: AuditLogService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { super(); }
 
     get AuditLogItemType(): typeof AuditLogItemType { return AuditLogItemType; }
@@ -35,14 +36,20 @@ export class ListComponent extends ListComponentBase<AuditLogListParams> {
     }
 
     removeItem(id: number): void {
-        this.modalService.showQuestion('Smazání záznamu z logu', 'Opravdu si přeješ smazat záznam z logu? Tato akce je nevratná!')
-            .onAccept.subscribe(_ => this.auditLogService.removeItem(id).subscribe(__ => this.list.filterChanged()));
+        const modal = new QuestionModal('Smazání záznamu z logu',
+            'Opravdu si přeješ smazat záznam z logu? <b>Tato akce je nevratná!</b>', true);
+        modal.onAccept.subscribe(() => this.auditLogService.removeItem(id).subscribe(__ => this.list.filterChanged()));
+
+        this.modalBox.show(modal);
     }
 
     openDetail(item: AuditLogListItem, raw: boolean): void {
-        const modal = this.modalService.showCustomModal<DetailModalComponent>(DetailModalComponent, 'xl');
-        modal.componentInstance.item = item;
-        modal.componentInstance.rawView = raw;
+        if (raw) {
+            const content: string = item.isText ? item.data : JSON.stringify(item.data, undefined, 2);
+            this.modalBox.show(new InfoModal('Data záznamu', `<pre class="mb-0">${content}</pre>`, true));
+        } else {
+            this.modalBox.show(new CustomComponentModal('Detail záznamu', DetailModalComponent, null, item));
+        }
     }
 
     downloadFile(id: number, file: AuditLogFileMetadata): void {

@@ -5,7 +5,8 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular
 import { UnverifyService } from 'src/app/core/services/unverify.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { forkJoin } from 'rxjs';
-import { ModalService } from 'src/app/shared/modal';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-current-state',
@@ -23,7 +24,7 @@ export class CurrentStateComponent implements OnInit {
     constructor(
         private unverifyService: UnverifyService,
         private dataService: DataService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -51,27 +52,40 @@ export class CurrentStateComponent implements OnInit {
     }
 
     removeUnverify(profile: UnverifyUserProfile, button: HTMLButtonElement, force: boolean): void {
+        const title = 'Vrácení přístupu';
         const questionMessage = force ?
             'Opravdu si přejete smazat toto odebrání přístupu?<br><b>Tato akce je nevratná a nevrací uživateli přístup!</b>' :
             'Opravdu si přejete vrátit přístup tomto uživateli?';
-        this.modalService.showQuestion('Vrácení přístupu', questionMessage).onAccept.subscribe(_ => {
+
+        const modal = new QuestionModal(title, questionMessage, true);
+
+        modal.onAccept.subscribe(() => {
             button.disabled = true;
-            this.unverifyService.removeUnverify(profile.guild.id, profile.user.id, force).subscribe(() => this.reloadData());
+
+            this.unverifyService.removeUnverify(profile.guild.id, profile.user.id, force).subscribe(() => {
+                this.modalBox.show(new InfoModal(title, force ? 'Odebrání přístupu bylo smazáno.' : 'Přístup uživateli byl vrácen.'));
+                this.reloadData();
+            });
         });
+
+        this.modalBox.show(modal);
     }
 
     openTimeUpdate(profile: UnverifyUserProfile, button: HTMLButtonElement): void {
-        const modal = this.modalService.showCustomModal<UpdateUnverifyTimeModalComponent>(UpdateUnverifyTimeModalComponent);
-
-        modal.componentInstance.profile = profile;
-        modal.onAccept.subscribe(_ => {
-            const params = new UpdateUnverifyParams(modal.componentInstance.end, modal.componentInstance.reason);
-            button.disabled = true;
-
-            this.unverifyService.updateUnverifyTime(profile.guild.id, profile.user.id, params).subscribe(result => {
-                this.modalService.showNotification('Změna času odebrání přístupu', result.replace(/\*\*/g, ''))
-                    .onClose.subscribe(() => this.reloadData());
-            });
-        });
+        // TODO Rework do stránky
+        // const modal = this.modalService.showCustomModal<UpdateUnverifyTimeModalComponent>(UpdateUnverifyTimeModalComponent);
+        //
+        // modal.componentInstance.profile = profile;
+        // modal.onAccept.subscribe(_ => {
+        //    const params = new UpdateUnverifyParams(modal.componentInstance.end, modal.componentInstance.reason);
+        //    button.disabled = true;
+        //
+        //    this.unverifyService.updateUnverifyTime(profile.guild.id, profile.user.id, params).subscribe(result => {
+        //        const infoModal = new InfoModal('Změna času odebrání přístupu', result.replace(/\*\*/g, ''));
+        //        infoModal.onClose.subscribe(() => this.reloadData());
+        //
+        //        this.modalBox.show(infoModal);
+        //    });
+        // });
     }
 }

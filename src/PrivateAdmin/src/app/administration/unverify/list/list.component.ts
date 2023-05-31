@@ -2,10 +2,11 @@ import { PaginatedParams, Dictionary, PaginatedResponse } from './../../../core/
 import { Component } from '@angular/core';
 import { UnverifyLogItem, UnverifyLogParams } from 'src/app/core/models/unverify';
 import { UnverifyService } from 'src/app/core/services/unverify.service';
-import { ModalService } from 'src/app/shared/modal';
 import { DataService } from 'src/app/core/services/data.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 import { Observable } from 'rxjs';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -17,8 +18,8 @@ export class ListComponent extends ListComponentBase<UnverifyLogParams> {
 
     constructor(
         private unverifyService: UnverifyService,
-        private modalService: ModalService,
-        private dataService: DataService
+        private dataService: DataService,
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -34,13 +35,20 @@ export class ListComponent extends ListComponentBase<UnverifyLogParams> {
     }
 
     recoverState(item: UnverifyLogItem): void {
-        this.modalService
-            .showQuestion('Obnovení stavu uživatele', 'Opravdu si přejete obnovit tomuto uživateli stav přístupů před unverify?')
-            .onAccept.subscribe(_ => this.unverifyService.recoverUnverifyState(item.id).subscribe(__ => this.reload()));
+        const title = 'Obnovení stavu uživatele';
+        const modal = new QuestionModal(title, 'Opravdu si přejete obnovit tomuto uživateli stav přístupů před unverify?');
+
+        modal.onAccept.subscribe(() => {
+            this.unverifyService.recoverUnverifyState(item.id).subscribe(__ => {
+                this.modalBox.show(new InfoModal(title, 'Obnovení stavu bylo dokončeno.'));
+                this.reload();
+            });
+        });
+
+        this.modalBox.show(modal);
     }
 
     resolveChannelName(id: string): string | null {
-        if (!this.channels) { return ''; }
-        return this.channels.find(o => o.key === id)?.value ?? '';
+        return !this.channels ? '' : this.channels.find(o => o.key === id)?.value ?? '';
     }
 }

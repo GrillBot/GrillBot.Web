@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AdminListRequest } from 'src/app/core/models/points';
-import { ModalService } from 'src/app/shared/modal';
+import { CustomComponentModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-filter',
@@ -16,7 +17,7 @@ export class FilterComponent extends FilterComponentBase<AdminListRequest> {
         fb: FormBuilder,
         storage: StorageService,
         private route: ActivatedRoute,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) {
         super(fb, storage);
     }
@@ -82,8 +83,15 @@ export class FilterComponent extends FilterComponentBase<AdminListRequest> {
     }
 
     showGraph(): void {
-        const modal = this.modalService.showCustomModal<GraphModalComponent>(GraphModalComponent, 'xl');
-        modal.componentInstance.filter = this.createData(false);
-        modal.componentInstance.isMerged = this.isMerged;
+        // const filter = this.createData(false);
+        // filter.showMerged = this.isMerged;
+        //
+        // const modal = new CustomComponentModal('Graf ' + (this.isMerged ? 'archivních ' : '') + 'bodů za jednotlivé dny',
+        // GraphModalComponent, null, filter);
+        // this.modalBox.show(modal);
+
+        // const modal = this.modalService.showCustomModal<GraphModalComponent>(GraphModalComponent, 'xl');
+        // modal.componentInstance.filter = this.createData(false);
+        // modal.componentInstance.isMerged = this.isMerged;
     }
 }

@@ -1,0 +1,13 @@
+div.tab-list {
+    & button {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        color: #0a58ca;
+        border-bottom-width: 0px !important;
+
+        &.active {
+            color: #000;
+            border: 1px solid #dee2e6
+        }
+    }
+}

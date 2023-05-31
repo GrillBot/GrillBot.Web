@@ -1,26 +1,25 @@
-<app-modal [title]="'Pokročilé vyhledávání'" [type]="'filter'" (resetFilter)="resetFilter()">
-    <form [formGroup]="form">
-        <app-text-filter [label]="'Informační zpráva'" *ngIf="can(auditLogItemType.Info)" formControlName="info"></app-text-filter>
-        <app-text-filter [label]="'Varování'" *ngIf="can(auditLogItemType.Warning)" formControlName="warning"></app-text-filter>
-        <app-text-filter [label]="'Chyba'" *ngIf="can(auditLogItemType.Error)" formControlName="error"></app-text-filter>
+<!--[title]="'Pokročilé vyhledávání'" [type]="'filter'" (resetFilter)="resetFilter()"-->
+<form [formGroup]="form">
+    <app-text-filter [label]="'Informační zpráva'" *ngIf="can(auditLogItemType.Info)" formControlName="info"></app-text-filter>
+    <app-text-filter [label]="'Varování'" *ngIf="can(auditLogItemType.Warning)" formControlName="warning"></app-text-filter>
+    <app-text-filter [label]="'Chyba'" *ngIf="can(auditLogItemType.Error)" formControlName="error"></app-text-filter>
 
-        <app-execution-filter [label]="'Příkaz'" *ngIf="can(auditLogItemType.Command)" formControlName="command"></app-execution-filter>
-        <app-execution-filter [label]="'Integrovaný příkaz'" *ngIf="can(auditLogItemType.InteractionCommand)" formControlName="interaction">
-        </app-execution-filter>
-        <app-execution-filter [label]="'Naplánovaná úloha'" *ngIf="can(auditLogItemType.JobCompleted)" formControlName="job">
-        </app-execution-filter>
-        <app-api-request-filter *ngIf="can(auditLogItemType.API)" formControlName="apiRequest"></app-api-request-filter>
-        <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteCreated)" formControlName="overwriteCreated"
-            [label]="'Vytvořena výjimka do kanálu'"></app-target-id-filter>
-        <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteDeleted)" formControlName="overwriteDeleted"
-            [label]="'Smazána výjimka do kanálu'"></app-target-id-filter>
-        <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteUpdated)" formControlName="overwriteUpdated"
-            [label]="'Upravena výjimka do kanálu'"></app-target-id-filter>
-        <app-target-id-filter *ngIf="can(auditLogItemType.MemberRoleUpdated)" formControlName="memberRoleUpdated"
-            [label]="'Upraveny role uživatele'"></app-target-id-filter>
-        <app-target-id-filter *ngIf="can(auditLogItemType.MemberUpdated)" formControlName="memberUpdated" [label]="'Upraven uživatel'">
-        </app-target-id-filter>
-        <app-message-deleted-filter *ngIf="can(auditLogItemType.MessageDeleted)" formControlName="messageDeleted">
-        </app-message-deleted-filter>
-    </form>
-</app-modal>
+    <app-execution-filter [label]="'Příkaz'" *ngIf="can(auditLogItemType.Command)" formControlName="command"></app-execution-filter>
+    <app-execution-filter [label]="'Integrovaný příkaz'" *ngIf="can(auditLogItemType.InteractionCommand)" formControlName="interaction">
+    </app-execution-filter>
+    <app-execution-filter [label]="'Naplánovaná úloha'" *ngIf="can(auditLogItemType.JobCompleted)" formControlName="job">
+    </app-execution-filter>
+    <app-api-request-filter *ngIf="can(auditLogItemType.API)" formControlName="apiRequest"></app-api-request-filter>
+    <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteCreated)" formControlName="overwriteCreated"
+        [label]="'Vytvořena výjimka do kanálu'"></app-target-id-filter>
+    <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteDeleted)" formControlName="overwriteDeleted"
+        [label]="'Smazána výjimka do kanálu'"></app-target-id-filter>
+    <app-target-id-filter *ngIf="can(auditLogItemType.OverwriteUpdated)" formControlName="overwriteUpdated"
+        [label]="'Upravena výjimka do kanálu'"></app-target-id-filter>
+    <app-target-id-filter *ngIf="can(auditLogItemType.MemberRoleUpdated)" formControlName="memberRoleUpdated"
+        [label]="'Upraveny role uživatele'"></app-target-id-filter>
+    <app-target-id-filter *ngIf="can(auditLogItemType.MemberUpdated)" formControlName="memberUpdated" [label]="'Upraven uživatel'">
+    </app-target-id-filter>
+    <app-message-deleted-filter *ngIf="can(auditLogItemType.MessageDeleted)" formControlName="messageDeleted">
+    </app-message-deleted-filter>
+</form>

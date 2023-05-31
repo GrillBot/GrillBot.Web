@@ -2,10 +2,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ObservableDict } from './../../../core/models/common';
 import { Component, OnInit } from '@angular/core';
 import { SelfUnverifyService } from 'src/app/core/services/selfunverify.service';
-import { ModalService } from 'src/app/shared/modal';
 import { KeepableParams } from 'src/app/core/models/selfunverify';
 import { SelfUnverifyValidators } from './validators';
 import { CheckboxComponent } from 'src/app/shared/checkbox/checkbox.component';
+import { QuestionModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-keepables',
@@ -19,7 +20,7 @@ export class KeepablesComponent implements OnInit {
     constructor(
         private selfunverifyService: SelfUnverifyService,
         private fb: FormBuilder,
-        private modal: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     get formItems(): FormArray {
@@ -35,13 +36,17 @@ export class KeepablesComponent implements OnInit {
     }
 
     remove(group: string, name: string = null): void {
+        const title = `Odebrání ${(name ? 'položky' : 'skupiny')}`;
         const message = name ?
             `Opravu si přejete odebrat položku ${group}/${name}?` :
             `Opravu si přejete odebrat celou skupinu ${group}?`;
 
-        this.modal.showQuestion(`Odebrání ${(name ? 'položky' : 'skupiny')}`, message).onAccept.subscribe(_ => {
+        const modal = new QuestionModal(title, message);
+        modal.onAccept.subscribe(() => {
             this.selfunverifyService.removeKeepable(group, name).subscribe(__ => this.reload());
         });
+
+        this.modalBox.show(modal);
     }
 
     submitForm(filledGroup: HTMLInputElement, filledName: HTMLInputElement, filledNoGroup: CheckboxComponent): void {

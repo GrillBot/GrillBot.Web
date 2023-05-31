@@ -6,11 +6,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card/card.component';
-import { NgbModalModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './loading/loading.component';
 import { ListButtonComponent } from './list-button/list-button.component';
-import { ModalComponent } from './modal/modal.component';
-import { ValidationErrorsModalComponent } from './modal/validation-errors-modal/validation-errors-modal.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CheckboxBitmaskComponent } from './checkbox-bitmask/checkbox-bitmask.component';
 import { NgxFilesizeModule } from 'ngx-filesize';
@@ -19,25 +17,34 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NavigationComponent } from './navigation/navigation.component';
 import { EmotePickerComponent } from './emote-picker/emote-picker.component';
-import { DataListModule } from './data-list/data-list.module';
 import { SelectComponent } from './select/select.component';
 import { ChartsModule } from './charts/charts.module';
 import { CommonPageModule } from './common-page/common-page.module';
+import { TabsComponent } from './tabs/tabs.component';
+import { ModalBoxComponent } from './modal-box/modal-box.component';
+import { SortingDirective } from './data-list/sorting.directive';
+import { DataListComponent } from './data-list/data-list.component';
+import { ItemsCountComponent } from './data-list/items-count.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
     declarations: [
         CardComponent,
         LoadingComponent,
         ListButtonComponent,
-        ModalComponent,
-        ValidationErrorsModalComponent,
         CheckboxComponent,
         CheckboxBitmaskComponent,
         TimeSpanInputComponent,
         SearchInputComponent,
         NavigationComponent,
         EmotePickerComponent,
-        SelectComponent
+        SelectComponent,
+        TabsComponent,
+        ModalBoxComponent,
+        SortingDirective,
+        DataListComponent,
+        ItemsCountComponent,
+        PaginationComponent
     ],
     imports: [
         CommonModule,
@@ -50,10 +57,8 @@ import { CommonPageModule } from './common-page/common-page.module';
         NgSelectModule,
         DirectivesModule,
         PipesModule,
-        DataListModule,
         ChartsModule,
-        CommonPageModule,
-        NgbNavModule
+        CommonPageModule
     ],
     exports: [
         CommonModule,
@@ -63,8 +68,6 @@ import { CommonPageModule } from './common-page/common-page.module';
         CardComponent,
         LoadingComponent,
         ListButtonComponent,
-        ModalComponent,
-        ValidationErrorsModalComponent,
         CheckboxComponent,
         CheckboxBitmaskComponent,
         NgxFilesizeModule,
@@ -75,11 +78,15 @@ import { CommonPageModule } from './common-page/common-page.module';
         NavigationComponent,
         PipesModule,
         EmotePickerComponent,
-        DataListModule,
         SelectComponent,
         ChartsModule,
         CommonPageModule,
-        NgbNavModule
+        TabsComponent,
+        ModalBoxComponent,
+        SortingDirective,
+        DataListComponent,
+        ItemsCountComponent,
+        PaginationComponent
     ]
 })
 export class SharedModule { }

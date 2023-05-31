@@ -1,17 +1,16 @@
-<app-modal [title]="'Změna času odebrání přístupu'" [type]="'form'">
-    <form [formGroup]="form">
-        <div class="row">
-            <div class="col form-group">
-                <label>Datum a čas nového konce</label>
-                <input type="datetime-local" formControlName="end" class="form-control" />
-            </div>
+<!--[title]="'Změna času odebrání přístupu'" [type]="'form'"-->
+<form [formGroup]="form">
+    <div class="row">
+        <div class="col form-group">
+            <label>Datum a čas nového konce</label>
+            <input type="datetime-local" formControlName="end" class="form-control" />
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col form-group">
-                <label>Důvod</label>
-                <textarea formControlName="reason" class="form-control"></textarea>
-            </div>
+    <div class="row">
+        <div class="col form-group">
+            <label>Důvod</label>
+            <textarea formControlName="reason" class="form-control"></textarea>
         </div>
-    </form>
-</app-modal>
+    </div>
+</form>

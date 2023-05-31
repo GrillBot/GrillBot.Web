@@ -1,67 +1,60 @@
-<app-modal #modal [title]="(rawView ? 'Detail' : 'Data') + ' záznamu #' + item.id">
-    <pre *ngIf="isTextView">{{data}}</pre>
+<div class="mb-3" *ngIf="item.type === AuditLogItemType.MemberUpdated && data.target">
+    <span>
+        <b>Uživatel: </b>
+        <a routerLink="/admin/users/{{data.target.userId}}" class="text-dark">{{data.target.username}}</a>
+    </span>
+</div>
 
-    <ng-container *ngIf="!isTextView">
-        <div class="mb-3" *ngIf="item.type === AuditLogItemType.MemberUpdated && data.target">
-            <span>
-                <b>Uživatel: </b>
-                <a routerLink="/admin/users/{{data.target.userId}}" (click)="modal.modal.close()"
-                    class="text-dark">{{data.target.username}}</a>
-            </span>
-        </div>
-
-        <table class="table table-sm table-bordered">
-            <thead>
-                <tr>
-                    <th>Klíč</th>
-                    <th *ngIf="!isDiff">Hodnota</th>
-                    <th *ngIf="isDiff">Hodnota před</th>
-                    <th *ngIf="isDiff">Hodnota po</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container [ngSwitch]="item.type">
-                    <ng-container *ngSwitchCase="AuditLogItemType.Command">
-                        <ng-container *ngTemplateOutlet="command"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.ChannelUpdated">
-                        <ng-container *ngTemplateOutlet="channelUpdated"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.OverwriteUpdated">
-                        <ng-container *ngTemplateOutlet="overwriteUpdated"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.MemberUpdated">
-                        <ng-container *ngTemplateOutlet="memberUpdated"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.MemberRoleUpdated">
-                        <ng-container *ngTemplateOutlet="memberUpdated"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.GuildUpdated">
-                        <ng-container *ngTemplateOutlet="guildUpdated"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.InteractionCommand">
-                        <ng-container *ngTemplateOutlet="interaction"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.ThreadDeleted">
-                        <ng-container *ngTemplateOutlet="threadDeleted"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.JobCompleted">
-                        <ng-container *ngTemplateOutlet="jobCompleted"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.API">
-                        <ng-container *ngTemplateOutlet="api"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.MessageDeleted">
-                        <ng-container *ngTemplateOutlet="messageDeleted"></ng-container>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="AuditLogItemType.ThreadUpdated">
-                        <ng-container *ngTemplateOutlet="threadUpdated"></ng-container>
-                    </ng-container>
-                </ng-container>
-            </tbody>
-        </table>
-    </ng-container>
-</app-modal>
+<table class="table table-sm table-bordered mb-0">
+    <thead>
+        <tr>
+            <th>Klíč</th>
+            <th *ngIf="!isDiff">Hodnota</th>
+            <th *ngIf="isDiff">Hodnota před</th>
+            <th *ngIf="isDiff">Hodnota po</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container [ngSwitch]="item.type">
+            <ng-container *ngSwitchCase="AuditLogItemType.Command">
+                <ng-container *ngTemplateOutlet="command"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.ChannelUpdated">
+                <ng-container *ngTemplateOutlet="channelUpdated"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.OverwriteUpdated">
+                <ng-container *ngTemplateOutlet="overwriteUpdated"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.MemberUpdated">
+                <ng-container *ngTemplateOutlet="memberUpdated"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.MemberRoleUpdated">
+                <ng-container *ngTemplateOutlet="memberUpdated"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.GuildUpdated">
+                <ng-container *ngTemplateOutlet="guildUpdated"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.InteractionCommand">
+                <ng-container *ngTemplateOutlet="interaction"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.ThreadDeleted">
+                <ng-container *ngTemplateOutlet="threadDeleted"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.JobCompleted">
+                <ng-container *ngTemplateOutlet="jobCompleted"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.API">
+                <ng-container *ngTemplateOutlet="api"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.MessageDeleted">
+                <ng-container *ngTemplateOutlet="messageDeleted"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.ThreadUpdated">
+                <ng-container *ngTemplateOutlet="threadUpdated"></ng-container>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
 
 <ng-template #commandBase>
     <tr>
@@ -577,8 +570,8 @@
     <tr *ngIf="data.startingUser">
         <td>Spustil</td>
         <td>
-            <a *ngIf="data.startingUser.userId" routerLink="/admin/users/{{data.startingUser.userId}}" class="text-dark"
-                (click)="modal.modal.close()">{{data.startingUser.username}}</a>
+            <a *ngIf="data.startingUser.userId" routerLink="/admin/users/{{data.startingUser.userId}}"
+                class="text-dark">{{data.startingUser.username}}</a>
         </td>
     </tr>
 
@@ -703,11 +696,10 @@
     <tr>
         <td>Autor</td>
         <td>
-            <a *ngIf="data.data.author.id" routerLink="/admin/users/{{data.data.author.id}}" class="text-dark"
-                (click)="modal.modal.close()">{{data.data.author.username}}</a>
-
-            <a *ngIf="data.data.author.userId" routerLink="/admin/users/{{data.data.author.userId}}" class="text-dark"
-                (click)="modal.modal.close()">{{data.data.author.username}}</a>
+            <a *ngIf="data.data.author.id" routerLink="/admin/users/{{data.data.author.id}}"
+                class="text-dark">{{data.data.author.username}}</a>
+            <a *ngIf="data.data.author.userId" routerLink="/admin/users/{{data.data.author.userId}}"
+                class="text-dark">{{data.data.author.username}}</a>
         </td>
     </tr>
 

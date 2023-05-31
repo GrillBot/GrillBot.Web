@@ -1,0 +1,40 @@
+<div class="background" [class.visible]="visible" (click)="action(null)">
+    <div class="box" (click)="$event.stopPropagation()" *ngIf="description">
+        <h3>{{description.title}}</h3>
+
+        <div class="body">
+            <ng-container *ngIf="!description.isCustom">
+                <ng-container *ngTemplateOutlet="messageTemplate;context:messageTemplateContext"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="description.isCustom">
+                <ng-container *ngComponentOutlet="customComponent;injector:customComponentInjector"></ng-container>
+            </ng-container>
+        </div>
+
+        <div class="buttons">
+            <div>
+                <ng-container *ngIf="description.isCustom">
+
+                    <ng-container *ngTemplateOutlet="customButtons"></ng-container>
+                </ng-container>
+            </div>
+
+            <div>
+                <ng-container *ngIf="description.isQuestion">
+                    <button class="btn btn-outline-success" (click)="action(true)">{{acceptText}}</button>
+                    <button class="btn btn-outline-danger" (click)="action(false)">{{declineText}}</button>
+                </ng-container>
+
+                <ng-container *ngIf="!description.isQuestion">
+                    <button class="btn btn-outline-primary" (click)="action(null)">Zavřít</button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #messageTemplate let-message="message" let-isHtml="isHtml">
+    <p *ngIf="!isHtml">{{message}}</p>
+    <p [innerHTML]="message" *ngIf="isHtml"></p>
+</ng-template>

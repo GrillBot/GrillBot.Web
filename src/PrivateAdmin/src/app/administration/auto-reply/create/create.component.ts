@@ -8,7 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutoReplyItemFlags } from 'src/app/core/models/enums/auto-reply-item-flags';
 import { Support } from 'src/app/core/lib/support';
-import { ModalService } from 'src/app/shared/modal';
+import { InfoModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-create',
@@ -25,7 +26,7 @@ export class CreateComponent implements OnInit {
         private autoReplyService: AutoReplyService,
         private router: Router,
         private route: ActivatedRoute,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -55,12 +56,13 @@ export class CreateComponent implements OnInit {
         }
 
         request.subscribe(_ => {
-            /* eslint-disable @typescript-eslint/no-misused-promises */
-            this.modalService.showNotification(
-                `${(this.isAdd ? 'Vytvoření' : 'Úprava')} automatické odpovědi.`,
-                `Automatická odpověď byla úspěšně ${(this.isAdd ? 'vytvořena' : 'upravena')}`
-            ).onClose.subscribe(__ => this.router.navigateByUrl('/admin/auto-reply'));
-            /* eslint-enable */
+            const infoModal = new InfoModal(`${(this.isAdd ? 'Vytvoření' : 'Úprava')} automatické odpovědi.`,
+                `Automatická odpověď byla úspěšně ${(this.isAdd ? 'vytvořena' : 'upravena')}`);
+            infoModal.onClose.subscribe(() => {
+                this.router.navigateByUrl('/admin/auto-reply');
+            });
+
+            this.modalBox.show(infoModal);
         });
     }
 

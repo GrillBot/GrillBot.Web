@@ -212,15 +212,11 @@ export class AuditLogListItem {
         return AuditLogItemTypeTexts[Support.getEnumKeyByValue(AuditLogItemType, this.type)] as string;
     }
 
+    get isText(): boolean {
+        return this.type === AuditLogItemType.Info || this.type === AuditLogItemType.Warning || this.type === AuditLogItemType.Error;
+    }
+
     get canOpenDetail(): boolean {
-        const textTypes = [
-            AuditLogItemType.Info,
-            AuditLogItemType.Error,
-            AuditLogItemType.Warning
-        ];
-
-        if (textTypes.includes(this.type) && (this.data as string).length > 1000) { return true; }
-
         const otherTypeWithDetails = [
             AuditLogItemType.Command,
             AuditLogItemType.ChannelUpdated,

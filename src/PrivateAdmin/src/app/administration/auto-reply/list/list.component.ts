@@ -1,7 +1,8 @@
 import { AutoReplyItem } from './../../../core/models/auto-reply';
 import { Component, OnInit } from '@angular/core';
 import { AutoReplyService } from 'src/app/core/services/auto-reply.service';
-import { ModalService } from 'src/app/shared/modal';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-list',
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
 
     constructor(
         private autoReplyService: AutoReplyService,
-        private modalService: ModalService
+        private modalBox: ModalBoxService
     ) { }
 
     ngOnInit(): void {
@@ -25,7 +26,9 @@ export class ListComponent implements OnInit {
     }
 
     removeItem(item: AutoReplyItem): void {
-        this.modalService.showQuestion('Smazání automatické odpovědi', `Opravdu si přeješ smazat automatickou odpověď s ID ${item.id}?`)
-            .onAccept.subscribe(_ => this.autoReplyService.removeItem(item.id).subscribe(__ => this.reloadData()));
+        const modal = new QuestionModal('Smazání automatické odpovědi', `Opravdu si přeješ smazat automatickou odpověď s ID ${item.id}?`);
+        modal.onAccept.subscribe(() => this.autoReplyService.removeItem(item.id).subscribe(__ => this.reloadData()));
+
+        this.modalBox.show(modal);
     }
 }

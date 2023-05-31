@@ -1,7 +1,8 @@
 import { Dictionary } from '../../../../core/models/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { AdminListRequest } from 'src/app/core/models/points';
 import { PointsService } from 'src/app/core/services/points.service';
+import { DATA_INJECTION_TOKEN } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-graph-modal',
@@ -9,19 +10,19 @@ import { PointsService } from 'src/app/core/services/points.service';
 })
 export class GraphModalComponent implements OnInit {
     @Input() filter: AdminListRequest;
-    @Input() isMerged: boolean;
 
     messagePoints: Dictionary<string, number> = [];
     reactionPoints: Dictionary<string, number> = [];
     totalPoints: Dictionary<string, number> = [];
 
     constructor(
-        private service: PointsService
-    ) { }
+        private service: PointsService,
+        @Inject(DATA_INJECTION_TOKEN) injectedData: AdminListRequest
+    ) {
+        this.filter = injectedData;
+    }
 
     ngOnInit(): void {
-        this.filter.showMerged = this.isMerged;
-
         this.service.getGraphData(this.filter).subscribe(data => {
             for (const item of data) {
                 this.messagePoints.push({ key: item.day.toLocaleString(true), value: item.messagePoints });

@@ -73,7 +73,6 @@ export class DataListComponent implements OnInit {
             this.currentPage = 1;
         }
 
-        const paginationParams = PaginatedParams.create({ page: this.currentPage, pageSize: limit });
-        this.readData.emit(paginationParams);
+        this.readData.emit(PaginatedParams.create({ page: this.currentPage, pageSize: limit }));
     }
 }

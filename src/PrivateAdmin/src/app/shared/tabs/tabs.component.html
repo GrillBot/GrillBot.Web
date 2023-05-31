@@ -1,0 +1,8 @@
+<div class="d-flex flex-wrap tab-list">
+    <button class="btn me-2" [class.active]="tab.id === activeId" *ngFor="let tab of availableTags"
+        (click)="buttonClick(tab.id)">{{tab.name}}</button>
+</div>
+
+<div class="border p-3">
+    <ng-container *ngTemplateOutlet="activeTemplate;context:context"></ng-container>
+</div>

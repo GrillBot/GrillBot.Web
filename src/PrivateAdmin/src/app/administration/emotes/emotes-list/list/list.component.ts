@@ -5,8 +5,9 @@ import { Component } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { EmotesListParams, EmoteStatItem } from 'src/app/core/models/emotes';
 import { EmotesService } from 'src/app/core/services/emotes.service';
-import { ModalService } from 'src/app/shared/modal';
 import { MergeModalComponent } from '../../merge-modal/merge-modal.component';
+import { CustomComponentModal, InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 
 @Component({
     selector: 'app-list',
@@ -18,8 +19,8 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
 
     constructor(
         private emotesService: EmotesService,
-        private modalService: ModalService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private modalBox: ModalBoxService
     ) { super(); }
 
     configure(): void {
@@ -34,24 +35,31 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
     }
 
     mergeStatsToAnother(row: EmoteStatItem): void {
-        const modal = this.modalService.showCustomModal<MergeModalComponent>(MergeModalComponent);
-        modal.componentInstance.sourceItem = row;
+        // TODO Rework to page
+        // const modal = new CustomComponentModal('Sloučení statistik emote', MergeModalComponent, null, row);
+        /* modal.onClose.subscribe(() => {
+            if (row.invalidated) {
+                //this.list.filterChanged();
+            }
+        });*/
 
-        const mergedSub = modal.componentInstance.merged.subscribe(_ => this.list.filterChanged());
-        modal.onClose.subscribe(_ => mergedSub.unsubscribe());
+        // this.modalBox.show(modal);
     }
 
     removeStats(row: EmoteStatItem): void {
-        this.modalService.showQuestion(
-            'Smazání statistiky',
-            `Opravdu si přeješ smazat statistiku pro emote "${row.emote.name}"? <b>Tato akce je nevratná!</b>`
-        ).onAccept.subscribe(_ => {
+        const title = 'Smazání statistiky';
+
+        const modal = new QuestionModal(title,
+            `Opravdu si přeješ smazat statistiku pro emote "${row.emote.name}"? <b>Tato akce je nevratná!</b>`, true);
+        modal.onAccept.subscribe(() => {
             this.emotesService.removeStatistics(row.emote.fullId).subscribe(rowsChanged => {
-                this.modalService.showNotification(
-                    'Smazání statistiky',
-                    `Statistika byla úspěšně smazána. Počet smazaných záznamů: ${rowsChanged.toLocaleString()}`
-                ).onClose.subscribe(() => this.list.filterChanged());
+                this.list.filterChanged();
+                this.modalBox.show(
+                    new InfoModal(title, `Statistika byla úspěšně smazána. Počet smazaných záznamů: ${rowsChanged.toLocaleString()}`)
+                );
             });
         });
+
+        this.modalBox.show(modal);
     }
 }

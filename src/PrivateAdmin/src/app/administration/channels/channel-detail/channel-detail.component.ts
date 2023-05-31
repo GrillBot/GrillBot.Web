@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChannelDetail } from 'src/app/core/models/channels';
-import { ModalService } from 'src/app/shared/modal';
 import { ChannelService } from 'src/app/core/services/channel.service';
 import { ValidationHelper } from 'src/app/core/lib/validators';
 import { DataListComponent } from 'src/app/shared/data-list/data-list.component';
 import { ChannelFlagTexts, ChannelSettingsFlags } from 'src/app/core/models/enums/channel-flags';
+import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
+import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 
 @Component({
     selector: 'app-channel-detail',
@@ -29,9 +30,9 @@ export class ChannelDetailComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
-        private modal: ModalService,
         private channelService: ChannelService,
-        private router: Router
+        private router: Router,
+        private modalBox: ModalBoxService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
@@ -65,18 +66,20 @@ export class ChannelDetailComponent implements OnInit {
         const params = SendMessageToChannelParams.create(this.sendMessageForm.value);
 
         this.channelService.sendMessageToChannel(this.data.guild.id, this.channelId, params)
-            .subscribe(_ => this.modal.showNotification('Odeslání zprávy do kanálu', 'Zpráva byla úspěšně odeslána.'));
+            .subscribe(_ => this.modalBox.show(new InfoModal('Odeslání zprávy do kanálu', 'Zpráva byla úspěšně odeslána.')));
     }
 
     cleanCache(): void {
-        this.modal.showQuestion(
-            'Vyčištění cache',
-            'Opravdu si přeješ vymazat cache? Některé funkce bota pak nemusí v kanálu fungovat správně (např.: logger).'
-        ).onAccept.subscribe(_ => {
+        const title = 'Vyčištění cache';
+        const modal = new QuestionModal(title,
+            'Opravdu si přeješ vymazat cache? Některé funkce bota pak nemusí v kanálu fungovat správně. Například audit log.');
+        modal.onAccept.subscribe(() => {
             this.channelService.removeMessagesFromCache(this.data.guild.id, this.channelId).subscribe(__ => {
-                this.modal.showNotification('Vyčištění cache', 'Cache byla úspěšně vyčištěna.');
+                this.modalBox.show(new InfoModal(title, 'Cache byla úspěšně vyčištěna.'));
             });
         });
+
+        this.modalBox.show(modal);
     }
 
     readChannelStats(pagination: PaginatedParams): void {
