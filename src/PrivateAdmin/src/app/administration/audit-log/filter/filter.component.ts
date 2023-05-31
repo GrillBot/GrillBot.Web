@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { ExtendedFiltersModalData } from './extended-filters/filters-modal-result';
 import { Dictionary } from 'src/app/core/models/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,16 +8,17 @@ import { AuditLogListParams } from 'src/app/core/models/audit-log';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AuditLogItemType, AuditLogItemTypeTexts } from 'src/app/core/models/enums/audit-log-item-type';
 import { Support } from 'src/app/core/lib/support';
-import { ExtendedFiltersModalComponent } from './extended-filters/extended-filters-modal/extended-filters-modal.component';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
+import { ExtendedFilterData } from './extended-filters/models';
 
 @Component({
     selector: 'app-filter',
-    templateUrl: './filter.component.html'
+    templateUrl: './filter.component.html',
+    styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     types: Dictionary<number, string>;
-    extendedFilters: ExtendedFiltersModalData;
+    exFilters: ExtendedFilterData;
 
     constructor(
         fb: FormBuilder,
@@ -28,13 +28,13 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     get guildId(): string { return this.form.get('guildId').value as string; }
     get selectedTypes(): AuditLogItemType[] { return this.form.get('types').value as AuditLogItemType[]; }
     get excludedTypes(): AuditLogItemType[] { return this.form.get('excludedTypes').value as AuditLogItemType[]; }
+    get auditLogItemType(): typeof AuditLogItemType { return AuditLogItemType; }
 
     get allowExtendedFilters(): boolean {
         const typesWithFilters = [
             AuditLogItemType.Info,
             AuditLogItemType.Warning,
             AuditLogItemType.Error,
-            AuditLogItemType.Command,
             AuditLogItemType.InteractionCommand,
             AuditLogItemType.JobCompleted,
             AuditLogItemType.API,
@@ -73,26 +73,24 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
 
     createData(empty: boolean): AuditLogListParams {
         if (empty) {
-            this.extendedFilters = null;
+            this.exFilters = null;
             return AuditLogListParams.empty;
         } else {
             const filter = AuditLogListParams.create(this.form.value);
 
-            if (this.extendedFilters) {
-                filter.infoFilter = this.extendedFilters.infoFilter;
-                filter.warningFilter = this.extendedFilters.warningFilter;
-                filter.errorFilter = this.extendedFilters.errorFilter;
-
-                filter.commandFilter = this.extendedFilters.commandFilter;
-                filter.interactionFilter = this.extendedFilters.interactionFilter;
-                filter.jobFilter = this.extendedFilters.jobFilter;
-                filter.apiRequestFilter = this.extendedFilters.apiRequestFilter;
-                filter.overwriteCreatedFilter = this.extendedFilters.overwriteCreatedFilter;
-                filter.overwriteDeletedFilter = this.extendedFilters.overwriteDeletedFilter;
-                filter.overwriteUpdatedFilter = this.extendedFilters.overwriteUpdatedFilter;
-                filter.memberRoleUpdatedFilter = this.extendedFilters.memberRoleUpdatedFilter;
-                filter.memberUpdatedFilter = this.extendedFilters.memberUpdatedFilter;
-                filter.messageDeletedFilter = this.extendedFilters.messageDeletedFilter;
+            if (this.exFilters) {
+                filter.infoFilter = this.exFilters.info;
+                filter.warningFilter = this.exFilters.warning;
+                filter.errorFilter = this.exFilters.error;
+                filter.interactionFilter = this.exFilters.interaction;
+                filter.jobFilter = this.exFilters.job;
+                filter.apiRequestFilter = this.exFilters.api;
+                filter.overwriteCreatedFilter = this.exFilters.overwriteCreated;
+                filter.overwriteDeletedFilter = this.exFilters.overwriteCreated;
+                filter.overwriteUpdatedFilter = this.exFilters.overwriteUpdated;
+                filter.memberUpdatedFilter = this.exFilters.memberUpdated;
+                filter.memberRoleUpdatedFilter = this.exFilters.memberRoleUpdated;
+                filter.messageDeletedFilter = this.exFilters.messageDeleted;
             }
 
             return filter;
@@ -136,32 +134,19 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     }
 
     setExtendedFilters(filter: AuditLogListParams): void {
-        this.extendedFilters = {
-            commandFilter: filter.commandFilter,
-            errorFilter: filter.errorFilter,
-            infoFilter: filter.infoFilter,
-            interactionFilter: filter.interactionFilter,
-            jobFilter: filter.jobFilter,
-            warningFilter: filter.warningFilter,
-            apiRequestFilter: filter.apiRequestFilter,
-            overwriteCreatedFilter: filter.overwriteCreatedFilter,
-            overwriteDeletedFilter: filter.overwriteDeletedFilter,
-            overwriteUpdatedFilter: filter.overwriteUpdatedFilter,
-            memberRoleUpdatedFilter: filter.memberRoleUpdatedFilter,
-            memberUpdatedFilter: filter.memberUpdatedFilter,
-            messageDeletedFilter: filter.messageDeletedFilter
+        this.exFilters = {
+            info: filter.infoFilter,
+            warning: filter.warningFilter,
+            error: filter.errorFilter,
+            interaction: filter.interactionFilter,
+            job: filter.jobFilter,
+            api: filter.apiRequestFilter,
+            overwriteCreated: filter.overwriteCreatedFilter,
+            overwriteDeleted: filter.overwriteDeletedFilter,
+            overwriteUpdated: filter.overwriteUpdatedFilter,
+            memberUpdated: filter.memberUpdatedFilter,
+            memberRoleUpdated: filter.memberRoleUpdatedFilter,
+            messageDeleted: filter.messageDeletedFilter
         };
-    }
-
-    openExtendedFiltersModal(): void {
-        // TODO Page integration
-        // const modal = this.modal.showCustomModal<ExtendedFiltersModalComponent>(ExtendedFiltersModalComponent, 'xl');
-        // modal.componentInstance.selectedTypes = this.selectedTypes;
-        // modal.componentInstance.result = this.extendedFilters;
-        //
-        // modal.onAccept.subscribe(_ => {
-        //     this.extendedFilters = modal.componentInstance.result;
-        //     this.submitForm();
-        // });
     }
 }

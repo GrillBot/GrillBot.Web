@@ -52,7 +52,6 @@ export class TargetIdFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        const filter = TargetIdFilter.create(this.form.value);
-        this.onChange(filter);
+        this.onChange(TargetIdFilter.create(this.form.value));
     }
 }

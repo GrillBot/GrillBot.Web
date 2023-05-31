@@ -52,7 +52,6 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        const filter = TextFilter.create(this.form.value);
-        this.onChange(filter);
+        this.onChange(TextFilter.create(this.form.value));
     }
 }

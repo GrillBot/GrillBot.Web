@@ -144,7 +144,6 @@ export class AuditLogListParams extends FilterBase {
     public infoFilter: TextFilter | null = null;
     public warningFilter: TextFilter | null = null;
     public errorFilter: TextFilter | null = null;
-    public commandFilter: ExecutionFilter | null = null;
     public interactionFilter: ExecutionFilter | null = null;
     public jobFilter: ExecutionFilter | null = null;
     public apiRequestFilter: ApiRequestFilter | null = null;
@@ -178,7 +177,6 @@ export class AuditLogListParams extends FilterBase {
         params.infoFilter = data.infoFilter ? TextFilter.create(data.infoFilter) : null;
         params.warningFilter = data.warningFilter ? TextFilter.create(data.warningFilter) : null;
         params.errorFilter = data.errorFilter ? TextFilter.create(data.errorFilter) : null;
-        params.commandFilter = data.commandFilter ? ExecutionFilter.create(data.commandFilter) : null;
         params.interactionFilter = data.interactionsFilter ? ExecutionFilter.create(data.interactionsFilter) : null;
         params.jobFilter = data.jobFilter ? ExecutionFilter.create(data.jobFilter) : null;
         params.apiRequestFilter = data.apiRequestFilter ? ApiRequestFilter.create(data.apiRequestFilter) : null;

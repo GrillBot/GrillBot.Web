@@ -48,7 +48,7 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: () => void): void { noop(); }
+    registerOnTouched(_: () => void): void { noop(); }
 
     setDisabledState(isDisabled: boolean): void {
         if (isDisabled) { this.form.disable(); }
@@ -56,7 +56,6 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
     }
 
     private submit(): void {
-        const filter = MessageDeletedFilter.create(this.form.value);
-        this.onChange(filter);
+        this.onChange(MessageDeletedFilter.create(this.form.value));
     }
 }

@@ -5,7 +5,6 @@ import { FilterComponent } from './filter/filter.component';
 import { ListComponent } from './list/list.component';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ExtendedFiltersModalComponent } from './filter/extended-filters/extended-filters-modal/extended-filters-modal.component';
 import { TextFilterComponent } from './filter/extended-filters/text-filter/text-filter.component';
 import { ExecutionFilterComponent } from './filter/extended-filters/execution-filter/execution-filter.component';
 import { ApiRequestFilterComponent } from './filter/extended-filters/api-request-filter/api-request-filter.component';
@@ -22,7 +21,6 @@ const routes: Routes = [
         FilterComponent,
         ListComponent,
         DetailModalComponent,
-        ExtendedFiltersModalComponent,
         TextFilterComponent,
         ExecutionFilterComponent,
         ApiRequestFilterComponent,

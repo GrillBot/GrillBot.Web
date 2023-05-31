@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    // tslint:disable-next-line: component-selector
     selector: 'list-button',
     templateUrl: './list-button.component.html',
     styleUrls: ['./list-button.component.scss']

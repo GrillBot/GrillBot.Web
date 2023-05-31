@@ -4,7 +4,6 @@ import { Component, Input, forwardRef } from '@angular/core';
 import { Dictionary } from 'src/app/core/models/common';
 
 @Component({
-    // tslint:disable-next-line: component-selector
     selector: 'checkbox-bitmask',
     templateUrl: './checkbox-bitmask.component.html',
     providers: [
@@ -40,7 +39,6 @@ export class CheckboxBitmaskComponent implements ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
-    // tslint:disable: no-bitwise
     onValueChange(maskValue: number, isChecked: boolean): void {
         if (isChecked) {
             this.bitmask |= maskValue;
