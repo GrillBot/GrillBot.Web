@@ -61,7 +61,8 @@
                         "namedChunks": true,
                         "allowedCommonJsDependencies": [
                             "jwt-decode",
-                            "moment"
+                            "moment",
+                            "file-saver"
                         ]
                     },
                     "configurations": {

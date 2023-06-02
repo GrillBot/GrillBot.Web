@@ -11,7 +11,7 @@
                         <ng-container *ngIf="items.length >= 5">botů</ng-container>
                     </ng-container>
 
-                    <ng-container *ngIf="searchSource === 'channels'">
+                    <ng-container *ngIf="searchSource === 'channels' || searchSource === 'channels-no-threads' || searchSource === 'channels-pins'">
                         <ng-container *ngIf="items.length > 1 && items.length < 5">kanály</ng-container>
                         <ng-container *ngIf="items.length >= 5">kanálů</ng-container>
                     </ng-container>

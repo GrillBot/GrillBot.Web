@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Support } from '../lib/support';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -30,6 +31,16 @@ export class DataService {
 
         return this.base.http.get<Dictionary<string, string>>(url, { headers }).pipe(
             map(data => Object.keys(data).map(k => ({ key: k, value: data[k] as string }))),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
+
+    getChannelsWithPins(): ObservableDict<string, string> {
+        const url = this.base.createUrl('data/channels/pins');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<Dictionary<string, string>>(url, { headers }).pipe(
+            map(data => Support.createDictFromObj<string>(data)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

@@ -1,3 +1,5 @@
+import { Dictionary } from '../models/common';
+
 export class Support {
     static getEnumKeyByValue(type: any, value: any): string {
         /* eslint-disable */
@@ -22,5 +24,11 @@ export class Support {
 
     static isEmpty(val?: string): boolean {
         return !(val && val.length > 0);
+    }
+
+    static createDictFromObj<TValue>(obj: any, valueConverter?: (value: any) => TValue): Dictionary<string, TValue> {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        return Object.keys(obj)
+            .map(k => ({ key: k, value: valueConverter ? valueConverter(obj[k]) : obj[k] as TValue }));
     }
 }

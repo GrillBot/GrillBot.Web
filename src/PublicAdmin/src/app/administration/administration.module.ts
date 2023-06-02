@@ -43,6 +43,11 @@ const routes: Routes = [
                 path: 'search',
                 loadChildren: () => import('./searching/searching.module').then(mod => mod.SearchingModule),
                 data: { title: 'Hledání', id: 'searching' }
+            },
+            {
+                path: 'pins',
+                loadChildren: () => import('./pins/pins.module').then(mod => mod.PinsModule),
+                data: { title: 'Piny', id: 'pins' }
             }
         ]
     },

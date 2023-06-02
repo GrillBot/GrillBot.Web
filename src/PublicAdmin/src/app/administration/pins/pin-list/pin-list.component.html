@@ -1,0 +1,57 @@
+<div class="row mt-2 ms-0 me-0 border-bottom pb-3">
+    <div class="col-md-4">
+        <form [formGroup]="form">
+            <label>Kanál</label>
+            <app-search-input [searchSource]="'channels-pins'" formControlName="channel"></app-search-input>
+
+        </form>
+    </div>
+
+    <div class="col-md-auto d-flex align-items-end">
+        <button class="btn btn-outline-success me-2" [disabled]="!channelId" (click)="loadData()">Načíst</button>
+        <button class="btn btn-outline-primary" (click)="downloadMarkdown()" [disabled]="!channelId">Markdown</button>
+    </div>
+
+    <div class="col-md d-flex align-items-start flex-column align-self-end" *ngIf="data">
+        <label>Odkaz na kanál</label>
+        <a href="{{data.channelUrl}}" target="_blank">{{data.channelUrl}}</a>
+    </div>
+</div>
+
+<div class="row ms-0 me-0 mt-3">
+    <div class="col-md" *ngIf="!data">
+        <div class="alert alert-dark" *ngIf="!channelId">
+            <i class="fas fa-info-circle me-1"></i>
+            Pro zobrazení pinů nejdříve vyber kanál.
+        </div>
+
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+
+    <div class="col-md" *ngIf="data">
+        <app-card [header]="false" *ngFor="let pin of data.pins" [classes]="['mb-3']">
+            <div class="d-flex align-items-end">
+                <h4 class="mb-0 fw-normal">{{pin.author}}</h4>
+                <p class="ms-1 mb-0 text-secondary">({{pin.createdAt.binding}})</p>
+                <a class="ms-1 text-dark" href="{{pin.jumpUrl}}" target="_blank">Přejít na zprávu</a>
+            </div>
+            <pre class="mb-0 mt-2 alert alert-secondary" *ngIf="pin.content">{{pin.content}}</pre>
+
+            <ng-container *ngIf="pin.attachments.length > 0">
+                <h5 class="mt-2 mb-0 fw-normal">Přílohy</h5>
+                <ul class="mb-0">
+                    <li *ngFor="let attachment of pin.attachments">
+                        <button class="btn btn-link p-0 text-dark" (click)="attachmentClick(attachment)">
+                            {{attachment.name}}<i class="ps-2 fas fa-caret-square-down" *ngIf="attachment.isImage"
+                                id="icon-{{attachment.name}}"></i>
+                            <i class="ps-2 fas fa-download" *ngIf="!attachment.isImage"></i>
+                        </button>
+                        <img *ngIf="attachment.isImage" [src]="attachment.url" class="d-none" id="{{attachment.name}}"
+                            alt="Loading of file {{attachment.name}} failed." />
+                        <a *ngIf="!attachment.isImage" [href]="attachment.url" class="d-none" id="{{attachment.name}}"></a>
+                    </li>
+                </ul>
+            </ng-container>
+        </app-card>
+    </div>
+</div>

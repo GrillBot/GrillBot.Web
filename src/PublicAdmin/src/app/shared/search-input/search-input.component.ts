@@ -75,6 +75,9 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor, OnCha
             case 'channels-no-threads':
                 request = this.dataService.getChannels(this.guildId, true);
                 break;
+            case 'channels-pins':
+                request = this.dataService.getChannelsWithPins();
+                break;
         }
 
         request.subscribe(data => this.data = data);
