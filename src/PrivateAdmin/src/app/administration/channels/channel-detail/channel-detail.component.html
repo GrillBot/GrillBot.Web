@@ -7,51 +7,45 @@
         <div class="col">
             <app-card icon="fas fa-envelope-open-text" [title]="'Informace o kanálu'">
                 <div class="row">
-                    <div keyValueItem class="col" [key]="'Identifikátor'" [value]="data.id"></div>
-                    <div keyValueItem class="col" [key]="'Název'" [value]="data.name"></div>
-                    <div keyValueItem class="col" [key]="'Typ'" [value]="data.channelTypeName"></div>
-                    <div class="col">
+                    <div keyValueItem class="col-md-3" [key]="'Identifikátor'" [value]="data.id"></div>
+                    <div keyValueItem class="col-md-3" [key]="'Název'" [value]="data.name"></div>
+                    <div keyValueItem class="col-md-3" [key]="'Typ'" [value]="data.channelTypeName"></div>
+                    <div class="col-md-3">
                         Server<br>
                         <b>
                             <a routerLink="/admin/servers/{{data.guild.id}}" class="text-dark">{{data.guild.name}}</a>
                         </b>
                     </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div keyValueItem class="col" [key]="'První zpráva v'" [value]="data.firstMessageAt.toLocaleString()"
-                        *ngIf="data.firstMessageAt">
-                    </div>
-                    <div keyValueItem class="col" [key]="'Poslední zpráva v'" [value]="data.lastMessageAt.toLocaleString()"
+                    <div keyValueItem class="col-md-3" [key]="'První zpráva v'" [value]="data.firstMessageAt.toLocaleString()"
+                        *ngIf="data.firstMessageAt"></div>
+                    <div keyValueItem class="col-md-3" [key]="'Poslední zpráva v'" [value]="data.lastMessageAt.toLocaleString()"
                         *ngIf="data.lastMessageAt"></div>
-                    <div class="col" *ngIf="data.lastMessageFrom">
+                    <div class="col-md-3" *ngIf="data.lastMessageFrom">
                         Poslední zpráva od<br>
                         <b>
                             <a routerLink="/admin/users/{{data.lastMessageFrom.id}}" class="text-dark">{{data.lastMessageFrom.username}}</a>
                         </b>
                     </div>
-                    <div class="col" *ngIf="data.mostActiveUser">
+                    <div class="col-md-3" *ngIf="data.mostActiveUser">
                         Nejaktivnější uživatel<br>
                         <b>
                             <a routerLink="/admin/users/{{data.mostActiveUser.id}}" class="text-dark">{{data.mostActiveUser.username}}</a>
                         </b>
                     </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div *ngIf="data.parentChannel" class="col-3">
+                    <div *ngIf="data.parentChannel" class="col-md-3">
                         Nadřazený kanál<br>
                         <b>
                             <a routerLink="/admin/channels/{{data.parentChannel.id}}"
                                 class="text-dark">{{data.parentChannel.fullFormat}}</a>
                         </b>
                     </div>
-                    <div keyValueItem class="col-3" *ngIf="!data.isCategory && !data.isDeleted" [key]="'Počet zpráv v cache'"
+                    <div keyValueItem class="col-md-3" *ngIf="!data.isCategory && !data.isDeleted" [key]="'Počet zpráv v cache'"
                         [value]="data.cachedMessagesCount.toLocaleString()"></div>
-                    <div keyValueItem class="col-3" [key]="'Počet oprávnění pro role'" *ngIf="!data.isDeleted"
+                    <div keyValueItem class="col-md-3" [key]="'Počet oprávnění pro role'" *ngIf="!data.isDeleted"
                         [value]="data.rolePermissionsCount?.toLocaleString() ?? 'Není známo'"></div>
-                    <div keyValueItem class="col-3" [key]="'Počet oprávnění pro uživatele'" *ngIf="!data.isDeleted"
+                    <div keyValueItem class="col-md-3" [key]="'Počet oprávnění pro uživatele'" *ngIf="!data.isDeleted"
                         [value]="data.userPermissionsCount?.toLocaleString() ?? 'Není známo'"></div>
+                    <div keyValueItem class="col-md-3" [key]="'Počet pinů'" *ngIf="data.pinSupported" [value]="data.pinCount"></div>
                 </div>
 
                 <div class="row mt-1 no-print" *ngIf="!data.isCategory && !data.isDeleted">

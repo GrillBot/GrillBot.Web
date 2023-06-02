@@ -12,21 +12,12 @@ export class Channel {
     public type: ChannelType;
     public flags: number;
 
-    get fullFormat(): string {
-        return `#${this.name} (${this.id})`;
-    }
-
-    get isThread(): boolean {
-        return this.type === ChannelType.PublicThread || this.type === ChannelType.PrivateThread;
-    }
-
-    get channelTypeName(): string {
-        return ChannelTypeTexts[Support.getEnumKeyByValue(ChannelType, this.type)];
-    }
-
-    get isDeleted(): boolean {
-        return (this.flags & ChannelFlags.Deleted) !== 0;
-    }
+    get fullFormat(): string { return `#${this.name} (${this.id})`; }
+    get isThread(): boolean { return this.type === ChannelType.PublicThread || this.type === ChannelType.PrivateThread; }
+    get channelTypeName(): string { return ChannelTypeTexts[Support.getEnumKeyByValue(ChannelType, this.type)]; }
+    get isDeleted(): boolean { return (this.flags & ChannelFlags.Deleted) !== 0; }
+    get pinSupported(): boolean { return this.type === ChannelType.Text || this.isThread; }
+    get isForum(): boolean { return this.type === ChannelType.Forum; }
 
     static create(data: any): Channel | null {
         if (!data) { return null; }
@@ -105,6 +96,7 @@ export class GuildChannelListItem extends Channel {
     public guild: Guild;
     public rolePermissionsCount?: number;
     public userPermissionsCount?: number;
+    public pinCount: number;
 
     get isCategory(): boolean { return this.type === ChannelType.Category; }
 
@@ -120,6 +112,7 @@ export class GuildChannelListItem extends Channel {
         channel.guild = data.guild ? Guild.create(data.guild) : null;
         channel.rolePermissionsCount = data.rolePermissionsCount;
         channel.userPermissionsCount = data.userPermissionsCount;
+        channel.pinCount = data.pinCount;
 
         return channel;
     }

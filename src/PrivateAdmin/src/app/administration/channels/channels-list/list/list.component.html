@@ -14,6 +14,7 @@
                     <th>Server</th>
                     <th sortable (clicked)="setSort($event)" [key]="'RolePermissions'" [sort]="sort">Počet práv (role)</th>
                     <th sortable (clicked)="setSort($event)" [key]="'UserPermissions'" [sort]="sort">Počet práv (uživatel)</th>
+                    <th>Počet pinů</th>
                     <th class="no-print">Akce</th>
                 </tr>
             </thead>
@@ -22,29 +23,36 @@
                     <td [class.text-danger]="item.isDeleted">{{item.name}}</td>
                     <td>{{item.channelTypeName}}</td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory">{{item.messagesCount.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.messagesCount.toLocaleString()}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory">{{item.cachedMessagesCount.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.cachedMessagesCount.toLocaleString()}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory">{{item.firstMessageAt?.binding ?? ''}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.firstMessageAt?.binding ?? ''}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory">{{item.lastMessageAt?.binding ?? ''}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.lastMessageAt?.binding ?? ''}}</ng-container>
                     </td>
                     <td>
                         <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark"
                             (click)="$event.stopPropagation()">{{item.guild.name}}</a>
                     </td>
-                    <td>{{item.rolePermissionsCount?.toLocaleString()}}</td>
-                    <td>{{item.userPermissionsCount?.toLocaleString()}}</td>
+                    <td>
+                        <ng-container *ngIf="!item.isThread">{{item.rolePermissionsCount?.toLocaleString()}}</ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="!item.isThread">{{item.userPermissionsCount?.toLocaleString()}}</ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="item.pinSupported">{{item.pinCount.toLocaleString()}}</ng-container>
+                    </td>
                     <td class="no-print">
                         <list-button [link]="'/admin/channels/' + item.id" [icon]="'info'"></list-button>
                     </td>
                 </tr>
                 <tr *ngIf="list.items.length === 0">
-                    <td colspan="10">Pro zadaný filtr nebyly nalezeny žádné kanály.</td>
+                    <td colspan="11">Pro zadaný filtr nebyly nalezeny žádné kanály.</td>
                 </tr>
             </tbody>
         </table>
