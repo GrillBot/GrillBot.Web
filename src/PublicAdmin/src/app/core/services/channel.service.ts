@@ -32,4 +32,14 @@ export class ChannelService {
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
+
+    getChannelPinsWithAttachments(channelId: string): Observable<Blob> {
+        const url = this.base.createUrl(`channel/${channelId}/pins/attachments`);
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get(url, { headers, responseType: 'arraybuffer' }).pipe(
+            map(buffer => new Blob([buffer], { type: 'application/zip' })),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
 }

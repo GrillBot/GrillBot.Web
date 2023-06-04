@@ -39,12 +39,18 @@ export class PinListComponent implements OnInit {
         });
     }
 
-    downloadMarkdown(): void {
+    download(withAttachments: boolean): void {
         if (!this.channelId) { return; }
 
-        this.channelService.getChannelPins(this.channelId, true).subscribe(data => {
-            saveAs(new Blob([data], { type: 'text/markdown' }), `${this.channelId}.md`);
-        });
+        const filename = `${this.channelId}.zip`;
+        if (withAttachments) {
+            this.channelService.getChannelPinsWithAttachments(this.channelId)
+                .subscribe(blob => saveAs(blob, filename));
+            return;
+        }
+
+        this.channelService.getChannelPins(this.channelId, true)
+            .subscribe(data => saveAs(new Blob([data], { type: 'text/markdown' }), filename));
     }
 
     attachmentClick(attachment: Attachment): void {

@@ -9,7 +9,9 @@
 
     <div class="col-md-auto d-flex align-items-end">
         <button class="btn btn-outline-success me-2" [disabled]="!channelId" (click)="loadData()">Načíst</button>
-        <button class="btn btn-outline-primary" (click)="downloadMarkdown()" [disabled]="!channelId">Markdown</button>
+        <button class="btn btn-outline-primary me-2" (click)="download(false)" [disabled]="!channelId">Markdown</button>
+        <button class="btn btn-outline-primary" (click)="download(true)" [disabled]="!channelId">Markdown <small>(vč.
+                příloh)</small></button>
     </div>
 
     <div class="col-md d-flex align-items-start flex-column align-self-end" *ngIf="data">
