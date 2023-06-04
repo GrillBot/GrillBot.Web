@@ -33,15 +33,4 @@ export class AuditLogService {
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
-
-    downloadFile(id: number, file: AuditLogFileMetadata): void {
-        const url = this.base.createUrl(`auditlog/${id}/${file.id}`);
-        const headers = this.base.getHttpHeaders();
-        (headers as any).responseType = 'blob';
-
-        this.base.http.get(url, { headers, responseType: 'blob', observe: 'response' }).subscribe(resource => {
-            const body = resource.body;
-            saveAs(body, file.filename);
-        });
-    }
 }

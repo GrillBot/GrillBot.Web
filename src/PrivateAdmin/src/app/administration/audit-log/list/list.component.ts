@@ -51,8 +51,4 @@ export class ListComponent extends ListComponentBase<AuditLogListParams> {
             this.modalBox.show(new CustomComponentModal('Detail záznamu', DetailModalComponent, null, item));
         }
     }
-
-    downloadFile(id: number, file: AuditLogFileMetadata): void {
-        this.auditLogService.downloadFile(id, file);
-    }
 }

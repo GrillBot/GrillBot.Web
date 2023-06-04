@@ -175,12 +175,8 @@
         <div *ngIf="item.files && item.files.length > 0">
             <ul class="mb-0 mt-1">
                 <li *ngFor="let file of item.files">
-                    <a (click)="downloadFile(item.id, file)" class="text-dark cursor-ptr" *ngIf="!file.sasLink">
-                        {{file.filename}} ({{file.size | filesize}}, Local)
-                    </a>
-
                     <a href="{{file.sasLink}}" *ngIf="file.sasLink" class="text-dark cursor-ptr" target="_blank">
-                        {{file.filename}} ({{file.size | filesize}}, Remote)
+                        {{file.filename}} ({{file.size | filesize}})
                     </a>
                 </li>
             </ul>
