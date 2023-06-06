@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Support } from 'src/app/core/lib/support';
-import { AuditLogFileMetadata, AuditLogListItem, AuditLogListParams } from 'src/app/core/models/audit-log';
+import { AuditLogListItem, AuditLogListParams } from 'src/app/core/models/audit-log';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { AuditLogItemType } from 'src/app/core/models/enums/audit-log-item-type';
 import { AuditLogService } from 'src/app/core/services/audit-log.service';
