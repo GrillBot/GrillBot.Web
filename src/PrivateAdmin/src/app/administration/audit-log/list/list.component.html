@@ -186,11 +186,6 @@
 
 <ng-template #logDataCol let-data="data" let-type="type">
     <div class="col-md log-data-col">
-        <ng-container *ngIf="type === AuditLogItemType.Command">
-            <p>Příkaz: <b>{{data.command}}</b></p>
-            <p>Dokončen úspěšně: <b>{{data.isSuccess | czechBooleanPipe}}</b></p>
-        </ng-container>
-
         <ng-container
             *ngIf="type === AuditLogItemType.ChannelCreated || type === AuditLogItemType.ChannelDeleted || type === AuditLogItemType.ThreadDeleted ">
             <p>Název: <b>{{data.name}}</b></p>

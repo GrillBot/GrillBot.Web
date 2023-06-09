@@ -16,9 +16,6 @@
     </thead>
     <tbody>
         <ng-container [ngSwitch]="item.type">
-            <ng-container *ngSwitchCase="AuditLogItemType.Command">
-                <ng-container *ngTemplateOutlet="command"></ng-container>
-            </ng-container>
             <ng-container *ngSwitchCase="AuditLogItemType.ChannelUpdated">
                 <ng-container *ngTemplateOutlet="channelUpdated"></ng-container>
             </ng-container>
@@ -80,29 +77,6 @@
             </td>
         </tr>
     </ng-container>
-</ng-template>
-
-<ng-template #command>
-    <tr>
-        <td>Příkaz</td>
-        <td>{{data.command}}</td>
-    </tr>
-
-    <ng-container *ngTemplateOutlet="commandBase"></ng-container>
-
-    <tr>
-        <td>Obsah zprávy</td>
-        <td>
-            <pre>{{data.messageContent}}</pre>
-        </td>
-    </tr>
-
-    <tr *ngIf="data.exception">
-        <td>Obsah chyby</td>
-        <td>
-            <pre class="alert alert-danger">{{data.exception}}</pre>
-        </td>
-    </tr>
 </ng-template>
 
 <ng-template #interaction>

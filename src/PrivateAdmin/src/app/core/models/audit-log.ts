@@ -216,7 +216,6 @@ export class AuditLogListItem {
 
     get canOpenDetail(): boolean {
         const otherTypeWithDetails = [
-            AuditLogItemType.Command,
             AuditLogItemType.ChannelUpdated,
             AuditLogItemType.OverwriteUpdated,
             AuditLogItemType.MemberUpdated,
@@ -234,7 +233,6 @@ export class AuditLogListItem {
 
     get canShowColumn(): boolean {
         const types = [
-            AuditLogItemType.Command,
             AuditLogItemType.ChannelCreated,
             AuditLogItemType.ChannelDeleted,
             AuditLogItemType.ChannelUpdated,
@@ -304,3 +302,4 @@ export class ClientLogItemRequest {
         public content: string
     ) { }
 }
+
