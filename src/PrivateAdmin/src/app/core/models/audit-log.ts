@@ -1,199 +1,11 @@
 import { Support } from 'src/app/core/lib/support';
 import { AuditLogItemTypeTexts } from 'src/app/core/models/enums/audit-log-item-type';
 import { Channel } from './channels';
-import { FilterBase, RangeParams, createRangeParams } from './common';
+import { FilterBase } from './common';
 import { DateTime } from './datetime';
 import { AuditLogItemType } from './enums/audit-log-item-type';
 import { Guild } from './guilds';
 import { User } from './users';
-
-export class TextFilter {
-    public text: string | null = null;
-
-    get serialized(): any {
-        return { text: this.text };
-    }
-
-    static create(data: any): TextFilter | null {
-        if (!data) { return null; }
-        const filter = new TextFilter();
-
-        filter.text = data.text;
-
-        return filter;
-    }
-}
-
-export class ExecutionFilter {
-    public name: string = null;
-    public wasSuccess?: boolean;
-    public duration: RangeParams<number> | null;
-
-    get serialized(): any {
-        return {
-            name: this.name,
-            wasSuccess: this.wasSuccess,
-            durationFrom: this.duration?.from,
-            durationTo: this.duration?.to
-        };
-    }
-
-    static create(data: any): ExecutionFilter | null {
-        if (!data) { return null; }
-        const filter = new ExecutionFilter();
-
-        filter.name = data.name;
-        filter.wasSuccess = data.wasSuccess;
-        filter.duration = createRangeParams(data.durationFrom, data.durationTo);
-
-        return filter;
-    }
-}
-
-export class ApiRequestFilter {
-    public controllerName: string | null = null;
-    public actionName: string | null = null;
-    public pathTemplate: string | null = null;
-    public duration?: RangeParams<number> | null;
-    public method: string | null = null;
-    public loggedUserRole: string | null = null;
-    public apiGroupName: string | null = null;
-
-    get serialized(): any {
-        return {
-            controllerName: this.controllerName,
-            actionName: this.actionName,
-            pathTemplate: this.pathTemplate,
-            durationFrom: this.duration?.from,
-            durationTo: this.duration?.to,
-            method: this.method,
-            loggedUserRole: this.loggedUserRole,
-            apiGroupName: this.apiGroupName
-        };
-    }
-
-    static create(data: any): ApiRequestFilter | null {
-        if (!data) { return null; }
-        const filter = new ApiRequestFilter();
-
-        filter.controllerName = data.controllerName;
-        filter.actionName = data.actionName;
-        filter.pathTemplate = data.pathTemplate;
-        filter.duration = createRangeParams(data.durationFrom, data.durationTo);
-        filter.method = data.method;
-        filter.loggedUserRole = data.loggedUserRole;
-        filter.apiGroupName = data.apiGroupName;
-
-        return filter;
-    }
-}
-
-export class TargetIdFilter {
-    public targetId: string;
-
-    get serialized(): any {
-        return { targetId: this.targetId };
-    }
-
-    static create(data: any): TargetIdFilter | null {
-        if (!data) { return null; }
-        const filter = new TargetIdFilter();
-
-        filter.targetId = data.targetId;
-
-        return filter;
-    }
-}
-
-export class MessageDeletedFilter {
-    public containsEmbed?: boolean;
-    public contentContains: string;
-    public authorId: string;
-
-    get serialized(): any {
-        return {
-            containsEmbed: this.containsEmbed,
-            contentContains: this.contentContains,
-            authorId: this.authorId
-        };
-    }
-
-    static create(data: any): MessageDeletedFilter | null {
-        if (!data) { return null; }
-        const filter = new MessageDeletedFilter();
-
-        filter.authorId = data.authorId;
-        filter.contentContains = data.contentContains;
-        filter.containsEmbed = data.containsEmbed;
-        filter.authorId = data.authorId;
-
-        return filter;
-    }
-}
-
-export class AuditLogListParams extends FilterBase {
-    public guildId: string | null;
-    public processedUserIds: string[] = [];
-    public types: AuditLogItemType[] = [];
-    public createdFrom: string | null;
-    public createdTo: string | null;
-    public ignoreBots: boolean;
-    public channelId: string | null;
-    public ids: string | null;
-    public excludedTypes: AuditLogItemType[] = [];
-    public infoFilter: TextFilter | null = null;
-    public warningFilter: TextFilter | null = null;
-    public errorFilter: TextFilter | null = null;
-    public interactionFilter: ExecutionFilter | null = null;
-    public jobFilter: ExecutionFilter | null = null;
-    public apiRequestFilter: ApiRequestFilter | null = null;
-    public overwriteCreatedFilter: TargetIdFilter | null = null;
-    public overwriteUpdatedFilter: TargetIdFilter | null = null;
-    public overwriteDeletedFilter: TargetIdFilter | null = null;
-    public memberUpdatedFilter: TargetIdFilter | null = null;
-    public memberRoleUpdatedFilter: TargetIdFilter | null = null;
-    public messageDeletedFilter: MessageDeletedFilter | null = null;
-    public onlyFromStart = false;
-    public onlyWithFiles = false;
-
-    static get empty(): AuditLogListParams {
-        const params = new AuditLogListParams();
-        params.excludedTypes = [AuditLogItemType.API];
-
-        return params;
-    }
-
-    static create(data: any): AuditLogListParams | null {
-        if (!data) { return null; }
-        const params = new AuditLogListParams();
-
-        params.guildId = data.guildId;
-        params.channelId = data.channelId;
-        params.createdFrom = data.createdFrom;
-        params.createdTo = data.createdTo;
-        params.ignoreBots = data.ignoreBots ?? false;
-        params.processedUserIds = data.processedUserIds;
-        params.types = data.types ? data.types : [];
-        params.infoFilter = data.infoFilter ? TextFilter.create(data.infoFilter) : null;
-        params.warningFilter = data.warningFilter ? TextFilter.create(data.warningFilter) : null;
-        params.errorFilter = data.errorFilter ? TextFilter.create(data.errorFilter) : null;
-        params.interactionFilter = data.interactionsFilter ? ExecutionFilter.create(data.interactionsFilter) : null;
-        params.jobFilter = data.jobFilter ? ExecutionFilter.create(data.jobFilter) : null;
-        params.apiRequestFilter = data.apiRequestFilter ? ApiRequestFilter.create(data.apiRequestFilter) : null;
-        params.ids = data.ids;
-        params.excludedTypes = data.excludedTypes ? data.excludedTypes : [];
-        params.overwriteCreatedFilter = data.overwriteCreatedFilter ? TargetIdFilter.create(data.overwriteCreatedFilter) : null;
-        params.overwriteDeletedFilter = data.overwriteDeletedFilter ? TargetIdFilter.create(data.overwriteDeletedFilter) : null;
-        params.overwriteUpdatedFilter = data.overwriteUpdatedFilter ? TargetIdFilter.create(data.overwriteUpdatedFilter) : null;
-        params.memberUpdatedFilter = data.memberUpdatedFilter ? TargetIdFilter.create(data.memberUpdatedFilter) : null;
-        params.memberRoleUpdatedFilter = data.memberRoleUpdatedFilter ? TargetIdFilter.create(data.memberRoleUpdatedFilter) : null;
-        params.messageDeletedFilter = data.messageDeletedFilter ? MessageDeletedFilter.create(data.messageDeletedFilter) : null;
-        params.onlyFromStart = data.onlyFromStart;
-        params.onlyWithFiles = data.onlyWithFiles;
-
-        return params;
-    }
-}
 
 export class AuditLogListItem {
     public id: number;
@@ -206,72 +18,8 @@ export class AuditLogListItem {
     public files: AuditLogFileMetadata[];
     public data: any;
 
-    get title(): string {
-        return AuditLogItemTypeTexts[Support.getEnumKeyByValue(AuditLogItemType, this.type)] as string;
-    }
-
     get isText(): boolean {
         return this.type === AuditLogItemType.Info || this.type === AuditLogItemType.Warning || this.type === AuditLogItemType.Error;
-    }
-
-    get canOpenDetail(): boolean {
-        const otherTypeWithDetails = [
-            AuditLogItemType.ChannelUpdated,
-            AuditLogItemType.OverwriteUpdated,
-            AuditLogItemType.MemberUpdated,
-            AuditLogItemType.GuildUpdated,
-            AuditLogItemType.InteractionCommand,
-            AuditLogItemType.ThreadDeleted,
-            AuditLogItemType.JobCompleted,
-            AuditLogItemType.API,
-            AuditLogItemType.MessageDeleted,
-            AuditLogItemType.ThreadUpdated
-        ];
-
-        return otherTypeWithDetails.includes(this.type);
-    }
-
-    get canShowColumn(): boolean {
-        const types = [
-            AuditLogItemType.ChannelCreated,
-            AuditLogItemType.ChannelDeleted,
-            AuditLogItemType.ChannelUpdated,
-            AuditLogItemType.EmojiDeleted,
-            AuditLogItemType.OverwriteCreated,
-            AuditLogItemType.OverwriteDeleted,
-            AuditLogItemType.OverwriteUpdated,
-            AuditLogItemType.Unban,
-            AuditLogItemType.MemberUpdated,
-            AuditLogItemType.MemberRoleUpdated,
-            AuditLogItemType.GuildUpdated,
-            AuditLogItemType.UserLeft,
-            AuditLogItemType.UserJoined,
-            AuditLogItemType.MessageDeleted,
-            AuditLogItemType.InteractionCommand,
-            AuditLogItemType.ThreadDeleted,
-            AuditLogItemType.JobCompleted,
-            AuditLogItemType.API,
-            AuditLogItemType.ThreadUpdated
-        ];
-
-        return types.includes(this.type);
-    }
-
-    static create(data: any): AuditLogListItem | null {
-        if (!data) { return null; }
-        const item = new AuditLogListItem();
-
-        item.id = data.id;
-        item.createdAt = DateTime.fromISOString(data.createdAt as string);
-        item.guild = data.guild ? Guild.create(data.guild) : null;
-        item.processedUser = data.processedUser ? User.create(data.processedUser) : null;
-        item.discordAuditLogItemIds = data.discordAuditLogItemId;
-        item.type = data.type;
-        item.channel = data.channel ? Channel.create(data.channel) : null;
-        item.files = (data.files as any[]).map((o: any) => AuditLogFileMetadata.create(o)).filter((o: AuditLogFileMetadata) => o);
-        item.data = data.data;
-
-        return item;
     }
 }
 
@@ -280,18 +28,6 @@ export class AuditLogFileMetadata {
     public filename: string;
     public size: number;
     public sasLink: string | null;
-
-    static create(data: any): AuditLogFileMetadata | null {
-        if (!data) { return null; }
-        const metadata = new AuditLogFileMetadata();
-
-        metadata.id = data.id;
-        metadata.size = data.size;
-        metadata.filename = data.filename;
-        metadata.sasLink = data.sasLink ? data.sasLink : null;
-
-        return metadata;
-    }
 }
 
 export class ClientLogItemRequest {
@@ -303,3 +39,289 @@ export class ClientLogItemRequest {
     ) { }
 }
 
+export class ApiSearchRequest {
+    public controllerName: string | null = null;
+    public actionName: string | null = null;
+    public pathTemplate: string | null = null;
+    public durationFrom: number | null = null;
+    public durationTo: number | null = null;
+    public method: string | null = null;
+    public apiGroupName: string | null = null;
+
+    get serialized(): any {
+        return {
+            controllerName: this.controllerName,
+            actionName: this.actionName,
+            pathTemplate: this.pathTemplate,
+            durationFrom: this.durationFrom,
+            durationTo: this.durationTo,
+            method: this.method,
+            apiGroupName: this.apiGroupName
+        };
+    }
+
+    static create(data: any): ApiSearchRequest {
+        const request = new ApiSearchRequest();
+
+        request.actionName = data.actionName;
+        request.apiGroupName = data.apiGroupName;
+        request.controllerName = data.controllerName;
+        request.durationFrom = data.durationFrom;
+        request.durationTo = data.durationTo;
+        request.method = data.method;
+        request.pathTemplate = data.pathTemplate;
+
+        return request;
+    }
+}
+
+export class ExecutionSearchRequest {
+    public actionName: string | null = null;
+    public success: boolean | null = null;
+    public durationFrom: number | null = null;
+    public durationTo: number | null = null;
+
+    get serialized(): any {
+        return {
+            actionName: this.actionName,
+            success: this.success,
+            durationFrom: this.durationFrom,
+            durationTo: this.durationTo
+        };
+    }
+
+    static create(data: any): ExecutionSearchRequest {
+        const request = new ExecutionSearchRequest();
+
+        request.actionName = data.actionName;
+        request.success = data.success;
+        request.durationFrom = data.durationFrom;
+        request.durationTo = data.durationTo;
+
+        return request;
+    }
+}
+
+export class MessageDeletedSearchRequest {
+    public containsEmbed: boolean | null = null;
+    public contentContains: string | null = null;
+    public authorId: string | null = null;
+
+    get serialized(): any {
+        return {
+            containsEmbed: this.containsEmbed,
+            contentContains: this.contentContains,
+            authorId: this.authorId
+        };
+    }
+
+    static create(data: any): MessageDeletedSearchRequest {
+        const request = new MessageDeletedSearchRequest();
+
+        request.authorId = data.authorId;
+        request.contentContains = data.contentContains;
+        request.containsEmbed = data.containsEmbed;
+
+        return request;
+    }
+}
+
+export class TextSearchRequest {
+    public text: string | null = null;
+
+    get serialized(): any {
+        return {
+            text: this.text
+        };
+    }
+
+    static create(data: any): TextSearchRequest {
+        const request = new TextSearchRequest();
+
+        request.text = data.text;
+
+        return request;
+    }
+}
+
+export class UserIdSearchRequest {
+    public userId: string | null = null;
+
+    get serialized(): any {
+        return {
+            userId: this.userId
+        };
+    }
+
+    static create(data: any): UserIdSearchRequest {
+        const request = new UserIdSearchRequest();
+
+        request.userId = data.userId;
+
+        return request;
+    }
+}
+
+export class AdvancedSearchRequest {
+    public info: TextSearchRequest | null = null;
+    public warning: TextSearchRequest | null = null;
+    public error: TextSearchRequest | null = null;
+    public interaction: ExecutionSearchRequest | null = null;
+    public job: ExecutionSearchRequest | null = null;
+    public api: ApiSearchRequest | null = null;
+    public overwriteCreated: UserIdSearchRequest | null;
+    public overwriteDeleted: UserIdSearchRequest | null;
+    public overwriteUpdated: UserIdSearchRequest | null;
+    public memberRolesUpdated: UserIdSearchRequest | null;
+    public memberUpdated: UserIdSearchRequest | null;
+    public messageDeleted: MessageDeletedSearchRequest | null = null;
+
+    get serialized(): any {
+        return {
+            info: this.info?.serialized ?? null,
+            warning: this.warning?.serialized ?? null,
+            error: this.error?.serialized ?? null,
+            interaction: this.interaction?.serialized ?? null,
+            job: this.job?.serialized ?? null,
+            api: this.api?.serialized ?? null,
+            overwriteCreated: this.overwriteCreated?.serialized ?? null,
+            overwriteDeleted: this.overwriteDeleted?.serialized ?? null,
+            overwriteUpdated: this.overwriteUpdated?.serialized ?? null,
+            memberRolesUpdated: this.memberRolesUpdated?.serialized ?? null,
+            memberUpdated: this.memberUpdated?.serialized ?? null,
+            messageDeleted: this.messageDeleted?.serialized ?? null
+        };
+    }
+
+    static create(data: any): AdvancedSearchRequest {
+        const request = new AdvancedSearchRequest();
+
+        request.info = data.info ? TextSearchRequest.create(data.info) : null;
+        request.warning = data.warning ? TextSearchRequest.create(data.warning) : null;
+        request.error = data.error ? TextSearchRequest.create(data.error) : null;
+        request.interaction = data.interaction ? ExecutionSearchRequest.create(data.interaction) : null;
+        request.job = data.job ? ExecutionSearchRequest.create(data.job) : null;
+        request.api = data.api ? ApiSearchRequest.create(data.api) : null;
+        request.overwriteCreated = data.overwriteCreated ? UserIdSearchRequest.create(data.overwriteCreated) : null;
+        request.overwriteDeleted = data.overwriteDeleted ? UserIdSearchRequest.create(data.overwriteDeleted) : null;
+        request.overwriteUpdated = data.overwriteUpdated ? UserIdSearchRequest.create(data.overwriteUpdated) : null;
+        request.memberRolesUpdated = data.memberRolesUpdated ? UserIdSearchRequest.create(data.memberRolesUpdated) : null;
+        request.memberUpdated = data.memberUpdated ? UserIdSearchRequest.create(data.memberUpdated) : null;
+        request.messageDeleted = data.messageDeleted ? MessageDeletedSearchRequest.create(data.messageDeleted) : null;
+
+        return request;
+    }
+}
+
+export class SearchRequest extends FilterBase {
+    public guildId: string;
+    public userIds: string[];
+    public channelId: string;
+    public showTypes: AuditLogItemType[];
+    public ignoreTypes: AuditLogItemType[];
+    public createdFrom: string;
+    public createdTo: string;
+    public onlyWithFiles: boolean;
+    public advancedSearch: AdvancedSearchRequest;
+    public ids: string[];
+
+    static get empty(): SearchRequest {
+        const request = new SearchRequest();
+        request.ignoreTypes = [AuditLogItemType.API];
+        request.onlyWithFiles = false;
+
+        return request;
+    }
+
+    get serialized(): any {
+        return {
+            guildId: this.guildId,
+            userIds: this.userIds,
+            channelId: this.channelId,
+            showTypes: this.showTypes,
+            ignoreTypes: this.ignoreTypes,
+            createdFrom: this.createdFrom,
+            createdTo: this.createdTo,
+            onlyWithFiles: this.onlyWithFiles,
+            ids: this.ids,
+            advancedSearch: this.advancedSearch?.serialized
+        };
+    }
+
+    get serializedIds(): string {
+        if (!this.ids) {
+            this.ids = [];
+        }
+
+        return this.ids.join(';');
+    }
+
+    set serializedIds(value: string) {
+        this.ids = (value ? value : '').split(';').filter(o => !Support.isEmpty(o));
+    }
+
+    static create(data: any): SearchRequest {
+        const request = new SearchRequest();
+
+        request.guildId = data.guildId;
+        request.userIds = data.userIds ? data.userIds : [];
+        request.channelId = data.channelId;
+        request.showTypes = data.showTypes ? data.showTypes : [];
+        request.ignoreTypes = data.ignoreTypes ? data.ignoreTypes : [];
+        request.createdFrom = data.createdFrom;
+        request.createdTo = data.createdTo;
+        request.onlyWithFiles = data.onlyWithFiles;
+        request.serializedIds = data.serializedIds ? data.serializedIds : null;
+        request.advancedSearch = data.advancedSearch ? AdvancedSearchRequest.create(data.advancedSearch) : null;
+
+        return request;
+    }
+}
+
+export class File {
+    public filename: string;
+    public size: number;
+    public link: string;
+
+    static create(data: any): File {
+        const file = new File();
+
+        file.filename = data.filename;
+        file.size = data.size;
+        file.link = data.link;
+
+        return file;
+    }
+}
+
+export class LogListItem {
+    public guild: Guild | null;
+    public user: User | null;
+    public channel: Channel | null;
+    public createdAt: DateTime;
+    public id: string;
+    public type: AuditLogItemType;
+    public isDetailAvailable: boolean;
+    public files: File[];
+    public preview?: any;
+
+    get title(): string {
+        return AuditLogItemTypeTexts[Support.getEnumKeyByValue(AuditLogItemType, this.type)] as string;
+    }
+
+    static create(data: any): LogListItem {
+        const item = new LogListItem();
+
+        item.guild = data.guild ? Guild.create(data.guild) : null;
+        item.user = data.user ? User.create(data.user) : null;
+        item.channel = data.channel ? Channel.create(data.channel) : null;
+        item.createdAt = DateTime.fromISOString(data.createdAt);
+        item.id = data.id;
+        item.type = data.type;
+        item.isDetailAvailable = data.isDetailAvailable;
+        item.files = data.files.map((f: any) => File.create(f));
+        item.preview = data.preview;
+
+        return item;
+    }
+}

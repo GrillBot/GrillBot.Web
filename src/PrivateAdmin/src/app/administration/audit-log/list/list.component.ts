@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Support } from 'src/app/core/lib/support';
-import { AuditLogListItem, AuditLogListParams } from 'src/app/core/models/audit-log';
+import { AuditLogListItem, SearchRequest } from 'src/app/core/models/audit-log';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { AuditLogItemType } from 'src/app/core/models/enums/audit-log-item-type';
 import { AuditLogService } from 'src/app/core/services/audit-log.service';
@@ -16,7 +16,7 @@ import { DetailModalComponent } from '../detail-modal/detail-modal.component';
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-export class ListComponent extends ListComponentBase<AuditLogListParams> {
+export class ListComponent extends ListComponentBase<SearchRequest> {
     constructor(
         private auditLogService: AuditLogService,
         private modalBox: ModalBoxService
@@ -32,10 +32,10 @@ export class ListComponent extends ListComponentBase<AuditLogListParams> {
 
     getRequest(pagination: PaginatedParams): Observable<PaginatedResponse<any>> {
         this.filter.set(pagination, this.sort);
-        return this.auditLogService.getAuditLogList(this.filter);
+        return this.auditLogService.searchAuditLogs(this.filter);
     }
 
-    removeItem(id: number): void {
+    removeItem(id: string): void {
         const modal = new QuestionModal('Smazání záznamu z logu',
             'Opravdu si přeješ smazat záznam z logu? <b>Tato akce je nevratná!</b>', true);
         modal.onAccept.subscribe(() => this.auditLogService.removeItem(id).subscribe(__ => this.list.filterChanged()));

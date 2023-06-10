@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { noop } from 'rxjs';
-import { ApiRequestFilter } from './../../../../../core/models/audit-log';
+import { ApiSearchRequest } from './../../../../../core/models/audit-log';
 import { NG_VALUE_ACCESSOR, UntypedFormGroup, UntypedFormBuilder, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { SelectItems } from 'src/app/shared/select/models';
@@ -19,12 +19,6 @@ import { SelectItems } from 'src/app/shared/select/models';
 export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
     form: UntypedFormGroup;
 
-    userRoles: SelectItems = [
-        { key: 'Nerozhoduje', value: null },
-        { key: 'Admin', value: 'Admin' },
-        { key: 'User', value: 'User' }
-    ];
-
     httpMethods: SelectItems = [
         { key: 'Nerozhoduje', value: null },
         { key: 'GET', value: 'GET' },
@@ -41,7 +35,7 @@ export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
         { key: 'V2', value: 'V2' }
     ];
 
-    private onChange: (obj: ApiRequestFilter) => void = noop;
+    private onChange: (obj: ApiSearchRequest) => void = noop;
 
     constructor(private fb: UntypedFormBuilder) { }
 
@@ -53,20 +47,19 @@ export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
             durationFrom: [],
             durationTo: [],
             method: [null],
-            loggedUserRole: [null],
             apiGroupName: [null]
         });
 
         this.form.valueChanges.subscribe(_ => this.submit());
     }
 
-    writeValue(obj: ApiRequestFilter): void {
+    writeValue(obj: ApiSearchRequest): void {
         if (obj) {
             this.form.patchValue(obj.serialized);
         }
     }
 
-    registerOnChange(fn: (_: ApiRequestFilter) => void): void {
+    registerOnChange(fn: (_: ApiSearchRequest) => void): void {
         this.onChange = fn;
     }
 
@@ -81,7 +74,6 @@ export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        const filter = ApiRequestFilter.create(this.form.value);
-        this.onChange(filter);
+        this.onChange(ApiSearchRequest.create(this.form.value));
     }
 }

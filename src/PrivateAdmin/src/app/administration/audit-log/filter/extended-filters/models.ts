@@ -1,16 +1,18 @@
-import { ApiRequestFilter, ExecutionFilter, MessageDeletedFilter, TargetIdFilter, TextFilter } from 'src/app/core/models/audit-log';
+import {
+    ApiSearchRequest, ExecutionSearchRequest, MessageDeletedSearchRequest, TextSearchRequest, UserIdSearchRequest
+} from 'src/app/core/models/audit-log';
 
 export interface ExtendedFilterData {
-    info: TextFilter;
-    warning: TextFilter;
-    error: TextFilter;
-    interaction: ExecutionFilter;
-    job: ExecutionFilter;
-    api: ApiRequestFilter;
-    overwriteCreated: TargetIdFilter;
-    overwriteDeleted: TargetIdFilter;
-    overwriteUpdated: TargetIdFilter;
-    memberUpdated: TargetIdFilter;
-    memberRoleUpdated: TargetIdFilter;
-    messageDeleted: MessageDeletedFilter;
+    info: TextSearchRequest;
+    warning: TextSearchRequest;
+    error: TextSearchRequest;
+    interaction: ExecutionSearchRequest;
+    job: ExecutionSearchRequest;
+    api: ApiSearchRequest;
+    overwriteCreated: UserIdSearchRequest;
+    overwriteDeleted: UserIdSearchRequest;
+    overwriteUpdated: UserIdSearchRequest;
+    memberUpdated: UserIdSearchRequest;
+    memberRoleUpdated: UserIdSearchRequest;
+    messageDeleted: MessageDeletedSearchRequest;
 }

@@ -1,6 +1,6 @@
 import { SelectItems } from './../../../../../shared/select/models';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import { ExecutionFilter } from './../../../../../core/models/audit-log';
+import { ExecutionSearchRequest } from './../../../../../core/models/audit-log';
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { noop } from 'rxjs';
 
@@ -26,13 +26,13 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
         { key: 'Ne', value: false }
     ];
 
-    private onChange: (obj: ExecutionFilter) => void = noop;
+    private onChange: (obj: ExecutionSearchRequest) => void = noop;
 
     constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({
-            name: [],
+            actionName: [],
             wasSuccess: [null],
             durationFrom: [],
             durationTo: []
@@ -41,14 +41,14 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
         this.form.valueChanges.subscribe(_ => this.submit());
     }
 
-    writeValue(obj: ExecutionFilter): void {
+    writeValue(obj: ExecutionSearchRequest): void {
         if (obj) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             this.form.patchValue(obj.serialized);
         }
     }
 
-    registerOnChange(fn: (obj: ExecutionFilter) => void): void {
+    registerOnChange(fn: (obj: ExecutionSearchRequest) => void): void {
         this.onChange = fn;
     }
 
@@ -63,7 +63,6 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        const filter = ExecutionFilter.create(this.form.value);
-        this.onChange(filter);
+        this.onChange(ExecutionSearchRequest.create(this.form.value));
     }
 }

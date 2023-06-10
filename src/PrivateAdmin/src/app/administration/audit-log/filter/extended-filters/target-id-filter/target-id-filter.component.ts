@@ -1,5 +1,5 @@
 import { noop } from 'rxjs';
-import { TargetIdFilter } from './../../../../../core/models/audit-log';
+import { UserIdSearchRequest } from './../../../../../core/models/audit-log';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 
@@ -19,25 +19,24 @@ export class TargetIdFilterComponent implements OnInit, ControlValueAccessor {
 
     form: UntypedFormGroup;
 
-    private onChange: (obj: TargetIdFilter) => void = noop;
-
+    private onChange: (obj: UserIdSearchRequest) => void = noop;
     constructor(private fb: UntypedFormBuilder) { }
 
     ngOnInit(): void {
         this.form = this.fb.group({
-            targetId: []
+            userId: []
         });
 
         this.form.valueChanges.subscribe(_ => this.submit());
     }
 
-    writeValue(obj: TargetIdFilter): void {
+    writeValue(obj: UserIdSearchRequest): void {
         if (obj) {
-            this.form.get('targetId').setValue(obj.targetId ?? '');
+            this.form.get('userId').setValue(obj.userId ?? '');
         }
     }
 
-    registerOnChange(fn: (_: TargetIdFilter) => void): void {
+    registerOnChange(fn: (_: UserIdSearchRequest) => void): void {
         this.onChange = fn;
     }
 
@@ -52,6 +51,6 @@ export class TargetIdFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        this.onChange(TargetIdFilter.create(this.form.value));
+        this.onChange(UserIdSearchRequest.create(this.form.value));
     }
 }

@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Dictionary } from 'src/app/core/models/common';
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { AuditLogListParams } from 'src/app/core/models/audit-log';
+import { UntypedFormBuilder } from '@angular/forms';
+import { AdvancedSearchRequest, SearchRequest } from 'src/app/core/models/audit-log';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { AuditLogItemType, AuditLogItemTypeTexts } from 'src/app/core/models/enums/audit-log-item-type';
 import { Support } from 'src/app/core/lib/support';
@@ -16,7 +16,7 @@ import { ExtendedFilterData } from './extended-filters/models';
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
+export class FilterComponent extends FilterComponentBase<SearchRequest> {
     types: Dictionary<number, string>;
     exFilters: ExtendedFilterData;
 
@@ -26,8 +26,8 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
     ) { super(fb, storage); }
 
     get guildId(): string { return this.form.get('guildId').value as string; }
-    get selectedTypes(): AuditLogItemType[] { return this.form.get('types').value as AuditLogItemType[]; }
-    get excludedTypes(): AuditLogItemType[] { return this.form.get('excludedTypes').value as AuditLogItemType[]; }
+    get selectedTypes(): AuditLogItemType[] { return this.form.get('showTypes').value as AuditLogItemType[]; }
+    get excludedTypes(): AuditLogItemType[] { return this.form.get('ignoreTypes').value as AuditLogItemType[]; }
     get auditLogItemType(): typeof AuditLogItemType { return AuditLogItemType; }
 
     get allowExtendedFilters(): boolean {
@@ -67,86 +67,85 @@ export class FilterComponent extends FilterComponentBase<AuditLogListParams> {
             }));
     }
 
-    deserializeData(data: any): AuditLogListParams {
-        return AuditLogListParams.create(data);
+    deserializeData(data: any): SearchRequest {
+        return SearchRequest.create(data);
     }
 
-    createData(empty: boolean): AuditLogListParams {
+    createData(empty: boolean): SearchRequest {
         if (empty) {
             this.exFilters = null;
-            return AuditLogListParams.empty;
+            return SearchRequest.empty;
         } else {
-            const filter = AuditLogListParams.create(this.form.value);
+            const filter = SearchRequest.create(this.form.value);
 
             if (this.exFilters) {
-                filter.infoFilter = this.exFilters.info;
-                filter.warningFilter = this.exFilters.warning;
-                filter.errorFilter = this.exFilters.error;
-                filter.interactionFilter = this.exFilters.interaction;
-                filter.jobFilter = this.exFilters.job;
-                filter.apiRequestFilter = this.exFilters.api;
-                filter.overwriteCreatedFilter = this.exFilters.overwriteCreated;
-                filter.overwriteDeletedFilter = this.exFilters.overwriteCreated;
-                filter.overwriteUpdatedFilter = this.exFilters.overwriteUpdated;
-                filter.memberUpdatedFilter = this.exFilters.memberUpdated;
-                filter.memberRoleUpdatedFilter = this.exFilters.memberRoleUpdated;
-                filter.messageDeletedFilter = this.exFilters.messageDeleted;
+                const request = new AdvancedSearchRequest();
+
+                request.info = this.exFilters.info;
+                request.warning = this.exFilters.warning;
+                request.error = this.exFilters.error;
+                request.interaction = this.exFilters.interaction;
+                request.job = this.exFilters.job;
+                request.api = this.exFilters.api;
+                request.overwriteCreated = this.exFilters.overwriteCreated;
+                request.overwriteDeleted = this.exFilters.overwriteCreated;
+                request.overwriteUpdated = this.exFilters.overwriteUpdated;
+                request.memberUpdated = this.exFilters.memberUpdated;
+                request.memberRolesUpdated = this.exFilters.memberRoleUpdated;
+                request.messageDeleted = this.exFilters.messageDeleted;
+                filter.advancedSearch = request;
             }
 
             return filter;
         }
     }
 
-    updateForm(filter: AuditLogListParams): void {
+    updateForm(filter: SearchRequest): void {
         this.form.patchValue({
             guildId: filter.guildId,
             channelId: filter.channelId,
             createdFrom: filter.createdFrom,
             createdTo: filter.createdTo,
-            ignoreBots: filter.ignoreBots,
-            processedUserIds: filter.processedUserIds,
-            types: filter.types,
-            ids: filter.ids,
-            excludedTypes: filter.excludedTypes,
-            onlyFromStart: filter.onlyFromStart,
+            userIds: filter.userIds,
+            showTypes: filter.showTypes,
+            serializedIds: filter.serializedIds,
+            ignoreTypes: filter.ignoreTypes,
             onlyWithFiles: filter.onlyWithFiles
         });
 
         this.setExtendedFilters(filter);
     }
 
-    initForm(filter: AuditLogListParams): void {
+    initForm(filter: SearchRequest): void {
         this.form = this.fb.group({
             guildId: [filter.guildId],
             channelId: [filter.channelId],
             createdFrom: [filter.createdFrom],
             createdTo: [filter.createdTo],
-            ignoreBots: [filter.ignoreBots],
-            processedUserIds: [filter.processedUserIds],
-            types: [filter.types],
-            ids: [filter.ids, Validators.pattern('^[0-9,]*$')],
-            excludedTypes: [filter.excludedTypes],
-            onlyFromStart: [filter.onlyFromStart],
+            userIds: [filter.userIds],
+            showTypes: [filter.showTypes],
+            serializedIds: [filter.serializedIds],
+            ignoreTypes: [filter.ignoreTypes],
             onlyWithFiles: [filter.onlyWithFiles]
         });
 
         this.setExtendedFilters(filter);
     }
 
-    setExtendedFilters(filter: AuditLogListParams): void {
+    setExtendedFilters(filter: SearchRequest): void {
         this.exFilters = {
-            info: filter.infoFilter,
-            warning: filter.warningFilter,
-            error: filter.errorFilter,
-            interaction: filter.interactionFilter,
-            job: filter.jobFilter,
-            api: filter.apiRequestFilter,
-            overwriteCreated: filter.overwriteCreatedFilter,
-            overwriteDeleted: filter.overwriteDeletedFilter,
-            overwriteUpdated: filter.overwriteUpdatedFilter,
-            memberUpdated: filter.memberUpdatedFilter,
-            memberRoleUpdated: filter.memberRoleUpdatedFilter,
-            messageDeleted: filter.messageDeletedFilter
+            info: filter.advancedSearch?.info,
+            warning: filter.advancedSearch?.warning,
+            error: filter.advancedSearch?.error,
+            interaction: filter.advancedSearch?.interaction,
+            job: filter.advancedSearch?.job,
+            api: filter.advancedSearch?.api,
+            overwriteCreated: filter.advancedSearch?.overwriteCreated,
+            overwriteDeleted: filter.advancedSearch?.overwriteDeleted,
+            overwriteUpdated: filter.advancedSearch?.overwriteUpdated,
+            memberUpdated: filter.advancedSearch?.memberUpdated,
+            memberRoleUpdated: filter.advancedSearch?.memberRolesUpdated,
+            messageDeleted: filter.advancedSearch?.messageDeleted
         };
     }
 }

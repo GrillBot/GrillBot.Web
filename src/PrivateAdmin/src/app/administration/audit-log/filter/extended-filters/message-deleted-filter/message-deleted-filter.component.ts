@@ -2,7 +2,7 @@ import { noop } from 'rxjs';
 import { NG_VALUE_ACCESSOR, UntypedFormGroup, UntypedFormBuilder, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { SelectItems } from 'src/app/shared/select/models';
-import { MessageDeletedFilter } from 'src/app/core/models/audit-log';
+import { MessageDeletedSearchRequest } from 'src/app/core/models/audit-log';
 
 @Component({
     selector: 'app-message-deleted-filter',
@@ -24,7 +24,7 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
         { key: 'Pouze zprávy bez embedů', value: false }
     ];
 
-    private onChange: (obj: MessageDeletedFilter) => void = noop;
+    private onChange: (obj: MessageDeletedSearchRequest) => void = noop;
 
     constructor(private fb: UntypedFormBuilder) { }
 
@@ -38,13 +38,13 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
         this.form.valueChanges.subscribe(_ => this.submit());
     }
 
-    writeValue(obj: MessageDeletedFilter): void {
+    writeValue(obj: MessageDeletedSearchRequest): void {
         if (!obj) { return; }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         this.form.patchValue(obj.serialized);
     }
 
-    registerOnChange(fn: (obj: MessageDeletedFilter) => void): void {
+    registerOnChange(fn: (obj: MessageDeletedSearchRequest) => void): void {
         this.onChange = fn;
     }
 
@@ -56,6 +56,6 @@ export class MessageDeletedFilterComponent implements OnInit, ControlValueAccess
     }
 
     private submit(): void {
-        this.onChange(MessageDeletedFilter.create(this.form.value));
+        this.onChange(MessageDeletedSearchRequest.create(this.form.value));
     }
 }

@@ -1,5 +1,5 @@
 import { UntypedFormGroup, UntypedFormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { TextFilter } from './../../../../../core/models/audit-log';
+import { TextSearchRequest } from './../../../../../core/models/audit-log';
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { noop } from 'rxjs';
 
@@ -18,8 +18,7 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;
 
     form: UntypedFormGroup;
-
-    private onChange: (obj: TextFilter) => void = noop;
+    private onChange: (obj: TextSearchRequest) => void = noop;
 
     constructor(private fb: UntypedFormBuilder) { }
 
@@ -31,13 +30,13 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
         this.form.valueChanges.subscribe(_ => this.submit());
     }
 
-    writeValue(obj: TextFilter): void {
+    writeValue(obj: TextSearchRequest): void {
         if (obj) {
             this.form.get('text').setValue(obj?.text ?? '');
         }
     }
 
-    registerOnChange(fn: (_: TextFilter) => void): void {
+    registerOnChange(fn: (_: TextSearchRequest) => void): void {
         this.onChange = fn;
     }
 
@@ -52,6 +51,6 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
     }
 
     private submit(): void {
-        this.onChange(TextFilter.create(this.form.value));
+        this.onChange(TextSearchRequest.create(this.form.value));
     }
 }
