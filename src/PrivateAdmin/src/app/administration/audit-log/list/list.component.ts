@@ -2,13 +2,13 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Support } from 'src/app/core/lib/support';
-import { AuditLogListItem, SearchRequest } from 'src/app/core/models/audit-log';
+import { LogListItem, SearchRequest } from 'src/app/core/models/audit-log';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
 import { AuditLogItemType } from 'src/app/core/models/enums/audit-log-item-type';
 import { AuditLogService } from 'src/app/core/services/audit-log.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
-import { CustomComponentModal, InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { CustomComponentModal, QuestionModal } from 'src/app/shared/modal-box/models';
 import { DetailModalComponent } from '../detail-modal/detail-modal.component';
 
 @Component({
@@ -43,12 +43,9 @@ export class ListComponent extends ListComponentBase<SearchRequest> {
         this.modalBox.show(modal);
     }
 
-    openDetail(item: AuditLogListItem, raw: boolean): void {
-        if (raw) {
-            const content: string = item.isText ? item.data : JSON.stringify(item.data, undefined, 2);
-            this.modalBox.show(new InfoModal('Data záznamu', `<pre class="mb-0">${content}</pre>`, true));
-        } else {
-            this.modalBox.show(new CustomComponentModal('Detail záznamu', DetailModalComponent, null, item));
-        }
+    openDetail(item: LogListItem): void {
+        this.auditLogService.detail(item.id).subscribe(detail => {
+            this.modalBox.show(new CustomComponentModal('Detail záznamu', DetailModalComponent, null, { detail, item }));
+        });
     }
 }

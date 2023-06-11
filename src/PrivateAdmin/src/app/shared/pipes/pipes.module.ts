@@ -1,6 +1,5 @@
 import { CutPipe } from './cut.pipe';
 import { DurationPipe } from './duration.pipe';
-import { DiscordPermsPipePipe } from './discord-perms-pipe.pipe';
 import { DateTimeFormatterPipe } from './date-time-formatter.pipe';
 import { CzechBooleanPipePipe } from './czech-boolean-pipe.pipe';
 import { BitmaskToStringPipe } from './bitmask-to-string.pipe';
@@ -12,7 +11,6 @@ import { TimeDurationPipe } from './time-duration.pipe';
         BitmaskToStringPipe,
         CzechBooleanPipePipe,
         DateTimeFormatterPipe,
-        DiscordPermsPipePipe,
         DurationPipe,
         CutPipe,
         TimeDurationPipe
@@ -21,7 +19,6 @@ import { TimeDurationPipe } from './time-duration.pipe';
         BitmaskToStringPipe,
         CzechBooleanPipePipe,
         DateTimeFormatterPipe,
-        DiscordPermsPipePipe,
         DurationPipe,
         CutPipe,
         TimeDurationPipe

@@ -7,29 +7,6 @@ import { AuditLogItemType } from './enums/audit-log-item-type';
 import { Guild } from './guilds';
 import { User } from './users';
 
-export class AuditLogListItem {
-    public id: number;
-    public createdAt: DateTime;
-    public guild: Guild | null;
-    public processedUser: User | null;
-    public discordAuditLogItemIds: string[] | null;
-    public type: AuditLogItemType;
-    public channel: Channel | null;
-    public files: AuditLogFileMetadata[];
-    public data: any;
-
-    get isText(): boolean {
-        return this.type === AuditLogItemType.Info || this.type === AuditLogItemType.Warning || this.type === AuditLogItemType.Error;
-    }
-}
-
-export class AuditLogFileMetadata {
-    public id: number;
-    public filename: string;
-    public size: number;
-    public sasLink: string | null;
-}
-
 export class ClientLogItemRequest {
     constructor(
         public isInfo: boolean,
@@ -323,5 +300,20 @@ export class LogListItem {
         item.preview = data.preview;
 
         return item;
+    }
+}
+
+export class Detail {
+    public type: AuditLogItemType;
+    public data: any;
+
+    static create(data: any): Detail | null {
+        if (!data) { return null; }
+
+        const detail = new Detail();
+        detail.type = data.type;
+        detail.data = data.data;
+
+        return detail;
     }
 }

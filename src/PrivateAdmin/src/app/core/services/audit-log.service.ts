@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { HttpErrorResponse } from '@angular/common/http';
 import { ObservablePaginatedData, PaginatedResponse } from './../models/common';
-import { LogListItem, SearchRequest } from './../models/audit-log';
+import { Detail, LogListItem, SearchRequest } from './../models/audit-log';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map, catchError } from 'rxjs/operators';
@@ -28,6 +28,16 @@ export class AuditLogService {
 
         return this.base.http.post<PaginatedResponse<LogListItem>>(url, request, { headers }).pipe(
             map(data => PaginatedResponse.create(data, entity => LogListItem.create(entity))),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
+
+    detail(id: string): Observable<Detail | null> {
+        const url = this.base.createUrl(`auditlog/${id}`);
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<Detail | null>(url, { headers }).pipe(
+            map(data => Detail.create(data)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
