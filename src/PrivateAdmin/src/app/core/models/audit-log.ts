@@ -12,7 +12,9 @@ export class ClientLogItemRequest {
         public isInfo: boolean,
         public isWarning: boolean,
         public isError: boolean,
-        public content: string
+        public content: string,
+        public appName: string,
+        public source: string
     ) { }
 }
 
@@ -105,10 +107,14 @@ export class MessageDeletedSearchRequest {
 
 export class TextSearchRequest {
     public text: string | null = null;
+    public sourceAppName: string | null = null;
+    public source: string | null = null;
 
     get serialized(): any {
         return {
-            text: this.text
+            text: this.text,
+            sourceAppName: this.sourceAppName,
+            source: this.source
         };
     }
 
@@ -116,6 +122,8 @@ export class TextSearchRequest {
         const request = new TextSearchRequest();
 
         request.text = data.text;
+        request.source = data.source;
+        request.sourceAppName = data.sourceAppName;
 
         return request;
     }
@@ -226,15 +234,12 @@ export class SearchRequest extends FilterBase {
     }
 
     get serializedIds(): string {
-        if (!this.ids) {
-            this.ids = [];
-        }
-
-        return this.ids.join(';');
+        return this.ids ? this.ids.join(';') : '';
     }
 
     set serializedIds(value: string) {
-        this.ids = (value ? value : '').split(';').filter(o => !Support.isEmpty(o));
+        const ids = (value ? value : '').split(';').filter(o => !Support.isEmpty(o));
+        this.ids = ids.length === 0 ? null : ids;
     }
 
     static create(data: any): SearchRequest {

@@ -24,7 +24,9 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
 
     ngOnInit(): void {
         this.form = this.fb.group({
-            text: []
+            text: [],
+            sourceAppName: [],
+            source: []
         });
 
         this.form.valueChanges.subscribe(_ => this.submit());
@@ -32,7 +34,11 @@ export class TextFilterComponent implements OnInit, ControlValueAccessor {
 
     writeValue(obj: TextSearchRequest): void {
         if (obj) {
-            this.form.get('text').setValue(obj?.text ?? '');
+            this.form.patchValue({
+                text: obj.text ?? '',
+                sourceAppName: obj.sourceAppName,
+                source: obj.source
+            });
         }
     }
 

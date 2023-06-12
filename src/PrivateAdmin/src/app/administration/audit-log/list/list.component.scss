@@ -9,17 +9,13 @@
         white-space: pre-wrap;
     }
 
-    & table {
-        & pre {
-            margin-bottom: 0;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
+    & table pre {
+        margin-bottom: 0;
+        word-wrap: break-word;
+        white-space: pre-wrap;
     }
 }
 
-.log-data-col {
-    p {
-        margin: 0px;
-    }
+.log-data-col p {
+    margin: 0px;
 }

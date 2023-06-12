@@ -168,6 +168,10 @@
 
 <ng-template #logDataCol let-preview="preview" let-type="type">
     <div class="col-md log-data-col">
+        <ng-container *ngIf="type === AuditLogItemType.Info || type === AuditLogItemType.Warning || type === AuditLogItemType.Error">
+            <p>Zdroj: <b>{{preview.fullSource}}</b></p>
+        </ng-container>
+
         <ng-container
             *ngIf="type === AuditLogItemType.ChannelCreated || type === AuditLogItemType.ChannelDeleted || type === AuditLogItemType.ThreadDeleted ">
             <p>Název: <b>{{preview.name}}</b></p>
@@ -269,7 +273,6 @@
                     <span class="me-1" *ngIf="preview.explicitContentFilter">Filtr explicitního obsahu</span>
                     <span class="me-1" *ngIf="preview.features">Funkcionalita</span>
                     <span class="me-1" *ngIf="preview.iconId">Ikona</span>
-                    <span class="me-1" *ngIf="preview.voiceRegionId">Hlasová oblast</span>
                     <span class="me-1" *ngIf="preview.mfaLevel">2FA úroveň</span>
                     <span class="me-1" *ngIf="preview.name">Název</span>
                     <span class="me-1" *ngIf="preview.nsfwLevel">Úroveň NSFW</span>

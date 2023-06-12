@@ -1,8 +1,12 @@
-<pre *ngIf="isText" class="mb-0 mt-0">{{data.text}}</pre>
 <h5 *ngIf="!data">
     <i class="fas fa-exclamation-triangle"></i>
     Pro daný záznam se neexistuje žádný detail.
 </h5>
+
+<ng-container *ngIf="isText">
+    <p class="border-bottom">Zdroj: <b>{{data.sourceAppName}}/{{data.source}}</b></p>
+    <pre class="mb-0 mt-0">{{data.text}}</pre>
+</ng-container>
 
 <div class="mb-3" *ngIf="item.type === AuditLogItemType.MemberUpdated && data?.user">
     <span>

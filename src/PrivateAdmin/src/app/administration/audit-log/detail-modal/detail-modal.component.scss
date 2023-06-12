@@ -4,22 +4,20 @@ pre {
     overflow-wrap: anywhere;
 }
 
-table {
-    & tr {
-        & td:first-child,
-        & th:first-child {
-            width: 1%;
-            white-space: nowrap;
-            padding-right: 10px;
-        }
+table tr {
+    & td:first-child,
+    & th:first-child {
+        width: 1%;
+        white-space: nowrap;
+        padding-right: 10px;
+    }
 
-        & pre {
-            margin-bottom: 0px;
-        }
+    & pre {
+        margin-bottom: 0px;
+    }
 
-        & td code {
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
+    & td code {
+        white-space: pre-wrap;
+        word-break: break-all;
     }
 }
