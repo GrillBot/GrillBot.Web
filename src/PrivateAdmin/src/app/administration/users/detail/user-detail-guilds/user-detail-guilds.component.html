@@ -4,7 +4,6 @@
         'common': {name: 'Základní info', condition: true, template: common_info},
         'points': {name: 'Body', condition: guild.havePointsTransaction, template: points},
         'visibleChannels': {name: 'Přístupy', condition: guild.visibleChannels.length > 0, template: visibleChannels},
-        'timeoutHistory': {name: 'Umlčení', condition: guild.timeoutHistory.length > 0, template: timeoutHistory},
         'invite': {name: 'Pozvánky', condition: !!guild.usedInvite || guild.createdInvites.length > 0, template: invite},
         'nicknames': {name: 'Přezdívky', condition: guild.nicknameHistory.length > 0, template: nicknames},
         'channelActivity': {name: 'Aktivita v kanálech', condition: guild.channels && guild.channels.length > 0, template: channelActivity},
@@ -64,14 +63,6 @@
     <span class="badge bg-secondary original me-1" *ngFor="let channel of guild.visibleChannels">
         <a routerLink="/admin/channels/{{channel.id}}" class="text-white">{{channel.name}}</a>
     </span>
-</ng-template>
-
-<ng-template #timeoutHistory let-guild="guild">
-    <ul>
-        <li *ngFor="let timeout of guild.timeoutHistory" class="fw-bold">
-            {{timeout.from.binding}} - {{timeout.to.binding}}
-        </li>
-    </ul>
 </ng-template>
 
 <ng-template #invite let-guild="guild">

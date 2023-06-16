@@ -1,4 +1,4 @@
-import { List, RangeParams } from 'src/app/core/models/common';
+import { List } from 'src/app/core/models/common';
 import { UnverifyInfo } from './unverify';
 import { ChannelStatItem } from './channels';
 import { DateTime } from './datetime';
@@ -107,7 +107,6 @@ export class GuildUserDetail {
     public nicknameHistory: string[];
     public roles: List<Role>;
     public havePointsTransaction: boolean;
-    public timeoutHistory: List<RangeParams<DateTime>>;
 
     static create(data: any): GuildUserDetail {
         const detail = new GuildUserDetail();
@@ -126,10 +125,6 @@ export class GuildUserDetail {
         detail.nicknameHistory = data.nicknameHistory ? data.nicknameHistory.map((o: string) => o) : [];
         detail.roles = data.roles.map((o: any) => Role.create(o));
         detail.havePointsTransaction = data.havePointsTransaction;
-        detail.timeoutHistory = data.timeoutHistory.map((o: any) => ({
-            from: o.from ? DateTime.fromISOString(o.from) : null,
-            to: o.to ? DateTime.fromISOString(o.to) : null
-        }));
 
         return detail;
     }
