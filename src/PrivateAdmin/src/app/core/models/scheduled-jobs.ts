@@ -28,7 +28,7 @@ export class ScheduledJob {
         item.lastRun = data.lastRun ? DateTime.fromISOString(data.lastRun) : null;
         item.nextRun = DateTime.fromISOString(data.nextRun);
         item.running = data.running;
-        item.lastRunDuration = data.lastRunDuration;
+        item.lastRunDuration = data.lastRunDuration ? data.lastRunDuration : 0;
         item.isActive = data.isActive;
         item.failedCount = data.failedCount;
 
