@@ -11,8 +11,8 @@ import { Attachment, PinChannel } from 'src/app/core/models/pins';
 })
 export class PinListComponent implements OnInit {
     form: UntypedFormGroup;
-    loading = false;
     data?: PinChannel;
+    currentLoading: 'data' | 'markdown' | 'archive' | 'nothing' = 'nothing';
 
     constructor(
         private fb: UntypedFormBuilder,
@@ -32,10 +32,11 @@ export class PinListComponent implements OnInit {
     loadData(): void {
         if (!this.channelId) { return; }
 
-        this.loading = true;
+        this.currentLoading = 'data';
+        this.data = null;
         this.channelService.getChannelPins(this.channelId, false).subscribe(data => {
             this.data = PinChannel.create(JSON.parse(data));
-            this.loading = false;
+            this.currentLoading = 'nothing';
         });
     }
 
@@ -44,13 +45,20 @@ export class PinListComponent implements OnInit {
 
         const filename = `${this.channelId}.zip`;
         if (withAttachments) {
-            this.channelService.getChannelPinsWithAttachments(this.channelId)
-                .subscribe(blob => saveAs(blob, filename));
+            this.currentLoading = 'archive';
+            this.channelService.getChannelPinsWithAttachments(this.channelId).subscribe(blob => {
+                this.currentLoading = 'nothing';
+                saveAs(blob, filename);
+            });
+
             return;
         }
 
-        this.channelService.getChannelPins(this.channelId, true)
-            .subscribe(data => saveAs(new Blob([data], { type: 'text/markdown' }), filename));
+        this.currentLoading = 'markdown';
+        this.channelService.getChannelPins(this.channelId, true).subscribe(data => {
+            this.currentLoading = 'nothing';
+            saveAs(new Blob([data], { type: 'text/markdown' }), filename);
+        });
     }
 
     attachmentClick(attachment: Attachment): void {

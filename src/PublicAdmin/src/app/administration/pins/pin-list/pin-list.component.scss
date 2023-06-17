@@ -2,6 +2,13 @@ img {
     max-width: 70%;
 }
 
-button small {
-    font-size: 0.7rem;
+button {
+    & small {
+        font-size: 0.7rem;
+        margin-left: 3px;
+    }
+
+    & app-loading {
+        margin-left: 6px;
+    }
 }

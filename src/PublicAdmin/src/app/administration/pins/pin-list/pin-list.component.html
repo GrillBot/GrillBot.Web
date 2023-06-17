@@ -3,15 +3,19 @@
         <form [formGroup]="form">
             <label>Kanál</label>
             <app-search-input [searchSource]="'channels-pins'" formControlName="channel"></app-search-input>
-
         </form>
     </div>
 
-    <div class="col-md-auto d-flex align-items-end">
+    <div class="ps-0 col-md-auto d-flex align-items-end">
         <button class="btn btn-outline-success me-2" [disabled]="!channelId" (click)="loadData()">Načíst</button>
-        <button class="btn btn-outline-primary me-2" (click)="download(false)" [disabled]="!channelId">Markdown</button>
-        <button class="btn btn-outline-primary" (click)="download(true)" [disabled]="!channelId">Markdown <small>(vč.
-                příloh)</small></button>
+        <button class="btn btn-outline-primary me-2 d-flex" (click)="download(false)" [disabled]="!channelId">
+            Markdown
+            <app-loading [small]="true" [noText]="true" *ngIf="currentLoading === 'markdown'"></app-loading>
+        </button>
+        <button class="btn btn-outline-primary d-flex align-items-end" (click)="download(true)" [disabled]="!channelId">
+            Markdown <small>(vč.příloh)</small>
+            <app-loading [small]="true" [noText]="true" *ngIf="currentLoading === 'archive'"></app-loading>
+        </button>
     </div>
 
     <div class="col-md d-flex align-items-start flex-column align-self-end" *ngIf="data">
@@ -27,7 +31,7 @@
             Pro zobrazení pinů nejdříve vyber kanál.
         </div>
 
-        <app-loading *ngIf="loading"></app-loading>
+        <app-loading *ngIf="currentLoading === 'data'"></app-loading>
     </div>
 
     <div class="col-md" *ngIf="data">
