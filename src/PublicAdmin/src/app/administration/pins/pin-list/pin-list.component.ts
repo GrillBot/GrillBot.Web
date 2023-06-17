@@ -41,14 +41,13 @@ export class PinListComponent implements OnInit {
     }
 
     download(withAttachments: boolean): void {
-        if (!this.channelId) { return; }
+        if (!this.channelId || !this.data) { return; }
 
-        const filename = `${this.channelId}.zip`;
         if (withAttachments) {
             this.currentLoading = 'archive';
             this.channelService.getChannelPinsWithAttachments(this.channelId).subscribe(blob => {
                 this.currentLoading = 'nothing';
-                saveAs(blob, filename);
+                saveAs(blob, `${this.data.channelName}_full.zip`);
             });
 
             return;
@@ -57,7 +56,7 @@ export class PinListComponent implements OnInit {
         this.currentLoading = 'markdown';
         this.channelService.getChannelPins(this.channelId, true).subscribe(data => {
             this.currentLoading = 'nothing';
-            saveAs(new Blob([data], { type: 'text/markdown' }), filename);
+            saveAs(new Blob([data], { type: 'text/markdown' }), `${this.data.channelName}.zip`);
         });
     }
 

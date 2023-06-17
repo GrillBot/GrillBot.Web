@@ -8,11 +8,11 @@
 
     <div class="ps-0 col-md-auto d-flex align-items-end">
         <button class="btn btn-outline-success me-2" [disabled]="!channelId" (click)="loadData()">Načíst</button>
-        <button class="btn btn-outline-primary me-2 d-flex" (click)="download(false)" [disabled]="!channelId">
+        <button class="btn btn-outline-primary me-2 d-flex" (click)="download(false)" [disabled]="!channelId || !data">
             Markdown
             <app-loading [small]="true" [noText]="true" *ngIf="currentLoading === 'markdown'"></app-loading>
         </button>
-        <button class="btn btn-outline-primary d-flex align-items-end" (click)="download(true)" [disabled]="!channelId">
+        <button class="btn btn-outline-primary d-flex align-items-end" (click)="download(true)" [disabled]="!channelId || !data">
             Markdown <small>(vč.příloh)</small>
             <app-loading [small]="true" [noText]="true" *ngIf="currentLoading === 'archive'"></app-loading>
         </button>
