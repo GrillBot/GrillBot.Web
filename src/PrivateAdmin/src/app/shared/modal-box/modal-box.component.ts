@@ -12,6 +12,8 @@ export class ModalBoxComponent implements OnInit {
 
     description: ModalDescription | null;
     visible = false;
+    customComponent: any | null;
+    customComponentInjector: Injector | null;
 
     constructor(
         private modalBoxService: ModalBoxService,
@@ -39,35 +41,6 @@ export class ModalBoxComponent implements OnInit {
             message: this.description.message,
             isHtml: this.description.isHtml
         };
-    }
-
-    get customComponent(): any {
-        if (this.description.type === 'component') {
-            return (this.description as CustomComponentModal).component;
-        }
-
-        if (this.description.type === 'question-component') {
-            return (this.description as CustomQuestionModal).component;
-        }
-
-        return null;
-    }
-
-    get customComponentInjector(): Injector {
-        let data: any = null;
-
-        if (this.description.type === 'component') {
-            data = (this.description as CustomComponentModal).componentData;
-        }
-
-        if (this.description.type === 'question-component') {
-            data = (this.description as CustomQuestionModal).component;
-        }
-
-        return data === null ? null : Injector.create({
-            parent: this.rootInjector,
-            providers: [{ provide: DATA_INJECTION_TOKEN, useValue: data }]
-        });
     }
 
     @HostListener('document:keydown.escape', ['$event'])
@@ -99,6 +72,12 @@ export class ModalBoxComponent implements OnInit {
 
     render(description: ModalDescription): void {
         this.description = description;
+
+        if (description.isCustom) {
+            this.customComponent = this.createCustomComponent();
+            this.customComponentInjector = this.createCustomComponentInjector();
+        }
+
         this.visible = true;
     }
 
@@ -109,5 +88,34 @@ export class ModalBoxComponent implements OnInit {
             this.description.onModalClose.emit(value);
             this.description = null;
         }
+    }
+
+    private createCustomComponent(): any {
+        if (this.description.type === 'component') {
+            return (this.description as CustomComponentModal).component;
+        }
+
+        if (this.description.type === 'question-component') {
+            return (this.description as CustomQuestionModal).component;
+        }
+
+        return null;
+    }
+
+    private createCustomComponentInjector(): Injector {
+        let data: any = null;
+
+        if (this.description.type === 'component') {
+            data = (this.description as CustomComponentModal).componentData;
+        }
+
+        if (this.description.type === 'question-component') {
+            data = (this.description as CustomQuestionModal).component;
+        }
+
+        return data === null ? null : Injector.create({
+            parent: this.rootInjector,
+            providers: [{ provide: DATA_INJECTION_TOKEN, useValue: data }]
+        });
     }
 }
