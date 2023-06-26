@@ -20,7 +20,7 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
 
     form: UntypedFormGroup;
 
-    wasSuccessItems: SelectItems = [
+    successItems: SelectItems = [
         { key: 'Nerozhoduje', value: null },
         { key: 'Ano', value: true },
         { key: 'Ne', value: false }
@@ -33,7 +33,7 @@ export class ExecutionFilterComponent implements OnInit, ControlValueAccessor {
     ngOnInit(): void {
         this.form = this.fb.group({
             actionName: [],
-            wasSuccess: [null],
+            success: [null],
             durationFrom: [],
             durationTo: []
         });
