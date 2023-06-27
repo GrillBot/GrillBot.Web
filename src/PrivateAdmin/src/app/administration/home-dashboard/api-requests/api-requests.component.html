@@ -1,7 +1,7 @@
 <app-card [header]="false">
     <p class="fw-bold">
-        <ng-container *ngIf="isPublic">Veřejné API</ng-container>
-        <ng-container *ngIf="!isPublic">Privátní API</ng-container>
+        <ng-container *ngIf="apiGroup === 'V1'">Veřejné API</ng-container>
+        <ng-container *ngIf="apiGroup === 'V2'">Privátní API</ng-container>
     </p>
 
     <app-loading *ngIf="loading; else view"></app-loading>
@@ -12,9 +12,9 @@
 
         <ng-container *ngIf="items">
             <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom"
-                [class.text-danger]="isFailedRequest(item.statusCode)" [class.text-warning]="item.duration >= 5000">
-                <b title="{{item.endpoint}}">{{item.endpoint | cut:35}}</b>
-                <span>{{item.statusCode}}, {{item.duration | timeDuration}}</span>
+                [class.text-danger]="isFailedRequest(item.result)" [class.text-warning]="item.duration >= 5000">
+                <b title="{{item.name}}">{{item.name | cut:35}}</b>
+                <span>{{item.result}}, {{item.duration | timeDuration}}</span>
             </div>
 
             <div *ngIf="items.length === 0">Na API dosud nebylo zavoláno.</div>

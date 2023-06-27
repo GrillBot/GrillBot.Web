@@ -1,44 +1,44 @@
 <div class="row mt-2 ms-0 me-0">
     <div class="col-md-8">
-        <app-common-info [loading]="loading" [data]="data"></app-common-info>
+        <app-common-info></app-common-info>
     </div>
 
     <div class="col-md-4">
-        <app-active-operations [loading]="loading" [data]="data"></app-active-operations>
-    </div>
-</div>
-
-<div class="row mt-2 ms-0 me-0">
-    <div class="col-md-4">
-        <app-api-requests [loading]="loading" [data]="data" [isPublic]="false"></app-api-requests>
-    </div>
-
-    <div class="col-md-4">
-        <app-api-requests [loading]="loading" [data]="data" [isPublic]="true"></app-api-requests>
-    </div>
-
-    <div class="col-md-4">
-        <app-commands [loading]="loading" [data]="data"></app-commands>
+        <app-active-operations></app-active-operations>
     </div>
 </div>
 
 <div class="row mt-2 ms-0 me-0">
     <div class="col-md-4">
-        <app-operation-stats [loading]="loading" [data]="data"></app-operation-stats>
+        <app-api-requests #apiV1 [apiGroup]="'V1'"></app-api-requests>
     </div>
 
     <div class="col-md-4">
-        <app-jobs [loading]="loading" [data]="data"></app-jobs>
+        <app-api-requests #apiV2 [apiGroup]="'V2'"></app-api-requests>
     </div>
 
     <div class="col-md-4">
-        <app-today-avg-times [loading]="loading" [data]="data"></app-today-avg-times>
+        <app-commands></app-commands>
+    </div>
+</div>
+
+<div class="row mt-2 ms-0 me-0">
+    <div class="col-md-4">
+        <app-operation-stats></app-operation-stats>
+    </div>
+
+    <div class="col-md-4">
+        <app-jobs></app-jobs>
+    </div>
+
+    <div class="col-md-4">
+        <app-today-avg-times></app-today-avg-times>
     </div>
 </div>
 
 
 <div class="row mt-2 me-0 ms-0">
     <div class="col-md-12 d-flex justify-content-end">
-        <button class="btn btn-link" (click)="ngOnInit()">Obnovit data</button>
+        <button class="btn btn-link" (click)="reload()">Obnovit data</button>
     </div>
 </div>

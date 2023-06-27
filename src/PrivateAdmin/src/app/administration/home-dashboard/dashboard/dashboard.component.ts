@@ -1,27 +1,39 @@
-import { Dashboard } from './../../../core/models/system';
-import { Component, OnInit } from '@angular/core';
-import { SystemService } from 'src/app/core/services/system.service';
+import { DashboardInfo } from './../../../core/models/system';
+import { Component, ViewChild } from '@angular/core';
+import { ApiRequestsComponent } from '../api-requests/api-requests.component';
+import { CommandsComponent } from '../commands/commands.component';
+import { JobsComponent } from '../jobs/jobs.component';
+import { TodayAvgTimesComponent } from '../today-avg-times/today-avg-times.component';
+import { CommonInfoComponent } from '../common-info/common-info.component';
+import { ActiveOperationsComponent } from '../active-operations/active-operations.component';
+import { OperationStatsComponent } from '../operation-stats/operation-stats.component';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
-    data: Dashboard;
+export class DashboardComponent {
+    @ViewChild('apiV1') apiV1: ApiRequestsComponent;
+    @ViewChild('apiV2') apiV2: ApiRequestsComponent;
+    @ViewChild(CommandsComponent) commands: CommandsComponent;
+    @ViewChild(JobsComponent) jobs: JobsComponent;
+    @ViewChild(TodayAvgTimesComponent) todayAvgTimes: TodayAvgTimesComponent;
+    @ViewChild(CommonInfoComponent) commonInfo: CommonInfoComponent;
+    @ViewChild(ActiveOperationsComponent) activeOperations: ActiveOperationsComponent;
+    @ViewChild(OperationStatsComponent) operationStats: OperationStatsComponent;
+
+    data: DashboardInfo;
     loading = true;
 
-    constructor(
-        private system: SystemService
-    ) { }
-
-    ngOnInit(): void {
-        this.data = null;
-        this.loading = true;
-
-        this.system.getDashboard().subscribe(data => {
-            this.data = data;
-            this.loading = false;
-        });
+    reload(): void {
+        this.apiV1.ngOnInit();
+        this.apiV2.ngOnInit();
+        this.commands.ngOnInit();
+        this.jobs.ngOnInit();
+        this.todayAvgTimes.ngOnInit();
+        this.commonInfo.ngOnInit();
+        this.activeOperations.ngOnInit();
+        this.operationStats.ngOnInit();
     }
 
 }

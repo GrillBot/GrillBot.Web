@@ -3,7 +3,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { Dashboard } from '../models/system';
 import { HttpErrorResponse } from '@angular/common/http';
 import { QueryParam } from '../models/http';
 import { ServiceInfo } from '../models/services/services';
@@ -28,16 +27,6 @@ export class SystemService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<string[]>(url, { headers }).pipe(
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
-    getDashboard(): Observable<Dashboard> {
-        const url = this.base.createUrl('system/dashboard');
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.get<Dashboard>(url, { headers }).pipe(
-            map((o: Dashboard) => Dashboard.create(o)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

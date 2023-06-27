@@ -3,10 +3,14 @@
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>
-        <span *ngIf="data.activeOperations.length === 0; else operations">Aktuálně neprobíhá žádná operace.</span>
+        <span *ngIf="items && items.length === 0; else operations">Aktuálně neprobíhá žádná operace.</span>
 
         <ng-template #operations>
-            <div *ngFor="let item of data.activeOperations" class="d-flex justify-content-between border-bottom">
+            <span class="text-danger" *ngIf="!items">
+                <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst seznam aktivních operací.
+            </span>
+
+            <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom">
                 <b>{{item.key}}</b>
                 <span>{{item.value.toLocaleString()}}</span>
             </div>

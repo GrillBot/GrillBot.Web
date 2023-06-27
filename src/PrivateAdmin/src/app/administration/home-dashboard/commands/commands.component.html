@@ -3,18 +3,18 @@
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>
-        <span class="text-danger" *ngIf="!data.commands">
+        <span class="text-danger" *ngIf="!items">
             <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst poslední příkazy.
         </span>
 
-        <ng-container *ngIf="data.commands">
-            <div *ngFor="let item of data.commands" class="d-flex justify-content-between border-bottom" [class.text-danger]="!item.success"
+        <ng-container *ngIf="items">
+            <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom" [class.text-danger]="!item.success"
                 [class.text-warning]="item.duration >= 5000">
-                <b title="{{item.commandName}}">{{item.commandName | cut:45}}</b>
+                <b title="{{item.name}}">{{item.name | cut:45}}</b>
                 <span>{{item.duration | timeDuration}}</span>
             </div>
 
-            <div *ngIf="data.commands.length === 0">Žádný příkaz nebyl dosud spuštěn.</div>
+            <div *ngIf="items.length === 0">Žádný příkaz nebyl dosud spuštěn.</div>
         </ng-container>
     </ng-template>
 </app-card>

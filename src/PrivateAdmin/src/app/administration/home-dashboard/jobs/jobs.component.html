@@ -3,12 +3,12 @@
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>
-        <span class="text-danger" *ngIf="!data.jobs">
+        <span class="text-danger" *ngIf="!items">
             <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst poslední naplánované úlohy.
         </span>
 
-        <ng-container *ngIf="data.jobs">
-            <div *ngFor="let job of data.jobs" class="d-flex justify-content-between border-bottom" [class.text-danger]="!job.success"
+        <ng-container *ngIf="items">
+            <div *ngFor="let job of items" class="d-flex justify-content-between border-bottom" [class.text-danger]="!job.success"
                 [class.text-warning]="job.duration >= 5000">
                 <b>{{job.name}}</b>
                 <span>{{job.duration | timeDuration}}</span>

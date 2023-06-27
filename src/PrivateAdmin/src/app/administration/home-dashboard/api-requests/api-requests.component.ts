@@ -1,18 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { List } from 'src/app/core/models/common';
-import { Dashboard, DashboardApiCall } from 'src/app/core/models/system';
+import { DashboardInfoRow } from 'src/app/core/models/services/services';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
 
 @Component({
     selector: 'app-api-requests',
     templateUrl: './api-requests.component.html'
 })
-export class ApiRequestsComponent {
-    @Input() data: Dashboard;
-    @Input() isPublic: boolean;
-    @Input() loading: boolean;
+export class ApiRequestsComponent implements OnInit {
+    @Input() apiGroup: string;
 
-    get items(): List<DashboardApiCall> {
-        return this.isPublic ? this.data.publicApiRequests : this.data.internalApiRequests;
+    items: List<DashboardInfoRow>;
+    loading: boolean;
+
+    constructor(private dashboard: DashboardService) { }
+
+    ngOnInit(): void {
+        this.items = null;
+        this.loading = true;
+
+        this.dashboard.getApiDashboard(this.apiGroup)
+            .pipe(catchError(err => {
+                this.items = null;
+                this.loading = false;
+                return throwError(() => err);
+            }))
+            .subscribe(items => {
+                this.items = items;
+                this.loading = false;
+            });
     }
 
     isFailedRequest(statusCode: string): boolean {

@@ -3,7 +3,11 @@
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>
-        <div *ngFor="let item of data.operationStats" class="d-flex justify-content-between border-bottom"
+        <span class="text-danger" *ngIf="!items">
+            <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst statistiku operací.
+        </span>
+
+        <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom"
             [class.text-warning]="item.averageTime >= 5000">
             <b>{{item.section}}</b>
             <span>{{item.count}}x ({{item.averageTime | timeDuration}})</span>

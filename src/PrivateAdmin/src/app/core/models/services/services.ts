@@ -77,3 +77,38 @@ export class ServiceInfo {
 }
 
 
+export class DashboardInfoRow {
+    public name: string;
+    public duration: number;
+    public success: boolean;
+    public result: string | null;
+
+    static create(data: any): DashboardInfoRow {
+        const row = new DashboardInfoRow();
+
+        row.duration = data.duration;
+        row.name = data.name;
+        row.result = data.result;
+        row.success = data.success;
+
+        return row;
+    }
+}
+
+export class TodayAvgTimes {
+    public privateApi: number;
+    public publicApi: number;
+    public interactions: number;
+    public jobs: number;
+
+    static create(data: any): TodayAvgTimes {
+        const result = new TodayAvgTimes();
+
+        result.interactions = data.interactions;
+        result.jobs = data.jobs;
+        result.privateApi = data.privateApi;
+        result.publicApi = data.publicApi;
+
+        return result;
+    }
+}
