@@ -14,10 +14,10 @@
 
                         <p class="m-0">ID: <b>{{sourceEmote.emote.id}}</b></p>
                         <p class="m-0">Název: <b>{{sourceEmote.emote.name}}</b></p>
-                        <p class="m-0">Počet použití: <b>{{sourceEmote.useCount.toLocaleString()}}</b></p>
+                        <p class="m-0">Počet použití: <b>{{sourceEmote.useCount | numberWithSpaces}}</b></p>
                         <p class="m-0">První výskyt: <b>{{sourceEmote.firstOccurence.binding}}</b></p>
                         <p class="m-0">Poslední výskyt: <b>{{sourceEmote.lastOccurence.binding}}</b></p>
-                        <p class="m-0">Použilo uživatelů: <b>{{sourceEmote.usedUsersCount.toLocaleString()}}</b></p>
+                        <p class="m-0">Použilo uživatelů: <b>{{sourceEmote.usedUsersCount | numberWithSpaces}}</b></p>
                     </app-card>
                 </div>
 

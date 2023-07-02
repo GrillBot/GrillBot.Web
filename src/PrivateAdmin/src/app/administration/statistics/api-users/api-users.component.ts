@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Dictionary, List } from 'src/app/core/models/common';
 import { StatisticsService } from 'src/app/core/services/statistics.service';
+import { NumberWithSpacesPipe } from 'src/app/shared/pipes/spaced-number.pipe';
 
 @Component({
     selector: 'app-api-users',
@@ -22,6 +23,7 @@ export class ApiUsersComponent implements OnInit {
 
     ngOnInit(): void {
         const criteria = this.route.snapshot.data.criteria as string;
+        const formatter = new NumberWithSpacesPipe();
 
         this.service.getUserApiStatistics(criteria).subscribe(data => {
             this.columns = [...new Set(data.map(o => o.username))];
@@ -33,7 +35,7 @@ export class ApiUsersComponent implements OnInit {
                 const cellIndex = this.columns.findIndex(o => o === item.username);
                 const row = this.rows.find(o => o.key === item.action);
 
-                row.value[cellIndex] = item.count.toLocaleString();
+                row.value[cellIndex] = formatter.transform(item.count);
             }
         });
     }

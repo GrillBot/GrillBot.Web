@@ -10,7 +10,7 @@ export class DateTimeFormatterPipe implements PipeTransform {
             value = DateTime.fromISOString(value);
         }
 
-        return value.toLocaleString();
+        return value.binding;
     }
 
 }

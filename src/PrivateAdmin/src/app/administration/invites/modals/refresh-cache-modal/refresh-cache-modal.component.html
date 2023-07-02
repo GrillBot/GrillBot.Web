@@ -12,7 +12,7 @@ Data byla úspěšně obnovena.
         <tbody>
             <tr *ngFor="let item of report">
                 <td>{{item.key}}</td>
-                <td>{{item.value.toLocaleString()}}</td>
+                <td>{{item.value | numberWithSpaces}}</td>
             </tr>
         </tbody>
     </table>

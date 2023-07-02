@@ -25,7 +25,7 @@
 
                 <div keyValueItem class="mt-2" [key]="'Název'" [value]="data.name"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Identifikátor'" [value]="data.id"></div>
-                <div keyValueItem class="border-top mt-2" [key]="'Vytvořen'" [value]="data.createdAt.toLocaleString()"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Vytvořen'" [value]="data.createdAt.binding"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Vlastník'" [value]="data.owner.username"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Úroveň vylepšení'" [value]="'Level ' + data.premiumTier"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Univerzální pozvánka'" [value]="data.vanityUrl" *ngIf="data.vanityUrl">
@@ -42,12 +42,11 @@
                 </div>
 
                 <div class="row">
-                    <div keyValueItem class="col-md-auto" [key]="'Max. členů'" [value]="data.maxMembers?.toLocaleString() ?? 'Neznámé'">
-                    </div>
+                    <div keyValueItem class="col-md-auto" [key]="'Max. členů'" [value]="data.maxMembers | numberWithSpaces:'Neznámé'"></div>
                     <div keyValueItem class="col-md-auto" [key]="'Max. online uživatelů'"
-                        [value]="data.maxPresences?.toLocaleString() ?? 'Neznámé'"></div>
+                        [value]="data.maxPresences | numberWithSpaces:'Neznámé'"></div>
                     <div keyValueItem class="col-md-auto" [key]="'Max. uživatelů s webkamerou'"
-                        [value]="data.maxVideoChannelUsers?.toLocaleString() ?? 'Není známo'"></div>
+                        [value]="data.maxVideoChannelUsers | numberWithSpaces:'Není známo'"></div>
                     <div keyValueItem class="col-md-auto" [key]="'Max. bitrate'" [value]="data.maxBitrate + ' kbps'"></div>
                     <div keyValueItem class="col-md-auto" [key]="'Max. velikost souboru'" [value]="data.maxUploadLimit + ' MB'">
                     </div>
@@ -60,12 +59,12 @@
                         </div>
 
                         <div class="row">
-                            <div keyValueItem class="col-md-auto" [key]="'Online'" [value]="data.userStatusReport.online.toLocaleString()">
-                            </div>
-                            <div keyValueItem class="col-md-auto" [key]="'Neaktivní'" [value]="data.userStatusReport.idle.toLocaleString()">
-                            </div>
+                            <div keyValueItem class="col-md-auto" [key]="'Online'"
+                                [value]="data.userStatusReport.online | numberWithSpaces"></div>
+                            <div keyValueItem class="col-md-auto" [key]="'Neaktivní'"
+                                [value]="data.userStatusReport.idle | numberWithSpaces"></div>
                             <div keyValueItem class="col-md-auto" [key]="'Nerušit'"
-                                [value]="data.userStatusReport.doNotDisturb.toLocaleString()"></div>
+                                [value]="data.userStatusReport.doNotDisturb | numberWithSpaces"></div>
                         </div>
                     </div>
 
@@ -76,10 +75,10 @@
 
                         <div class="row">
                             <div keyValueItem class="col-md-auto" [key]="'Desktop'"
-                                [value]="data.clientTypeReport.desktop.toLocaleString()"></div>
-                            <div keyValueItem class="col-md-auto" [key]="'Telefon'" [value]="data.clientTypeReport.mobile.toLocaleString()">
-                            </div>
-                            <div keyValueItem class="col-md-auto" [key]="'Web'" [value]="data.clientTypeReport.web.toLocaleString()">
+                                [value]="data.clientTypeReport.desktop | numberWithSpaces"></div>
+                            <div keyValueItem class="col-md-auto" [key]="'Telefon'"
+                                [value]="data.clientTypeReport.mobile | numberWithSpaces"></div>
+                            <div keyValueItem class="col-md-auto" [key]="'Web'" [value]="data.clientTypeReport.web | numberWithSpaces">
                             </div>
                         </div>
                     </div>
@@ -91,27 +90,28 @@
                     </div>
 
                     <div class="row">
-                        <div keyValueItem class="col-md-auto" [key]="'Uživatelé'" [value]="data.databaseReport.users.toLocaleString()">
+                        <div keyValueItem class="col-md-auto" [key]="'Uživatelé'" [value]="data.databaseReport.users | numberWithSpaces">
                         </div>
-                        <div keyValueItem class="col-md-auto" [key]="'Pozvánky'" [value]="data.databaseReport.invites.toLocaleString()">
+                        <div keyValueItem class="col-md-auto" [key]="'Pozvánky'" [value]="data.databaseReport.invites | numberWithSpaces">
                         </div>
-                        <div keyValueItem class="col-md-auto" [key]="'Kanály'" [value]="data.databaseReport.channels.toLocaleString()">
+                        <div keyValueItem class="col-md-auto" [key]="'Kanály'" [value]="data.databaseReport.channels | numberWithSpaces">
                         </div>
-                        <div keyValueItem class="col-md-auto" [key]="'Hledání'" [value]="data.databaseReport.searches.toLocaleString()">
+                        <div keyValueItem class="col-md-auto" [key]="'Hledání'" [value]="data.databaseReport.searches | numberWithSpaces">
                         </div>
-                        <div keyValueItem class="col-md-auto" [key]="'Unverify'" [value]="data.databaseReport.unverifies.toLocaleString()">
-                        </div>
+                        <div keyValueItem class="col-md-auto" [key]="'Unverify'"
+                            [value]="data.databaseReport.unverifies | numberWithSpaces"></div>
                         <div keyValueItem class="col-md-auto" [key]="'Unverify logy'"
-                            [value]="data.databaseReport.unverifyLogs.toLocaleString()"></div>
-                        <div keyValueItem class="col-md-auto" [key]="'Logy'" [value]="data.databaseReport.auditLogs.toLocaleString()"></div>
+                            [value]="data.databaseReport.unverifyLogs | numberWithSpaces"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Logy'" [value]="data.databaseReport.auditLogs | numberWithSpaces">
+                        </div>
                         <div keyValueItem class="col-md-auto" [key]="'Cache zpráv'"
-                            [value]="data.databaseReport.cacheIndexes.toLocaleString()"></div>
-                        <div keyValueItem class="col-md-auto" [key]="'Emoty'" [value]="data.databaseReport.emoteStats.toLocaleString()">
+                            [value]="data.databaseReport.cacheIndexes | numberWithSpaces"></div>
+                        <div keyValueItem class="col-md-auto" [key]="'Emoty'" [value]="data.databaseReport.emoteStats | numberWithSpaces">
                         </div>
                         <div keyValueItem class="col-md-auto" [key]="'Návrhy na emoty'"
-                            [value]="data.databaseReport.emoteSuggestions.toLocaleString()"></div>
+                            [value]="data.databaseReport.emoteSuggestions | numberWithSpaces"></div>
                         <div keyValueItem class="col-md-auto" [key]="'Body (transakce)'"
-                            [value]="data.databaseReport.pointTransactions.toLocaleString()"></div>
+                            [value]="data.databaseReport.pointTransactions | numberWithSpaces"></div>
                     </div>
                 </ng-container>
             </app-card>

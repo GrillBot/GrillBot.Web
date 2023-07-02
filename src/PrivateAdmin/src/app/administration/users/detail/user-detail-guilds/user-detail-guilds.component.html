@@ -14,8 +14,8 @@
 <ng-template #common_info let-guild="guild">
     <div class="row">
         <div keyValueItem class="col-md-auto" [key]="'Serverový nick'" [value]="guild.nickname ?? 'Nenastaven'"></div>
-        <div keyValueItem class="col-md-auto" [key]="'Počet udělených reakcí'" [value]="guild.givenReactions.toLocaleString()"></div>
-        <div keyValueItem class="col-md-auto" [key]="'Počet obdržených reakcí'" [value]="guild.obtainedReactions.toLocaleString()"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Počet udělených reakcí'" [value]="guild.givenReactions | numberWithSpaces"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Počet obdržených reakcí'" [value]="guild.obtainedReactions | numberWithSpaces"></div>
     </div>
 
     <div class="row mt-3" *ngIf="guild.roles.length > 0">
@@ -51,11 +51,11 @@
 <ng-template #points let-i="i">
     <app-loading [small]="true" *ngIf="!points"></app-loading>
     <div class="row">
-        <div keyValueItem class="col-md-auto" [key]="'Dnes'" [value]="getGuildPoints(i).pointsToday.toLocaleString()"></div>
-        <div keyValueItem class="col-md-auto" [key]="'Za poslední měsíc'" [value]="getGuildPoints(i).pointsMonthBack.toLocaleString()">
+        <div keyValueItem class="col-md-auto" [key]="'Dnes'" [value]="getGuildPoints(i).pointsToday | numberWithSpaces"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Za poslední měsíc'" [value]="getGuildPoints(i).pointsMonthBack | numberWithSpaces">
         </div>
-        <div keyValueItem class="col-md-auto" [key]="'Za poslední rok'" [value]="getGuildPoints(i).pointsYearBack.toLocaleString()"></div>
-        <div keyValueItem class="col-md-auto" [key]="'Celkem'" [value]="getGuildPoints(i).totalPoints.toLocaleString()"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Za poslední rok'" [value]="getGuildPoints(i).pointsYearBack | numberWithSpaces"></div>
+        <div keyValueItem class="col-md-auto" [key]="'Celkem'" [value]="getGuildPoints(i).totalPoints | numberWithSpaces"></div>
     </div>
 </ng-template>
 
@@ -72,7 +72,7 @@
             <ul class="mb-0">
                 <li *ngFor="let invite of guild.createdInvites">
                     <a routerLink="/admin/users" [queryParams]="{usedInviteCode: invite.code}" class="text-dark">{{invite.code}}</a>
-                    ({{invite.createdAt.toLocaleString()}})
+                    ({{invite.createdAt.binding}})
                 </li>
             </ul>
         </div>
@@ -82,7 +82,7 @@
                 {{guild.usedInvite.code}}
                 <ng-container *ngIf="guild.usedInvite.creator">(<a routerLink="/admin/users/{{guild.usedInvite.creator.id}}"
                         class="text-dark">{{guild.usedInvite.creator.username}}</a>)</ng-container>
-                <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.toLocaleString()}})</ng-container>
+                <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.binding}})</ng-container>
             </b>
         </div>
     </div>
@@ -120,9 +120,9 @@
                     <a routerLink="/admin/channels/{{channel.channel.id}}" class="text-dark"
                         title="channel.channel.name">{{channel.channel.name | cut:60}}</a>
                 </td>
-                <td>{{channel.count.toLocaleString()}}</td>
-                <td>{{channel.firstMessageAt.toLocaleString()}}</td>
-                <td>{{channel.lastMessageAt.toLocaleString()}}</td>
+                <td>{{channel.count | numberWithSpaces}}</td>
+                <td>{{channel.firstMessageAt.binding}}</td>
+                <td>{{channel.lastMessageAt.binding}}</td>
             </tr>
         </tbody>
     </table>
@@ -133,9 +133,9 @@
         <div class="border rounded m-1 guild-emote-list-item" *ngFor="let emote of guild.emotes">
             <img class="card-img-top" [src]="emote.emote.imageUrl" [alt]="emote.emote.name">
             <div class="card-body pt-0 ps-1 pb-1 d-flex flex-column">
-                <b>{{emote.emote.name}} ({{emote.useCount.toLocaleString()}}x)</b>
-                <span>Poprvé: <b>{{emote.firstOccurence.toLocaleString()}}</b></span>
-                <span>Naposledy: <b>{{emote.lastOccurence.toLocaleString()}}</b></span>
+                <b>{{emote.emote.name}} ({{emote.useCount | numberWithSpaces}}x)</b>
+                <span>Poprvé: <b>{{emote.firstOccurence.binding}}</b></span>
+                <span>Naposledy: <b>{{emote.lastOccurence.binding}}</b></span>
             </div>
         </div>
     </div>

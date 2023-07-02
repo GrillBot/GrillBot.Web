@@ -130,7 +130,7 @@
 
                     <div class="row">
                         <div class="col-3">Typ: <b>{{embed.type}}</b></div>
-                        <div class="col-3">Počet polí: <b>{{embed.fieldsCount.toLocaleString()}}</b></div>
+                        <div class="col-3">Počet polí: <b>{{embed.fieldsCount | numberWithSpaces}}</b></div>
                         <div class="col-3">Obsahuje patičku: <b>{{embed.containsFooter | czechBooleanPipe}}</b></div>
                         <div class="col-3" *ngIf="embed.providerName">Poskytovatel: <b>{{embed.providerName}}</b></div>
                     </div>

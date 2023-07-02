@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dictionary, List } from 'src/app/core/models/common';
 import { StatisticsService } from 'src/app/core/services/statistics.service';
+import { NumberWithSpacesPipe } from 'src/app/shared/pipes/spaced-number.pipe';
 
 @Component({
     selector: 'app-interactions-users',
@@ -14,6 +15,8 @@ export class InteractionsUsersComponent implements OnInit {
     constructor(private service: StatisticsService) { }
 
     ngOnInit(): void {
+        const formatter = new NumberWithSpacesPipe();
+
         this.service.getUserCommandStatistics().subscribe(data => {
             this.columns = [...new Set(data.map(o => o.username))];
 
@@ -24,7 +27,7 @@ export class InteractionsUsersComponent implements OnInit {
                 const cellIndex = this.columns.findIndex(o => o === item.username);
                 const row = this.rows.find(o => o.key === item.action);
 
-                row.value[cellIndex] = item.count.toLocaleString();
+                row.value[cellIndex] = formatter.transform(item.count);
             }
         });
     }

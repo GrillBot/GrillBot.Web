@@ -15,8 +15,8 @@ export class EmoteSuggestion {
     public approvedForVote: boolean;
     public voteFinished: boolean;
     public communityApproved: boolean;
-    public upVotes: boolean;
-    public downVotes: boolean;
+    public upVotes: number;
+    public downVotes: number;
 
     static create(data: any): EmoteSuggestion | null {
         if (!data) { return null; }

@@ -23,10 +23,11 @@
                     <td [class.text-danger]="item.isDeleted">{{item.name}}</td>
                     <td>{{item.channelTypeName}}</td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.messagesCount.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.messagesCount | numberWithSpaces}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.cachedMessagesCount.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.cachedMessagesCount |
+                            numberWithSpaces}}</ng-container>
                     </td>
                     <td>
                         <ng-container *ngIf="!item.isCategory && !item.isForum">{{item.firstMessageAt?.binding ?? ''}}</ng-container>
@@ -39,13 +40,13 @@
                             (click)="$event.stopPropagation()">{{item.guild.name}}</a>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isThread">{{item.rolePermissionsCount?.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isThread">{{item.rolePermissionsCount | numberWithSpaces:''}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="!item.isThread">{{item.userPermissionsCount?.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="!item.isThread">{{item.userPermissionsCount | numberWithSpaces:''}}</ng-container>
                     </td>
                     <td>
-                        <ng-container *ngIf="item.pinSupported">{{item.pinCount.toLocaleString()}}</ng-container>
+                        <ng-container *ngIf="item.pinSupported">{{item.pinCount}}</ng-container>
                     </td>
                     <td class="no-print">
                         <list-button [link]="'/admin/channels/' + item.id" [icon]="'info'"></list-button>

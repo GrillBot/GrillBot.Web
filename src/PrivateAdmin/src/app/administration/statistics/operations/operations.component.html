@@ -14,7 +14,7 @@
                     <span [style.margin-left]="(item.level * 40) + 'px'">{{item.item.section}}</span>
                 </td>
                 <td>
-                    <ng-container *ngIf="item.item.count > 0">{{item.item.count.toLocaleString()}}</ng-container>
+                    <ng-container *ngIf="item.item.count > 0">{{item.item.count | numberWithSpaces}}</ng-container>
                 </td>
                 <td>
                     <ng-container *ngIf="item.item.count > 0">{{item.item.averageTime | timeDuration}}</ng-container>

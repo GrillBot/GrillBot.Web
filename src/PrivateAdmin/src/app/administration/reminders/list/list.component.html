@@ -31,7 +31,7 @@
                             <a *ngIf="item.toUser" routerLink="/admin/users/{{item.toUser.id}}" class="text-dark"
                                 (click)="$event.stopPropagation()">{{item.toUser.username}}</a>
                         </td>
-                        <td>{{item.at.toLocaleString()}}</td>
+                        <td>{{item.at.binding}}</td>
                         <td>{{item.postpone}}</td>
                         <td>{{item.notified | czechBooleanPipe}}</td>
                         <td>{{item.language}}</td>

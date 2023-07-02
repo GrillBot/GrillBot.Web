@@ -169,8 +169,8 @@
 
     <tr *ngIf="data.position && data.position.before != data.position.after">
         <td>Pozice</td>
-        <td>{{data.position.before.toLocaleString()}}</td>
-        <td>{{data.position.after.toLocaleString()}}</td>
+        <td>{{data.position.before | numberWithSpaces}}</td>
+        <td>{{data.position.after | numberWithSpaces}}</td>
     </tr>
 </ng-template>
 

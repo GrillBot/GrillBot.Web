@@ -12,7 +12,7 @@
 
             <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom">
                 <b>{{item.key}}</b>
-                <span>{{item.value.toLocaleString()}}</span>
+                <span>{{item.value | numberWithSpaces}}</span>
             </div>
         </ng-template>
     </ng-template>

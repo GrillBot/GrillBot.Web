@@ -23,8 +23,8 @@
 
         <div class="row">
             <div class="col-md">
-                <p>Počet spuštění: <b>{{job.startCount.toLocaleString()}}</b></p>
-                <p>Počet chyb: <b>{{job.failedCount.toLocaleString()}}</b></p>
+                <p>Počet spuštění: <b>{{job.startCount | numberWithSpaces}}</b></p>
+                <p>Počet chyb: <b>{{job.failedCount | numberWithSpaces}}</b></p>
                 <p>Posl. spuštění: <b>{{(job.lastRun ? job.lastRun.binding : 'Ještě nespuštěn')}}</b></p>
                 <p>Příští spuštění: <b>{{job.nextRun.binding}}</b></p>
             </div>

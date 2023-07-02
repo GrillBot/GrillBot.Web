@@ -29,13 +29,13 @@
                     <td>{{item.createdAt.binding}}</td>
                     <td>{{item.messageId}}</td>
                     <td>{{!!(item.reactionId) | czechBooleanPipe}}</td>
-                    <td>{{item.points.toLocaleString()}}</td>
+                    <td>{{item.points | numberWithSpaces}}</td>
                     <ng-container *ngIf="isMerged">
                         <td>
                             {{item.mergeInfo.mergeRangeFrom.binding}}
                             <span *ngIf="item.mergeInfo.mergeRangeTo"> - {{item.mergeInfo.mergeRangeTo.binding}}</span>
                         </td>
-                        <td>{{item.mergeInfo.mergedItemsCount.toLocaleString()}}</td>
+                        <td>{{item.mergeInfo.mergedItemsCount | numberWithSpaces}}</td>
                     </ng-container>
                     <td *ngIf="!isMerged">
                         <list-button (clicked)="removeTransaction(item)" icon="trash-alt" title="Smazat transakci"></list-button>

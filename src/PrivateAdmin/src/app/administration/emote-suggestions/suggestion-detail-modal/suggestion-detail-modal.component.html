@@ -53,12 +53,12 @@
 
         <tr *ngIf="suggestion.voteFinished">
             <th>Pozitivních hlasů</th>
-            <td>{{suggestion.upVotes.toLocaleString()}}</td>
+            <td>{{suggestion.upVotes | numberWithSpaces}}</td>
         </tr>
 
         <tr *ngIf="suggestion.voteFinished">
             <th>Negativních hlasů</th>
-            <td>{{suggestion.downVotes.toLocaleString()}}</td>
+            <td>{{suggestion.downVotes | numberWithSpaces}}</td>
         </tr>
 
         <tr>

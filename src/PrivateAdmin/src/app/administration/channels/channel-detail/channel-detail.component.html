@@ -16,9 +16,9 @@
                             <a routerLink="/admin/servers/{{data.guild.id}}" class="text-dark">{{data.guild.name}}</a>
                         </b>
                     </div>
-                    <div keyValueItem class="col-md-3" [key]="'První zpráva v'" [value]="data.firstMessageAt.toLocaleString()"
+                    <div keyValueItem class="col-md-3" [key]="'První zpráva v'" [value]="data.firstMessageAt.binding"
                         *ngIf="data.firstMessageAt"></div>
-                    <div keyValueItem class="col-md-3" [key]="'Poslední zpráva v'" [value]="data.lastMessageAt.toLocaleString()"
+                    <div keyValueItem class="col-md-3" [key]="'Poslední zpráva v'" [value]="data.lastMessageAt.binding"
                         *ngIf="data.lastMessageAt"></div>
                     <div class="col-md-3" *ngIf="data.lastMessageFrom">
                         Poslední zpráva od<br>
@@ -40,11 +40,11 @@
                         </b>
                     </div>
                     <div keyValueItem class="col-md-3" *ngIf="!data.isCategory && !data.isDeleted" [key]="'Počet zpráv v cache'"
-                        [value]="data.cachedMessagesCount.toLocaleString()"></div>
+                        [value]="data.cachedMessagesCount | numberWithSpaces"></div>
                     <div keyValueItem class="col-md-3" [key]="'Počet oprávnění pro role'" *ngIf="!data.isDeleted"
-                        [value]="data.rolePermissionsCount?.toLocaleString() ?? 'Není známo'"></div>
+                        [value]="data.rolePermissionsCount | numberWithSpaces:'Není známo'"></div>
                     <div keyValueItem class="col-md-3" [key]="'Počet oprávnění pro uživatele'" *ngIf="!data.isDeleted"
-                        [value]="data.userPermissionsCount?.toLocaleString() ?? 'Není známo'"></div>
+                        [value]="data.userPermissionsCount | numberWithSpaces:'Není známo'"></div>
                     <div keyValueItem class="col-md-3" [key]="'Počet pinů'" *ngIf="data.pinSupported" [value]="data.pinCount"></div>
                 </div>
 
@@ -132,8 +132,8 @@
                                     </a>
                                 </td>
                                 <td>{{item.count}}</td>
-                                <td>{{item.firstMessageAt.toLocaleString()}}</td>
-                                <td>{{item.lastMessageAt.toLocaleString()}}</td>
+                                <td>{{item.firstMessageAt.binding}}</td>
+                                <td>{{item.lastMessageAt.binding}}</td>
                             </tr>
                             <tr *ngIf="channelStats.isEmpty">
                                 <td colspan="6">V tomto kanálu nebyly zaznamenány žádné zprávy</td>

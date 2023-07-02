@@ -9,6 +9,7 @@ import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
 import { INavigation } from 'src/app/shared/navigation/navigation';
 import { EmotesNavigation } from '../navigation';
 import { EMPTY, throwError } from 'rxjs';
+import { NumberWithSpacesPipe } from 'src/app/shared/pipes/spaced-number.pipe';
 
 @Component({
     selector: 'app-emotes-merge',
@@ -50,7 +51,8 @@ export class EmotesMergeComponent implements OnInit {
             const parameters = new MergeEmoteStatsParams(this.sourceEmote.emote.fullId, this.destinationEmote);
 
             this.emotesService.mergeStatsToAnother(parameters).subscribe(rowsChanged => {
-                const infoModal = new InfoModal(this.title, `Statistiky sloučeny. Bylo změněno řádků: ${rowsChanged.toLocaleString()}`);
+                const rows = new NumberWithSpacesPipe().transform(rowsChanged);
+                const infoModal = new InfoModal(this.title, `Statistiky sloučeny. Bylo změněno řádků: ${rows}`);
                 infoModal.onClose.subscribe(() => {
                     this.router.navigate(['/admin/emotes/unsupported']);
                 });

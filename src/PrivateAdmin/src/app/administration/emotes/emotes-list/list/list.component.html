@@ -34,10 +34,10 @@
                     <tr *ngFor="let item of list.items">
                         <td>{{item.emote.id}}</td>
                         <td>{{item.emote.name}}</td>
-                        <td>{{item.useCount.toLocaleString()}}</td>
-                        <td>{{item.firstOccurence.toLocaleString()}}</td>
-                        <td>{{item.lastOccurence.toLocaleString()}}</td>
-                        <td>{{item.usedUsersCount.toLocaleString()}}</td>
+                        <td>{{item.useCount | numberWithSpaces}}</td>
+                        <td>{{item.firstOccurence.binding}}</td>
+                        <td>{{item.lastOccurence.binding}}</td>
+                        <td>{{item.usedUsersCount | numberWithSpaces}}</td>
                         <td class="no-print">
                             <list-button [link]="'/admin/emotes/' + item.emote.encodedId + '/merge'"
                                 [title]="'Sloučit statistiky s jinou statistikou.'" [iconGroup]="'fas'"
@@ -62,10 +62,10 @@
                         <img class="card-img-top" [src]="item.emote.imageUrl" [alt]="item.emote.name">
                         <div class="card-body pt-0 ps-1 pb-1 d-flex flex-column">
                             <b>{{item.emote.name}}</b>
-                            <span>Použito: <b>{{item.useCount.toLocaleString()}}x</b></span>
-                            <span>Poprvé: <b>{{item.firstOccurence.toLocaleString()}}</b></span>
-                            <span>Naposledy: <b>{{item.lastOccurence.toLocaleString()}}</b></span>
-                            <span>Použilo (uživatelů): <b>{{item.usedUsersCount.toLocaleString()}}</b></span>
+                            <span>Použito: <b>{{item.useCount | numberWithSpaces}}x</b></span>
+                            <span>Poprvé: <b>{{item.firstOccurence.binding}}</b></span>
+                            <span>Naposledy: <b>{{item.lastOccurence.binding}}</b></span>
+                            <span>Použilo (uživatelů): <b>{{item.usedUsersCount | numberWithSpaces}}</b></span>
                             <div class="d-flex justify-content-between">
                                 <a routerLink="/admin/emotes/{{item.emote.encodedId}}/users" class="text-dark no-print">Seznam uživatelů</a>
                                 <a href="javascript:;" class="text-danger no-print" (click)="removeStats(item)">Smazat statistiku</a>

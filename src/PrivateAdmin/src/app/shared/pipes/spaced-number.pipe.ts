@@ -4,7 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'numberWithSpaces'
 })
 export class NumberWithSpacesPipe implements PipeTransform {
-    transform(value: number | string, ...args: any[]): string {
+    transform(value: number | string | null, ...args: any[]): string {
+        const defaultValue = args.length > 0 ? args[0] : 0;
+        if (value === undefined || value === null) {
+            return defaultValue;
+        }
+
         let valueNumber = 0;
 
         if (typeof value === 'number' || typeof value === 'bigint') {

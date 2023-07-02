@@ -7,6 +7,7 @@ import { EmotesListParams, EmoteStatItem } from 'src/app/core/models/emotes';
 import { EmotesService } from 'src/app/core/services/emotes.service';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
+import { NumberWithSpacesPipe } from 'src/app/shared/pipes/spaced-number.pipe';
 
 @Component({
     selector: 'app-list',
@@ -41,8 +42,10 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
         modal.onAccept.subscribe(() => {
             this.emotesService.removeStatistics(row.emote.fullId).subscribe(rowsChanged => {
                 this.list.filterChanged();
+
+                const rows = new NumberWithSpacesPipe().transform(rowsChanged);
                 this.modalBox.show(
-                    new InfoModal(title, `Statistika byla úspěšně smazána. Počet smazaných záznamů: ${rowsChanged.toLocaleString()}`)
+                    new InfoModal(title, `Statistika byla úspěšně smazána. Počet smazaných záznamů: ${rows}`)
                 );
             });
         });

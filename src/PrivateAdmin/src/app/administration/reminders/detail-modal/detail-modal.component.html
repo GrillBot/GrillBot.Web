@@ -19,9 +19,9 @@
             <td>{{item.at.binding}}</td>
         </tr>
 
-        <tr>
+        <tr *ngIf="item.postpone > 0">
             <th>Odloženo</th>
-            <td>{{item.postpone.toLocaleString()}}x</td>
+            <td>{{item.postpone | numberWithSpaces}}x</td>
         </tr>
 
         <tr>

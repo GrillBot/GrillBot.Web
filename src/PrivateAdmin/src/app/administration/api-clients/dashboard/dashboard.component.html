@@ -35,7 +35,7 @@
             </b>
         </p>
 
-        <p>Počet použití: <b>{{client.useCount.toLocaleString()}}</b></p>
+        <p>Počet použití: <b>{{client.useCount | numberWithSpaces}}</b></p>
         <p *ngIf="client.useCount > 0">Naposledy použito: <b>{{client.lastUse.binding}}</b></p>
 
         <div class="btn-group mt-2 no-print">
