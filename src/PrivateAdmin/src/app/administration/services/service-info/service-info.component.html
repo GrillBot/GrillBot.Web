@@ -14,7 +14,7 @@
                         <p>Čas CPU: <b>{{data.diagnosticInfo.cpuTime | timeDuration}}</b></p>
                     </div>
                     <div class="col-md">
-                        <p>Počet požadavků: <b>{{data.diagnosticInfo.requestsCount.toLocaleString()}}</b></p>
+                        <p>Počet požadavků: <b>{{data.diagnosticInfo.requestsCount | numberWithSpaces}}</b></p>
                         <p>Statistiky měřeny od: <b>{{data.diagnosticInfo.measuredFrom.binding}}</b></p>
                     </div>
                     <div class="col-md">
@@ -39,7 +39,7 @@
                             <tbody>
                                 <tr *ngFor="let item of data.diagnosticInfo.endpoints">
                                     <td>{{item.endpoint}}</td>
-                                    <td>{{item.count.toLocaleString()}}</td>
+                                    <td>{{item.count | numberWithSpaces}}</td>
                                     <td>{{item.lastRequestAt.binding}} ({{item.lastTime | timeDuration}})</td>
                                     <td>{{item.totalTime | timeDuration}}</td>
                                     <td>{{item.avgTime | timeDuration}}</td>
@@ -49,36 +49,55 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md" *ngIf="data.diagnosticInfo.operations && data.diagnosticInfo.operations.length > 0">
-                            <h5>Operace</h5>
-                            <table class="table table-sm table-bordered auto-column-width">
-                                <thead>
-                                    <tr>
-                                        <th>Operace</th>
-                                        <th>Počet</th>
-                                        <th>Průměrný čas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of readStatistics(data.diagnosticInfo.operations)"
-                                        [class.bg-secondary]="item.level === 0 && item.item.count == 0"
-                                        [class.bg-warning]="item.item.averageTime >= 5000">
-                                        <td>
-                                            <span [style.margin-left]="(item.level * 40) + 'px'">{{item.item.section}}</span>
-                                        </td>
-                                        <td>
-                                            <ng-container *ngIf="item.item.count > 0">{{item.item.count.toLocaleString()}}</ng-container>
-                                        </td>
-                                        <td>
-                                            <ng-container *ngIf="item.item.count > 0">{{item.item.averageTime |
-                                                timeDuration}}</ng-container>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md"
+                            *ngIf="(data.diagnosticInfo.operations && data.diagnosticInfo.operations.length > 0) || statusInfoRequest$">
+                            <ng-container *ngIf="data.diagnosticInfo.operations && data.diagnosticInfo.operations.length > 0">
+                                <h5>Operace</h5>
+                                <table class="table table-sm table-bordered auto-column-width">
+                                    <thead>
+                                        <tr>
+                                            <th>Operace</th>
+                                            <th>Počet</th>
+                                            <th>Průměrný čas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of readStatistics(data.diagnosticInfo.operations)"
+                                            [class.bg-secondary]="item.level === 0 && item.item.count == 0"
+                                            [class.bg-warning]="item.item.averageTime >= 5000">
+                                            <td>
+                                                <span [style.margin-left]="(item.level * 40) + 'px'">{{item.item.section}}</span>
+                                            </td>
+                                            <td>
+                                                <ng-container *ngIf="item.item.count > 0">
+                                                    {{item.item.count | numberWithSpaces}}
+                                                </ng-container>
+                                            </td>
+                                            <td>
+                                                <ng-container *ngIf="item.item.count > 0">{{item.item.averageTime |
+                                                    timeDuration}}</ng-container>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ng-container>
+
+                            <ng-container *ngIf="statusInfoRequest$ !== null">
+                                <div *ngIf="statusInfoRequest$ | async as statusInfo">
+                                    <ng-container *ngIf="id === 'audit-log'">
+                                        <p>Počet položek k archivaci: <b>{{statusInfo.itemsToArchive | numberWithSpaces}}</b></p>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="id === 'points'">
+                                        <p>Počet uživatelů ke zpracování: <b>{{statusInfo.pendingUsersToProcess | numberWithSpaces}}</b></p>
+                                        <p>Počet transakcí ke sloučení: <b>{{statusInfo.transactionsToMerge | numberWithSpaces}}</b></p>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
                         </div>
 
-                        <div class="col-md" *ngIf="data.diagnosticInfo.databaseStatistics && data.diagnosticInfo.databaseStatistics.length > 0">
+                        <div class="col-md"
+                            *ngIf="data.diagnosticInfo.databaseStatistics && data.diagnosticInfo.databaseStatistics.length > 0">
                             <h5 class="fw-normal">Databáze</h5>
                             <table class="table table-sm table-responsive auto-column-width">
                                 <thead>
@@ -90,7 +109,7 @@
                                 <tbody>
                                     <tr *ngFor="let item of data.diagnosticInfo.databaseStatistics">
                                         <td>{{item.key}}</td>
-                                        <td>{{item.value.toLocaleString()}}</td>
+                                        <td>{{item.value | numberWithSpaces}}</td>
                                     </tr>
                                 </tbody>
                             </table>

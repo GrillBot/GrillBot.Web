@@ -112,3 +112,28 @@ export class TodayAvgTimes {
         return result;
     }
 }
+
+export class AuditLogStatusInfo {
+    public itemsToArchive: number;
+
+    static create(data: any): AuditLogStatusInfo {
+        const info = new AuditLogStatusInfo();
+
+        info.itemsToArchive = data.itemsToArchive;
+        return info;
+    }
+}
+
+export class PointsServiceStatusInfo {
+    public pendingUsersToProcess: number;
+    public transactionsToMerge: number;
+
+    static create(data: any): PointsServiceStatusInfo {
+        const info = new PointsServiceStatusInfo();
+
+        info.pendingUsersToProcess = data.pendingUsersToProcess;
+        info.transactionsToMerge = data.transactionsToMerge;
+
+        return info;
+    }
+}

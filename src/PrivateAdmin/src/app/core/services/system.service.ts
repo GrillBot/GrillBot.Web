@@ -1,11 +1,10 @@
 import { ObservableList } from './../models/common';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { QueryParam } from '../models/http';
-import { ServiceInfo } from '../models/services/services';
 
 @Injectable({ providedIn: 'root' })
 export class SystemService {
@@ -27,16 +26,6 @@ export class SystemService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<string[]>(url, { headers }).pipe(
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
-    getServiceInfo(id: string): Observable<ServiceInfo> {
-        const url = this.base.createUrl(`system/service/${id}`);
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.get<ServiceInfo>(url, { headers }).pipe(
-            map((o: ServiceInfo) => ServiceInfo.create(o)),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

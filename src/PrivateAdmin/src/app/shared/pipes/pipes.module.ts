@@ -5,6 +5,7 @@ import { CzechBooleanPipePipe } from './czech-boolean-pipe.pipe';
 import { BitmaskToStringPipe } from './bitmask-to-string.pipe';
 import { NgModule } from '@angular/core';
 import { TimeDurationPipe } from './time-duration.pipe';
+import { NumberWithSpacesPipe } from './spaced-number.pipe';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { TimeDurationPipe } from './time-duration.pipe';
         DateTimeFormatterPipe,
         DurationPipe,
         CutPipe,
-        TimeDurationPipe
+        TimeDurationPipe,
+        NumberWithSpacesPipe
     ],
     exports: [
         BitmaskToStringPipe,
@@ -21,7 +23,8 @@ import { TimeDurationPipe } from './time-duration.pipe';
         DateTimeFormatterPipe,
         DurationPipe,
         CutPipe,
-        TimeDurationPipe
+        TimeDurationPipe,
+        NumberWithSpacesPipe
     ]
 })
 export class PipesModule { }
