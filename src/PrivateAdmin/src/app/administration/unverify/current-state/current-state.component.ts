@@ -84,7 +84,7 @@ export class CurrentStateComponent implements OnInit {
 
     confirmTimeUpdate(profile: UnverifyUserProfile, newTime: HTMLInputElement, reason: HTMLInputElement): void {
         const modal = new QuestionModal('Změna času unverify',
-            `Opravdu si přejete změnit koncový čas pro uživatele <b>${profile.user.username}</b>?`, true);
+            `Opravdu si přejete změnit koncový čas pro uživatele <b>${profile.user.displayName}</b>?`, true);
         modal.onAccept.subscribe(() => {
             const parameters = new UpdateUnverifyParams(newTime.value, reason.value);
 

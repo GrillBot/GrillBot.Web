@@ -40,7 +40,7 @@ export class ListComponent extends ListComponentBase<AdminListRequest> {
         const title = 'Smazání transakce';
 
         const modal = new QuestionModal(
-            title, `Opravdu si přejete smazat transakci pro zprávu s ID ${item.messageId} od uživatele ${item.user.username}?`);
+            title, `Opravdu si přejete smazat transakci pro zprávu s ID ${item.messageId} od uživatele ${item.user.displayName}?`);
         modal.onAccept.subscribe(() => {
             this.service.removeTransaction(item.guild.id, item.messageId, item.reactionId).subscribe(() => {
                 this.modalBox.show(new InfoModal(title, 'Transakce byla úspěšně smazána.'));

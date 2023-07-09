@@ -17,6 +17,11 @@ export class User {
     public username: string;
     public isBot: boolean;
     public avatarUrl: string;
+    public globalAlias: string;
+
+    get displayName(): string {
+        return !Support.isEmpty(this.globalAlias) ? this.globalAlias : this.username;
+    }
 
     static create(data: any): User | null {
         if (!data) { return null; }
@@ -27,6 +32,7 @@ export class User {
         user.isBot = data.isBot;
         user.avatarUrl = data.avatarUrl;
         user.username = data.username;
+        user.globalAlias = data.globalAlias;
 
         return user;
     }
@@ -66,6 +72,7 @@ export class UserListItem {
     public guilds: Dictionary<string, boolean>;
     public discordStatus: UserStatus;
     public registeredAt: DateTime;
+    public globalAlias: string;
 
     get isBotAdmin(): boolean { return (this.flags & UserFlags.BotAdmin) !== 0; }
     get haveWebAdmin(): boolean { return (this.flags & UserFlags.WebAdmin) !== 0; }
@@ -86,6 +93,7 @@ export class UserListItem {
         item.username = data.username;
         item.discordStatus = data.discordStatus;
         item.registeredAt = data.registeredAt ? DateTime.fromISOString(data.registeredAt) : null;
+        item.globalAlias = data.globalAlias;
 
         return item;
     }
@@ -151,6 +159,7 @@ export class UserDetail {
     public selfUnverifyMinimalTime: string | null;
     public registeredAt: DateTime | null;
     public language: string | null;
+    public globalAlias: string | null;
 
     get isBotAdmin(): boolean { return (this.flags & UserFlags.BotAdmin) !== 0; }
     get haveWebAdmin(): boolean { return (this.flags & UserFlags.WebAdmin) !== 0; }
@@ -176,6 +185,7 @@ export class UserDetail {
         detail.selfUnverifyMinimalTime = data.selfUnverifyMinimalTime;
         detail.registeredAt = data.registeredAt ? DateTime.fromISOString(data.registeredAt) : null;
         detail.language = data.language;
+        detail.globalAlias = data.globalAlias;
 
         return detail;
     }

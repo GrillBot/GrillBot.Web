@@ -13,6 +13,7 @@
 
                 <div keyValueItem class="border-bottom mt-2" [key]="'Identifikátor'" [value]="data.id"></div>
                 <div keyValueItem class="border-bottom mt-2" [key]="'Uživatelské jméno'" [value]="data.username"></div>
+                <div keyValueItem class="border-bottom mt-2" [key]="'Alias'" [value]="data.globalAlias" *ngIf="data.globalAlias"></div>
                 <div keyValueItem class="border-bottom mt-2" [key]="'Stav'" [value]="statusText"></div>
                 <div keyValueItem class="border-bottom mt-2" [key]="'Aktivní zařízení'"
                     [value]="(data.activeClients.length == 0 ? ['Žádné'] : data.activeClients).join(', ')"></div>

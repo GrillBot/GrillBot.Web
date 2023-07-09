@@ -2,7 +2,9 @@
     <tbody>
         <tr>
             <th>Uživatel</th>
-            <td>{{item.user.username}}</td>
+            <td>
+                <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.displayName}}</a>
+            </td>
         </tr>
         <tr>
             <th>Server</th>

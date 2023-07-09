@@ -3,14 +3,14 @@
         <tr>
             <th>Odesílatel</th>
             <td>
-                <a routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark">{{item.fromUser.username}}</a>
+                <a routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark">{{item.fromUser.displayName}}</a>
             </td>
         </tr>
 
         <tr>
             <th>Příjemce</th>
             <td>
-                <a routerLink="/admin/users/{{item.toUser.id}}" class="text-dark">{{item.toUser.username}}</a>
+                <a routerLink="/admin/users/{{item.toUser.id}}" class="text-dark">{{item.toUser.displayName}}</a>
             </td>
         </tr>
 

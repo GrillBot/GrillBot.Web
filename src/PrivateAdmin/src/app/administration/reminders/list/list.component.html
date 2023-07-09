@@ -25,11 +25,11 @@
                         <td>{{item.id}}</td>
                         <td>
                             <a *ngIf="item.fromUser" routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark"
-                                (click)="$event.stopPropagation()">{{item.fromUser.username}}</a>
+                                (click)="$event.stopPropagation()">{{item.fromUser.displayName}}</a>
                         </td>
                         <td>
                             <a *ngIf="item.toUser" routerLink="/admin/users/{{item.toUser.id}}" class="text-dark"
-                                (click)="$event.stopPropagation()">{{item.toUser.username}}</a>
+                                (click)="$event.stopPropagation()">{{item.toUser.displayName}}</a>
                         </td>
                         <td>{{item.at.binding}}</td>
                         <td>{{item.postpone}}</td>

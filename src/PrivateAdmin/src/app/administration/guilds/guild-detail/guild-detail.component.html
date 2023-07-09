@@ -26,7 +26,7 @@
                 <div keyValueItem class="mt-2" [key]="'Název'" [value]="data.name"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Identifikátor'" [value]="data.id"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Vytvořen'" [value]="data.createdAt.binding"></div>
-                <div keyValueItem class="border-top mt-2" [key]="'Vlastník'" [value]="data.owner.username"></div>
+                <div keyValueItem class="border-top mt-2" [key]="'Vlastník'" [value]="data.owner.displayName"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Úroveň vylepšení'" [value]="'Level ' + data.premiumTier"></div>
                 <div keyValueItem class="border-top mt-2" [key]="'Univerzální pozvánka'" [value]="data.vanityUrl" *ngIf="data.vanityUrl">
                 </div>

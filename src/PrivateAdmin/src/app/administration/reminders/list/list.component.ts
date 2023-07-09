@@ -29,7 +29,7 @@ export class ListComponent extends ListComponentBase<GetReminderListParams> {
     }
 
     cancel(item: RemindMessage, notify: boolean): void {
-        let message = `Opravdu si přejete zrušit oznámení pro uživatele ${item.toUser?.username}? `;
+        let message = `Opravdu si přejete zrušit oznámení pro uživatele ${item.toUser?.displayName}? `;
         if (notify) { message += 'Uživateli přijde předčasně oznámení.'; }
 
         const modal = new QuestionModal('Zrušení upozornění', message);

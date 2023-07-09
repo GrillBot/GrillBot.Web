@@ -5,8 +5,8 @@
         <table class="table table-sm table-bordered table-striped clickable auto-column-width" *ngIf="list.isDataLoaded">
             <thead>
                 <tr>
-                    <th sortable (clicked)="setSort()" [sort]="sort">Uživatelské jméno
-                    </th>
+                    <th sortable (clicked)="setSort()" [sort]="sort">Uživatelské jméno</th>
+                    <th>Alias</th>
                     <th>Stav</th>
                     <th>Servery</th>
                     <th>Registrován</th>
@@ -22,6 +22,7 @@
                         <span class="badge bg-success original" *ngIf="item.isWebAdminOnline"
                             title="Uživatel je přihlášen do administrace">WebAdmin</span>
                     </td>
+                    <td>{{item.globalAlias}}</td>
                     <td class="badge-list">
                         <span class="badge bg-{{item.statusColor}} original">{{item.status}}</span>
                     </td>
