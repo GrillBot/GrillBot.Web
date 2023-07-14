@@ -1,7 +1,7 @@
 <app-card [header]="false">
     <p class="fw-bold">
-        <ng-container *ngIf="apiGroup === 'V1'">Veřejné API</ng-container>
-        <ng-container *ngIf="apiGroup === 'V2'">Privátní API</ng-container>
+        <ng-container *ngIf="apiGroup === 'V1'">Privátní API</ng-container>
+        <ng-container *ngIf="apiGroup === 'V2'">Veřejné API</ng-container>
     </p>
 
     <app-loading *ngIf="loading; else view"></app-loading>
