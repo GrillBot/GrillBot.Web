@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    api: 'https://grillbot.cloud/api',
+    api: 'https://grillbot.eu/api',
     client_id: 'c544a99f-16f9-4c12-9692-698f916bb4e4'
 };
 

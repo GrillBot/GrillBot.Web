@@ -11,7 +11,7 @@ ST = Brno
 L = Brno
 O = GRILLBOTDEV
 OU = GRILLBOTDEV
-emailAddress = test@grillbot.cloud
+emailAddress = test@grillbot.eu
 CN = localhost
 
 [v3_req]
