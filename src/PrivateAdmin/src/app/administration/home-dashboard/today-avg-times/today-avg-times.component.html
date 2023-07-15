@@ -19,6 +19,7 @@
 <ng-template #row let-name="name" let-duration="duration">
     <div class="d-flex justify-content-between border-bottom" [class.text-warning]="duration >= 5000">
         <b>{{name}}</b>
-        <span>{{duration | timeDuration}}</span>
+        <span *ngIf="duration == -1">Neměřeno</span>
+        <span *ngIf="duration > -1">{{duration | timeDuration}}</span>
     </div>
 </ng-template>
