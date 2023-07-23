@@ -86,6 +86,8 @@
                                 <div *ngIf="statusInfoRequest$ | async as statusInfo">
                                     <ng-container *ngIf="id === 'audit-log'">
                                         <p>Počet položek k archivaci: <b>{{statusInfo.itemsToArchive | numberWithSpaces}}</b></p>
+                                        <p>Počet položek ke zpracování: <b>{{statusInfo.itemsToProcess | numberWithSpaces}}</b></p>
+                                        <p>Počet položek ke smazání: <b>{{statusInfo.itemsToDelete | numberWithSpaces}}</b></p>
                                     </ng-container>
 
                                     <ng-container *ngIf="id === 'points'">

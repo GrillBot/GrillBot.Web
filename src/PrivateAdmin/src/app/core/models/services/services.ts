@@ -115,11 +115,15 @@ export class TodayAvgTimes {
 
 export class AuditLogStatusInfo {
     public itemsToArchive: number;
+    public itemsToProcess: number;
+    public itemsToDelete: number;
 
     static create(data: any): AuditLogStatusInfo {
         const info = new AuditLogStatusInfo();
 
         info.itemsToArchive = data.itemsToArchive;
+        info.itemsToDelete = data.itemsToDelete;
+        info.itemsToProcess = data.itemsToProcess;
         return info;
     }
 }
