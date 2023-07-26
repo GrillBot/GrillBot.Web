@@ -599,7 +599,8 @@
 
     <tr>
         <td>IP adresa</td>
-        <td>{{data.ip}}</td>
+        <td *ngIf="data.forwardedIp">{{data.ip}} ({{data.forwardedIp}})</td>
+        <td *ngIf="!data.forwardedIp">{{data.ip}}</td>
     </tr>
 
     <tr *ngIf="data.role">
