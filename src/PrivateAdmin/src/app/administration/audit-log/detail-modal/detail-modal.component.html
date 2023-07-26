@@ -593,13 +593,18 @@
     </tr>
 
     <tr>
-        <td>Otisk volajícího</td>
+        <td>Identifikace</td>
         <td>{{data.identification}}</td>
     </tr>
 
     <tr>
         <td>IP adresa</td>
         <td>{{data.ip}}</td>
+    </tr>
+
+    <tr *ngIf="data.role">
+        <td>Role</td>
+        <td>{{data.role}}</td>
     </tr>
 
     <tr *ngIf="data.parameters && Object.keys(data.parameters).length > 0">
