@@ -1,4 +1,4 @@
-# GrillBot - Services
+# GrillBot - Web
 
 Repository for all web applications in the GrillBot infrastructure.
 
@@ -11,7 +11,7 @@ Repository for all web applications in the GrillBot infrastructure.
 
 Exists only one name of image `ghcr.io/grillbot/grillbot.web` and webs are divided by tags.
 
-- KarmaWeb - `ghcr.io/grillbot/grillbot.services:karma`
-- Navigation - `ghcr.io/grillbot/grillbot.services:navigation`
-- PrivateAdmin - `ghcr.io/grillbot/grillbot.services:private_admin`
-- PublicAdmin - `ghcr.io/grillbot/grillbot.services:public_admin`
+- KarmaWeb - `ghcr.io/grillbot/grillbot.web:karma`
+- Navigation - `ghcr.io/grillbot/grillbot.web:navigation`
+- PrivateAdmin - `ghcr.io/grillbot/grillbot.web:private_admin`
+- PublicAdmin - `ghcr.io/grillbot/grillbot.web:public_admin`

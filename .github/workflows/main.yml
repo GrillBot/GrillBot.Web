@@ -3,9 +3,23 @@ name: CI/CD
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.editorconfig'
+      - '**/certificate.cnf'
+      - '**/certificate.crt'
+      - '**/localhost.key'
   pull_request:
     types: [opened, reopened, synchronize]
     branches: [master]
+    paths-ignore:
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.editorconfig'
+      - '**/certificate.cnf'
+      - '**/certificate.crt'
+      - '**/localhost.key'
   workflow_dispatch:
 
 jobs:
