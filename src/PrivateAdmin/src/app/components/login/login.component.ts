@@ -11,7 +11,7 @@ import { EMPTY } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
     errorMessage: string;
-    loading = false;
+    loadingState: 'connect' | 'redirect' | 'login' | null = null;
 
     constructor(
         private authService: AuthService,
@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.loadingState = null;
+
         if (this.authService.isLogged) {
             this.router.navigate(['/admin']);
             return;
@@ -29,8 +31,10 @@ export class LoginComponent implements OnInit {
         if (search.has('sessionId')) {
             const isPublic = search.get('isPublic').toLowerCase() === 'true';
 
+            this.loadingState = 'login';
             this.authService.processLogin(search.get('sessionId'), isPublic).subscribe(result => {
                 this.errorMessage = result.errorMessage;
+                this.loadingState = null;
 
                 if (!this.errorMessage) {
                     this.storage.store('AuthData', result.serialize());
@@ -44,15 +48,18 @@ export class LoginComponent implements OnInit {
     }
 
     startSession(): void {
-        this.loading = true;
+        this.loadingState = 'connect';
         this.errorMessage = null;
 
         this.authService.getLink().pipe(catchError(_ => {
-            this.loading = false;
             this.errorMessage = 'Nepodařilo se připojit na server.';
+            this.loadingState = null;
 
             return EMPTY;
-        })).subscribe(url => location.href = url.url);
+        })).subscribe(url => {
+            this.loadingState = 'redirect';
+            location.href = url.url;
+        });
     }
 
 }

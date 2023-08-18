@@ -14,11 +14,16 @@
                                     Přihlásit přes Discord
                                 </button>
                             </div>
-                            <div class="card-footer text-center py-3" *ngIf="errorMessage || loading">
+                            <div class="card-footer text-center py-3" *ngIf="errorMessage || loadingState">
                                 <span class="text-danger" *ngIf="errorMessage">{{errorMessage}}</span>
-                                <span *ngIf="loading">
-                                    <i class="fa fa-circle-notch fa-spin"></i>
-                                    Čekám na připojení
+
+                                <span *ngIf="loadingState">
+                                    <i class="fa fa-circle-notch fa-spin me-1"></i>
+                                    Probíhá <ng-container [ngSwitch]="loadingState">
+                                        <ng-container *ngSwitchCase="'connect'">připojování</ng-container>
+                                        <ng-container *ngSwitchCase="'redirect'">přesměrování</ng-container>
+                                        <ng-container *ngSwitchCase="'login'">přihlašování</ng-container>
+                                    </ng-container>
                                 </span>
                             </div>
                         </div>
