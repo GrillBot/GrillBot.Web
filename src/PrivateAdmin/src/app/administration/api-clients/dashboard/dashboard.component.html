@@ -22,9 +22,10 @@
 
 <ng-template #clientCard let-client="client">
     <app-card [header]="false">
-        <div class="d-flex align-items-end">
-            <h4 class="fw-normal">{{client.name}}</h4>
-            <h5 class="fw-normal text-secondary ms-3">{{client.id}}</h5>
+        <div class="d-flex align-items-end mb-1">
+            <h4 class="fw-normal mb-0 me-2">{{client.name}}</h4>
+            <h5 class="fw-normal text-secondary mb-0 me-2">{{client.id}}</h5>
+            <p class="badge bg-danger m-0 original" *ngIf="client.disabled">Deaktivován</p>
         </div>
 
         <p class="allowedMethods">

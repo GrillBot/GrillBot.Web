@@ -35,7 +35,8 @@ export class ClientFormComponent implements OnInit {
 
         this.form = this.fb.group({
             name: ['', Validators.compose([Validators.required, Validators.maxLength(100)])],
-            allowedMethods: [[], Validators.required]
+            allowedMethods: [[], Validators.required],
+            disabled: [false]
         });
 
         if (clientId === 'add') {
@@ -54,7 +55,8 @@ export class ClientFormComponent implements OnInit {
 
                 this.form.patchValue({
                     name: client.name,
-                    allowedMethods: client.allowedMethods
+                    allowedMethods: client.allowedMethods,
+                    disabled: client.disabled
                 });
             });
         }
@@ -63,7 +65,8 @@ export class ClientFormComponent implements OnInit {
     process(): void {
         if (!this.form.dirty) { return; }
 
-        const parameters = new ApiClientParams(this.form.value.name, this.form.value.allowedMethods);
+        const formData = this.form.value;
+        const parameters = new ApiClientParams(formData.name, formData.allowedMethods, formData.disabled);
         const request = this.isNew ?
             this.apiClientsService.createClient(parameters) :
             this.apiClientsService.updateClient(this.apiClient.id, parameters);

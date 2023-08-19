@@ -7,9 +7,9 @@ export class ApiClient {
     public allowedMethods: List<string> = [];
     public useCount: number;
     public lastUse: DateTime;
+    public disabled: boolean;
 
-    static create(data: any): ApiClient | null {
-        if (!data) { return null; }
+    static create(data: any): ApiClient {
         const client = new ApiClient();
 
         client.allowedMethods = data.allowedMethods.map((o: any) => o as string);
@@ -17,6 +17,7 @@ export class ApiClient {
         client.lastUse = DateTime.fromISOString(data.lastUse);
         client.useCount = data.useCount;
         client.name = data.name;
+        client.disabled = data.disabled;
 
         return client;
     }
@@ -25,6 +26,7 @@ export class ApiClient {
 export class ApiClientParams {
     constructor(
         public name: string,
-        public allowedMethods: List<string>
+        public allowedMethods: List<string>,
+        public disabled: boolean
     ) { }
 }

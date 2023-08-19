@@ -17,16 +17,17 @@
                         <label>Povolené metody</label>
                         <app-search-input [isMultiSelect]="true" [searchSource]="'public-api-methods'"
                             formControlName="allowedMethods"></app-search-input>
+                        <app-checkbox [label]="'Deaktivován'" [id]="'disabled'" formControlName="disabled"></app-checkbox>
                     </div>
 
-                    <div class="col-md-auto d-flex align-items-end">
+                    <div class="col-md-auto d-flex align-items-center">
                         <button class="btn btn-outline-success me-2" (click)="process()">Uložit</button>
                         <a class="btn btn-outline-danger" routerLink="/admin/api-clients">Zrušit</a>
                     </div>
                 </div>
             </form>
 
-            <div class="row mt-2" *ngIf="!isNew">
+            <div class="row mt-2" *ngIf="!isNew && apiClient">
                 <div class="col-md-auto">
                     <p class="mb-0">Id:</p>
                     <p class="mb-0">Poslední použití:</p>

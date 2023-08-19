@@ -1,9 +1,5 @@
-.allowedMethods {
-    & .allowedMethod:not(:last-child) {
-        &:after {
-            content: ', ';
-        }
-    }
+.allowedMethods .allowedMethod:not(:last-child):after {
+    content: ", ";
 }
 
 p {
