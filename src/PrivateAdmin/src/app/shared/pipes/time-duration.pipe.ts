@@ -9,7 +9,7 @@ export class TimeDurationPipe implements PipeTransform {
         }
 
         const moment = Moment.duration({ milliseconds: value });
-        const days = moment.days();
+        const days = Math.floor(moment.asDays());
         const hours = String(moment.hours()).padStart(2, '0');
         const minutes = String(moment.minutes()).padStart(2, '0');
         const seconds = String(moment.seconds()).padStart(2, '0');
