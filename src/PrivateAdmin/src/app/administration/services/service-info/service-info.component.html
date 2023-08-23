@@ -10,16 +10,15 @@
             <ng-container *ngIf="data.diagnosticInfo">
                 <div class="row mt-1">
                     <div class="col-md">
-                        <p>Timeout: <b>{{data.timeout | timeDuration}}</b></p>
+                        <p>Uptime: <b>{{data.diagnosticInfo.uptime | timeDuration}}</b></p>
                         <p>Čas CPU: <b>{{data.diagnosticInfo.cpuTime | timeDuration}}</b></p>
                     </div>
                     <div class="col-md">
-                        <p>Počet požadavků: <b>{{data.diagnosticInfo.requestsCount | numberWithSpaces}}</b></p>
                         <p>Statistiky měřeny od: <b>{{data.diagnosticInfo.measuredFrom.binding}}</b></p>
+                        <p>Celkem požadavků: <b>{{data.diagnosticInfo.requestsCount | numberWithSpaces}}</b></p>
                     </div>
                     <div class="col-md">
                         <p>Využitá paměť: <b>{{data.diagnosticInfo.usedMemory | filesize}}</b></p>
-                        <p>Uptime: <b>{{data.diagnosticInfo.uptime | timeDuration}}</b></p>
                     </div>
                 </div>
 

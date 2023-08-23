@@ -58,7 +58,6 @@ export class DiagnosticInfo {
 export class ServiceInfo {
     public name: string;
     public url: string;
-    public timeout: number;
     public apiErrorMessage?: string;
     public diagnosticInfo?: DiagnosticInfo;
 
@@ -68,7 +67,6 @@ export class ServiceInfo {
 
         info.name = data.name;
         info.url = data.url;
-        info.timeout = data.timeout;
         info.apiErrorMessage = data.apiErrorMessage;
         info.diagnosticInfo = DiagnosticInfo.create(data.diagnosticInfo);
 
