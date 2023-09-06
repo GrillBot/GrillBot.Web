@@ -23,7 +23,8 @@ export enum AuditLogItemType {
     ThreadDeleted = 21,
     JobCompleted = 22,
     API = 23,
-    ThreadUpdated = 24
+    ThreadUpdated = 24,
+    RoleDeleted = 25
 }
 
 export enum AuditLogItemTypeTexts {
@@ -49,5 +50,6 @@ export enum AuditLogItemTypeTexts {
     ThreadDeleted = 'Smazáno vlákno',
     JobCompleted = 'Naplánovaná úloha',
     API = 'API požadavek',
-    ThreadUpdated = 'Vlákno upraveno'
+    ThreadUpdated = 'Vlákno upraveno',
+    RoleDeleted = 'Smazaná role'
 }

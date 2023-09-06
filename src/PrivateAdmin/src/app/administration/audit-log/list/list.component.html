@@ -335,5 +335,10 @@
         <ng-container *ngIf="type === AuditLogItemType.ThreadUpdated">
             Změněno: <b *ngIf="preview.tagsChanged">Tagy</b>
         </ng-container>
+
+        <ng-container *ngIf="type === AuditLogItemType.RoleDeleted">
+            <p>ID: <b>{{preview.roleId}}</b></p>
+            <p>Název: <b>{{preview.name}}</b></p>
+        </ng-container>
     </div>
 </ng-template>

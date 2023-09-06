@@ -56,6 +56,9 @@
             <ng-container *ngSwitchCase="AuditLogItemType.ThreadUpdated">
                 <ng-container *ngTemplateOutlet="threadUpdated"></ng-container>
             </ng-container>
+            <ng-container *ngSwitchCase="AuditLogItemType.RoleDeleted">
+                <ng-container *ngTemplateOutlet="roleDeleted"></ng-container>
+            </ng-container>
         </ng-container>
     </tbody>
 </table>
@@ -731,6 +734,47 @@
         </td>
         <td>
             <span *ngFor="let tag of data.tags.after" class="badge bg-dark me-1">{{tag}}</span>
+        </td>
+    </tr>
+</ng-template>
+
+<ng-template #roleDeleted>
+    <tr>
+        <td>ID</td>
+        <td>{{data.roleId}}</td>
+    </tr>
+
+    <tr>
+        <td>Název</td>
+        <td>{{data.name}}</td>
+    </tr>
+
+    <tr *ngIf="data.color && data.color != '#000000'">
+        <td>Barva</td>
+        <td class="pt-0 pb-0">
+            <span [style.background-color]="data.color" class="badge">{{data.color}}</span>
+        </td>
+    </tr>
+
+    <tr *ngIf="data.iconId">
+        <td>ID ikony</td>
+        <td>{{data.iconId}}</td>
+    </tr>
+
+    <tr>
+        <td>Zvýrazněná v panelu</td>
+        <td>{{data.isHoisted | czechBooleanPipe}}</td>
+    </tr>
+
+    <tr>
+        <td>Tagovatelná</td>
+        <td>{{data.isMentionable | czechBooleanPipe}}</td>
+    </tr>
+
+    <tr *ngIf="data.permissions && data.permissions.length > 0">
+        <td>Oprávnění</td>
+        <td>
+            <span *ngFor="let permission of data.permissions" class="badge bg-dark me-1">{{permission}}</span>
         </td>
     </tr>
 </ng-template>
