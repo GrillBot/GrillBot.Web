@@ -1,22 +1,22 @@
 <app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
     <form [formGroup]="form">
         <div class="row">
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Uživatelské jméno</label>
                 <input type="text" formControlName="username" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Server</label>
                 <app-search-input formControlName="guildId" [searchSource]="'guilds'"></app-search-input>
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Použitý kód pozvánky</label>
                 <input type="text" formControlName="usedInviteCode" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Stav</label>
                 <app-select [items]="statusItems" formControlName="status"></app-select>
             </div>

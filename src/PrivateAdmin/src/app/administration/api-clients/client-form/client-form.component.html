@@ -29,15 +29,9 @@
 
             <div class="row mt-2" *ngIf="!isNew && apiClient">
                 <div class="col-md-auto">
-                    <p class="mb-0">Id:</p>
-                    <p class="mb-0">Poslední použití:</p>
-                    <p class="mb-0">Počet použití:</p>
-                </div>
-
-                <div class="col-md-auto">
-                    <p class="mb-0"><b>{{apiClient.id}}</b></p>
-                    <p class="mb-0"><b>{{apiClient.lastUse.binding}}</b></p>
-                    <p class="mb-0"><b>{{apiClient.useCount | numberWithSpaces}}</b></p>
+                    <p class="mb-0">Id: <b>{{apiClient.id}}</b></p>
+                    <p class="mb-0">Poslední použití: <b>{{apiClient.lastUse.binding}}</b></p>
+                    <p class="mb-0">Počet použití: <b>{{apiClient.useCount | numberWithSpaces}}</b></p>
                 </div>
             </div>
         </app-card>

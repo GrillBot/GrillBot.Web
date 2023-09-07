@@ -1,51 +1,51 @@
 <app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [size]="'lg'" [allowHideButton]="true">
     <form [formGroup]="form">
         <div class="row">
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Název emote</label>
                 <input type="text" formControlName="emoteName" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Server</label>
                 <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Počet použití od</label>
                 <input type="number" min="0" formControlName="useCountFrom" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Počet použití do</label>
                 <input type="number" min="0" formControlName="useCountTo" class="form-control" />
             </div>
         </div>
 
         <div class="row">
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>První výskyt od</label>
                 <input type="datetime-local" formControlName="firstOccurenceFrom" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>První výskyt do</label>
                 <input type="datetime-local" formControlName="firstOccurenceTo" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Poslední výskyt od</label>
                 <input type="datetime-local" formControlName="lastOccurenceFrom" class="form-control" />
             </div>
 
-            <div class="col form-group">
+            <div class="col-md form-group">
                 <label>Poslední výskyt do</label>
                 <input type="datetime-local" formControlName="lastOccurenceTo" class="form-control" />
             </div>
         </div>
 
         <div class="row mt-2">
-            <div class="col d-flex justify-content-between">
+            <div class="col-md d-flex justify-content-between">
                 <app-checkbox [id]="'filterAnimated'" [label]="'Skrýt animované'" formControlName="filterAnimated"></app-checkbox>
 
                 <div>

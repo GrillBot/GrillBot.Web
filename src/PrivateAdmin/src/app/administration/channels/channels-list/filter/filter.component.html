@@ -1,37 +1,28 @@
 <app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
     <form [formGroup]="form">
         <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label>Server</label>
-                    <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
-                </div>
+            <div class="col-md form-group">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
             </div>
 
-            <div class="col">
-                <div class="form-group">
-                    <label>Typ kanálu</label>
-                    <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="true" [clearable]="true" [items]="channelTypes"
-                        [multiple]="false" [notFoundText]="'Nenalezen žádný typ'" [searchable]="true" formControlName="channelType">
-                    </ng-select>
-                </div>
+            <div class="col-md form-group">
+                <label>Typ kanálu</label>
+                <ng-select [bindValue]="'key'" [bindLabel]="'value'" [closeOnSelect]="true" [clearable]="true" [items]="channelTypes"
+                    [multiple]="false" [notFoundText]="'Nenalezen žádný typ'" [searchable]="true" formControlName="channelType"></ng-select>
             </div>
 
-            <div class="col">
-                <div class="form-group">
-                    <label>Název</label>
-                    <input type="text" class="form-control" formControlName="nameContains" />
-                </div>
+            <div class="col-md form-group">
+                <label>Název</label>
+                <input type="text" class="form-control" formControlName="nameContains" />
             </div>
 
-            <div class="col-2">
-                <div class="form-group">
-                    <label>&nbsp;</label>
-                    <app-checkbox [label]="'Skrýt neexistující'" [id]="'hideDeleted'" formControlName="hideDeleted"></app-checkbox>
-                </div>
+            <div class="col-md form-group">
+                <label>&nbsp;</label>
+                <app-checkbox [label]="'Skrýt neexistující'" [id]="'hideDeleted'" formControlName="hideDeleted"></app-checkbox>
             </div>
 
-            <div class="col-auto d-flex align-items-end justify-content-end">
+            <div class="col-md-auto d-flex align-items-end justify-content-end">
                 <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
                 <button class="btn btn-danger" (click)="cleanFilter()" type="button">Smazat filtr</button>
             </div>

@@ -2,7 +2,7 @@
     <button [disabled]="disabled('first')" (click)="click('first')" class="btn btn-sm">První strana</button>
     <button [disabled]="disabled('prev')" (click)="click('prev')" class="btn btn-sm">Předchozí strana</button>
 
-    <span>
+    <span class="text-nowrap">
         {{page}} / {{pageCount}}
     </span>
 

@@ -21,9 +21,9 @@
     <ng-template #servicesView>
         <ng-container *ngIf="services && services.length > 0">
             <p class="fw-bold mt-3 mb-0">Služby</p>
-            <div class="d-flex">
-                <a class="badge bg-{{service.isAvailable ? 'success' : 'danger'}} original text-white me-1" *ngFor="let service of services"
-                    routerLink="/admin/services/{{service.id}}">{{service.name}}</a>
+            <div class="d-flex flex-wrap">
+                <a class="badge bg-{{service.isAvailable ? 'success' : 'danger'}} original text-white me-1 mt-1"
+                    *ngFor="let service of services" routerLink="/admin/services/{{service.id}}">{{service.name}}</a>
             </div>
         </ng-container>
         <span class="text-danger" *ngIf="!services">
