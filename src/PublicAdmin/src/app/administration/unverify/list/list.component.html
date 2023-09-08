@@ -18,7 +18,7 @@
 
             <app-card *ngFor="let item of list.items" [header]="false" [classes]="['mb-3']">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md">
                         <div class="row">
                             <div class="col">
                                 <h6>#{{item.id}} ({{item.formattedOperation}}) - {{item.createdAt.binding}}</h6>
@@ -31,7 +31,7 @@
                                 <p class="m-0">Provedl: <b>{{item.fromUser.fullname}}</b></p>
                             </div>
 
-                            <div class="col" *ngIf="item.anyData">
+                            <div class="col-md" *ngIf="item.anyData">
                                 <ng-container *ngIf="item.setData">
                                     <p class="m-0">Začátek: <b>{{item.setData.start.binding}}</b></p>
                                     <p class="m-0">Konec: <b>{{item.setData.end.binding}}</b></p>
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="row mt-2" *ngIf="item.anyData">
-                            <div class="col">
+                            <div class="col-md">
                                 <ng-container *ngIf="item.setData">
                                     <ng-container *ngIf="item.setData.rolesToKeep && item.setData.rolesToKeep.length > 0">
                                         <h5>Ponechané role</h5>
