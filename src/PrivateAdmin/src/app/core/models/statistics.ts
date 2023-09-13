@@ -121,8 +121,6 @@ export class OperationStats {
 export class ApiStatistics {
     public byDateInternalApi: Dictionary<string, number>;
     public byDatePublicApi: Dictionary<string, number>;
-    public byStatusCodeInternalApi: Dictionary<string, number>;
-    public byStatusCodePublicApi: Dictionary<string, number>;
     public endpoints: List<StatisticItem>;
 
     static create(data: any): ApiStatistics {
@@ -130,8 +128,6 @@ export class ApiStatistics {
 
         result.byDateInternalApi = Support.createDictFromObj(data.byDateInternalApi);
         result.byDatePublicApi = Support.createDictFromObj(data.byDatePublicApi);
-        result.byStatusCodeInternalApi = Support.createDictFromObj(data.byStatusCodeInternalApi);
-        result.byStatusCodePublicApi = Support.createDictFromObj(data.byStatusCodePublicApi);
         result.endpoints = data.endpoints.map((o: any) => StatisticItem.create(o));
 
         return result;
