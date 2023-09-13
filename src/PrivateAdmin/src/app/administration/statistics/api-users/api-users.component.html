@@ -11,8 +11,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let row of rows">
-            <td>{{row.key | cut:30}}</td>
-            <td class="text-center" *ngFor="let col of row.value">{{col}}</td>
+            <td>{{row.key}}</td>
+            <td class="text-center text-nowrap" *ngFor="let col of row.value">{{col}}</td>
         </tr>
     </tbody>
 </table>

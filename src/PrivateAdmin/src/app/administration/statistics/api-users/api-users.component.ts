@@ -26,14 +26,14 @@ export class ApiUsersComponent implements OnInit {
         const formatter = new NumberWithSpacesPipe();
 
         this.service.getUserApiStatistics(criteria).subscribe(data => {
-            this.columns = [...new Set(data.map(o => o.username))];
+            this.columns = [...new Set(data.map(o => o.action))];
 
-            const rowKeys = new Set(data.map(o => o.action));
+            const rowKeys = new Set(data.map(o => o.username));
             this.rows = [...rowKeys].map(o => ({ key: o, value: new Array(this.columns.length).fill('') }));
 
             for (const item of data) {
-                const cellIndex = this.columns.findIndex(o => o === item.username);
-                const row = this.rows.find(o => o.key === item.action);
+                const cellIndex = this.columns.findIndex(o => o === item.action);
+                const row = this.rows.find(o => o.key === item.username);
 
                 row.value[cellIndex] = formatter.transform(item.count);
             }
