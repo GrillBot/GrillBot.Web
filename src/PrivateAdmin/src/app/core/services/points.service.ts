@@ -1,4 +1,4 @@
-import { PointsChartItem, UserPointsItem } from './../models/points';
+import { PointsChartItem, UserListItem, UserListRequest, UserPointsItem } from './../models/points';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List, ObservableList, ObservablePaginatedData, PaginatedResponse, EmptyObservable } from './../models/common';
 import { map, catchError } from 'rxjs';
@@ -59,5 +59,15 @@ export class PointsService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.delete(url, { headers }).pipe(catchError((err: HttpErrorResponse) => this.base.catchError(err)));
+    }
+
+    getUserList(params: UserListRequest): ObservablePaginatedData<UserListItem> {
+        const url = this.base.createUrl('user/points/users/list');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.post<PaginatedResponse<UserListItem>>(url, params, { headers }).pipe(
+            map(data => PaginatedResponse.create(data, entity => UserListItem.create(entity))),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
     }
 }

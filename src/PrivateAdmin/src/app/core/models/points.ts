@@ -128,3 +128,42 @@ export class UserPointsItem {
         return item;
     }
 }
+
+export class UserListRequest extends FilterBase {
+    public guildId: string | null;
+
+    static get empty(): UserListRequest { return new UserListRequest(); }
+
+    static fromForm(form: any): UserListRequest | null {
+        const params = new UserListRequest();
+        params.guildId = form.guildId;
+
+        return params;
+    }
+
+    public serialize(): any {
+        return {
+            guildId: this.guildId,
+        };
+    }
+}
+
+export class UserListItem {
+    public guild: Guild;
+    public user: User;
+    public activePoints: number;
+    public expiredPoints: number;
+    public mergedPoints: number;
+
+    static create(data: any): UserListItem {
+        const item = new UserListItem();
+
+        item.guild = Guild.create(data.guild);
+        item.user = User.create(data.user);
+        item.activePoints = data.activePoints;
+        item.expiredPoints = data.expiredPoints;
+        item.mergedPoints = data.mergedPoints;
+
+        return item;
+    }
+}

@@ -1,0 +1,17 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [size]="'lg'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md form-group">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+            </div>
+
+            <div class="col-md d-flex justify-content-end align-items-end">
+                <div class="mt-2">
+                    <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                    <button class="btn btn-danger" (click)="cleanFilter()">Smazat filtr</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-card>
