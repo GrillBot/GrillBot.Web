@@ -44,6 +44,19 @@ export class EmoteStatItem {
     }
 }
 
+export class GuildEmoteStatItem extends EmoteStatItem {
+    public guild: Guild;
+
+    static create(data: any): GuildEmoteStatItem {
+        const item = new GuildEmoteStatItem();
+
+        Object.assign(item, super.create(data));
+        item.guild = Guild.create(data.guild);
+
+        return item;
+    }
+}
+
 export class EmotesListParams extends FilterBase {
     public guildId: string;
     public useCount: RangeParams<number> | null;
