@@ -39,16 +39,12 @@ jobs:
         with:
           filters: |
             PrivateAdmin:
-              - .github/workflows/**
               - 'src/PrivateAdmin/**'
             Navigation:
-              - .github/workflows/**
               - 'src/Navigation/**'
             PublicAdmin:
-              - .github/workflows/**
               - 'src/PublicAdmin/**'
             KarmaWeb:
-              - .github/workflows/**
               - 'src/KarmaWeb/**'
   PrivateAdmin_Build:
     runs-on: ubuntu-latest
@@ -70,7 +66,7 @@ jobs:
         run: npm run lint
       - name: Production build
         run: npm run build
-  PrivateAdmin_BuildContainer:
+  PrivateAdmin_CreateDockerImage:
     runs-on: ubuntu-latest
     needs: PrivateAdmin_Build
     if: github.ref == 'refs/heads/master'
@@ -95,7 +91,7 @@ jobs:
   PrivateAdmin_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_PrivateAdmin"
-    needs: PrivateAdmin_BuildContainer
+    needs: PrivateAdmin_CreateDockerImage
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
@@ -118,7 +114,7 @@ jobs:
         with:
           root: src/Navigation/
           css: true
-  Navigation_BuildContainer:
+  Navigation_CreateDockerImage:
     runs-on: ubuntu-latest
     needs: Navigation_Check
     if: github.ref == 'refs/heads/master'
@@ -143,7 +139,7 @@ jobs:
   Navigation_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_Navigation"
-    needs: Navigation_BuildContainer
+    needs: Navigation_CreateDockerImage
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
@@ -174,7 +170,7 @@ jobs:
         run: npm run lint
       - name: Production build
         run: npm run build
-  PublicAdmin_BuildContainer:
+  PublicAdmin_CreateDockerImage:
     runs-on: ubuntu-latest
     needs: PublicAdmin_Build
     if: github.ref == 'refs/heads/master'
@@ -199,7 +195,7 @@ jobs:
   PublicAdmin_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_PublicAdmin"
-    needs: PublicAdmin_BuildContainer
+    needs: PublicAdmin_CreateDockerImage
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
@@ -228,7 +224,7 @@ jobs:
         run: npm ci
       - name: Production build
         run: npm run build
-  KarmaWeb_BuildContainer:
+  KarmaWeb_CreateDockerImage:
     runs-on: ubuntu-latest
     needs: KarmaWeb_Build
     if: github.ref == 'refs/heads/master'
@@ -253,7 +249,7 @@ jobs:
   KarmaWeb_Deploy_Production:
     runs-on: ubuntu-latest
     environment: "Production_KarmaWeb"
-    needs: KarmaWeb_BuildContainer
+    needs: KarmaWeb_CreateDockerImage
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
