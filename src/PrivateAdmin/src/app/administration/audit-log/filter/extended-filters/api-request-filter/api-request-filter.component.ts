@@ -47,7 +47,8 @@ export class ApiRequestFilterComponent implements OnInit, ControlValueAccessor {
             durationFrom: [],
             durationTo: [],
             method: [null],
-            apiGroupName: [null]
+            apiGroupName: [null],
+            identification: [null]
         });
 
         this.form.valueChanges.subscribe(_ => this.submit());

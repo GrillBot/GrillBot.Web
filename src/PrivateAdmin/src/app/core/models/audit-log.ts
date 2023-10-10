@@ -26,6 +26,7 @@ export class ApiSearchRequest {
     public durationTo: number | null = null;
     public method: string | null = null;
     public apiGroupName: string | null = null;
+    public identification: string | null = null;
 
     get serialized(): any {
         return {
@@ -35,7 +36,8 @@ export class ApiSearchRequest {
             durationFrom: this.durationFrom,
             durationTo: this.durationTo,
             method: this.method,
-            apiGroupName: this.apiGroupName
+            apiGroupName: this.apiGroupName,
+            identification: this.identification
         };
     }
 
@@ -49,6 +51,7 @@ export class ApiSearchRequest {
         request.durationTo = data.durationTo;
         request.method = data.method;
         request.pathTemplate = data.pathTemplate;
+        request.identification = data.identification;
 
         return request;
     }
