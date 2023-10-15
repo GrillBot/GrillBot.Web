@@ -16,7 +16,7 @@
 
 <ng-template #jobCard let-job="job">
     <app-card [header]="false" [classes]="[job.running ? 'bg-success' : '']">
-        <div class="d-flex justify-content-between align-items-start">
+        <div class="d-flex justify-content-start align-items-end">
             <h4 class="fw-normal me-3">{{job.name}}</h4>
             <h6 class="badge bg-danger original" *ngIf="!job.isActive">Neaktivní</h6>
         </div>
