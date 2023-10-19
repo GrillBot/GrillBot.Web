@@ -97,7 +97,7 @@ export class ModalBoxComponent implements OnInit {
         }
 
         if (this.description.type === 'question-component') {
-            data = (this.description as CustomQuestionModal).component;
+            data = (this.description as CustomQuestionModal).componentData;
         }
 
         return data === null ? null : Injector.create({
