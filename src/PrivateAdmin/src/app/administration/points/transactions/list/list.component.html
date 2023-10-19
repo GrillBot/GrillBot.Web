@@ -21,10 +21,12 @@
             <tbody>
                 <tr *ngFor="let item of list.items">
                     <td>
-                        <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark">{{item.guild.name}}</a>
+                        <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark" *ngIf="item.guild">{{item.guild.name}}</a>
+                        <span *ngIf="!item.guild">Neznámý server</span>
                     </td>
                     <td>
-                        <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.displayName}}</a>
+                        <a routerLink="/admin/users/{{item.user.id}}" class="text-dark" *ngIf="item.user">{{item.user.displayName}}</a>
+                        <span *ngIf="!item.user">Neznámý uživatel</span>
                     </td>
                     <td>{{item.createdAt.binding}}</td>
                     <td>{{item.messageId}}</td>
