@@ -24,6 +24,19 @@ export class EmoteItem {
     }
 }
 
+export class GuildEmoteItem extends EmoteItem {
+    public guild: Guild;
+
+    static create(data: any): GuildEmoteItem {
+        const item = new GuildEmoteItem();
+
+        Object.assign(item, super.create(data));
+        item.guild = Guild.create(data.guild);
+
+        return item;
+    }
+}
+
 export class EmoteStatItem {
     public emote: EmoteItem;
     public useCount: number;

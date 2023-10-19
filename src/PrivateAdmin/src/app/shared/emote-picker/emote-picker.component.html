@@ -4,7 +4,7 @@
         (change)="onValueChanged($event)">
         <ng-option *ngFor="let item of data" value="{{item.fullId}}">
             <img src="{{item.imageUrl}}" width="32px" height="32px" />
-            {{item.name}}
+            {{item.name}} ({{item.guild.name}})
         </ng-option>
     </ng-select>
 </ng-container>

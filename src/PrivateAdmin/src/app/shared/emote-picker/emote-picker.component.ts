@@ -1,7 +1,7 @@
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { noop } from 'rxjs';
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
-import { EmoteItem } from 'src/app/core/models/emotes';
+import { GuildEmoteItem } from 'src/app/core/models/emotes';
 import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
@@ -18,7 +18,7 @@ import { DataService } from 'src/app/core/services/data.service';
 export class EmotePickerComponent implements OnInit, ControlValueAccessor {
     @Input() isMultiSelect = false;
 
-    data: EmoteItem[];
+    data: GuildEmoteItem[];
     selected: string | string[];
     disabled = false;
 
@@ -46,7 +46,7 @@ export class EmotePickerComponent implements OnInit, ControlValueAccessor {
     }
 
     setDisabledState(isDisabled: boolean): void {
-        this.disabled = this.disabled;
+        this.disabled = isDisabled;
     }
 
     onBlur(): void {

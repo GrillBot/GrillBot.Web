@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EmoteItem } from '../models/emotes';
+import { GuildEmoteItem } from '../models/emotes';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -69,12 +69,12 @@ export class DataService {
         );
     }
 
-    getEmotes(): ObservableList<EmoteItem> {
+    getEmotes(): ObservableList<GuildEmoteItem> {
         const url = this.base.createUrl('data/emotes');
         const headers = this.base.getHttpHeaders();
 
-        return this.base.http.get<EmoteItem[]>(url, { headers }).pipe(
-            map(emotes => emotes.map(e => EmoteItem.create(e))),
+        return this.base.http.get<GuildEmoteItem[]>(url, { headers }).pipe(
+            map(emotes => emotes.map(e => GuildEmoteItem.create(e))),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
