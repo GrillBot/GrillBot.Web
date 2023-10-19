@@ -36,6 +36,10 @@ export class PaginationComponent {
         this.pageChange.emit(this.page);
     }
 
+    onPageChange(): void {
+        setTimeout(() => this.pageChange.emit(this.page), 350);
+    }
+
     private getNewPage(type: PageType): number {
         switch (type) {
             case 'first':
