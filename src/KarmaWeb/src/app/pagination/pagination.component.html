@@ -1,11 +1,12 @@
 <div>
-    <button [disabled]="disabled('first')" (click)="click('first')">První strana</button>
-    <button [disabled]="disabled('prev')" (click)="click('prev')">Předchozí strana</button>
+    <button [disabled]="disabled('first')" (click)="click('first')" class="btn btn-sm">První strana</button>
+    <button [disabled]="disabled('prev')" (click)="click('prev')" class="btn btn-sm">Předchozí strana</button>
 
-    <span class="text-nowrap">
-        {{page}} / {{pageCount}}
+    <span class="text-nowrap page-number">
+        <input type="number" class="form-control form-control-sm" [(ngModel)]="page" (ngModelChange)="onPageChange()">
+        <span> / {{pageCount}}</span>
     </span>
 
-    <button [disabled]="disabled('next')" (click)="click('next')">Další strana</button>
-    <button [disabled]="disabled('last')" (click)="click('last')">Poslední strana</button>
+    <button [disabled]="disabled('next')" (click)="click('next')" class="btn btn-sm">Další strana</button>
+    <button [disabled]="disabled('last')" (click)="click('last')" class="btn btn-sm">Poslední strana</button>
 </div>

@@ -9,7 +9,7 @@ type PageType = 'first' | 'prev' | 'next' | 'last';
 })
 export class PaginationComponent {
     @Input() totalCount!: number;
-    @Input() page: number = 1;
+    @Input() page = 1;
     @Input() pageSize!: number;
 
     @Output() pageChange = new EventEmitter<number>();
@@ -27,13 +27,17 @@ export class PaginationComponent {
             case 'next':
                 return this.page === this.pageCount;
             default:
-                throw new Error(`Unsupported type ${type}`);
+                throw new Error(`Unsupported type ${type as string}`);
         }
     }
 
     click(type: PageType): void {
         this.page = this.getNewPage(type);
         this.pageChange.emit(this.page);
+    }
+
+    onPageChange(): void {
+        setTimeout(() => this.pageChange.emit(this.page), 350);
     }
 
     private getNewPage(type: PageType): number {
@@ -47,7 +51,7 @@ export class PaginationComponent {
             case 'next':
                 return this.page + 1;
             default:
-                throw new Error(`Unsupported type ${type}`);
+                throw new Error(`Unsupported type ${type as string}`);
         }
     }
 }
