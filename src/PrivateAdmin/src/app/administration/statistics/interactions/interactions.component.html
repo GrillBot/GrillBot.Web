@@ -1,4 +1,8 @@
 <ng-container *ngIf="statistics$ | async as stats; else loading">
+    <h3 class="fw-normal">Podle období</h3>
+    <app-line-chart [data]="stats.byDate"></app-line-chart>
+
+    <h3 class="fw-normal">Příkazy</h3>
     <table class="table table-sm table-bordered table-striped auto-column-width">
         <thead>
             <tr>
@@ -16,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of stats" [class.bg-warning]="item.successRate > 25 && item.successRate < 50"
+            <tr *ngFor="let item of stats.commands" [class.bg-warning]="item.successRate > 25 && item.successRate < 50"
                 [class.bg-danger]="item.successRate <= 25">
                 <td [title]="item.key">{{item.key | cut:30}}</td>
                 <td>{{item.last.binding}}</td>

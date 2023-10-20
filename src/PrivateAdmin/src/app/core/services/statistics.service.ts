@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Dictionary, ObservableDict, ObservableList } from '../models/common';
 import {
     ApiStatistics, AuditLogStatistics, AvgExecutionTimes,
-    DatabaseStatistics, OperationStats, StatisticItem, UserActionCountItem
+    DatabaseStatistics, InteractionStatistics, OperationStats, StatisticItem, UserActionCountItem
 } from '../models/statistics';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
@@ -34,8 +34,14 @@ export class StatisticsService {
         );
     }
 
-    getInteractionsStatus(): ObservableList<StatisticItem> {
-        return this.getObjectStatistics('stats/interactions');
+    getInteractionsStatus(): Observable<InteractionStatistics> {
+        const url = this.base.createUrl('stats/interactions');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<InteractionStatistics>(url, { headers }).pipe(
+            map(data => InteractionStatistics.create(data)),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
     }
 
     getUnverifyLogsStatisticsByOperation(): ObservableDict<string, number> {

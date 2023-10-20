@@ -149,3 +149,17 @@ export class UserActionCountItem {
         return result;
     }
 }
+
+export class InteractionStatistics {
+    public byDate: Dictionary<string, number>;
+    public commands: List<StatisticItem>;
+
+    static create(data: any): InteractionStatistics {
+        const statistics = new InteractionStatistics();
+
+        statistics.byDate = Support.createDictFromObj(data.byDate);
+        statistics.commands = data.commands.map((o: any) => StatisticItem.create(o));
+
+        return statistics;
+    }
+}
