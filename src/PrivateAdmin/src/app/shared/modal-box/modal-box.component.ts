@@ -56,6 +56,10 @@ export class ModalBoxComponent implements OnInit {
     @HostListener('click', ['$event'])
     onMouseClick(event: PointerEvent | MouseEvent): void {
         let target = event.target as HTMLElement;
+        if (target.getAttribute('ignore-modal-click-prevention') === 'true') {
+            return;
+        }
+
         while (target !== null) {
             if (target.classList.contains('box')) {
                 event.stopPropagation();

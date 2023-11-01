@@ -80,9 +80,8 @@
             <h6 class="mb-0">Použitá pozvánka</h6>
             <b>
                 {{guild.usedInvite.code}}
-                <ng-container *ngIf="guild.usedInvite.creator">(<a routerLink="/admin/users/{{guild.usedInvite.creator.id}}"
-                        class="text-dark">{{guild.usedInvite.creator.displayName}}</a>)</ng-container>
-                <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.binding}})</ng-container>
+                <ng-container *ngIf="guild.usedInvite.creator">(<a user-link [userEntity]="guild.usedInvite.creator"></a>) </ng-container>
+                <ng-container *ngIf="guild.usedInvite.createdAt">({{guild.usedInvite.createdAt.binding}}) </ng-container>
             </b>
         </div>
     </div>

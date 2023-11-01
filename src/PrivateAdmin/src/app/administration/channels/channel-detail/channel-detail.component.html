@@ -23,15 +23,13 @@
                     <div class="col-md-3" *ngIf="data.lastMessageFrom">
                         Poslední zpráva od<br>
                         <b>
-                            <a routerLink="/admin/users/{{data.lastMessageFrom.id}}"
-                                class="text-dark">{{data.lastMessageFrom.displayName}}</a>
+                            <a user-link [userEntity]="data.lastMessageFrom"></a>
                         </b>
                     </div>
                     <div class="col-md-3" *ngIf="data.mostActiveUser">
                         Nejaktivnější uživatel<br>
                         <b>
-                            <a routerLink="/admin/users/{{data.mostActiveUser.id}}"
-                                class="text-dark">{{data.mostActiveUser.displayName}}</a>
+                            <a user-link [userEntity]="data.mostActiveUser"></a>
                         </b>
                     </div>
                     <div *ngIf="data.parentChannel" class="col-md-3">

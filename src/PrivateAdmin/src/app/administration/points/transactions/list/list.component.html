@@ -25,7 +25,7 @@
                         <span *ngIf="!item.guild">Neznámý server</span>
                     </td>
                     <td>
-                        <a routerLink="/admin/users/{{item.user.id}}" class="text-dark" *ngIf="item.user">{{item.user.displayName}}</a>
+                        <a user-link [userEntity]="item.user" *ngIf="item.user"></a>
                         <span *ngIf="!item.user">Neznámý uživatel</span>
                     </td>
                     <td>{{item.createdAt.binding}}</td>

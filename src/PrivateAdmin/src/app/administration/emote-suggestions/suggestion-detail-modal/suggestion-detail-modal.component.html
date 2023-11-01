@@ -20,7 +20,7 @@
         <tr>
             <th>Navrhovatel</th>
             <td>
-                <a routerLink="/admin/users/{{suggestion.fromUser.id}}" class="text-dark">{{suggestion.fromUser.displayName}}</a>
+                <a user-link [userEntity]="suggestion.fromUser"></a>
             </td>
         </tr>
 

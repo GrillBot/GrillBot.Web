@@ -63,7 +63,7 @@
             <p *ngIf="item.user" class="m-0">
                 Provedl:
                 <b>
-                    <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.displayName}}</a>
+                    <a user-link [userEntity]="item.user"></a>
                 </b>
             </p>
         </div>
@@ -204,7 +204,7 @@
             <p *ngIf="preview.user">
                 Cílový uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
             <p *ngIf="preview.role">
@@ -218,7 +218,7 @@
             <p *ngIf="preview.user">
                 Cílový uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
             <p *ngIf="preview.role">
@@ -230,7 +230,7 @@
             <p>
                 Uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
         </ng-container>
@@ -239,7 +239,7 @@
             <p>
                 Cílový uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
             <p *ngIf="preview.nicknameChanged || preview.voiceMuteChanged || preview.selfUnverifyMinimalTimeChange || preview.flagsChanged">
@@ -255,7 +255,7 @@
             <p>
                 Cílový uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
         </ng-container>
@@ -292,7 +292,7 @@
             <p>
                 Uživatel:
                 <b>
-                    <a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a>
+                    <a user-link [userEntity]="preview.user"></a>
                 </b>
             </p>
             <p>Počet členů (po odpojení): <b>{{preview.memberCount}}</b></p>
@@ -305,7 +305,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === AuditLogItemType.MessageDeleted">
-            <p>Autor: <b><a routerLink="/admin/users/{{preview.user.id}}" class="text-dark">{{preview.user.username}}</a></b></p>
+            <p>Autor: <b><a user-link [userEntity]="preview.user"></a></b></p>
             <p>Vytvořeno: <b>{{preview.messageCreatedAt | dateTimeFormatter}}</b></p>
         </ng-container>
 

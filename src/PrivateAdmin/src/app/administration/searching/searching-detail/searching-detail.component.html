@@ -3,7 +3,7 @@
         <tr>
             <th>Uživatel</th>
             <td>
-                <a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.displayName}}</a>
+                <a user-link [userEntity]="item.user"></a>
             </td>
         </tr>
         <tr>

@@ -11,7 +11,7 @@
 <div class="mb-3" *ngIf="item.type === AuditLogItemType.MemberUpdated && data?.user">
     <span>
         <b>Uživatel: </b>
-        <a routerLink="/admin/users/{{data.user.id}}" class="text-dark">{{data.user.username}}</a>
+        <a user-link [userEntity]="data.user"></a>
     </span>
 </div>
 
@@ -181,7 +181,7 @@
     <tr *ngIf="data.user">
         <td>Cílový uživatel</td>
         <td colspan="2">
-            <a routerLink="/admin/users/{{data.user.id}}" class="text-dark">{{data.user.username}}</a>
+            <a user-link [userEntity]="data.user"></a>
         </td>
     </tr>
 
@@ -526,8 +526,7 @@
     <tr *ngIf="data.startingUser">
         <td>Spustil</td>
         <td>
-            <a *ngIf="data.startingUser.id" routerLink="/admin/users/{{data.startingUser.id}}"
-                class="text-dark">{{data.startingUser.username}}</a>
+            <a *ngIf="data.startingUser.id" user-link [userEntity]="data.startingUser"></a>
         </td>
     </tr>
 
@@ -653,7 +652,7 @@
     <tr>
         <td>Autor</td>
         <td>
-            <a *ngIf="data.author.id" routerLink="/admin/users/{{data.author.id}}" class="text-dark">{{data.author.username}}</a>
+            <a *ngIf="data.author.id" user-link [userEntity]="data.author"></a>
         </td>
     </tr>
 

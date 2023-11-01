@@ -1,15 +1,18 @@
 import { KeyValueItemDirective } from './key-value-item.directive';
 import { NgModule } from '@angular/core';
 import { RouteClickDirective } from './route-click.directive';
+import { UserLinkDirective } from './user-link.directive';
 
 @NgModule({
     declarations: [
         RouteClickDirective,
-        KeyValueItemDirective
+        KeyValueItemDirective,
+        UserLinkDirective
     ],
     exports: [
         RouteClickDirective,
-        KeyValueItemDirective
+        KeyValueItemDirective,
+        UserLinkDirective
     ]
 })
 export class DirectivesModule { }

@@ -24,12 +24,10 @@
                     <tr *ngFor="let item of list.items" (click)="showMessage(item)">
                         <td>{{item.id}}</td>
                         <td>
-                            <a *ngIf="item.fromUser" routerLink="/admin/users/{{item.fromUser.id}}" class="text-dark"
-                                (click)="$event.stopPropagation()">{{item.fromUser.displayName}}</a>
+                            <a user-link [userEntity]="item.fromUser" (click)="$event.stopPropagation()" *ngIf="item.fromUser"></a>
                         </td>
                         <td>
-                            <a *ngIf="item.toUser" routerLink="/admin/users/{{item.toUser.id}}" class="text-dark"
-                                (click)="$event.stopPropagation()">{{item.toUser.displayName}}</a>
+                            <a *ngIf="item.toUser" user-link [userEntity]="item.toUser" (click)="$event.stopPropagation()"></a>
                         </td>
                         <td>{{item.at.binding}}</td>
                         <td>{{item.postpone}}</td>

@@ -20,8 +20,7 @@
                     </td>
                     <td>{{item.id}}</td>
                     <td>
-                        <a routerLink="/admin/users/{{item.user.id}}" class="text-dark"
-                            (click)="$event.stopPropagation()">{{item.user.displayName}}</a>
+                        <a user-link [userEntity]="item.user" (click)="$event.stopPropagation()"></a>
                     </td>
                     <td>
                         <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark"

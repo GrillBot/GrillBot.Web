@@ -48,12 +48,10 @@
                                             class="text-dark">{{item.guild.name}}</a></b>
                                 </p>
                                 <p class="m-0">
-                                    Provedl: <b><a routerLink="/admin/users/{{item.fromUser.id}}"
-                                            class="text-dark">{{item.fromUser.fullname}}</a></b>
+                                    Provedl: <b><a user-link [userEntity]="item.fromUser"></a></b>
                                 </p>
                                 <p class="m-0">
-                                    Cílový uživatel: <b><a routerLink="/admin/users/{{item.toUser.id}}"
-                                            class="text-dark">{{item.toUser.fullname}}</a></b>
+                                    Cílový uživatel: <b><a user-link [userEntity]="item.toUser"></a></b>
                                 </p>
                             </div>
 
