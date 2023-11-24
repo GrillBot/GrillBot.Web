@@ -9,7 +9,7 @@
                     <th sortable (clicked)="setSort($event)" [key]="'User'" [sort]="sort">Uživatel</th>
                     <th sortable (clicked)="setSort($event)" [key]="'AssignedAt'" [sort]="sort">Založeno</th>
                     <th>ID zprávy</th>
-                    <th>Z reakce?</th>
+                    <th>Typ</th>
                     <th sortable (clicked)="setSort($event)" [key]="'Points'" [sort]="sort">Body</th>
                     <ng-container *ngIf="isMerged">
                         <th>Sloučené období</th>
@@ -30,7 +30,9 @@
                     </td>
                     <td>{{item.createdAt.binding}}</td>
                     <td>{{item.messageId}}</td>
-                    <td>{{!!(item.reactionId) | czechBooleanPipe}}</td>
+                    <td *ngIf="item.isMessage">Zpráva</td>
+                    <td *ngIf="item.isReaction">Reakce</td>
+                    <td *ngIf="item.isSuperReaction">Super reakce</td>
                     <td>{{item.points | numberWithSpaces}}</td>
                     <ng-container *ngIf="isMerged">
                         <td>

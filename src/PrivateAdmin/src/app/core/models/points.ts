@@ -1,3 +1,4 @@
+import { Support } from '../lib/support';
 import { FilterBase } from './common';
 import { DateTime } from './datetime';
 import { Guild } from './guilds';
@@ -28,6 +29,10 @@ export class PointsTransaction {
     public createdAt: DateTime;
     public points: number;
     public mergeInfo: PointsMergeInfo | null;
+
+    get isMessage(): boolean { return Support.isEmpty(this.reactionId); }
+    get isReaction(): boolean { return !Support.isEmpty(this.reactionId) && !this.reactionId.endsWith('_Burst'); }
+    get isSuperReaction(): boolean { return !Support.isEmpty(this.reactionId) && this.reactionId.endsWith('_Burst'); }
 
     static create(data: any): PointsTransaction | null {
         if (!data) { return null; }
