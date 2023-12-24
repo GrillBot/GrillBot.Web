@@ -7,7 +7,7 @@ import { QuestionModal } from 'src/app/shared/modal-box/models';
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
-    styles: ['list-button { margin-right: 5px; }']
+    styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
     data: AutoReplyItem[];

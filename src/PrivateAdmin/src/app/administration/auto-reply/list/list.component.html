@@ -1,7 +1,7 @@
 <app-card [title]="'Automatické odpovědi'" [icon]="'fas fa-reply-all'" [recordsCount]="data?.length">
     <app-loading *ngIf="!data"></app-loading>
 
-    <table class="table table-sm table-bordered table-striped auto-column-width">
+    <table class="table table-sm table-bordered table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,7 +24,7 @@
                     <span class="badge bg-secondary original me-1" title="Odpověď je deaktivována" *ngIf="item.isDisabled">Deaktivováno</span>
                     <span class="badge bg-secondary original" title="Odpověď reaguje na velké/malé znaky" *ngIf="item.caseSensitive">Velké/Malé znaky</span>
                 </td>
-                <td class="no-print">
+                <td class="no-print buttons">
                     <list-button title="Upravit odpověď" icon="edit" [link]="'/admin/auto-reply/' + item.id"></list-button>
                     <list-button title="Smazat odpověď" icon="trash-alt" (clicked)="removeItem(item)"></list-button>
                 </td>
