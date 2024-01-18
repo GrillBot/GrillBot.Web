@@ -1,0 +1,22 @@
+<app-card [header]="false">
+    <p class="fw-bold">
+        <a routerLink="/admin/userMeasures" class="text-dark">Opatření</a>
+    </p>
+
+    <app-loading *ngIf="loading; else view"></app-loading>
+    <ng-template #view>
+        <span *ngIf="items && items.length === 0; else list"></span>
+
+        <ng-template #list>
+            <span class="text-danger" *ngIf="!items">
+                <i class="fas fa-exclamation-triangle me-1"></i> Nezdařilo se načíst seznam posledních opatření.
+            </span>
+
+            <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom"
+                [class.text-danger]="item.value != 'Varování'" [class.text-warning]="item.value === 'Varování'">
+                <b>{{item.key}}</b>
+                <span>{{item.value}}</span>
+            </div>
+        </ng-template>
+    </ng-template>
+</app-card>

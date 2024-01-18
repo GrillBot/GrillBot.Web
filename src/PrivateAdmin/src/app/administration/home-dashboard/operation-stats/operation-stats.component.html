@@ -1,5 +1,7 @@
 <app-card [header]="false">
-    <p class="fw-bold">Statistika operací</p>
+    <p class="fw-bold">
+        <a routerLink="/admin/statistics/operations" class="text-dark">Statistika operací</a>
+    </p>
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>

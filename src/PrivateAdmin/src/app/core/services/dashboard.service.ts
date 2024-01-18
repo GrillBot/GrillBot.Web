@@ -91,4 +91,14 @@ export class DashboardService {
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
+
+    getUserMeasuresDashboard(): ObservableList<DashboardInfoRow> {
+        const url = this.base.createUrl('dashboard/nonCompliantMeasures');
+        const headers = this.base.getHttpHeaders();
+
+        return this.base.http.get<List<DashboardInfoRow>>(url, { headers }).pipe(
+            map(data => data.map(entity => DashboardInfoRow.create(entity))),
+            catchError((err: HttpErrorResponse) => this.base.catchError(err))
+        );
+    }
 }

@@ -10,21 +10,21 @@
 
 <div class="row ms-0 me-0">
     <div class="col-md-4 mt-2">
+        <app-user-measures></app-user-measures>
+    </div>
+
+    <div class="col-md-4 mt-2">
         <app-api-requests #apiV1 [apiGroup]="'V1'"></app-api-requests>
     </div>
 
     <div class="col-md-4 mt-2">
         <app-api-requests #apiV2 [apiGroup]="'V2'"></app-api-requests>
     </div>
-
-    <div class="col-md-4 mt-2">
-        <app-commands></app-commands>
-    </div>
 </div>
 
 <div class="row ms-0 me-0">
     <div class="col-md-4 mt-2">
-        <app-operation-stats></app-operation-stats>
+        <app-commands></app-commands>
     </div>
 
     <div class="col-md-4 mt-2">
@@ -33,6 +33,12 @@
 
     <div class="col-md-4 mt-2">
         <app-today-avg-times></app-today-avg-times>
+    </div>
+</div>
+
+<div class="row ms-0 me-0">
+    <div class="col-md-4 mt-2">
+        <app-operation-stats></app-operation-stats>
     </div>
 </div>
 

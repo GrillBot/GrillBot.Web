@@ -9,6 +9,7 @@ import { TodayAvgTimesComponent } from './today-avg-times/today-avg-times.compon
 import { ApiRequestsComponent } from './api-requests/api-requests.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { CommandsComponent } from './commands/commands.component';
+import { UserMeasuresComponent } from './user-measures/user-measures.component';
 
 const routes: Routes = [{ path: '', component: DashboardComponent }];
 
@@ -21,7 +22,8 @@ const routes: Routes = [{ path: '', component: DashboardComponent }];
         TodayAvgTimesComponent,
         ApiRequestsComponent,
         JobsComponent,
-        CommandsComponent
+        CommandsComponent,
+        UserMeasuresComponent
     ],
     imports: [
         SharedModule,

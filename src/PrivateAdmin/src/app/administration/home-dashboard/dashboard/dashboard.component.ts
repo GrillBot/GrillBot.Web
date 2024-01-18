@@ -7,6 +7,7 @@ import { TodayAvgTimesComponent } from '../today-avg-times/today-avg-times.compo
 import { CommonInfoComponent } from '../common-info/common-info.component';
 import { ActiveOperationsComponent } from '../active-operations/active-operations.component';
 import { OperationStatsComponent } from '../operation-stats/operation-stats.component';
+import { UserMeasuresComponent } from '../user-measures/user-measures.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent {
     @ViewChild(CommonInfoComponent) commonInfo: CommonInfoComponent;
     @ViewChild(ActiveOperationsComponent) activeOperations: ActiveOperationsComponent;
     @ViewChild(OperationStatsComponent) operationStats: OperationStatsComponent;
+    @ViewChild(UserMeasuresComponent) userMeasures: UserMeasuresComponent;
 
     data: DashboardInfo;
     loading = true;
@@ -34,6 +36,6 @@ export class DashboardComponent {
         this.commonInfo.ngOnInit();
         this.activeOperations.ngOnInit();
         this.operationStats.ngOnInit();
+        this.userMeasures.ngOnInit();
     }
-
 }

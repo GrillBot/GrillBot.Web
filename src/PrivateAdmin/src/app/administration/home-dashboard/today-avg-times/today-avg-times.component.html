@@ -1,5 +1,7 @@
 <app-card [header]="false">
-    <p class="fw-bold">Dnešní statistiky</p>
+    <p class="fw-bold">
+        <a routerLink="/admin/statistics/avgTimes" class="text-dark">Dnešní statistiky</a>
+    </p>
 
     <app-loading *ngIf="loading; else view"></app-loading>
     <ng-template #view>
