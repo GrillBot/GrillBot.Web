@@ -93,7 +93,7 @@ export class DashboardService {
     }
 
     getUserMeasuresDashboard(): ObservableList<DashboardInfoRow> {
-        const url = this.base.createUrl('dashboard/nonCompliantMeasures');
+        const url = this.base.createUrl('dashboard/userMeasures');
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<List<DashboardInfoRow>>(url, { headers }).pipe(

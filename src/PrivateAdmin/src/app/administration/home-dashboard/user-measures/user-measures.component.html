@@ -14,7 +14,11 @@
 
             <div *ngFor="let item of items" class="d-flex justify-content-between border-bottom"
                 [class.text-danger]="item.value != 'Varování'" [class.text-warning]="item.value === 'Varování'">
-                <b>{{item.key}}</b>
+                <b>
+                    <a *ngIf="item.key.id" routerLink="/admin/users/{{item.key.id}}" [class.text-danger]="item.value != 'Varování'"
+                        [class.text-warning]="item.value === 'Varování'">{{item.key.displayName}}</a>
+                    <span *ngIf="!item.key.id">{{item.key.displayName}}</span>
+                </b>
                 <span>{{item.value}}</span>
             </div>
         </ng-template>
