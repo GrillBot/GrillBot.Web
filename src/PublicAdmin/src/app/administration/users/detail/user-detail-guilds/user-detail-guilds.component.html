@@ -6,7 +6,8 @@
         'invite': {name: 'Pozvánky', condition: !!guild.usedInvite || guild.createdInvites.length > 0, template: invite},
         'nicknames': {name: 'Přezdívky', condition: guild.nicknameHistory.length > 0, template: nicknames},
         'channelActivity': {name: 'Aktivita v kanálech', condition: guild.channels && guild.channels.length > 0, template: channelActivity},
-        'emotes': {name: 'Použité emotikony', condition: guild.emotes && guild.emotes.length > 0, template: emotes}
+        'emotes': {name: 'Použité emotikony', condition: guild.emotes && guild.emotes.length > 0, template: emotes},
+        'userMeasures': {name: 'Opatření', condition: guild.userMeasures.length > 0, template: userMeasures}
     }" [context]="{'guild': guild, 'i': i}"></app-tabs>
 </app-card>
 
@@ -119,4 +120,33 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #userMeasures let-guild="guild">
+    <table class="table table-sm table-responsive table-bordered auto-column-width">
+        <thead>
+            <tr>
+                <th>Typ opatření</th>
+                <th>Uděleno</th>
+                <th>Platí do</th>
+                <th>Moderátor</th>
+                <th>Důvod</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of guild.userMeasures" [class.bg-warning]="item.type === 2">
+                <td>{{item.typeAsText}}</td>
+                <td>{{item.createdAt.binding}}</td>
+                <td>
+                    <ng-container *ngIf="item.validTo">{{item.validTo.binding}}</ng-container>
+                </td>
+                <td>
+                    <a routerLink="/admin/users/{{item.moderator.id}}" class="text-dark">{{item.moderator.displayName}}</a>
+                </td>
+                <td>
+                    <pre class="userMeasures">{{item.reason}}</pre>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </ng-template>

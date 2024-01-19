@@ -7,6 +7,8 @@ import { UserStatus } from './enums/user-status';
 import { Guild } from './guilds';
 import { Invite, InviteBase } from './invites';
 import { Role } from './roles';
+import { UserMeasuresType, UserMeasuresTypeText } from './enums/user-measures-type';
+import { Support } from '../lib/support';
 
 export class User {
     public id: string;
@@ -92,6 +94,31 @@ export class UserDetail {
     }
 }
 
+export class UserMeasuresItem {
+    public type: UserMeasuresType;
+    public createdAt: DateTime;
+    public moderator: User;
+    public reason: string;
+    public validTo?: DateTime;
+
+    get typeAsText(): string { return UserMeasuresTypeText[Support.getEnumKeyByValue(UserMeasuresType, this.type)]; }
+
+    static create(data: any): UserMeasuresItem {
+        const item = new UserMeasuresItem();
+
+        item.type = data.type;
+        item.createdAt = DateTime.fromISOString(data.createdAt);
+        item.moderator = User.create(data.moderator);
+        item.reason = data.reason;
+
+        if (data.validTo) {
+            item.validTo = DateTime.fromISOString(data.validTo);
+        }
+
+        return item;
+    }
+}
+
 export class GuildUserDetail {
     public guild: Guild;
     public givenReactions: number;
@@ -107,6 +134,7 @@ export class GuildUserDetail {
     public nicknameHistory: string[];
     public roles: List<Role>;
     public havePointsTransaction: boolean;
+    public userMeasures: List<UserMeasuresItem>;
 
     static create(data: any): GuildUserDetail {
         const detail = new GuildUserDetail();
@@ -125,6 +153,7 @@ export class GuildUserDetail {
         detail.nicknameHistory = data.nicknameHistory ? data.nicknameHistory.map((o: string) => o) : [];
         detail.roles = data.roles.map((o: any) => Role.create(o));
         detail.havePointsTransaction = data.havePointsTransaction;
+        detail.userMeasures = data.userMeasures.map((o: any) => UserMeasuresItem.create(o));
 
         return detail;
     }
