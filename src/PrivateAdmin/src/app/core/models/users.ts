@@ -1,4 +1,4 @@
-import { FilterBase } from './common';
+import { FilterBase, List } from './common';
 import { Dictionary } from 'src/app/core/models/common';
 import { Support } from '../lib/support';
 import { Channel, ChannelStatItem } from './channels';
@@ -11,6 +11,7 @@ import { Guild } from './guilds';
 import { Invite, InviteBase } from './invites';
 import { UnverifyInfo } from './unverify';
 import { Role } from './roles';
+import { UserMeasuresType, UserMeasuresTypeText } from './enums/user-measures-type';
 
 export class User {
     public id: string;
@@ -191,6 +192,31 @@ export class UserDetail {
     }
 }
 
+export class UserMeasuresItem {
+    public type: UserMeasuresType;
+    public createdAt: DateTime;
+    public moderator: User;
+    public reason: string;
+    public validTo?: DateTime;
+
+    get typeAsText(): string { return UserMeasuresTypeText[Support.getEnumKeyByValue(UserMeasuresType, this.type)]; }
+
+    static create(data: any): UserMeasuresItem {
+        const item = new UserMeasuresItem();
+
+        item.type = data.type;
+        item.createdAt = DateTime.fromISOString(data.createdAt);
+        item.moderator = User.create(data.moderator);
+        item.reason = data.reason;
+
+        if (data.validTo) {
+            item.validTo = DateTime.fromISOString(data.validTo);
+        }
+
+        return item;
+    }
+}
+
 export class GuildUserDetail {
     public guild: Guild;
     public givenReactions: number;
@@ -207,9 +233,9 @@ export class GuildUserDetail {
     public visibleChannels: Channel[];
     public roles: Role[];
     public havePointsTransaction: boolean;
+    public userMeasures: List<UserMeasuresItem>;
 
-    static create(data: any): GuildUserDetail | null {
-        if (!data) { return null; }
+    static create(data: any): GuildUserDetail {
         const detail = new GuildUserDetail();
 
         detail.guild = Guild.create(data.guild);
@@ -227,6 +253,7 @@ export class GuildUserDetail {
         detail.visibleChannels = data.visibleChannels ? data.visibleChannels.map((o: any) => Channel.create(o)) : [];
         detail.roles = data.roles ? data.roles.map((o: any) => Role.create(o)) : [];
         detail.havePointsTransaction = data.havePointsTransaction;
+        detail.userMeasures = data.userMeasures.map((o: any) => UserMeasuresItem.create(o));
 
         return detail;
     }

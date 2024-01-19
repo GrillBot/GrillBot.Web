@@ -25,3 +25,10 @@
         grid-template-columns: 1fr;
     }
 }
+
+pre.userMeasures {
+    margin: 0;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
