@@ -1,0 +1,70 @@
+<app-card [header]="false">
+    <app-data-list #list (readData)="readData($event)">
+        <app-loading *ngIf="!list.isDataLoaded; else dataView"></app-loading>
+
+        <ng-template #dataView>
+            <div class="row">
+                <div class="col-md"></div>
+
+                <div class="col-md-auto mt-1 mb-2" *ngIf="!list.isEmpty">
+                    <app-items-count></app-items-count>
+                </div>
+            </div>
+
+            <app-card *ngIf="list.isEmpty" [header]="false" [classes]="['mb-3']">
+                <h6 class="mb-0">Pro zadaný filtr nebyly nalezeny žádné opatření.</h6>
+            </app-card>
+
+            <app-card *ngFor="let item of list.items" [header]="false" [classes]="['mb-3']">
+                <ng-container *ngTemplateOutlet="itemRow;context:{item:item}"></ng-container>
+            </app-card>
+        </ng-template>
+    </app-data-list>
+</app-card>
+
+<ng-template #itemRow let-item="item">
+    <div class="row">
+        <div class="col-md">
+            <h6>
+                <i class="fas fa-user-alt-slash" *ngIf="item.type === 0" [class.text-danger]="item.type === 0"></i>
+                <i class="fas fa-comment-slash" *ngIf="item.type === 1" [class.text-danger]="item.type === 1"></i>
+                <i class="fas fa-exclamation-triangle" *ngIf="item.type === 2" [class.text-warning]="item.type === 2"></i>
+                {{item.typeAsText}}
+            </h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p class="mb-0">
+                Uživatel:
+                <b><a routerLink="/admin/users/{{item.user.id}}" class="text-dark">{{item.user.displayName}}</a></b>
+            </p>
+
+            <p class="mb-0">
+                Moderátor:
+                <b><a routerLink="/admin/users/{{item.moderator.id}}" class="text-dark">{{item.moderator.displayName}}</a></b>
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <p class="m-0">
+                Server:
+                <b>
+                    <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark">{{item.guild.name}}</a>
+                </b>
+            </p>
+        </div>
+
+        <div class="col-md">
+            <p class="m-0">Vytvořeno: <b>{{item.createdAt.binding}}</b></p>
+            <p class="m-0" *ngIf="item.validTo">Platí do: <b>{{item.validTo.binding}}</b></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <pre class="alert alert-secondary mb-0 mt-2">{{item.reason}}</pre>
+        </div>
+    </div>
+</ng-template>

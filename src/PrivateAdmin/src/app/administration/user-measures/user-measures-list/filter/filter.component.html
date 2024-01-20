@@ -1,0 +1,42 @@
+<app-card [title]="'Vyhledávání'" [icon]="'fas fa-search'" [allowHideButton]="true">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md">
+                <label>Typ</label>
+                <app-select [items]="typeItems" formControlName="type"></app-select>
+            </div>
+
+            <div class="col-md">
+                <label>Server</label>
+                <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+            </div>
+
+            <div class="col-md">
+                <label>Cílový uživatel</label>
+                <app-search-input [searchSource]="'users'" formControlName="userId"></app-search-input>
+            </div>
+
+            <div class="col-md">
+                <label>Moderátor</label>
+                <app-search-input [searchSource]="'users'" formControlName="moderatorId"></app-search-input>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Vytvořeno od</label>
+                <input type="datetime-local" class="form-control" formControlName="createdFrom" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Vytvořeno do</label>
+                <input type="datetime-local" class="form-control" formControlName="createdTo" />
+            </div>
+
+            <div class="col d-flex align-items-end justify-content-end">
+                <button class="btn btn-link me-2" type="button" (click)="submitForm()">Obnovit</button>
+                <button class="btn btn-danger" type="button" (click)="cleanFilter()">Smazat filtr</button>
+            </div>
+        </div>
+    </form>
+</app-card>

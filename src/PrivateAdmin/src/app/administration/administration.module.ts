@@ -102,6 +102,11 @@ const routes: Routes = [
                 path: 'points',
                 loadChildren: () => import('./points/points.module').then(mod => mod.PointsModule),
                 data: { title: 'Body', id: 'points' }
+            },
+            {
+                path: 'userMeasures',
+                loadChildren: () => import('./user-measures/user-measures.module').then(mod => mod.UserMeasuresModule),
+                data: { title: 'Uživatelská opatření', id: 'userMeasures' }
             }
         ]
     },

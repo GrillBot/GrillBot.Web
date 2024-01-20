@@ -11,7 +11,7 @@ import { Guild } from './guilds';
 import { Invite, InviteBase } from './invites';
 import { UnverifyInfo } from './unverify';
 import { Role } from './roles';
-import { UserMeasuresType, UserMeasuresTypeText } from './enums/user-measures-type';
+import { UserMeasuresItem } from './user-measures';
 
 export class User {
     public id: string;
@@ -189,31 +189,6 @@ export class UserDetail {
         detail.globalAlias = data.globalAlias;
 
         return detail;
-    }
-}
-
-export class UserMeasuresItem {
-    public type: UserMeasuresType;
-    public createdAt: DateTime;
-    public moderator: User;
-    public reason: string;
-    public validTo?: DateTime;
-
-    get typeAsText(): string { return UserMeasuresTypeText[Support.getEnumKeyByValue(UserMeasuresType, this.type)]; }
-
-    static create(data: any): UserMeasuresItem {
-        const item = new UserMeasuresItem();
-
-        item.type = data.type;
-        item.createdAt = DateTime.fromISOString(data.createdAt);
-        item.moderator = User.create(data.moderator);
-        item.reason = data.reason;
-
-        if (data.validTo) {
-            item.validTo = DateTime.fromISOString(data.validTo);
-        }
-
-        return item;
     }
 }
 

@@ -28,11 +28,6 @@
                 </ng-container>
                 <ng-container *ngTemplateOutlet="menuItem; context: {link: '/search', icon:'fa-search', title:'Hledání', id:'searching'}">
                 </ng-container>
-                <ng-container *ngTemplateOutlet="menuItem; context: {link: '/jobs', icon:'fa-cogs', title: 'Naplánované úlohy', id:'jobs'}">
-                </ng-container>
-                <ng-container
-                    *ngTemplateOutlet="menuItem; context: {link: '/api-clients', icon:'fa-lock', title: 'Api v2 - Klienti', id: 'api-clients'}">
-                </ng-container>
                 <ng-container
                     *ngTemplateOutlet="menuItem; context: {link: '/unverify', icon:'fa-skull-crossbones', title:'Unverify', id:'unverify'}">
                 </ng-container>
@@ -43,7 +38,14 @@
                     *ngTemplateOutlet="menuItem; context: {link: '/selfunverify', icon:'fa-book-dead', title:'SelfUnverify', id:'selfunverify'}">
                 </ng-container>
                 <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link:'/userMeasures', icon:'fa-user-shield', title:'Uživatelská opatření', id:'userMeasures'}"></ng-container>
+                <ng-container
                     *ngTemplateOutlet="menuItem; context: {link:'/auto-reply',icon:'fa-reply-all',title:'Automatické odpovědi',id:'auto-reply'}">
+                </ng-container>
+                <ng-container *ngTemplateOutlet="menuItem; context: {link: '/jobs', icon:'fa-cogs', title: 'Naplánované úlohy', id:'jobs'}">
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="menuItem; context: {link: '/api-clients', icon:'fa-lock', title: 'Api v2 - Klienti', id: 'api-clients'}">
                 </ng-container>
                 <ng-container
                     *ngTemplateOutlet="menuItem; context: {link: '/statistics', icon:'fa-tachometer-alt', title:'Statistiky', id:'statistics'}">

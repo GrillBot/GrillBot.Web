@@ -1,0 +1,44 @@
+<app-navigation [navigation]="navigation"></app-navigation>
+
+<div class="row mt-3 ms-0 me-3">
+    <div class="col-md-6">
+        <app-card [header]="false">
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-md">
+                        <label>Server</label>
+                        <app-search-input [searchSource]="'guilds'" formControlName="guildId"></app-search-input>
+                        <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'guildId')">
+                            <span *ngIf="validationHelper.isInvalid(form, 'guildId', 'required')">Server je povinný.</span>
+                        </small>
+                    </div>
+
+                    <div class="col-md">
+                        <label>Uživatel</label>
+                        <app-search-input [searchSource]="'users'" formControlName="userId"></app-search-input>
+                        <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'userId')">
+                            <span *ngIf="validationHelper.isInvalid(form, 'userId', 'required')">Uživatel je povinný.</span>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md">
+                        <label>Zpráva</label>
+                        <textarea class="form-control" style="height: 300px" formControlName="message"></textarea>
+                        <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'message')">
+                            <span *ngIf="validationHelper.isInvalid(form, 'message', 'required')">Zpráva je povinná.</span>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md d-flex justify-content-end align-items-center">
+                        <a routerLink="/admin/userMeasures" class="text-dark">Zpět na seznam</a>
+                        <button class="btn btn-success ms-2" (click)="submitForm()">Uložit varování</button>
+                    </div>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

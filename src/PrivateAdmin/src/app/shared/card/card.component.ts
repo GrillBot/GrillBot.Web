@@ -20,6 +20,8 @@ export class CardComponent {
     @Input() visible = true;
 
     toggleVisiblity(): void {
-        this.visible = !this.visible;
+        if (this.allowHideButton) {
+            this.visible = !this.visible;
+        }
     }
 }
