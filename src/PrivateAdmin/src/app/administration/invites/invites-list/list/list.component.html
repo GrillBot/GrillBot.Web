@@ -20,7 +20,8 @@
                     </td>
                     <td>{{item.createdAt?.binding}}</td>
                     <td>
-                        <a user-link [userEntity]="item.creator"></a>
+                        <span *ngIf="!item.creator">Neznámý uživatel</span>
+                        <a user-link [userEntity]="item.creator" *ngIf="item.creator"></a>
                     </td>
                     <td>
                         <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark" *ngIf="item.guild">{{item.guild.name}}</a>
