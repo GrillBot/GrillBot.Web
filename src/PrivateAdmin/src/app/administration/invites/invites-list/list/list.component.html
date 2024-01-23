@@ -20,7 +20,7 @@
                     </td>
                     <td>{{item.createdAt?.binding}}</td>
                     <td>
-                        <span *ngIf="!item.creator">Neznámý uživatel</span>
+                        <span *ngIf="!item.creator"></span>
                         <a user-link [userEntity]="item.creator" *ngIf="item.creator"></a>
                     </td>
                     <td>
