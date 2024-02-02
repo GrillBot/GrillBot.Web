@@ -9,6 +9,8 @@
             <div class="col-md form-group">
                 <label>Server</label>
                 <app-search-input formControlName="guildId" [searchSource]="'guilds'"></app-search-input>
+                <app-checkbox [id]="'hideLeftUsers'" [label]="'Skrýt uživatele co nejsou na serveru'"
+                    formControlName="hideLeftUsers"></app-checkbox>
             </div>
 
             <div class="col-md form-group">

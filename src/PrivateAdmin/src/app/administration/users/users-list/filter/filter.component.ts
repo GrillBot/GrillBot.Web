@@ -78,8 +78,11 @@ export class FilterComponent extends FilterComponentBase<GetUserListParams> {
             guildId: filter.guildId,
             flags: filter.flags,
             usedInviteCode: filter.usedInviteCode,
-            status: filter.status
+            status: filter.status,
+            hideLeftUsers: filter.hideLeftUsers
         });
+
+        this.updateHideLeftUsers(filter.hideLeftUsers, filter.guildId);
     }
 
     initForm(filter: GetUserListParams): void {
@@ -88,11 +91,30 @@ export class FilterComponent extends FilterComponentBase<GetUserListParams> {
             guildId: [filter.guildId],
             flags: [filter.serializeFlags()],
             usedInviteCode: [filter.usedInviteCode],
-            status: [filter.status]
+            status: [filter.status],
+            hideLeftUsers: [filter.hideLeftUsers]
         });
 
         if (!this.canChangeUsedInviteCode) {
             this.form.get('usedInviteCode').disable();
+        }
+
+        this.updateHideLeftUsers(filter.hideLeftUsers, filter.guildId);
+
+        this.form.get('guildId').valueChanges.subscribe(guildId => {
+            this.updateHideLeftUsers(this.form.value.hideLeftUsers, guildId);
+        });
+    }
+
+    updateHideLeftUsers(hideLeftUsers: boolean, guildId?: string): void {
+        const hideLeftUsersControl = this.form.get('hideLeftUsers');
+
+        if (Support.isEmpty(guildId)) {
+            hideLeftUsersControl.patchValue(false);
+            hideLeftUsersControl.disable();
+        } else {
+            hideLeftUsersControl.patchValue(hideLeftUsers);
+            hideLeftUsersControl.enable();
         }
     }
 }

@@ -107,11 +107,11 @@ export class GetUserListParams extends FilterBase {
     public haveBirthday = false;
     public usedInviteCode: string | null = null;
     public status: UserStatus | null = null;
+    public hideLeftUsers = false;
 
     static get empty(): GetUserListParams { return new GetUserListParams(); }
 
-    static create(form: any): GetUserListParams | null {
-        if (!form) { return null; }
+    static create(form: any): GetUserListParams {
         const params = GetUserListParams.empty;
 
         params.flags = this.buildFlags(form.flags);
@@ -120,6 +120,7 @@ export class GetUserListParams extends FilterBase {
         params.username = form.username;
         params.usedInviteCode = form.usedInviteCode;
         params.status = form.status;
+        params.hideLeftUsers = form.hideLeftUsers;
 
         return params;
     }
@@ -142,7 +143,8 @@ export class GetUserListParams extends FilterBase {
             flags: this.serializeFlags(),
             username: this.username,
             usedInviteCode: this.usedInviteCode,
-            status: this.status
+            status: this.status,
+            hideLeftUsers: this.hideLeftUsers
         };
     }
 }
