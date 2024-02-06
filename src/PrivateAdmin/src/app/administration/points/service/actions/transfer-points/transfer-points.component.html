@@ -15,12 +15,12 @@
         <div class="row">
             <div class="col-md form-group">
                 <label>Od uživatele</label>
-                <app-search-input [guildId]="guildId" [searchSource]="'users'" formControlName="fromUserId"></app-search-input>
+                <app-search-input [guildId]="guildId" [searchSource]="'users-no-bots'" formControlName="fromUserId"></app-search-input>
             </div>
 
             <div class="col-md form-group">
                 <label>Cílový uživatel</label>
-                <app-search-input [guildId]="guildId" [searchSource]="'users'" formControlName="toUserId"></app-search-input>
+                <app-search-input [guildId]="guildId" [searchSource]="'users-no-bots'" formControlName="toUserId"></app-search-input>
             </div>
         </div>
 

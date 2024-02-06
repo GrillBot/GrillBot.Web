@@ -3,7 +3,6 @@ import { Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges } from '
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DataService } from 'src/app/core/services/data.service';
 import { SearchDataSource } from './models';
-import { map } from 'rxjs/operators';
 import { noop } from 'rxjs';
 
 @Component({
@@ -44,9 +43,16 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor, OnCha
     ngOnChanges(changes: SimpleChanges): void {
         if (!changes) { return; }
 
-        const canReload = ['channels', 'roles', 'channels-no-threads', 'bots', 'users'].includes(this.searchSource) && changes.guildId &&
-            !changes.guildId.firstChange;
+        const reloadableTypes: SearchDataSource[] = [
+            'channels',
+            'roles',
+            'channels-no-threads',
+            'users-all',
+            'users-no-bots',
+            'users-only-bots'
+        ];
 
+        const canReload = reloadableTypes.includes(this.searchSource) && changes.guildId && !changes.guildId.firstChange;
         if (canReload) {
             this.initData();
         }
@@ -55,23 +61,23 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor, OnCha
     initData(): void {
         let request: ObservableDict<string, string>;
         switch (this.searchSource) {
-            case 'bots':
-                request = this.dataService.getUsersList(true, this.guildId);
+            case 'guilds':
+                request = this.dataService.getGuilds();
                 break;
             case 'channels':
                 request = this.dataService.getChannels(this.guildId, false);
                 break;
-            case 'commands':
-                request = this.dataService.getCommands().pipe(map((data: string[]) => data.map(o => ({ key: o, value: o }))));
-                break;
-            case 'guilds':
-                request = this.dataService.getGuilds();
-                break;
             case 'roles':
                 request = this.dataService.getRoles(this.guildId);
                 break;
-            case 'users':
+            case 'users-no-bots':
                 request = this.dataService.getUsersList(false, this.guildId);
+                break;
+            case 'users-only-bots':
+                request = this.dataService.getUsersList(true, this.guildId);
+                break;
+            case 'users-all':
+                request = this.dataService.getUsersList(undefined, this.guildId);
                 break;
             case 'channels-no-threads':
                 request = this.dataService.getChannels(this.guildId, true);

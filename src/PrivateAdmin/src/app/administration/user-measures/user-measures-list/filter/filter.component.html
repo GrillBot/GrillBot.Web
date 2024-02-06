@@ -13,12 +13,12 @@
 
             <div class="col-md">
                 <label>Cílový uživatel</label>
-                <app-search-input [searchSource]="'users'" formControlName="userId"></app-search-input>
+                <app-search-input [searchSource]="'users-no-bots'" formControlName="userId"></app-search-input>
             </div>
 
             <div class="col-md">
                 <label>Moderátor</label>
-                <app-search-input [searchSource]="'users'" formControlName="moderatorId"></app-search-input>
+                <app-search-input [searchSource]="'users-all'" formControlName="moderatorId"></app-search-input>
             </div>
         </div>
 

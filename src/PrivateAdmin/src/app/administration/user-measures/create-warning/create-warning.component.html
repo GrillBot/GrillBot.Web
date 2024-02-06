@@ -15,7 +15,7 @@
 
                     <div class="col-md">
                         <label>Uživatel</label>
-                        <app-search-input [searchSource]="'users'" formControlName="userId"></app-search-input>
+                        <app-search-input [searchSource]="'users-no-bots'" formControlName="userId"></app-search-input>
                         <small class="text-danger d-flex flex-column" *ngIf="validationHelper.isInvalid(form, 'userId')">
                             <span *ngIf="validationHelper.isInvalid(form, 'userId', 'required')">Uživatel je povinný.</span>
                         </small>

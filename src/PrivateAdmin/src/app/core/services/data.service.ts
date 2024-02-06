@@ -45,16 +45,6 @@ export class DataService {
         );
     }
 
-    getCommands(): ObservableList<string> {
-        const url = this.base.createUrl('data/commands');
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.get<string[]>(url, { headers }).pipe(
-            map(data => data.map(o => o)),
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
     getUsersList(bots?: boolean, guildId?: string): ObservableDict<string, string> {
         const parameters: QueryParam[] = [];
         if (bots !== undefined) { parameters.push(new QueryParam('bots', bots)); }
