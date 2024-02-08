@@ -64,19 +64,33 @@ export class AvgExecutionTimes {
     }
 }
 
+export class FileExtensionStatistic {
+    public extension: string;
+    public size: number;
+    public count: number;
+
+    static create(data: any): FileExtensionStatistic {
+        const item = new FileExtensionStatistic();
+
+        item.extension = data.extension;
+        item.size = data.size;
+        item.count = data.count;
+
+        return item;
+    }
+}
+
 export class AuditLogStatistics {
     byType: Dictionary<string, number>;
     byDate: Dictionary<string, number>;
-    fileCounts: Dictionary<string, number>;
-    fileSizes: Dictionary<string, number>;
+    fileExtensionStatistics: List<FileExtensionStatistic>;
 
     static create(data: any): AuditLogStatistics {
         const statistics = new AuditLogStatistics();
 
         statistics.byDate = Support.createDictFromObj(data.byDate);
         statistics.byType = Support.createDictFromObj(data.byType);
-        statistics.fileSizes = Support.createDictFromObj(data.fileSizes);
-        statistics.fileCounts = Support.createDictFromObj(data.fileCounts);
+        statistics.fileExtensionStatistics = data.fileExtensionStatistics.map((o: any) => FileExtensionStatistic.create(o));
 
         return statistics;
     }

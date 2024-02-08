@@ -50,4 +50,25 @@ export class Support {
     static mapOrNull<TResult>(mapper: (val: any, index: number, arr: any[]) => TResult, collection?: any[] | null): TResult[] | null {
         return collection ? collection.map(mapper) : null;
     }
+
+    static splitToColumns(arr: any[], columnsCount: number): any[][] {
+        const size = Math.ceil(arr.length / columnsCount);
+        const result = [];
+        let column = [];
+
+        for (const item of arr) {
+            column.push(item);
+
+            if (column.length === size) {
+                result.push(column);
+                column = [];
+            }
+        }
+
+        if (column.length > 0) {
+            result.push(column);
+        }
+
+        return result;
+    }
 }
