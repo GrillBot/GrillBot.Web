@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { CreateUserMeasuresWarningParams, UserMeasuresListItem, UserMeasuresParams } from '../models/user-measures';
+import { CreateUserMeasuresWarningParams, UserMeasuresListItem, MeasuresListParams } from '../models/user-measures';
 import { EmptyObservable, ObservablePaginatedData, PaginatedResponse } from '../models/common';
 import { catchError, map } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,7 +11,7 @@ export class UserMeasuresService {
         public base: BaseService
     ) { }
 
-    getUserMeasuresList(filter: UserMeasuresParams): ObservablePaginatedData<UserMeasuresListItem> {
+    getUserMeasuresList(filter: MeasuresListParams): ObservablePaginatedData<UserMeasuresListItem> {
         const url = this.base.createUrl('user/measures/list');
         const headers = this.base.getHttpHeaders();
 

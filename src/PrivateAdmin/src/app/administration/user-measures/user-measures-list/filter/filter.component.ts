@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { UserMeasuresType, UserMeasuresTypeText } from 'src/app/core/models/enums/user-measures-type';
-import { UserMeasuresParams } from 'src/app/core/models/user-measures';
+import { UserMeasuresTypeText } from 'src/app/core/models/enums/user-measures-type';
+import { MeasuresListParams } from 'src/app/core/models/user-measures';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FilterComponentBase } from 'src/app/shared/common-page/filter-component-base';
 import { SelectItems } from 'src/app/shared/select/models';
@@ -10,11 +10,11 @@ import { SelectItems } from 'src/app/shared/select/models';
     selector: 'app-filter',
     templateUrl: './filter.component.html'
 })
-export class FilterComponent extends FilterComponentBase<UserMeasuresParams> {
+export class FilterComponent extends FilterComponentBase<MeasuresListParams> {
     typeItems: SelectItems = [
-        { key: UserMeasuresTypeText.Unverify, value: UserMeasuresType.Unverify },
-        { key: UserMeasuresTypeText.Timeout, value: UserMeasuresType.Timeout },
-        { key: UserMeasuresTypeText.Warning, value: UserMeasuresType.Warning }
+        { key: UserMeasuresTypeText.Unverify, value: 'Unverify' },
+        { key: UserMeasuresTypeText.Timeout, value: 'Timeout' },
+        { key: UserMeasuresTypeText.Warning, value: 'Warning' }
     ];
 
     constructor(
@@ -26,15 +26,15 @@ export class FilterComponent extends FilterComponentBase<UserMeasuresParams> {
         this.filterId = 'UserMeasuresList';
     }
 
-    deserializeData(data: any): UserMeasuresParams {
-        return UserMeasuresParams.create(data);
+    deserializeData(data: any): MeasuresListParams {
+        return MeasuresListParams.create(data);
     }
 
-    createData(empty: boolean): UserMeasuresParams {
-        return empty ? UserMeasuresParams.empty : UserMeasuresParams.create(this.form.value);
+    createData(empty: boolean): MeasuresListParams {
+        return empty ? MeasuresListParams.empty : MeasuresListParams.create(this.form.value);
     }
 
-    updateForm(filter: UserMeasuresParams): void {
+    updateForm(filter: MeasuresListParams): void {
         this.form.patchValue({
             type: filter.type,
             guildId: filter.guildId,
@@ -45,7 +45,7 @@ export class FilterComponent extends FilterComponentBase<UserMeasuresParams> {
         });
     }
 
-    initForm(filter: UserMeasuresParams): void {
+    initForm(filter: MeasuresListParams): void {
         this.form = this.fb.group({
             type: [filter.type],
             guildId: [filter.guildId],

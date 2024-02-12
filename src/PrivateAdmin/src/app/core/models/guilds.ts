@@ -66,6 +66,7 @@ export class GuildDatabaseReport {
     public emoteStats: number;
     public emoteSuggestions: number;
     public pointTransactions: number;
+    public userMeasures: number;
 
     static create(data: any): GuildDatabaseReport | null {
         if (!data) { return null; }
@@ -82,6 +83,7 @@ export class GuildDatabaseReport {
         report.emoteStats = data.emoteStats ?? 0;
         report.emoteSuggestions = data.emoteSuggestions ?? 0;
         report.pointTransactions = data.pointTransactions ?? 0;
+        report.userMeasures = data.userMeasures ?? 0;
 
         return report;
     }

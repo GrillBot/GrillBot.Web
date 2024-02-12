@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
-import { UserMeasuresParams } from 'src/app/core/models/user-measures';
+import { MeasuresListParams } from 'src/app/core/models/user-measures';
 import { UserMeasuresService } from 'src/app/core/services/user-measures.service';
 import { ListComponentBase } from 'src/app/shared/common-page/list-component-base';
 
@@ -9,7 +9,7 @@ import { ListComponentBase } from 'src/app/shared/common-page/list-component-bas
     selector: 'app-list',
     templateUrl: './list.component.html'
 })
-export class ListComponent extends ListComponentBase<UserMeasuresParams> {
+export class ListComponent extends ListComponentBase<MeasuresListParams> {
     constructor(
         private userMeasuresService: UserMeasuresService
     ) { super(); }

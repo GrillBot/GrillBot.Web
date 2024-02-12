@@ -45,15 +45,15 @@ export class UserMeasuresListItem extends UserMeasuresItem {
     }
 }
 
-export class UserMeasuresParams extends FilterBase {
-    public type: UserMeasuresType;
+export class MeasuresListParams extends FilterBase {
+    public type: string;
     public guildId: string;
     public userId: string;
     public moderatorId: string;
     public createdFrom: string;
     public createdTo: string;
 
-    static get empty(): UserMeasuresParams { return new UserMeasuresParams(); }
+    static get empty(): MeasuresListParams { return new MeasuresListParams(); }
 
     get serialized(): any {
         return {
@@ -66,8 +66,8 @@ export class UserMeasuresParams extends FilterBase {
         };
     }
 
-    static create(data: any): UserMeasuresParams {
-        const params = new UserMeasuresParams();
+    static create(data: any): MeasuresListParams {
+        const params = new MeasuresListParams();
 
         params.type = data.type;
         params.guildId = data.guildId;
