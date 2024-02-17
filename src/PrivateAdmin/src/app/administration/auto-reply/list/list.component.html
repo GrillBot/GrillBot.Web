@@ -1,36 +1,32 @@
 <app-card [title]="'Automatické odpovědi'" [icon]="'fas fa-reply-all'" [recordsCount]="data?.length">
     <app-loading *ngIf="!data"></app-loading>
 
-    <table class="table table-sm table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Šablona</th>
-                <th>Odpověď</th>
-                <th>Detaily</th>
-                <th class="no-print">Akce</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of data">
-                <td>{{item.id}}</td>
-                <td>
-                    <code>{{item.template}}</code>
-                </td>
-                <td>
-                    <code>{{item.reply}}</code>
-                </td>
-                <td>
-                    <span class="badge bg-secondary original me-1" title="Odpověď je deaktivována" *ngIf="item.isDisabled">Deaktivováno</span>
-                    <span class="badge bg-secondary original" title="Odpověď reaguje na velké/malé znaky" *ngIf="item.caseSensitive">Velké/Malé znaky</span>
-                </td>
-                <td class="no-print buttons">
-                    <list-button title="Upravit odpověď" icon="edit" [link]="'/admin/auto-reply/' + item.id"></list-button>
-                    <list-button title="Smazat odpověď" icon="trash-alt" (clicked)="removeItem(item)"></list-button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <a routerLink="/admin/auto-reply/create" class="no-print btn btn-outline-dark mb-3">Vytvořit novou odpověď</a>
+    <app-card *ngFor="let item of data" [header]="false" [classes]="['me-3', 'mb-3']"
+        [footer]="{template: cardFooter, context:{context: {item}}}">
+        <div class="d-flex align-items-end mb-2">
+            <h4 class="mb-0 me-1">#{{item.id}}</h4>
+            <span class="badge bg-secondary original" title="Odpověď je deaktivována" *ngIf="item.isDisabled">Deaktivováno</span>
+            <span class="badge bg-secondary original" title="Odpověď reaguje na velké/malé znaky" *ngIf="item.caseSensitive">Case
+                sensitive</span>
+        </div>
 
-    <a routerLink="/admin/auto-reply/create" class="no-print">Vytvořit novou odpověď</a>
+        <h5>Šablona</h5>
+        <pre class="alert alert-secondary">{{item.template}}</pre>
+        <h5>Odpověď</h5>
+        <pre class="alert alert-secondary mb-0">{{item.reply}}</pre>
+    </app-card>
 </app-card>
+
+<ng-template #cardFooter let-context="context">
+    <div class="btn-group mt-2 no-print">
+        <a routerLink="/admin/auto-reply/{{context.item.id}}" class="btn btn-outline-success">
+            <i class="fas fa-edit"></i>
+            Upravit odpověď
+        </a>
+        <button class="btn btn-outline-danger" (click)="removeItem(context.item)">
+            <i class="fas fa-trash-alt"></i>
+            Smazat odpověď
+        </button>
+    </div>
+</ng-template>
