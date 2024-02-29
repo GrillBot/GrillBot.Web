@@ -38,7 +38,8 @@ export class GuildDetailComponent implements OnInit {
                     voteChannel: [this.data.voteChannel?.id ?? null],
                     emoteSuggestionsFrom: [this.data.emoteSuggestionsFrom?.toFormString(true) ?? null],
                     emoteSuggestionsTo: [this.data.emoteSuggestionsTo?.toFormString(true) ?? null],
-                    botRoomChannel: [this.data.botRoomChannel?.id]
+                    botRoomChannel: [this.data.botRoomChannel?.id],
+                    associationRole: [this.data.associationRole?.id]
                 },
                 { validators: [ValidationHelper.multipleRequired('emoteSuggestionsInvalid', 'emoteSuggestionsFrom', 'emoteSuggestionsTo')] }
             );
@@ -61,7 +62,8 @@ export class GuildDetailComponent implements OnInit {
             this.form.value.emoteSuggestionChannel,
             this.form.value.voteChannel,
             emoteSuggestionsValidity,
-            this.form.value.botRoomChannel
+            this.form.value.botRoomChannel,
+            this.form.value.associationRole
         );
 
         this.guildService.updateGuild(this.data.id, params).subscribe(_ => {

@@ -130,6 +130,7 @@ export class GuildDetail extends Guild {
     public emoteSuggestionsFrom?: DateTime;
     public emoteSuggestionsTo?: DateTime;
     public botRoomChannel?: Channel;
+    public associationRole?: Role;
 
     static create(data: any): GuildDetail | null {
         if (!data) { return null; }
@@ -158,6 +159,7 @@ export class GuildDetail extends Guild {
         if (data.databaseReport) { guild.databaseReport = GuildDatabaseReport.create(data.databaseReport); }
         if (data.userStatusReport) { guild.userStatusReport = UserStatusReport.create(data.userStatusReport); }
         if (data.botRoomChannel) { guild.botRoomChannel = Channel.create(data.botRoomChannel); }
+        if (data.associationRole) { guild.associationRole = Role.create(data.associationRole); }
 
         return guild;
     }
@@ -170,6 +172,7 @@ export class UpdateGuildParams {
         public emoteSuggestionChannelId: string,
         public voteChannelId: string,
         public emoteSuggestionsValidity: RangeParams<DateTime>,
-        public botRoomChannelId: string
+        public botRoomChannelId: string,
+        public associationRoleId: string
     ) { }
 }

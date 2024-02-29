@@ -157,6 +157,12 @@
                                 <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id"
                                     formControlName="botRoomChannel"></app-search-input>
                             </div>
+
+                            <div class="col-md-3">
+                                <label>Spolková role</label>
+                                <app-search-input [searchSource]="'roles'" [guildId]="data.id"
+                                    formControlName="associationRole"></app-search-input>
+                            </div>
                         </div>
 
                         <b>Období hlasování o nových emotech</b>
