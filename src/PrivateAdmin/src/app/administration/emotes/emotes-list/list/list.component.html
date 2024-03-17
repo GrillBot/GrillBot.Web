@@ -43,7 +43,7 @@
                         <td>{{item.lastOccurence.binding}}</td>
                         <td>{{item.usedUsersCount | numberWithSpaces}}</td>
                         <td class="no-print">
-                            <list-button [link]="'/admin/emotes/' + item.emote.encodedId + '/merge'"
+                            <list-button [link]="'/admin/emotes/' + item.encodedEmoteData + '/merge'"
                                 [title]="'Sloučit statistiky s jinou statistikou.'" [iconGroup]="'fas'"
                                 [icon]="'code-branch'"></list-button>
                             <list-button (clicked)="removeStats(item)" [title]="'Smazat statistiku'" [iconGroup]="'far'"
@@ -74,7 +74,7 @@
                                 Server: <b><a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark">{{item.guild.name}}</a></b>
                             </span>
                             <div class="d-flex justify-content-between">
-                                <a routerLink="/admin/emotes/{{item.emote.encodedId}}/users" class="text-dark no-print">Seznam uživatelů</a>
+                                <a routerLink="/admin/emotes/{{item.encodedEmoteData}}/users" class="text-dark no-print">Seznam uživatelů</a>
                                 <a href="javascript:;" class="text-danger no-print" (click)="removeStats(item)">Smazat statistiku</a>
                             </div>
                         </div>

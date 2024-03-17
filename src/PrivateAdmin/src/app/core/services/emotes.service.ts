@@ -36,8 +36,13 @@ export class EmotesService {
         );
     }
 
-    removeStatistics(emoteId: string): Observable<number> {
-        const url = this.base.createUrl('emotes/stats', [new QueryParam('emoteId', emoteId)]);
+    removeStatistics(emoteId: string, guildId: string): Observable<number> {
+        const queryParams = [
+            new QueryParam('emoteId', emoteId),
+            new QueryParam('guildId', guildId)
+        ];
+
+        const url = this.base.createUrl('emotes/stats', queryParams);
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.delete<number>(url, { headers }).pipe(
@@ -55,8 +60,14 @@ export class EmotesService {
         );
     }
 
-    getStatOfEmote(emoteId: string): Observable<EmoteStatItem> {
-        const url = this.base.createUrl('emotes/stats', [new QueryParam('emoteId', emoteId)]);
+    getStatOfEmote(guildId: string, emoteId: string, isUnsupported: boolean): Observable<EmoteStatItem> {
+        const queryParams = [
+            new QueryParam('guildId', guildId),
+            new QueryParam('emoteId', emoteId),
+            new QueryParam('isUnsupported', isUnsupported)
+        ];
+
+        const url = this.base.createUrl('emotes/stats', queryParams);
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.get<EmoteStatItem>(url, { headers }).pipe(

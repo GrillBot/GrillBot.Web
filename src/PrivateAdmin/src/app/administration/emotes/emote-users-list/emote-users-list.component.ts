@@ -23,8 +23,12 @@ export class EmoteUsersListComponent extends ListComponentBase<EmoteStatsUserLis
     }
 
     configure(): void {
+        const emoteData = atob(decodeURIComponent(this.route.snapshot.params.encodedEmoteData as string));
+        const [guildId, emoteId] = emoteData.split(/:(.*)/s);
+
         this.filter = new EmoteStatsUserListParams();
-        this.filter.emoteId = atob(decodeURIComponent(this.route.snapshot.params.encodedEmoteId as string));
+        this.filter.emoteId = emoteId;
+        this.filter.guildId = guildId;
 
         this.sort.orderBy = 'UseCount';
         this.sort.descending = true;

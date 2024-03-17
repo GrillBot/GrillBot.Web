@@ -9,10 +9,6 @@ export class EmoteItem {
     public imageUrl: string;
     public fullId: string;
 
-    get encodedId(): string {
-        return btoa(this.fullId);
-    }
-
     static create(data: any): EmoteItem {
         const item = new EmoteItem();
         item.id = data.id;
@@ -26,6 +22,10 @@ export class EmoteItem {
 
 export class GuildEmoteItem extends EmoteItem {
     public guild: Guild;
+
+    get encodedEmoteData(): string {
+        return btoa(`${this.guild.id}:${this.fullId}`);
+    }
 
     static create(data: any): GuildEmoteItem {
         const item = new GuildEmoteItem();
@@ -59,6 +59,10 @@ export class EmoteStatItem {
 
 export class GuildEmoteStatItem extends EmoteStatItem {
     public guild: Guild;
+
+    get encodedEmoteData(): string {
+        return btoa(`${this.guild.id}:${this.emote.fullId}`);
+    }
 
     static create(data: any): GuildEmoteStatItem {
         const item = new GuildEmoteStatItem();
@@ -110,6 +114,7 @@ export class EmotesListParams extends FilterBase {
 
 export class MergeEmoteStatsParams {
     constructor(
+        public guildId: string,
         public sourceEmoteId: string,
         public destinationEmoteId: string
     ) { }
@@ -137,6 +142,7 @@ export class EmoteStatsUserListItem {
 
 export class EmoteStatsUserListParams extends FilterBase {
     public emoteId: string;
+    public guildId: string;
 
     static get empty(): EmoteStatsUserListParams { return new EmoteStatsUserListParams(); }
 
@@ -144,13 +150,15 @@ export class EmoteStatsUserListParams extends FilterBase {
         const params = new EmoteStatsUserListParams();
 
         params.emoteId = data.emoteId;
+        params.guildId = data.guildId;
 
         return params;
     }
 
     serialize(): any {
         return {
-            emoteId: this.emoteId
+            emoteId: this.emoteId,
+            guildId: this.guildId
         };
     }
 }

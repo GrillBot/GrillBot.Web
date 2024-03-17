@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { PaginatedParams, PaginatedResponse } from 'src/app/core/models/common';
-import { EmotesListParams, EmoteStatItem } from 'src/app/core/models/emotes';
+import { EmotesListParams, GuildEmoteStatItem } from 'src/app/core/models/emotes';
 import { EmotesService } from 'src/app/core/services/emotes.service';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
 import { InfoModal, QuestionModal } from 'src/app/shared/modal-box/models';
@@ -34,13 +34,13 @@ export class ListComponent extends ListComponentBase<EmotesListParams> {
         return this.emotesService.getStatsOfEmotes(this.filter, this.unsupported);
     }
 
-    removeStats(row: EmoteStatItem): void {
+    removeStats(row: GuildEmoteStatItem): void {
         const title = 'Smazání statistiky';
 
         const modal = new QuestionModal(title,
             `Opravdu si přeješ smazat statistiku pro emote "${row.emote.name}"? <b>Tato akce je nevratná!</b>`, true);
         modal.onAccept.subscribe(() => {
-            this.emotesService.removeStatistics(row.emote.fullId).subscribe(rowsChanged => {
+            this.emotesService.removeStatistics(row.emote.fullId, row.guild.id).subscribe(rowsChanged => {
                 this.list.filterChanged();
 
                 const rows = new NumberWithSpacesPipe().transform(rowsChanged);

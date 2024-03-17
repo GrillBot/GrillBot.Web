@@ -20,6 +20,7 @@ export class EmotesMergeComponent implements OnInit {
     navigation: INavigation;
     sourceEmote: EmoteStatItem;
     destinationEmote: string;
+    guildId: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -31,9 +32,12 @@ export class EmotesMergeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const emoteId = atob(decodeURIComponent(this.route.snapshot.params.encodedEmoteId as string));
+        const emoteData = atob(decodeURIComponent(this.route.snapshot.params.encodedEmoteData as string));
+        const [guildId, emoteId] = emoteData.split(/:(.*)/s);
+
+        this.guildId = guildId;
         this.emotesService
-            .getStatOfEmote(emoteId)
+            .getStatOfEmote(guildId, emoteId, true)
             .pipe(catchError((err: HttpErrorResponse) => {
                 if (err.status === 404) {
                     this.router.navigate(['/admin/emotes/unsupported']);
@@ -48,7 +52,7 @@ export class EmotesMergeComponent implements OnInit {
     process(): void {
         const modal = new QuestionModal(this.title, 'Opravdu si přejete sloučit statistiky?');
         modal.onAccept.subscribe(() => {
-            const parameters = new MergeEmoteStatsParams(this.sourceEmote.emote.fullId, this.destinationEmote);
+            const parameters = new MergeEmoteStatsParams(this.guildId, this.sourceEmote.emote.fullId, this.destinationEmote);
 
             this.emotesService.mergeStatsToAnother(parameters).subscribe(rowsChanged => {
                 const rows = new NumberWithSpacesPipe().transform(rowsChanged);

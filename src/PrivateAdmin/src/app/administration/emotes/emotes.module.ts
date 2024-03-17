@@ -11,8 +11,8 @@ const routes: Routes = [
     { path: '', redirectTo: 'supported', pathMatch: 'full' },
     { path: 'supported', component: DashboardComponent },
     { path: 'unsupported', component: DashboardComponent },
-    { path: ':encodedEmoteId/users', component: EmoteUsersListComponent },
-    { path: ':encodedEmoteId/merge', component: EmotesMergeComponent }
+    { path: ':encodedEmoteData/users', component: EmoteUsersListComponent },
+    { path: ':encodedEmoteData/merge', component: EmotesMergeComponent }
 ];
 
 @NgModule({
