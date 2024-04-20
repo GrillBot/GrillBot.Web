@@ -108,8 +108,6 @@
                             [value]="data.databaseReport.cacheIndexes | numberWithSpaces"></div>
                         <div keyValueItem class="col-md-auto" [key]="'Emoty'" [value]="data.databaseReport.emoteStats | numberWithSpaces">
                         </div>
-                        <div keyValueItem class="col-md-auto" [key]="'Návrhy na emoty'"
-                            [value]="data.databaseReport.emoteSuggestions | numberWithSpaces"></div>
                         <div keyValueItem class="col-md-auto" [key]="'Body (transakce)'"
                             [value]="data.databaseReport.pointTransactions | numberWithSpaces"></div>
                         <div keyValueItem class="col-md-auto" [key]="'Uživatelská opatření'"
@@ -139,12 +137,6 @@
                             </div>
 
                             <div class="col-md form-group">
-                                <label>Kanál pro návrhy emotů</label>
-                                <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id"
-                                    formControlName="emoteSuggestionChannel"></app-search-input>
-                            </div>
-
-                            <div class="col-md form-group">
                                 <label>Kanál pro veřejná hlasování</label>
                                 <app-search-input [searchSource]="'channels-no-threads'" [guildId]="data.id" formControlName="voteChannel">
                                 </app-search-input>
@@ -162,29 +154,6 @@
                                 <label>Spolková role</label>
                                 <app-search-input [searchSource]="'roles'" [guildId]="data.id"
                                     formControlName="associationRole"></app-search-input>
-                            </div>
-                        </div>
-
-                        <b>Období hlasování o nových emotech</b>
-                        <div class="row">
-                            <div class="col-md form-group">
-                                <label>Období od</label>
-                                <input type="date" class="form-control" formControlName="emoteSuggestionsFrom" />
-                            </div>
-
-                            <div class="col-md form-group">
-                                <label>Období do</label>
-                                <input type="date" class="form-control" formControlName="emoteSuggestionsTo" />
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md">
-                                <span class="text-danger" *ngIf="form.hasError('emoteSuggestionsInvalid')">Je nutné zadat obě hodnoty období
-                                    pro hlasování o nových emotech.</span>
-                            </div>
-                            <div class="col-3 d-flex align-items-end justify-content-end no-print">
-                                <button class="btn btn-success" type="submit" [disabled]="form.invalid">Uložit změny</button>
                             </div>
                         </div>
                     </form>

@@ -64,7 +64,6 @@ export class GuildDatabaseReport {
     public auditLogs: number;
     public cacheIndexes: number;
     public emoteStats: number;
-    public emoteSuggestions: number;
     public pointTransactions: number;
     public userMeasures: number;
 
@@ -81,7 +80,6 @@ export class GuildDatabaseReport {
         report.users = data.users ?? 0;
         report.cacheIndexes = data.cacheIndexes ?? 0;
         report.emoteStats = data.emoteStats ?? 0;
-        report.emoteSuggestions = data.emoteSuggestions ?? 0;
         report.pointTransactions = data.pointTransactions ?? 0;
         report.userMeasures = data.userMeasures ?? 0;
 
@@ -117,7 +115,6 @@ export class GuildDetail extends Guild {
     public mutedRole?: Role;
     public boosterRole?: Role;
     public adminChannel?: Channel;
-    public emoteSuggestionChannel?: Channel;
     public voteChannel?: Channel;
     public maxMembers?: number;
     public maxPresences?: number;
@@ -127,8 +124,6 @@ export class GuildDetail extends Guild {
     public clientTypeReport?: ClientTypeReport;
     public databaseReport?: GuildDatabaseReport;
     public userStatusReport?: UserStatusReport;
-    public emoteSuggestionsFrom?: DateTime;
-    public emoteSuggestionsTo?: DateTime;
     public botRoomChannel?: Channel;
     public associationRole?: Role;
 
@@ -145,13 +140,10 @@ export class GuildDetail extends Guild {
         guild.maxVideoChannelUsers = data.maxVideoChannelUsers;
         guild.maxBitrate = data.maxBitrate;
         guild.maxUploadLimit = data.maxUploadLimit;
-        guild.emoteSuggestionsFrom = data.emoteSuggestionsFrom ? DateTime.fromISOString(data.emoteSuggestionsFrom) : null;
-        guild.emoteSuggestionsTo = data.emoteSuggestionsTo ? DateTime.fromISOString(data.emoteSuggestionsTo) : null;
 
         if (data.adminChannel) { guild.adminChannel = Channel.create(data.adminChannel); }
         if (data.createdAt) { guild.createdAt = DateTime.fromISOString(data.createdAt); }
         if (data.boosterRole) { guild.boosterRole = Role.create(data.boosterRole); }
-        if (data.emoteSuggestionChannel) { guild.emoteSuggestionChannel = Channel.create(data.emoteSuggestionChannel); }
         if (data.voteChannel) { guild.voteChannel = Channel.create(data.voteChannel); }
         if (data.mutedRole) { guild.mutedRole = Role.create(data.mutedRole); }
         if (data.owner) { guild.owner = User.create(data.owner); }
@@ -169,9 +161,7 @@ export class UpdateGuildParams {
     constructor(
         public muteRoleId: string,
         public adminChannelId: string,
-        public emoteSuggestionChannelId: string,
         public voteChannelId: string,
-        public emoteSuggestionsValidity: RangeParams<DateTime>,
         public botRoomChannelId: string,
         public associationRoleId: string
     ) { }

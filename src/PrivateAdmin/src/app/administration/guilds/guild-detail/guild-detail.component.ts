@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ValidationHelper } from 'src/app/core/lib/validators';
 import { GuildDetail, UpdateGuildParams } from 'src/app/core/models/guilds';
 import { GuildService } from 'src/app/core/services/guild.service';
 import { ModalBoxService } from 'src/app/shared/modal-box/modal-box.service';
@@ -34,34 +33,19 @@ export class GuildDetailComponent implements OnInit {
                 {
                     mutedRole: [this.data.mutedRole?.id ?? null],
                     adminChannel: [this.data.adminChannel?.id ?? null],
-                    emoteSuggestionChannel: [this.data.emoteSuggestionChannel?.id ?? null],
                     voteChannel: [this.data.voteChannel?.id ?? null],
-                    emoteSuggestionsFrom: [this.data.emoteSuggestionsFrom?.toFormString(true) ?? null],
-                    emoteSuggestionsTo: [this.data.emoteSuggestionsTo?.toFormString(true) ?? null],
                     botRoomChannel: [this.data.botRoomChannel?.id],
                     associationRole: [this.data.associationRole?.id]
-                },
-                { validators: [ValidationHelper.multipleRequired('emoteSuggestionsInvalid', 'emoteSuggestionsFrom', 'emoteSuggestionsTo')] }
+                }
             );
         });
     }
 
     submitSettings(): void {
-        let emoteSuggestionsValidity = {
-            from: this.form.value.emoteSuggestionsFrom,
-            to: this.form.value.emoteSuggestionsTo
-        };
-
-        if (!emoteSuggestionsValidity.from && !emoteSuggestionsValidity.to) {
-            emoteSuggestionsValidity = null;
-        }
-
         const params = new UpdateGuildParams(
             this.form.value.mutedRole,
             this.form.value.adminChannel,
-            this.form.value.emoteSuggestionChannel,
             this.form.value.voteChannel,
-            emoteSuggestionsValidity,
             this.form.value.botRoomChannel,
             this.form.value.associationRole
         );
