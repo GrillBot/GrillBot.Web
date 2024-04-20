@@ -3,7 +3,7 @@ import { DateTime } from './datetime';
 import { PremiumTier } from './enums/premium-tier';
 import { Role } from './roles';
 import { User } from './users';
-import { FilterBase, RangeParams } from './common';
+import { FilterBase } from './common';
 
 export class GuildListFilter extends FilterBase {
     public nameQuery: string | null;
