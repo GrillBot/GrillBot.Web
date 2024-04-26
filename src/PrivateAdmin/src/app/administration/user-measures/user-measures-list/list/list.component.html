@@ -52,7 +52,7 @@
                 Server:
                 <b>
                     <a routerLink="/admin/servers/{{item.guild.id}}" class="text-dark" *ngIf="item.guild">{{item.guild.name}}</a>
-                    <span>Neznámý server</span>
+                    <span *ngIf="!item.guild">Neznámý server</span>
                 </b>
             </p>
         </div>
