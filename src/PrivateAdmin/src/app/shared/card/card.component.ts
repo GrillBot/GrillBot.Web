@@ -19,9 +19,12 @@ export class CardComponent {
     @Input() footer?: TemplateBinding;
     @Input() visible = true;
 
-    toggleVisiblity(): void {
+    toggleVisiblity($event: Event): void {
         if (this.allowHideButton) {
             this.visible = !this.visible;
         }
+
+        $event.stopPropagation();
+        $event.preventDefault();
     }
 }
