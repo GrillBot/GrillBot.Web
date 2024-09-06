@@ -38,7 +38,7 @@ export class UserMeasuresListItem extends UserMeasuresItem {
         const item = new UserMeasuresListItem();
 
         Object.assign(item, super.create(data));
-        item.guild = Guild.create(data.guild);
+        item.guild = data.guild ? Guild.create(data.guild) : null;
         item.user = User.create(data.user);
 
         return item;
