@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,7 @@ export const routes: Routes = [
   {
     path: 'web',
     component: DefaultLayoutComponent,
+    canActivate: [AuthGuard],
     children: []
   },
   {

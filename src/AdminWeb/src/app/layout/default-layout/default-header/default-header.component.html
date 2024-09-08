@@ -72,8 +72,7 @@
       <c-avatar
         shape="rounded-1"
         [size]="'md'"
-        src="./assets/images/avatars/8.jpg"
-        status="success"
+        [src]="authManager.token.avatarUrl"
         textColor="primary"
         alt="User avatar"
       />
@@ -84,12 +83,12 @@
           cDropdownHeader
           class="bg-body-secondary text-body-secondary fw-semibold py-2"
         >
-          Uživatel
+          {{ authManager.token.username }}
         </h6>
       </li>
       <li></li>
       <li>
-        <a cDropdownItem routerLink="">
+        <a cDropdownItem routerLink="/users/{{ authManager.token.id }}">
           <svg cIcon class="me-2" name="cilUser"></svg>
           Můj účet
         </a>
@@ -98,10 +97,10 @@
         <hr cDropdownDivider />
       </li>
       <li>
-        <a cDropdownItem routerLink="">
+        <button cDropdownItem (click)="authManager.logout()">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
           Odhlásit se
-        </a>
+        </button>
       </li>
     </ul>
   </c-dropdown>

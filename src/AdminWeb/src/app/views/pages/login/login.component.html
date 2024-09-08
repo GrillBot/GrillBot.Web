@@ -5,27 +5,39 @@
     <c-row class="justify-content-center">
       <c-col lg="10" xl="8">
         <c-card-group>
-          <c-card class="p-4">
-            <h1>Přihlášení</h1>
-            <p class="text-body-secondary">
-              Pro pokračování do neveřejné části se prosím přihlašte.
-            </p>
-            <c-row>
-              <c-col>
-                <button cButton class="px-4" color="primary">
-                  <div class="d-flex align-items-center">
-                    <svg
-                      cIcon
-                      name="cibDiscord"
-                      size="xl"
-                      title="Discord"
-                      class="me-2"
-                    ></svg>
-                    Přihlásit přes Discord
-                  </div>
-                </button>
-              </c-col>
-            </c-row>
+          <c-card>
+            <c-card-body class="p-4">
+              <h1>Přihlášení</h1>
+              <p class="text-body-secondary">
+                Pro pokračování do neveřejné části se prosím přihlašte.
+              </p>
+              <c-row>
+                <c-col>
+                  <button
+                    cButton
+                    class="px-4"
+                    color="primary"
+                    (click)="startLogin()"
+                  >
+                    <div class="d-flex align-items-center">
+                      <svg
+                        cIcon
+                        name="cibDiscord"
+                        size="xl"
+                        title="Discord"
+                        class="me-2"
+                      ></svg>
+                      Přihlásit přes Discord
+                    </div>
+                  </button>
+                </c-col>
+              </c-row>
+            </c-card-body>
+
+            <c-card-footer class="text-secondary small">
+              Jednou jsem vstoupil dovnitř a znovu tam vstoupím!<br />
+              <i>Thorin Pavéza, Hobit: Šmakova dračí poušť</i>
+            </c-card-footer>
           </c-card>
           <c-card
             [ngStyle]="{ 'minWidth.%': 44 }"

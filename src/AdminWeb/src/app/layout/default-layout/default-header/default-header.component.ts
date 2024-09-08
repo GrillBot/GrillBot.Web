@@ -9,6 +9,7 @@ import {
   TextColorDirective, ThemeDirective
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
+import { AuthManager } from "../../../core/managers/auth.manager";
 
 @Component({
   selector: 'app-default-header',
@@ -44,6 +45,8 @@ import { IconDirective } from "@coreui/icons-angular";
 export class DefaultHeaderComponent extends HeaderComponent {
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
+
+  readonly authManager = inject(AuthManager);
 
   readonly colorModes = [
     { name: 'light', text: 'Světlý', icon: 'cilSun' },

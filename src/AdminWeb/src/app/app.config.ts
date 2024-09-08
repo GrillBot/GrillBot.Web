@@ -3,9 +3,9 @@ import { provideRouter, withEnabledBlockingInitialNavigation, withHashLocation, 
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
-import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +24,13 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
-    provideAnimations()
+    provideAnimations(),
+    provideHttpClient()
   ]
+};
+
+export const apiConfig = {
+  baseApiUri: 'https://localhost:5000/api',
+  oauthApiUri: 'https://localhost:5000/api/auth/oauth2',
+  jwtApiUri: 'https://localhost:5000/api/auth/oauth2/jwt'
 };
