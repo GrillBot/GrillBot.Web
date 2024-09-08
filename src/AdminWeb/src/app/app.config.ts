@@ -28,9 +28,3 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient()
   ]
 };
-
-export const apiConfig = {
-  baseApiUri: 'https://localhost:5000/api',
-  oauthApiUri: 'https://localhost:5000/api/auth/oauth2',
-  jwtApiUri: 'https://localhost:5000/api/auth/oauth2/jwt'
-};

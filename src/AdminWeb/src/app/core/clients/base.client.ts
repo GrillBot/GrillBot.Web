@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { Router, UrlTree } from "@angular/router";
+import { Router } from "@angular/router";
 import { LocalStorageService } from "@coreui/angular";
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
-import { apiConfig } from '../../app.config';
+import { environment } from "../../../environments/environment";
 
 export type HttpQueryParams = { [key: string]: string };
 
@@ -43,7 +43,7 @@ export abstract class BaseClient {
   }
 
   protected createUrl(endpoint: string, queryParams: HttpQueryParams = {}): string {
-    let url = apiConfig.baseApiUri + `/${endpoint}`;
+    let url = environment.baseApiUri + `/${endpoint}`;
 
     if (queryParams && Object.keys(queryParams).length > 0) {
       const parameters: string = Object

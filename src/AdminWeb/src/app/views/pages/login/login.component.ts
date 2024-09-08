@@ -6,11 +6,11 @@ import {
   TextColorDirective
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { apiConfig } from "../../../app.config";
 import { AuthClient } from "../../../core/clients/auth.client";
 import { ActivatedRoute, Router } from "@angular/router";
 import { filter, tap } from "rxjs";
 import { AuthManager } from "../../../core/managers/auth.manager";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -53,6 +53,6 @@ export class LoginComponent {
   }
 
   startLogin(): void {
-    location.href = apiConfig.oauthApiUri;
+    location.href = environment.oauthApiUri;
   }
 }
