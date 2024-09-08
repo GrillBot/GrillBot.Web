@@ -1,0 +1,35 @@
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  & .logo-text {
+    font-weight: 400;
+    margin: 0;
+    margin-left: 10px;
+  }
+}
+
+#sidebar1.sidebar-narrow-unfoldable:not(:hover) {
+  & .sidebar-brand {
+    & .logo-text {
+      display: none;
+    }
+  }
+
+  & .sidebar-brand-full,
+  & .sidebar-narrow .sidebar-brand-full {
+    display: inherit;
+    margin-left: 1rem;
+  }
+}
+
+:host {
+  .ng-scrollbar {
+    --scrollbar-padding: 1px;
+    --scrollbar-size: 5px;
+    --scrollbar-thumb-color: var(--cui-gray-500, #999);
+    --scrollbar-thumb-hover-color: var(--cui-gray-400, #999);
+    --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
+  }
+}
