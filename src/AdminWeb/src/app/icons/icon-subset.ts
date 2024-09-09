@@ -51,6 +51,7 @@ import {
   cilDrop,
   cilEnvelopeClosed,
   cilEnvelopeOpen,
+  cilFeaturedPlaylist,
   cilFile,
   cilGrid,
   cilHome,
@@ -201,7 +202,8 @@ export const iconSubset = {
   cilUser,
   cilUserFemale,
   cilUserFollow,
-  cilUserUnfollow
+  cilUserUnfollow,
+  cilFeaturedPlaylist
 };
 
 export enum IconSubset {
@@ -305,4 +307,5 @@ export enum IconSubset {
   cilUserFemale = 'cilUserFemale',
   cilUserFollow = 'cilUserFollow',
   cilUserUnfollow = 'cilUserUnfollow',
+  cilFeaturedPlaylist = 'cilFeaturedPlaylist'
 }

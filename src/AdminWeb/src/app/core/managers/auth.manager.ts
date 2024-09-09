@@ -11,11 +11,11 @@ export class AuthManager {
   readonly #storage = inject(LocalStorageService);
   readonly #router = inject(Router);
 
-  get rawToken(): string {
+  private get rawToken(): string {
     return this.#storage.getItem(ACCESS_TOKEN_KEY);
   }
 
-  set rawToken(value: string) {
+  private set rawToken(value: string) {
     this.#storage.setItem(ACCESS_TOKEN_KEY, value);
   }
 

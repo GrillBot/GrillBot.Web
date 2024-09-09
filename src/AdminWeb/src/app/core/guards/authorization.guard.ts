@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RedirectC
 import { AuthManager } from "../managers/auth.manager";
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthorizationGuard implements CanActivate {
   readonly #authManager = inject(AuthManager);
   readonly #router = inject(Router);
 

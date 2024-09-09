@@ -19,8 +19,6 @@ export class JwtToken {
     this.header = JSON.parse(atob(header));
     this.body = JSON.parse(atob(body));
     this.footer = footer;
-
-    console.log(this.body);
   }
 
   get isLogged(): boolean {
@@ -37,5 +35,9 @@ export class JwtToken {
 
   get id(): string | undefined {
     return this.body ? this.body.nameid : undefined;
+  }
+
+  get permissions(): string[] {
+    return this.body ? this.body['GrillBot:Permissions']?.split(',') : [];
   }
 }

@@ -1,14 +1,16 @@
-import { Component } from "@angular/core";
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Component, OnInit, inject } from "@angular/core";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import {
   SidebarComponent, SidebarHeaderComponent, SidebarBrandComponent, SidebarNavComponent,
   SidebarFooterComponent, SidebarToggleDirective, SidebarTogglerDirective,
-  ShadowOnScrollDirective, ContainerComponent
+  ShadowOnScrollDirective, ContainerComponent,
+  INavData
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { DefaultFooterComponent } from "./default-footer/default-footer.component";
 import { DefaultHeaderComponent } from "./default-header/default-header.component";
 import { NgScrollbar } from 'ngx-scrollbar';
+import { NavManager } from "../../core/managers/nav.manager";
 
 const isOverflown = (element: HTMLElement) => {
   return (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
@@ -37,6 +39,20 @@ const isOverflown = (element: HTMLElement) => {
     DefaultFooterComponent
   ]
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit {
+  readonly #router = inject(Router);
+  readonly #navManager = inject(NavManager);
+
+  menuItems: INavData[] = [];
+
   onScrollbarUpdate($event: any) { }
+
+  ngOnInit(): void {
+    if (this.#router.url == '/web') {
+      this.#router.navigateByUrl('/web/dashboard');
+      return;
+    }
+
+    this.menuItems = this.#navManager.createSidebarMenu();
+  }
 }

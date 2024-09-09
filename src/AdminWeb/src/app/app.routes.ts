@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthorizationGuard } from './core/guards/authorization.guard';
+import { AuthenticationGuard } from './core/guards/authentication.guard';
 
 export const routes: Routes = [
   {
@@ -11,8 +12,24 @@ export const routes: Routes = [
   {
     path: 'web',
     component: DefaultLayoutComponent,
-    canActivate: [AuthGuard],
-    children: []
+    canActivate: [AuthorizationGuard],
+    canActivateChild: [AuthenticationGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./views/dashboard/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
+      },
+      {
+        path: 'empty',
+        loadComponent: () => import('./views/empty.component').then(m => m.EmptyComponent),
+        data: {
+          canActivate: (_: string[]) => true
+        }
+      }
+    ]
   },
   {
     path: 'login',
