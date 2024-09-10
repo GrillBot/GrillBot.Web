@@ -1,1 +1,70 @@
-It works
+@if($getCommonInfo | withLoading | async; as commonInfo) {
+@if(commonInfo.loading) {
+<div class="d-flex justify-content-center">
+  <app-loading customText="Načítá se základní info" />
+</div>
+} @if(!commonInfo.loading && commonInfo.value) {
+<c-row>
+  <c-col md="3">
+    <ng-container
+      [ngTemplateOutlet]="dashboardWidget"
+      [ngTemplateOutletContext]="{
+        title: 'Bot spuštěn',
+        value: commonInfo.value!.startAt | date : 'dd. MM. yyyy HH:mm:ss',
+        icon: 'cilPowerStandby',
+        color: commonInfo.value!.isActive ? 'success' : 'danger'
+      }"
+    ></ng-container>
+  </c-col>
+
+  <c-col md="3">
+    <ng-container
+      [ngTemplateOutlet]="dashboardWidget"
+      [ngTemplateOutletContext]="{
+        title: 'Uptime',
+        value: commonInfo.value!.uptime | timespan,
+        icon: 'cilClock',
+        color: 'primary'
+      }"
+    ></ng-container>
+  </c-col>
+
+  <c-col md="3">
+    <ng-container
+      [ngTemplateOutlet]="dashboardWidget"
+      [ngTemplateOutletContext]="{
+        title: 'CPU čas',
+        value: commonInfo.value!.cpuTime | timespan,
+        icon: 'cilMemory',
+        color: 'primary'
+      }"
+    ></ng-container>
+  </c-col>
+
+  <c-col md="3">
+    <ng-container
+      [ngTemplateOutlet]="dashboardWidget"
+      [ngTemplateOutletContext]="{
+        title: 'Paměť',
+        value: commonInfo.value!.usedMemory | filesize,
+        icon: 'cilSpeedometer',
+        color: 'primary'
+      }"
+    ></ng-container>
+  </c-col>
+</c-row>
+} }
+
+<ng-template
+  #dashboardWidget
+  let-title="title"
+  let-value="value"
+  let-icon="icon"
+  let-color="color"
+>
+  <c-widget-stat-f [title]="title" class="mb-3" [color]="color" [value]="value">
+    <ng-template cTemplateId="widgetIconTemplate">
+      <svg cIcon [name]="icon" size="xxl"></svg>
+    </ng-template>
+  </c-widget-stat-f>
+</ng-template>

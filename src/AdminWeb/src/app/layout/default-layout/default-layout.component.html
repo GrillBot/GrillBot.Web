@@ -40,6 +40,12 @@
     toggle="unfoldable"
     style="cursor: pointer"
   >
+    @if($isDevelopment | async; as isDevelopment) { @if(isDevelopment) {
+    <c-badge color="secondary">DEV</c-badge>
+    } @else {
+    <c-badge color="success">PROD</c-badge>
+    } }
+
     <button cSidebarToggler aria-label="Toggle sidebar fold"></button>
   </c-sidebar-footer>
   }

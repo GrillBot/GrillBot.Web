@@ -4,13 +4,16 @@ import {
   SidebarComponent, SidebarHeaderComponent, SidebarBrandComponent, SidebarNavComponent,
   SidebarFooterComponent, SidebarToggleDirective, SidebarTogglerDirective,
   ShadowOnScrollDirective, ContainerComponent,
-  INavData
+  INavData, BadgeComponent
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { DefaultFooterComponent } from "./default-footer/default-footer.component";
 import { DefaultHeaderComponent } from "./default-header/default-header.component";
 import { NgScrollbar } from 'ngx-scrollbar';
 import { NavManager } from "../../core/managers/nav.manager";
+import { DashboardClient } from "../../core/clients/dashboard.client";
+import { Observable, filter, map } from "rxjs";
+import { AsyncPipe } from "@angular/common";
 
 const isOverflown = (element: HTMLElement) => {
   return (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
@@ -36,14 +39,18 @@ const isOverflown = (element: HTMLElement) => {
     ShadowOnScrollDirective,
     ContainerComponent,
     RouterOutlet,
-    DefaultFooterComponent
+    DefaultFooterComponent,
+    BadgeComponent,
+    AsyncPipe
   ]
 })
 export class DefaultLayoutComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #navManager = inject(NavManager);
+  readonly #dashboardClient = inject(DashboardClient);
 
   menuItems: INavData[] = [];
+  $isDevelopment!: Observable<boolean>;
 
   onScrollbarUpdate($event: any) { }
 
@@ -54,5 +61,9 @@ export class DefaultLayoutComponent implements OnInit {
     }
 
     this.menuItems = this.#navManager.createSidebarMenu();
+    this.$isDevelopment = this.#dashboardClient.getCommonInfo().pipe(
+      filter(response => response.type === 'finish'),
+      map(response => response.value?.isDevelopment ?? false)
+    );
   }
 }

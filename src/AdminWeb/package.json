@@ -25,6 +25,8 @@
     "@coreui/icons-angular": "~5.2.17",
     "@popperjs/core": "~2.11.8",
     "bootstrap": "^5.3.3",
+    "moment": "^2.30.1",
+    "ngx-filesize": "^3.0.4",
     "ngx-scrollbar": "^15.1.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

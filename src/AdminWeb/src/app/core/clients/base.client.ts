@@ -2,14 +2,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "@coreui/angular";
-import { Observable, throwError } from 'rxjs';
+import { Observable, catchError, concat, map, of, throwError } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
+import { RawHttpResponse } from "../models/common";
 
 export type HttpQueryParams = { [key: string]: string };
 
 export abstract class BaseClient {
-  readonly #router = inject(Router);
   readonly #storage = inject(LocalStorageService);
   readonly #http = inject(HttpClient);
 
@@ -55,5 +55,17 @@ export abstract class BaseClient {
     }
 
     return url;
+  }
+
+  protected getRequest<TResponse>(endpoint: string, queryParams: HttpQueryParams = {}): Observable<RawHttpResponse<TResponse>> {
+    const url = this.createUrl(endpoint, queryParams);
+
+    return concat(
+      of({ type: 'start' } as RawHttpResponse<TResponse>),
+      this.#http.get<TResponse>(url, this.requestHeaders).pipe(
+        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>),
+        catchError(err => this.catchError(err))
+      )
+    );
   }
 }
