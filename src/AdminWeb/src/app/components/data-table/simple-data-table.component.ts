@@ -6,6 +6,7 @@ import { SimpleDataTableDefs } from "./simple-data-table.models";
 import { WithLoadingPipe } from "../../pipes/with-loading.pipe";
 import { Observable, concat, delay, isObservable, of } from "rxjs";
 import { LoadingComponent } from '../loading/loading.component';
+import { IconDirective } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-simple-data-table',
@@ -17,7 +18,8 @@ import { LoadingComponent } from '../loading/loading.component';
     NgTemplateOutlet,
     WithLoadingPipe,
     NgClass,
-    LoadingComponent
+    LoadingComponent,
+    IconDirective
   ]
 })
 export class SimpleDataTableComponent implements OnInit {
@@ -27,7 +29,7 @@ export class SimpleDataTableComponent implements OnInit {
   headerFields = computed(() => Object.keys(this.defs().columns));
   dataFields = computed(() => this.headerFields().filter(o => o !== '$index'));
   isIndexColumn = computed(() => Object.keys(this.defs().columns).includes('$index'));
-  columnsCount = computed(() => this.dataFields().length);
+  columnsCount = computed(() => this.headerFields().length);
 
   ngOnInit(): void {
     this.configureDataSource();
