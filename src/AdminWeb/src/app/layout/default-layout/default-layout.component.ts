@@ -55,8 +55,8 @@ export class DefaultLayoutComponent implements OnInit {
   onScrollbarUpdate($event: any) { }
 
   constructor() {
-    if (this.#router.url == '/web') {
-      this.#router.navigateByUrl('/web/dashboard');
+    if (this.#router.url == '/web' || this.#router.url == '/web/dashboard') {
+      this.#router.navigateByUrl('/web/dashboard/common');
     }
   }
 

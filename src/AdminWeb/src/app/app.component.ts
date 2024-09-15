@@ -51,7 +51,9 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof ActivationEnd),
       map(event => (event as ActivationEnd).snapshot.data['title'] as string),
       filter(title => !!title && title.length > 0),
-      tap(title => this.#titleService.setTitle(`${this.title} | ${title}`)),
+      tap(title => {
+        this.#titleService.setTitle(`${this.title} | ${title}`);
+      }),
       takeUntilDestroyed(this.#destroyRef)
     ).subscribe();
   }

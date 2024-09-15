@@ -1,89 +1,67 @@
-@if($getCommonInfo | withLoading | async; as commonInfo) {
-@if(commonInfo.loading) {
-<div class="d-flex justify-content-center">
-  <app-loading customText="Načítá se základní info" />
-</div>
-} @if(!commonInfo.loading && commonInfo.value) {
-<c-row *hasPermission="'Dashboard(Admin)'">
-  <c-col md="3">
-    <ng-container
-      [ngTemplateOutlet]="dashboardWidget"
-      [ngTemplateOutletContext]="{
-        title: 'Bot spuštěn',
-        value: commonInfo.value!.startAt | date : 'dd. MM. yyyy HH:mm:ss',
-        icon: 'cilPowerStandby',
-        color: commonInfo.value!.isActive ? 'success' : 'danger'
-      }"
-    ></ng-container>
-  </c-col>
+@if ($getCommonInfo | withLoading | async; as commonInfo) {
+  @if (commonInfo.loading) {
+    <div class="d-flex justify-content-center">
+      <app-loading customText="Načítá se základní info" />
+    </div>
+  }
+  @if (!commonInfo.loading && commonInfo.value) {
+    <c-row *hasPermission="'Dashboard(Admin)'">
+      <c-col md="3">
+        <ng-container
+          [ngTemplateOutlet]="dashboardWidget"
+          [ngTemplateOutletContext]="{
+            title: 'Bot spuštěn',
+            value: commonInfo.value!.startAt | date: 'dd. MM. yyyy HH:mm:ss',
+            icon: 'cilPowerStandby',
+            color: commonInfo.value!.isActive ? 'success' : 'danger',
+          }"
+        ></ng-container>
+      </c-col>
 
-  <c-col md="3">
-    <ng-container
-      [ngTemplateOutlet]="dashboardWidget"
-      [ngTemplateOutletContext]="{
-        title: 'Uptime',
-        value: commonInfo.value!.uptime | timespan,
-        icon: 'cilClock',
-        color: 'primary'
-      }"
-    ></ng-container>
-  </c-col>
+      <c-col md="3">
+        <ng-container
+          [ngTemplateOutlet]="dashboardWidget"
+          [ngTemplateOutletContext]="{
+            title: 'Uptime',
+            value: commonInfo.value!.uptime | timespan,
+            icon: 'cilClock',
+            color: 'primary',
+          }"
+        ></ng-container>
+      </c-col>
 
-  <c-col md="3">
-    <ng-container
-      [ngTemplateOutlet]="dashboardWidget"
-      [ngTemplateOutletContext]="{
-        title: 'CPU čas',
-        value: commonInfo.value!.cpuTime | timespan,
-        icon: 'cilMemory',
-        color: 'primary'
-      }"
-    ></ng-container>
-  </c-col>
+      <c-col md="3">
+        <ng-container
+          [ngTemplateOutlet]="dashboardWidget"
+          [ngTemplateOutletContext]="{
+            title: 'CPU čas',
+            value: commonInfo.value!.cpuTime | timespan,
+            icon: 'cilMemory',
+            color: 'primary',
+          }"
+        ></ng-container>
+      </c-col>
 
-  <c-col md="3">
-    <ng-container
-      [ngTemplateOutlet]="dashboardWidget"
-      [ngTemplateOutletContext]="{
-        title: 'Paměť (bot)',
-        value: commonInfo.value!.usedMemory | filesize,
-        icon: 'cilSpeedometer',
-        color: 'primary'
-      }"
-    ></ng-container>
-  </c-col>
-</c-row>
+      <c-col md="3">
+        <ng-container
+          [ngTemplateOutlet]="dashboardWidget"
+          [ngTemplateOutletContext]="{
+            title: 'Paměť (bot)',
+            value: commonInfo.value!.usedMemory | filesize,
+            icon: 'cilSpeedometer',
+            color: 'primary',
+          }"
+        ></ng-container>
+      </c-col>
+    </c-row>
 
-<c-row *hasPermission="'Dashboard(Admin)'">
-  <c-col xs>
-    <c-card class="mb-4">
-      <c-card-header>
-        <div class="d-flex align-items-center">
-          <svg cIcon name="cilSitemap" size="xxl" class="me-2"></svg>
-          <h4 cCardTitle class="mb-0 fw-normal">Služby</h4>
-        </div>
-      </c-card-header>
-      <c-card-body>
-        @for(serviceChunk of commonInfo.value!.services | chunk; track $index) {
-        <c-row>
-          @for(service of serviceChunk; track $index) {
-          <c-col>
-            <app-service-info [serviceId]="service" />
-          </c-col>
-          }
-        </c-row>
-        }
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
-
-<c-row *hasPermission="'Dashboard(Admin)'">
-  <c-col>
-    <app-top-heavy-operations />
-  </c-col>
-</c-row>
-} }
+    <c-row *hasPermission="'Dashboard(Admin)'">
+      <c-col>
+        <app-top-heavy-operations />
+      </c-col>
+    </c-row>
+  }
+}
 
 <ng-template
   #dashboardWidget

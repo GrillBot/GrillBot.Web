@@ -1,0 +1,30 @@
+@if ($getCommonInfo | withLoading | async; as commonInfo) {
+  @if (commonInfo.loading) {
+    <div class="d-flex justify-content-center">
+      <app-loading customText="Načítá se základní info" />
+    </div>
+  }
+
+  @if (!commonInfo.loading && commonInfo.value) {
+    <c-row *hasPermission="'Dashboard(Admin)'">
+      <c-col xs>
+        <c-card class="mb-4">
+          <c-card-body>
+            @for (
+              serviceChunk of commonInfo.value!.services | chunk;
+              track $index
+            ) {
+              <c-row>
+                @for (service of serviceChunk; track $index) {
+                  <c-col>
+                    <app-service-info [serviceId]="service" />
+                  </c-col>
+                }
+              </c-row>
+            }
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  }
+}

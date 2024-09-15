@@ -19,7 +19,7 @@ export class NavManager {
       children: [
         {
           name: 'Bot',
-          url: '/web/dashboard',
+          url: '/web/dashboard/common',
           attributes: {
             permissions: ['Dashboard(Admin)']
           }

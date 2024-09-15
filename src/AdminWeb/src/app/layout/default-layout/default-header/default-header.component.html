@@ -12,7 +12,9 @@
     </button>
 
     <!-- Sub-navigation (in the section) -->
-    <c-header-nav class="d-none d-md-flex"> </c-header-nav>
+    <c-header-nav class="d-none d-md-flex">
+      <c-breadcrumb-router />
+    </c-header-nav>
 
     <!-- Shortcuts -->
     <c-header-nav class="d-none d-md-flex ms-auto"> </c-header-nav>
@@ -31,10 +33,6 @@
       <ng-container *ngTemplateOutlet="userDropdown" />
     </c-header-nav>
   </c-container>
-
-  <c-container [fluid]="true" class="px-4">
-    <c-breadcrumb-router />
-  </c-container>
 </ng-container>
 
 <ng-template #themeDropdown>
@@ -44,15 +42,15 @@
     </button>
     <div cDropdownMenu>
       @for (mode of colorModes; track mode.name) {
-      <button
-        (click)="colorMode.set(mode.name)"
-        [active]="colorMode() === mode.name"
-        cDropdownItem
-        class="d-flex align-items-center"
-      >
-        <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
-        {{ mode.text }}
-      </button>
+        <button
+          (click)="colorMode.set(mode.name)"
+          [active]="colorMode() === mode.name"
+          cDropdownItem
+          class="d-flex align-items-center"
+        >
+          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+          {{ mode.text }}
+        </button>
       }
     </div>
   </c-dropdown>
