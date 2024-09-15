@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { DashboardInfo } from "../models/dashboard/dashboard-info";
 import { RawHttpResponse } from "../models/common";
 import { DashboardService } from "../models/dashboard/dashboard-service";
+import { CounterStats } from "../models/dashboard/counter-stats";
 
 @Injectable({ providedIn: 'root' })
 export class DashboardClient extends BaseClient {
@@ -15,4 +16,7 @@ export class DashboardClient extends BaseClient {
 
   getServiceInfo: (serviceId: string) => Observable<RawHttpResponse<DashboardService>>
     = (serviceId: string) => this.getRequest(`dashboard/service-info/${serviceId}`);
+
+  getTopHeavyOperations: () => Observable<RawHttpResponse<CounterStats[]>>
+    = () => this.getRequest('dashboard/top-heavy-operations');
 }

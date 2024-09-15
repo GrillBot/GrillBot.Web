@@ -1,9 +1,10 @@
 import {
   cibDiscord, cibGithub, cibSwagger, cilAccountLogout, cilArrowRight, cilBook, cilCheckCircle, cilContrast, cilMenu, cilMoon,
-  cilSpeech,cilSpeedometer, cilSun, cilUser, cilClock, cilPowerStandby, cilMemory, cilXCircle, cilSitemap, cilWarning, cilFeaturedPlaylist
+  cilSpeech,cilSpeedometer, cilSun, cilUser, cilClock, cilPowerStandby, cilMemory, cilXCircle, cilSitemap, cilWarning, cilFeaturedPlaylist,
+  cilBarChart
 } from '@coreui/icons';
 
 export const iconSubset = {
   cibDiscord, cibGithub, cibSwagger, cilAccountLogout, cilArrowRight, cilBook, cilCheckCircle, cilContrast, cilMenu, cilMoon, cilSpeech, cilSpeedometer,
-  cilSun, cilUser, cilClock, cilPowerStandby, cilMemory, cilXCircle, cilSitemap, cilWarning, cilFeaturedPlaylist
+  cilSun, cilUser, cilClock, cilPowerStandby, cilMemory, cilXCircle, cilSitemap, cilWarning, cilFeaturedPlaylist, cilBarChart
 };

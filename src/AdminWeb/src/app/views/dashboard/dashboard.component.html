@@ -45,7 +45,7 @@
     <ng-container
       [ngTemplateOutlet]="dashboardWidget"
       [ngTemplateOutletContext]="{
-        title: 'Paměť',
+        title: 'Paměť (bot)',
         value: commonInfo.value!.usedMemory | filesize,
         icon: 'cilSpeedometer',
         color: 'primary'
@@ -75,6 +75,12 @@
         }
       </c-card-body>
     </c-card>
+  </c-col>
+</c-row>
+
+<c-row *hasPermission="'Dashboard(Admin)'">
+  <c-col>
+    <app-top-heavy-operations />
   </c-col>
 </c-row>
 } }

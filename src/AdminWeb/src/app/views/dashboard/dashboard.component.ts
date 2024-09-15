@@ -13,6 +13,7 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
 import { ChunkPipe } from '../../pipes/chunk.pipe';
 import { HasPermissionDirective } from '../../core/directives/has-permission.directive';
+import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -36,8 +37,9 @@ import { HasPermissionDirective } from '../../core/directives/has-permission.dir
     CardComponent,
     CardBodyComponent,
     CardHeaderComponent,
-    HasPermissionDirective
-  ]
+    HasPermissionDirective,
+    TopHeavyOperationsComponent
+]
 })
 export class DashboardComponent {
   readonly #dashboardClient = inject(DashboardClient);
