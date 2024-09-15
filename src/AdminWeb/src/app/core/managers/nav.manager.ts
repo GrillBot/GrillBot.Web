@@ -11,19 +11,69 @@ export class NavManager {
       name: 'Dashboard',
       url: '/web/dashboard',
       attributes: {
-        permission: 'Dashboard(Admin)'
+        permissions: ['Dashboard(Admin)']
       },
       iconComponent: {
         name: 'cil-featured-playlist'
-      }
+      },
+      children: [
+        {
+          name: 'Bot',
+          url: '/web/dashboard',
+          attributes: {
+            permissions: ['Dashboard(Admin)']
+          }
+        },
+        {
+          name: 'Služby',
+          url: '/web/dashboard/services',
+          attributes: {
+            permissions: ['Dashboard(Admin)']
+          }
+        },
+        {
+          name: 'API',
+          url: '/web/dashboard/api',
+          attributes: {
+            permissions: ['Dashboard(Admin)', 'AuditLog(Admin)']
+          }
+        }
+      ]
     }
   ];
 
   createSidebarMenu(): INavData[] {
-    const currentPermissions = this.#authManager.token.permissions;
+    const result: INavData[] = [];
 
-    return this.#items
-      .filter(item => currentPermissions.includes(item.attributes!['permission']))
-      .map(item => Object.assign({}, item));
+    for (const item of this.#items) {
+      const menu = this.recursivelyProcessMenu(item);
+      if (menu) {
+        result.push(menu);
+      }
+    }
+
+    return result;
+  }
+
+  recursivelyProcessMenu(item: INavData): INavData | null {
+    const permissions = item.attributes!['permissions'] as string[];
+    if (permissions.length > 0 && !permissions.every(p => this.#authManager.hasPermission(p))) {
+      return null;
+    }
+
+    const copy = JSON.parse(JSON.stringify(item));
+    if (!item.children || item.children.length === 0) {
+      return copy;
+    }
+
+    copy.children = [];
+    for (const childItem of item.children) {
+      const childMenu = this.recursivelyProcessMenu(childItem);
+      if (childMenu) {
+        copy.children.push(childMenu);
+      }
+    }
+
+    return copy;
   }
 }
