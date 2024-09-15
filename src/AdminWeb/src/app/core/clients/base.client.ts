@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { inject } from "@angular/core";
+import { inject, isDevMode } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "@coreui/angular";
-import { Observable, catchError, concat, map, of, throwError } from 'rxjs';
+import { Observable, catchError, concat, map, of, tap, throwError } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
 import { RawHttpResponse } from "../models/common";
@@ -63,6 +63,11 @@ export abstract class BaseClient {
     return concat(
       of({ type: 'start' } as RawHttpResponse<TResponse>),
       this.#http.get<TResponse>(url, this.requestHeaders).pipe(
+        tap(_ => {
+          if (isDevMode()) {
+            console.log(`Time: ${new Date().toISOString()}\nExecuted HTTP request on ${url}\nQueryParams: ${Object.keys(queryParams).length}`);
+          }
+        }),
         map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>),
         catchError(err => this.catchError(err))
       )
