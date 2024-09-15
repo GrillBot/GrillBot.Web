@@ -54,12 +54,13 @@ export class DefaultLayoutComponent implements OnInit {
 
   onScrollbarUpdate($event: any) { }
 
-  ngOnInit(): void {
+  constructor() {
     if (this.#router.url == '/web') {
       this.#router.navigateByUrl('/web/dashboard');
-      return;
     }
+  }
 
+  ngOnInit(): void {
     this.menuItems = this.#navManager.createSidebarMenu();
     this.$isDevelopment = this.#dashboardClient.getCommonInfo().pipe(
       filter(response => response.type === 'finish'),
