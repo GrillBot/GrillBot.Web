@@ -1,0 +1,45 @@
+@if($getServiceInfo | withLoading | async; as serviceInfo) {
+@if(serviceInfo.loading) {
+<c-widget-stat-f [value]="serviceId()" class="mb-3" color="secondary">
+  <ng-template cTemplateId="widgetIconTemplate">
+    <app-loading [small]="true" [showText]="false" />
+  </ng-template>
+</c-widget-stat-f>
+} @else { @if(!serviceInfo.value) {
+<c-widget-stat-f
+  [value]="serviceId()"
+  class="mb-3"
+  color="warning"
+  title="UP: Neznámý"
+>
+  <ng-template cTemplateId="widgetIconTemplate">
+    <svg cIcon name="cilWarning" size="xxl"></svg>
+  </ng-template>
+</c-widget-stat-f>
+} @else {
+<c-widget-stat-f
+  [value]="serviceInfo.value.name"
+  class="mb-3"
+  [color]="serviceInfo.value.isAvailable ? 'success' : 'danger'"
+  title="UP: {{ serviceInfo.value.uptime | timespan }}"
+>
+  <ng-template cTemplateId="widgetIconTemplate">
+    <svg
+      cIcon
+      [name]="serviceInfo.value.isAvailable ? 'cilCheckCircle' : 'cilXCircle'"
+      size="xxl"
+    ></svg>
+  </ng-template>
+  <ng-template cTemplateId="widgetFooterTemplate">
+    <a
+      class="font-weight-bold font-xs text-medium-emphasis"
+      routerLink="/web/dashboard/service/{{ serviceId() }}"
+    >
+      <div class="d-flex align-items-center justify-content-between">
+        <span>Podrobnosti</span>
+        <svg cIcon name="cilArrowRight" width="16"></svg>
+      </div>
+    </a>
+  </ng-template>
+</c-widget-stat-f>
+} } }

@@ -7,7 +7,9 @@ import Moment from 'moment';
 })
 export class TimeSpanPipe implements PipeTransform {
   transform(value: number, ..._: any[]): string {
-    if (value < 1000) {
+    if (value < 0) {
+      return '';
+    } else if (value < 1000) {
       return `${value} ms`;
     }
 

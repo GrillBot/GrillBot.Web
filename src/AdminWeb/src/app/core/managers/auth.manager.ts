@@ -37,4 +37,12 @@ export class AuthManager {
     this.#storage.removeItem(ACCESS_TOKEN_KEY);
     this.#router.navigateByUrl('/login');
   }
+
+  hasPermission(permission: string): boolean {
+    return this.token.permissions.includes(permission);
+  }
+
+  hasAnyPermission(...permissions: string[]): boolean {
+    return permissions.some(p => this.token.permissions.includes(p));
+  }
 }

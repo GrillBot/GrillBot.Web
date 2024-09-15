@@ -4,7 +4,7 @@
   <app-loading customText="Načítá se základní info" />
 </div>
 } @if(!commonInfo.loading && commonInfo.value) {
-<c-row>
+<c-row *hasPermission="'Dashboard(Admin)'">
   <c-col md="3">
     <ng-container
       [ngTemplateOutlet]="dashboardWidget"
@@ -51,6 +51,30 @@
         color: 'primary'
       }"
     ></ng-container>
+  </c-col>
+</c-row>
+
+<c-row *hasPermission="'Dashboard(Admin)'">
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex align-items-center">
+          <svg cIcon name="cilSitemap" size="xxl" class="me-2"></svg>
+          <h4 cCardTitle class="mb-0 fw-normal">Služby</h4>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        @for(serviceChunk of commonInfo.value!.services | chunk; track $index) {
+        <c-row>
+          @for(service of serviceChunk; track $index) {
+          <c-col>
+            <app-service-info [serviceId]="service" />
+          </c-col>
+          }
+        </c-row>
+        }
+      </c-card-body>
+    </c-card>
   </c-col>
 </c-row>
 } }
