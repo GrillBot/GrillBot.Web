@@ -10,17 +10,17 @@
     <thead class="text-nowrap text-truncate">
       <tr>
         @for (field of headerFields(); track field) {
-          @let column = defs().columns[field];
+          @let col = defs().columns[field];
           <th
-            [ngClass]="
-              (column.headerClasses ?? []).concat(['bg-body-tertiary'])
-            "
-            [width]="column.width ?? ''"
+            [ngClass]="(col.headerClasses ?? []).concat(['bg-body-tertiary'])"
+            [width]="col.width ?? ''"
           >
-            @if (column.headerText) {
-              {{ column.headerText }}
-            } @else if (column.template) {
-              <ng-container *ngTemplateOutlet="column.template"></ng-container>
+            @if (col.headerText) {
+              {{ col.headerText }}
+            } @else if (col.headerTemplate) {
+              <ng-container
+                *ngTemplateOutlet="col.headerTemplate"
+              ></ng-container>
             }
           </th>
         }
@@ -47,22 +47,9 @@
         } @else {
           @for (row of response.value; track $index) {
             <tr>
-              @if (isIndexColumn()) {
-                <td>{{ $index + 1 }}.</td>
-              }
-
-              @for (field of dataFields(); track field) {
-                @let columnDef = defs().columns[field];
-                @let columnData = row[field];
-
-                <td [ngClass]="columnDef.dataClasses ?? []">
-                  @if (columnDef.valueFormatter) {
-                    {{ columnDef.valueFormatter(columnData) }}
-                  } @else if (columnDef.asyncValueFormatter) {
-                    {{ columnDef.asyncValueFormatter(columnData) | async }}
-                  } @else {
-                    {{ columnData }}
-                  }
+              @for (column of row; track $index) {
+                <td [ngClass]="column.columnDef.dataClasses ?? []">
+                  {{ column.value | async }}
                 </td>
               }
             </tr>

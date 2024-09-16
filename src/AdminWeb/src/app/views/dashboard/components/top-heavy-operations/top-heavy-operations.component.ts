@@ -10,6 +10,7 @@ import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { SimpleDataTableComponent } from "../../../../components/data-table/simple-data-table.component";
 import { SimpleDataTableDefs } from "../../../../components/data-table/simple-data-table.models";
 import { CounterStats } from "../../../../core/models/dashboard/counter-stats";
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-top-heavy-operations',
@@ -43,28 +44,28 @@ export class TopHeavyOperationsComponent implements OnInit {
       columns: {
         $index: {
           headerClasses: ['text-center'],
-          template: this.barChartIcon(),
+          headerTemplate: this.barChartIcon(),
           width: 45
         },
         section: { headerText: 'Sekce' },
         count: {
           headerText: 'Počet volání',
           dataClasses: ['text-end', 'border'],
-          valueFormatter: new SpacedNumberPipe().transform
+          valueFormatter: (value: number) => of(new SpacedNumberPipe().transform(value))
         },
         totalTime: {
           headerText: 'Celkový čas',
           dataClasses: ['text-end', 'border'],
-          valueFormatter: new TimeSpanPipe().transform
+          valueFormatter: (value: number) => of(new TimeSpanPipe().transform(value))
         },
         averageTime: {
           headerText: 'Průměrný čas',
           dataClasses: ['text-end', 'border'],
-          valueFormatter: new TimeSpanPipe().transform
+          valueFormatter: (value: number) => of(new TimeSpanPipe().transform(value))
         }
       },
       table: {
-        hover: true,
+        hover: false,
         responsive: true,
         striped: true,
         tableClasses: ['mb-0', 'border'],

@@ -4,12 +4,11 @@ import { Signal } from "@angular/core";
 
 export interface ColumnDef {
   headerText?: string;
-  template?: any;
+  headerTemplate?: any;
   headerClasses?: string[];
   width?: number;
   dataClasses?: string[];
-  valueFormatter?: (value: any) => string;
-  asyncValueFormatter?: (value: any) => Observable<string>;
+  valueFormatter?: (value: any) => Observable<string>;
 }
 
 export interface TableDef {
