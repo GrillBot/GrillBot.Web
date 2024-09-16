@@ -17,5 +17,13 @@ export const routes: Routes = [
       title: 'Dashboard / Služby',
       canActivate: (perms: string[]) => perms.includes('Dashboard(Admin)')
     }
+  },
+  {
+    path: 'api',
+    loadComponent: () => import('./api/api-dashboard.component').then(m => m.ApiDashboardComponent),
+    data: {
+      title: 'Dashboard / API',
+      canActivate: (perms: string) => perms.includes('Dashboard(Admin)') && perms.includes('AuditLog(Admin)')
+    }
   }
 ]

@@ -1,6 +1,9 @@
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../core/models/common";
-import { Signal } from "@angular/core";
+
+export interface ColumnCollectionDef {
+  [field: string]: ColumnDef
+}
 
 export interface ColumnDef {
   headerText?: string;
@@ -37,6 +40,6 @@ export interface TableDef {
 
 export interface SimpleDataTableDefs<TData = any> {
   dataSource: TData[] | Observable<RawHttpResponse<TData[]>>;
-  columns: { [field: string]: ColumnDef };
+  columns: ColumnCollectionDef;
   table?: TableDef;
 }

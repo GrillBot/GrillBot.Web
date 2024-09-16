@@ -3,7 +3,7 @@
   [hover]="defs().table?.hover ?? true"
   [responsive]="defs().table?.responsive ?? true"
   [striped]="defs().table?.striped ?? false"
-  [ngClass]="defs().table?.tableClasses ?? []"
+  [ngClass]="(defs().table?.tableClasses ?? []).concat(['mb-0'])"
   [small]="defs().table?.small ?? false"
 >
   @if (columnsCount() > 0) {

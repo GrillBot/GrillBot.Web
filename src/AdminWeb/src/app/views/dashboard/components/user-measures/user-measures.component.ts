@@ -52,7 +52,7 @@ export class UserMeasuresComponent implements OnInit {
         responsive: true,
         small: true,
         striped: true,
-        tableClasses: ['mb-0', 'border']
+        tableClasses: ['border']
       }
     };
   }

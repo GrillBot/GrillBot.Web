@@ -68,7 +68,7 @@ export class TopHeavyOperationsComponent implements OnInit {
         hover: false,
         responsive: true,
         striped: true,
-        tableClasses: ['mb-0', 'border'],
+        tableClasses: ['border'],
         small: true
       }
     }
