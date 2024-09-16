@@ -15,7 +15,7 @@
             icon: 'cilPowerStandby',
             color: commonInfo.value!.isActive ? 'success' : 'danger',
           }"
-        ></ng-container>
+        />
       </c-col>
 
       <c-col md="3">
@@ -27,7 +27,7 @@
             icon: 'cilClock',
             color: 'primary',
           }"
-        ></ng-container>
+        />
       </c-col>
 
       <c-col md="3">
@@ -39,7 +39,7 @@
             icon: 'cilMemory',
             color: 'primary',
           }"
-        ></ng-container>
+        />
       </c-col>
 
       <c-col md="3">
@@ -51,7 +51,7 @@
             icon: 'cilSpeedometer',
             color: 'primary',
           }"
-        ></ng-container>
+        />
       </c-col>
     </c-row>
 
@@ -64,8 +64,12 @@
 }
 
 <c-row>
-  <c-col *hasPermission="'UserMeasures(Admin)'">
-    <app-user-measures></app-user-measures>
+  <c-col *hasPermission="'UserMeasures(Admin)'" md="5">
+    <app-user-measures />
+  </c-col>
+
+  <c-col *hasPermission="'AuditLog(Admin)'">
+    <app-interactions />
   </c-col>
 </c-row>
 

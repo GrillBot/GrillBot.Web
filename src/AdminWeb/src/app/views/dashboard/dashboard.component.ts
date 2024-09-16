@@ -12,6 +12,7 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { HasPermissionDirective } from '../../core/directives/has-permission.directive';
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
 import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
+import { InteractionsComponent } from "./components/interactions/interactions.component";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -31,11 +32,11 @@ import { UserMeasuresComponent } from './components/user-measures/user-measures.
     LoadingComponent,
     HasPermissionDirective,
     TopHeavyOperationsComponent,
-    UserMeasuresComponent
-  ]
+    UserMeasuresComponent,
+    InteractionsComponent
+]
 })
 export class DashboardComponent {
   readonly #dashboardClient = inject(DashboardClient);
-
   readonly $getCommonInfo = this.#dashboardClient.getCommonInfo();
 }

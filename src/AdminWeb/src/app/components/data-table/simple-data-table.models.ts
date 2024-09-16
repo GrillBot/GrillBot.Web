@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../core/models/common";
+import { TemplateRef } from "@angular/core";
 
 export interface ColumnCollectionDef {
   [field: string]: ColumnDef
@@ -11,7 +12,7 @@ export interface ColumnDef {
   headerClasses?: string[];
   width?: number;
   dataClasses?: string[];
-  valueFormatter?: (value: any) => Observable<string>;
+  valueFormatter?: (value: any) => Observable<string | TemplateRef<HTMLElement>>;
 }
 
 export interface TableDef {

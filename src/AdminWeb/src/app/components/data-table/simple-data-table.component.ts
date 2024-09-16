@@ -1,16 +1,16 @@
 import { RawHttpResponse } from '../../core/models/common';
 import { AsyncPipe, NgClass, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit, computed, input } from "@angular/core";
+import { Component, OnInit, TemplateRef, computed, input } from "@angular/core";
 import { TableDirective } from "@coreui/angular";
 import { ColumnDef, SimpleDataTableDefs } from "./simple-data-table.models";
 import { WithLoadingPipe } from "../../pipes/with-loading.pipe";
-import { Observable, concat, delay, isObservable, map, of, startWith, tap } from "rxjs";
+import { Observable, concat, delay, isObservable, map, of, startWith } from "rxjs";
 import { LoadingComponent } from '../loading/loading.component';
 import { IconDirective } from '@coreui/icons-angular';
 
 interface DataRowColumn {
   columnDef: ColumnDef,
-  value: Observable<string>
+  value: Observable<string | TemplateRef<HTMLElement>>
 };
 
 @Component({
@@ -29,7 +29,7 @@ interface DataRowColumn {
 })
 export class SimpleDataTableComponent implements OnInit {
   readonly defs = input.required<SimpleDataTableDefs<any>>();
-  dataSource!: Observable<RawHttpResponse<any>>;
+  dataSource!: Observable<RawHttpResponse<DataRowColumn[][]>>;
 
   headerFields = computed(() => Object.keys(this.defs().columns));
   dataFields = computed(() => this.headerFields().filter(o => o !== '$index'));
@@ -83,5 +83,9 @@ export class SimpleDataTableComponent implements OnInit {
     }
 
     return result;
+  }
+
+  isValueString(value: string | TemplateRef<HTMLElement>): boolean {
+    return typeof value === 'string';
   }
 }

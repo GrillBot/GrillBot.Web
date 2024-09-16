@@ -1,0 +1,19 @@
+<c-card class="mb-3">
+  <c-card-header class="border-bottom-0">
+    <div class="d-flex align-items-center">
+      <svg cIcon name="cilTerminal" size="xxl" class="me-2"></svg>
+      <h4 cCardTitle class="mb-0 fw-normal">Příkazy</h4>
+    </div>
+  </c-card-header>
+  <c-card-body>
+    <app-simple-data-table [defs]="tableDefs" />
+  </c-card-body>
+</c-card>
+
+<ng-template #successIcon>
+  <svg cIcon name="cilCheckCircle" class="me-1 text-success"></svg>
+</ng-template>
+
+<ng-template #failedIcon>
+  <svg cIcon name="cilXCircle" class="me-1 text-danger"></svg>
+</ng-template>

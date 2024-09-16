@@ -12,4 +12,7 @@ export class AuditLogClient extends BaseClient {
 
   getApiDashboard: (apiGroup: string) => Observable<RawHttpResponse<DashboardInfoRow[]>> =
     (apiGroup: string) => this.getRequest(`service/auditlog/dashboard/api`, { apiGroup });
+
+  getInteractionsDashboard: () => Observable<RawHttpResponse<DashboardInfoRow[]>> =
+    () => this.getRequest('service/auditlog/dashboard/interactions');
 }
