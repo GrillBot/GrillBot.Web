@@ -2,18 +2,16 @@ import { NgxFilesizeModule } from 'ngx-filesize';
 import { Component, inject } from "@angular/core";
 import { DashboardClient } from "../../core/clients/dashboard.client";
 import {
-  BadgeComponent, CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent,
-  RowComponent, TemplateIdDirective, WidgetStatFComponent
+  ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
 import { TimeSpanPipe } from "../../pipes/timespan.pipe";
 import { WithLoadingPipe } from '../../pipes/with-loading.pipe';
 import { LoadingComponent } from "../../components/loading/loading.component";
-import { ServiceInfoComponent } from './components/service-info/service-info.component';
-import { ChunkPipe } from '../../pipes/chunk.pipe';
 import { HasPermissionDirective } from '../../core/directives/has-permission.directive';
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
+import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -27,19 +25,14 @@ import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/t
     DatePipe,
     TimeSpanPipe,
     NgxFilesizeModule,
-    BadgeComponent,
     AsyncPipe,
     NgTemplateOutlet,
     WithLoadingPipe,
     LoadingComponent,
-    ServiceInfoComponent,
-    ChunkPipe,
-    CardComponent,
-    CardBodyComponent,
-    CardHeaderComponent,
     HasPermissionDirective,
-    TopHeavyOperationsComponent
-]
+    TopHeavyOperationsComponent,
+    UserMeasuresComponent
+  ]
 })
 export class DashboardComponent {
   readonly #dashboardClient = inject(DashboardClient);

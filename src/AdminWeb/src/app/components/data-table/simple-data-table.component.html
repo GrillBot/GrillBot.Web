@@ -52,14 +52,17 @@
               }
 
               @for (field of dataFields(); track field) {
-                @let column = defs().columns[field];
+                @let columnDef = defs().columns[field];
+                @let columnData = row[field];
 
-                <td [ngClass]="column.dataClasses ?? []">
-                  {{
-                    column.valueFormatter
-                      ? column.valueFormatter(row[field])
-                      : row[field]
-                  }}
+                <td [ngClass]="columnDef.dataClasses ?? []">
+                  @if (columnDef.valueFormatter) {
+                    {{ columnDef.valueFormatter(columnData) }}
+                  } @else if (columnDef.asyncValueFormatter) {
+                    {{ columnDef.asyncValueFormatter(columnData) | async }}
+                  } @else {
+                    {{ columnData }}
+                  }
                 </td>
               }
             </tr>

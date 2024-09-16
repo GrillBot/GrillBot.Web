@@ -11,7 +11,8 @@ export class NavManager {
       name: 'Dashboard',
       url: '/web/dashboard',
       attributes: {
-        permissions: ['Dashboard(Admin)']
+        checkPermissions: (perms: string[]) =>
+          perms.includes('Dashboard(Admin)') || perms.includes('UserMeasures(Admin)')
       },
       iconComponent: {
         name: 'cil-featured-playlist'
@@ -21,21 +22,22 @@ export class NavManager {
           name: 'Bot',
           url: '/web/dashboard/common',
           attributes: {
-            permissions: ['Dashboard(Admin)']
+            checkPermissions: (perms: string[]) =>
+              perms.includes('Dashboard(Admin)') || perms.includes('UserMeasures(Admin)')
           }
         },
         {
           name: 'Služby',
           url: '/web/dashboard/services',
           attributes: {
-            permissions: ['Dashboard(Admin)']
+            checkPermissions: (perms: string[]) => perms.includes('Dashboard(Admin)')
           }
         },
         {
           name: 'API',
           url: '/web/dashboard/api',
           attributes: {
-            permissions: ['Dashboard(Admin)', 'AuditLog(Admin)']
+            checkPermissions: (perms: string[]) => perms.includes('Dashboard(Admin)') && perms.includes('AuditLog(Admin)')
           }
         }
       ]
@@ -56,8 +58,8 @@ export class NavManager {
   }
 
   recursivelyProcessMenu(item: INavData): INavData | null {
-    const permissions = item.attributes!['permissions'] as string[];
-    if (permissions.length > 0 && !permissions.every(p => this.#authManager.hasPermission(p))) {
+    const checkPermissions: (perms: string[]) => boolean | undefined = item.attributes!["checkPermissions"];
+    if (checkPermissions && !checkPermissions(this.#authManager.token.permissions)) {
       return null;
     }
 

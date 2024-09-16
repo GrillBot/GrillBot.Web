@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { inject, isDevMode } from "@angular/core";
-import { Router } from "@angular/router";
 import { LocalStorageService } from "@coreui/angular";
 import { Observable, catchError, concat, map, of, tap, throwError } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
@@ -57,7 +56,10 @@ export abstract class BaseClient {
     return url;
   }
 
-  protected getRequest<TResponse>(endpoint: string, queryParams: HttpQueryParams = {}): Observable<RawHttpResponse<TResponse>> {
+  protected getRequest<TResponse>(
+    endpoint: string,
+    queryParams: HttpQueryParams = {}
+  ): Observable<RawHttpResponse<TResponse>> {
     const url = this.createUrl(endpoint, queryParams);
 
     return concat(

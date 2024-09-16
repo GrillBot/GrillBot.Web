@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../core/models/common";
+import { Signal } from "@angular/core";
 
 export interface ColumnDef {
   headerText?: string;
@@ -8,6 +9,7 @@ export interface ColumnDef {
   width?: number;
   dataClasses?: string[];
   valueFormatter?: (value: any) => string;
+  asyncValueFormatter?: (value: any) => Observable<string>;
 }
 
 export interface TableDef {
