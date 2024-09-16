@@ -4,6 +4,7 @@
   [responsive]="defs().table?.responsive ?? true"
   [striped]="defs().table?.striped ?? false"
   [ngClass]="defs().table?.tableClasses ?? []"
+  [small]="defs().table?.small ?? false"
 >
   @if (columnsCount() > 0) {
     <thead class="text-nowrap text-truncate">

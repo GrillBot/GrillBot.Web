@@ -26,6 +26,11 @@ export interface TableDef {
    */
   striped?: boolean;
 
+  /**
+   * @default false
+   */
+  small?: boolean;
+
   tableClasses?: string[];
 }
 
