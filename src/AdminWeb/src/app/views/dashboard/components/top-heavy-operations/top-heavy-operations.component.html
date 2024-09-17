@@ -6,10 +6,9 @@
     </div>
   </c-card-header>
   <c-card-body>
-    <app-simple-data-table [defs]="tableDefs"></app-simple-data-table>
+    <app-ag-grid
+      [gridOptions]="gridOptions"
+      [dataSource]="$getTopHeavyOperations"
+    />
   </c-card-body>
 </c-card>
-
-<ng-template #barChartIcon>
-  <svg cIcon name="cilBarChart" class="me-1"></svg>
-</ng-template>

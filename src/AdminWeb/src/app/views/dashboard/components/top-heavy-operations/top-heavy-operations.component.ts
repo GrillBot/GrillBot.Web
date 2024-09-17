@@ -1,16 +1,14 @@
 import { SpacedNumberPipe } from './../../../../pipes/spaced-number.pipe';
-import { Component, ElementRef, OnInit, TemplateRef, inject, viewChild } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { DashboardClient } from "../../../../core/clients/dashboard.client";
-import { CardBodyComponent, CardComponent, CardHeaderComponent, TableDirective } from "@coreui/angular";
+import { CardBodyComponent, CardComponent, CardHeaderComponent } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { WithLoadingPipe } from "../../../../pipes/with-loading.pipe";
-import { AsyncPipe } from "@angular/common";
-import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
-import { SimpleDataTableComponent } from "../../../../components/data-table/simple-data-table.component";
-import { SimpleDataTableDefs } from "../../../../components/data-table/simple-data-table.models";
-import { CounterStats } from "../../../../core/models/dashboard/counter-stats";
-import { of } from 'rxjs';
+import { map } from 'rxjs';
+import { GridOptions } from 'ag-grid-community';
+import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
+import { usePipeTransform } from '../../../../components/ag-grid/ag-grid.functions';
+import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 
 @Component({
   selector: 'app-top-heavy-operations',
@@ -20,57 +18,50 @@ import { of } from 'rxjs';
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    TableDirective,
     IconDirective,
-    WithLoadingPipe,
-    AsyncPipe,
-    LoadingComponent,
-    SpacedNumberPipe,
-    TimeSpanPipe,
-    SimpleDataTableComponent
-  ]
+    AgGridComponent
+]
 })
 export class TopHeavyOperationsComponent implements OnInit {
   readonly #client = inject(DashboardClient);
-  readonly $getTopHeavyOperations = this.#client.getTopHeavyOperations();
+  readonly $getTopHeavyOperations = this.#client.getTopHeavyOperations().pipe(map(o => o.value));
 
-  readonly barChartIcon = viewChild<TemplateRef<HTMLElement>>('barChartIcon');
-
-  tableDefs!: SimpleDataTableDefs<CounterStats>;
+  gridOptions!: GridOptions;
 
   ngOnInit(): void {
-    this.tableDefs = {
-      dataSource: this.$getTopHeavyOperations,
-      columns: {
-        $index: {
-          headerClasses: ['text-center'],
-          headerTemplate: this.barChartIcon(),
-          width: 45
+    this.gridOptions = {
+      ...DEFAULT_GRID_OPTIONS,
+      columnDefs: [
+        INDEX_COLUMN,
+        {
+          field: 'section',
+          headerName: 'Sekce'
         },
-        section: { headerText: 'Sekce' },
-        count: {
-          headerText: 'Počet volání',
-          dataClasses: ['text-end', 'border'],
-          valueFormatter: (value: number) => of(new SpacedNumberPipe().transform(value))
+        {
+          field: 'count',
+          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
+          headerName: 'Počet',
+          maxWidth: 100
         },
-        totalTime: {
-          headerText: 'Celkový čas',
-          dataClasses: ['text-end', 'border'],
-          valueFormatter: (value: number) => of(new TimeSpanPipe().transform(value))
+        {
+          field: 'totalTime',
+          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          headerName: 'Celkový čas',
+          maxWidth: 150
         },
-        averageTime: {
-          headerText: 'Průměrný čas',
-          dataClasses: ['text-end', 'border'],
-          valueFormatter: (value: number) => of(new TimeSpanPipe().transform(value))
+        {
+          field: 'averageTime',
+          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          headerName: 'Průměrný čas',
+          maxWidth: 150
         }
+      ],
+      defaultColDef: { ...DEFAULT_COL_DEF },
+      onGridReady: $event => {
+        $event.api.autoSizeAllColumns();
       },
-      table: {
-        hover: false,
-        responsive: true,
-        striped: true,
-        tableClasses: ['border'],
-        small: true
-      }
+      suppressHorizontalScroll: true,
+      getRowStyle: STRIPED_ROW_STYLE,
     }
   }
 }

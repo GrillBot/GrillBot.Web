@@ -1,7 +1,11 @@
 @import "variables";
 
+// Lib styles
 @import "@coreui/coreui/scss/coreui";
 @import "bootstrap/dist/css/bootstrap.min.css";
+
+// AG Grid
+@import 'ag-grid';
 
 @import "theme";
 @import "custom";
