@@ -1,0 +1,9 @@
+@if (params) {
+  <div>
+    @if (source) {
+      {{ source | async }}
+    } @else {
+      {{ params.value }}
+    }
+  </div>
+}

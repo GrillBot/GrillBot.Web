@@ -56,7 +56,7 @@ export class TopHeavyOperationsComponent implements OnInit {
           maxWidth: 150
         }
       ],
-      defaultColDef: { ...DEFAULT_COL_DEF },
+      defaultColDef: DEFAULT_COL_DEF,
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
       },

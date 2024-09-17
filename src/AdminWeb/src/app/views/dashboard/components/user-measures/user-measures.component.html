@@ -6,6 +6,6 @@
     </div>
   </c-card-header>
   <c-card-body>
-    <app-simple-data-table [defs]="tableDefs" />
+    <app-ag-grid [gridOptions]="gridOptions" [dataSource]="$getDashboard" [height]="'300px'" />
   </c-card-body>
 </c-card>
