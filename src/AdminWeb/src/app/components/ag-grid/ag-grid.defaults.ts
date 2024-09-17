@@ -1,5 +1,5 @@
 import { ColDef, GridOptions, RowClassParams, RowStyle, ValueFormatterParams } from "ag-grid-community";
-import { LoadingOverlayComponent } from "./overlays/loading-overlay/loading-overlay.component";
+import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-overlay.component";
 
 export const DEFAULT_COL_DEF: ColDef<any, any> = {
   sortable: false,
