@@ -3,6 +3,7 @@ import { BaseClient } from "./base.client";
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../models/common";
 import { DashboardInfoRow } from "../models/audit-log/dashboard-info-row";
+import { TodayAvgTimes } from "../models/audit-log/today-avg-times";
 
 @Injectable({ providedIn: 'root' })
 export class AuditLogClient extends BaseClient {
@@ -15,4 +16,7 @@ export class AuditLogClient extends BaseClient {
 
   getInteractionsDashboard: () => Observable<RawHttpResponse<DashboardInfoRow[]>> =
     () => this.getRequest('service/auditlog/dashboard/interactions');
+
+  getTodayAvgTimes: () => Observable<RawHttpResponse<TodayAvgTimes>> =
+    () => this.getRequest('service/auditlog/dashboard/today-avg-times');
 }

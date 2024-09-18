@@ -13,6 +13,7 @@ import { HasPermissionDirective } from '../../core/directives/has-permission.dir
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
 import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
 import { InteractionsComponent } from "./components/interactions/interactions.component";
+import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -33,7 +34,8 @@ import { InteractionsComponent } from "./components/interactions/interactions.co
     HasPermissionDirective,
     TopHeavyOperationsComponent,
     UserMeasuresComponent,
-    InteractionsComponent
+    InteractionsComponent,
+    TodayAvgTimesComponent
 ]
 })
 export class DashboardComponent {

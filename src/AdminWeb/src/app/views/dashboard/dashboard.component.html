@@ -73,6 +73,12 @@
   </c-col>
 </c-row>
 
+<c-row>
+  <c-col *hasPermission="'AuditLog(Admin)'" md="5">
+    <app-today-avg-times />
+  </c-col>
+</c-row>
+
 <ng-template
   #dashboardWidget
   let-title="title"
