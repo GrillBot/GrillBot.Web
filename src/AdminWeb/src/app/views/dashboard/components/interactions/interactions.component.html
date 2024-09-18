@@ -6,14 +6,10 @@
     </div>
   </c-card-header>
   <c-card-body>
-    <app-simple-data-table [defs]="tableDefs" />
+    <app-ag-grid
+      [gridOptions]="gridOptions"
+      [dataSource]="$getInteractionsDashboard"
+      [height]="'300px'"
+    />
   </c-card-body>
 </c-card>
-
-<ng-template #successIcon>
-  <svg cIcon name="cilCheckCircle" class="me-1 text-success"></svg>
-</ng-template>
-
-<ng-template #failedIcon>
-  <svg cIcon name="cilXCircle" class="me-1 text-danger"></svg>
-</ng-template>
