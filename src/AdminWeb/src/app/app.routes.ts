@@ -21,13 +21,6 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
-      },
-      {
-        path: 'empty',
-        loadComponent: () => import('./views/empty.component').then(m => m.EmptyComponent),
-        data: {
-          canActivate: (_: string[]) => true
-        }
       }
     ]
   },

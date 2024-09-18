@@ -1,4 +1,3 @@
-import { NgxFilesizeModule } from 'ngx-filesize';
 import { Component, inject } from "@angular/core";
 import { DashboardClient } from "../../core/clients/dashboard.client";
 import {
@@ -15,6 +14,7 @@ import { UserMeasuresComponent } from './components/user-measures/user-measures.
 import { InteractionsComponent } from "./components/interactions/interactions.component";
 import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
 import { JobsComponent } from "./components/jobs/jobs.component";
+import { FilesizePipe } from '../../pipes/filesize.pipe';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -27,7 +27,7 @@ import { JobsComponent } from "./components/jobs/jobs.component";
     IconDirective,
     DatePipe,
     TimeSpanPipe,
-    NgxFilesizeModule,
+    FilesizePipe,
     AsyncPipe,
     NgTemplateOutlet,
     WithLoadingPipe,
@@ -38,7 +38,7 @@ import { JobsComponent } from "./components/jobs/jobs.component";
     InteractionsComponent,
     TodayAvgTimesComponent,
     JobsComponent
-]
+  ]
 })
 export class DashboardComponent {
   readonly #dashboardClient = inject(DashboardClient);
