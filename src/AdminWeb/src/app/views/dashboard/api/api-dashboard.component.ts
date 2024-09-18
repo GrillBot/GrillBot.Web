@@ -1,23 +1,20 @@
-import { AsyncPipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
-import { WithLoadingPipe } from "../../../pipes/with-loading.pipe";
 import { LoadingComponent } from "../../../components/loading/loading.component";
 import { CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../core/clients/audit-log.client";
-import { ColumnCollectionDef, SimpleDataTableDefs, TableDef } from "../../../components/data-table/simple-data-table.models";
-import { DashboardInfoRow } from "../../../core/models/audit-log/dashboard-info-row";
-import { SimpleDataTableComponent } from "../../../components/data-table/simple-data-table.component";
-import { of } from "rxjs";
+import { map } from "rxjs";
 import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
+import { GridOptions } from "ag-grid-community";
+import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
+import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
+import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 
 @Component({
   selector: 'app-api-dashboard',
   templateUrl: './api-dashboard.component.html',
   standalone: true,
   imports: [
-    AsyncPipe,
-    WithLoadingPipe,
     LoadingComponent,
     RowComponent,
     ColComponent,
@@ -25,50 +22,42 @@ import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
     CardBodyComponent,
     IconDirective,
     CardTitleDirective,
-    SimpleDataTableComponent
+    AgGridComponent
   ]
 })
 export class ApiDashboardComponent implements OnInit {
   readonly #client = inject(AuditLogClient);
+  readonly $publicApiDashboard = this.#client.getApiDashboard('V2').pipe(map(o => o.value!));
+  readonly $privateApiDashboard = this.#client.getApiDashboard('V3').pipe(map(o => o.value!));
 
-  publicApiTable!: SimpleDataTableDefs<DashboardInfoRow>;
-  privateApiTable!: SimpleDataTableDefs<DashboardInfoRow>;
+  gridOptions!: GridOptions;
 
   ngOnInit(): void {
-    const columns: ColumnCollectionDef = {
-      name: {
-        headerText: 'Endpoint'
+    this.gridOptions = {
+      ...DEFAULT_GRID_OPTIONS,
+      columnDefs: [
+        {
+          field: 'name',
+          headerName: 'Endpoint',
+          tooltipField: 'name'
+        },
+        {
+          field: 'result',
+          headerName: 'Výsledek',
+        },
+        {
+          field: 'duration',
+          headerName: 'Trvání',
+          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          maxWidth: 140
+        }
+      ],
+      defaultColDef: DEFAULT_COL_DEF,
+      onGridReady: $event => {
+        $event.api.autoSizeAllColumns();
       },
-      result: {
-        headerText: 'Výsledek',
-        dataClasses: ['border']
-      },
-      duration: {
-        headerText: 'Trvání',
-        dataClasses: ['text-end', 'border'],
-        headerClasses: ['text-end'],
-        valueFormatter: (value: number) => of(new TimeSpanPipe().transform(value))
-      }
+      suppressHorizontalScroll: true,
+      getRowStyle: STRIPED_ROW_STYLE
     };
-
-    const table: TableDef = {
-      hover: false,
-      responsive: true,
-      small: true,
-      striped: true,
-      tableClasses: ['border']
-    };
-
-    this.publicApiTable = {
-      dataSource: this.#client.getApiDashboard('V2'),
-      columns: columns,
-      table: table
-    }
-
-    this.privateApiTable = {
-      dataSource: this.#client.getApiDashboard('V3'),
-      columns: columns,
-      table: table
-    }
   }
 }

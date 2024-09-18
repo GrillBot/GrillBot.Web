@@ -3,7 +3,10 @@
     <c-card>
       <c-card-body>
         <h5 cCardTitle>Privátní API</h5>
-        <app-simple-data-table [defs]="privateApiTable" />
+        <app-ag-grid
+          [gridOptions]="gridOptions"
+          [dataSource]="$privateApiDashboard"
+        />
       </c-card-body>
     </c-card>
   </c-col>
@@ -12,7 +15,10 @@
     <c-card>
       <c-card-body>
         <h5 cCardTitle>Veřejné API</h5>
-        <app-simple-data-table [defs]="publicApiTable" />
+        <app-ag-grid
+          [gridOptions]="gridOptions"
+          [dataSource]="$publicApiDashboard"
+        />
       </c-card-body>
     </c-card>
   </c-col>
