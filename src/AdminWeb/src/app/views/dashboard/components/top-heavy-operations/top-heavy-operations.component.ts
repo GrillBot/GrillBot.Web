@@ -35,7 +35,8 @@ export class TopHeavyOperationsComponent implements OnInit {
         INDEX_COLUMN,
         {
           field: 'section',
-          headerName: 'Sekce'
+          headerName: 'Sekce',
+          tooltipField: 'section'
         },
         {
           field: 'count',
@@ -60,7 +61,6 @@ export class TopHeavyOperationsComponent implements OnInit {
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
       },
-      suppressHorizontalScroll: true,
       getRowStyle: STRIPED_ROW_STYLE,
     }
   }

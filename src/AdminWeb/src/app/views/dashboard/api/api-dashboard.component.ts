@@ -56,7 +56,6 @@ export class ApiDashboardComponent implements OnInit {
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
       },
-      suppressHorizontalScroll: true,
       getRowStyle: STRIPED_ROW_STYLE
     };
   }

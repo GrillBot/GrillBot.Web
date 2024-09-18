@@ -55,7 +55,6 @@ export class UserMeasuresComponent implements OnInit {
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
       },
-      suppressHorizontalScroll: true,
       getRowStyle: STRIPED_ROW_STYLE
     }
   }

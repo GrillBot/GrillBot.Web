@@ -14,6 +14,7 @@ import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/t
 import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
 import { InteractionsComponent } from "./components/interactions/interactions.component";
 import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
+import { JobsComponent } from "./components/jobs/jobs.component";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -35,7 +36,8 @@ import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-t
     TopHeavyOperationsComponent,
     UserMeasuresComponent,
     InteractionsComponent,
-    TodayAvgTimesComponent
+    TodayAvgTimesComponent,
+    JobsComponent
 ]
 })
 export class DashboardComponent {

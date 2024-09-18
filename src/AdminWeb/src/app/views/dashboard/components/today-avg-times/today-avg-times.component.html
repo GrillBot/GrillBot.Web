@@ -22,7 +22,7 @@
           />
         </c-row>
 
-        <c-row class="mt-3">
+        <c-row>
           <ng-container
             [ngTemplateOutlet]="widget"
             [ngTemplateOutletContext]="{
@@ -45,7 +45,7 @@
 </c-card>
 
 <ng-template #widget let-title="title" let-value="value">
-  <c-col>
+  <c-col class="mb-3">
     <c-widget-stat-e
       [title]="title"
       [value]="value === -1 ? 'Zatím nezměřeno' : (value | timespan)"

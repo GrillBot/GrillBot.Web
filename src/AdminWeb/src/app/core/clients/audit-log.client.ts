@@ -19,4 +19,7 @@ export class AuditLogClient extends BaseClient {
 
   getTodayAvgTimes: () => Observable<RawHttpResponse<TodayAvgTimes>> =
     () => this.getRequest('service/auditlog/dashboard/today-avg-times');
+
+  getJobDashboard: () => Observable<RawHttpResponse<DashboardInfoRow[]>> =
+    () => this.getRequest('service/auditlog/dashboard/jobs');
 }

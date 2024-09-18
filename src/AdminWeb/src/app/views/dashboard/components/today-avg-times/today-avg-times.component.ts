@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
-import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent, WidgetStatEComponent } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { CardBodyComponent, CardComponent, ColComponent, RowComponent, WidgetStatEComponent } from "@coreui/angular";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { WithLoadingPipe } from "../../../../pipes/with-loading.pipe";
 import { LoadingComponent } from "../../../../components/loading/loading.component";
@@ -13,9 +12,7 @@ import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
   standalone: true,
   imports: [
     CardComponent,
-    CardHeaderComponent,
     CardBodyComponent,
-    IconDirective,
     WidgetStatEComponent,
     AsyncPipe,
     WithLoadingPipe,
