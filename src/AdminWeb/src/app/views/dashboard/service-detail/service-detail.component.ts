@@ -2,7 +2,7 @@ import { SpacedNumberPipe } from './../../../pipes/spaced-number.pipe';
 import { Component, inject, LOCALE_ID } from "@angular/core";
 import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
 import { WithLoadingPipe } from "../../../pipes/with-loading.pipe";
@@ -17,6 +17,8 @@ import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
 import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
+import { ObservablePipe } from '../../../pipes/observable.pipe';
+import { DictToListPipe } from '../../../pipes/dict-to-list.pipe';
 
 @Component({
   selector: 'app-service-detail',
@@ -39,7 +41,9 @@ import { RequestStatistics } from '../../../core/models/dashboard/request-statis
     TimeSpanPipe,
     SpacedNumberPipe,
     DatePipe,
-    AgGridComponent
+    AgGridComponent,
+    ObservablePipe,
+    DictToListPipe
   ]
 })
 export class ServiceDetailComponent {
@@ -49,9 +53,7 @@ export class ServiceDetailComponent {
 
   $getServiceDetail!: Observable<RawHttpResponse<ServiceDetail>>;
   endpointsGrid!: GridOptions;
-
-  get Object() { return Object; }
-  get of() { return of; }
+  dbStatsGrid!: GridOptions;
 
   constructor() {
     const serviceId = this.#activatedRoute.snapshot.params['serviceId'];
@@ -101,6 +103,27 @@ export class ServiceDetailComponent {
       defaultColDef: DEFAULT_COL_DEF,
       onGridReady: $event => {
         $event.api.autoSizeAllColumns()
+      },
+      getRowStyle: STRIPED_ROW_STYLE
+    };
+
+    this.dbStatsGrid = {
+      ...DEFAULT_GRID_OPTIONS,
+      columnDefs: [
+        {
+          field: 'key',
+          headerName: 'Tabulka'
+        },
+        {
+          field: 'value',
+          headerName: 'Počet záznamů',
+          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
+          maxWidth: 200
+        }
+      ],
+      defaultColDef: DEFAULT_COL_DEF,
+      onGridReady: $event => {
+        $event.api.autoSizeAllColumns();
       },
       getRowStyle: STRIPED_ROW_STYLE
     };
