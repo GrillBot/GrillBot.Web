@@ -1,0 +1,122 @@
+@if ($getServiceDetail | withLoading | async; as response) {
+  <div class="mb-3">
+    @if (response.loading) {
+      <div class="d-flex justify-content-center">
+        <app-loading customText="Načítají se podrobnosti o službě" />
+      </div>
+    } @else if (!response.value) {
+      <c-alert [color]="'danger'">
+        <div class="d-flex align-items-center">
+          <svg cIcon name="cilWarning" size="xxl" class="me-3"></svg>
+          Při načítání podrobností o službě došlo k neočekávané situaci.
+        </div>
+      </c-alert>
+    } @else {
+      @if (response.value.apiErrorMessage) {
+        <c-alert [color]="'warning'">
+          <div class="d-flex align-items-center">
+            <svg cIcon name="cilWarning" size="xxl" class="me-3"></svg>
+            {{ response.value.apiErrorMessage }}
+          </div>
+        </c-alert>
+      }
+
+      <c-row class="mb-3">
+        <c-col md="6">
+          <c-card>
+            <c-card-body>
+              <h5 cCardTitle>{{ response.value.name }}</h5>
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'URL',
+                  value: response.value.url,
+                }"
+              />
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'Využitá paměť',
+                  value: response.value.usedMemory | filesize,
+                }"
+              />
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'Uptime',
+                  value: response.value.uptime | timespan,
+                }"
+              />
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'CPU čas',
+                  value: response.value.cpuTime | timespan,
+                }"
+              />
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'Počet požadavků',
+                  value: response.value.requestsCount | spacedNumber,
+                }"
+              />
+
+              <ng-container
+                [ngTemplateOutlet]="detailInfoRow"
+                [ngTemplateOutletContext]="{
+                  title: 'Měřeno od',
+                  value:
+                    response.value.measuredFrom | date: 'dd. MM. yyyy HH:mm:ss',
+                }"
+              />
+            </c-card-body>
+          </c-card>
+        </c-col>
+
+        @if (Object.keys(response.value.additionalData).length > 0) {
+          <c-col>
+            <c-card>
+              <c-card-body>
+                <h5 cCardTitle>Provozní data</h5>
+
+                @for (
+                  key of Object.keys(response.value.additionalData);
+                  track key
+                ) {
+                  <ng-container
+                    [ngTemplateOutlet]="detailInfoRow"
+                    [ngTemplateOutletContext]="{
+                      title: key,
+                      value: response.value.additionalData[key],
+                    }"
+                  />
+                }
+              </c-card-body>
+            </c-card>
+          </c-col>
+        }
+      </c-row>
+
+      <app-ag-grid
+        [gridOptions]="endpointsGrid"
+        [dataSource]="of(response.value.endpoints)"
+        [height]="'300px'"
+      />
+    }
+  </div>
+}
+
+<ng-template #detailInfoRow let-title="title" let-value="value">
+  <c-row>
+    <c-col>
+      <b>{{ title }}:</b>
+    </c-col>
+    <c-col> {{ value }}</c-col>
+  </c-row>
+</ng-template>

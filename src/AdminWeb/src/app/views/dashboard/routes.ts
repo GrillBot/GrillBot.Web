@@ -12,9 +12,17 @@ export const routes: Routes = [
   },
   {
     path: 'services',
-    loadComponent: () => import('./services/services-dashboard.component').then(m => m.ServicesDashboardComponent),
+    loadComponent: () => import('./services-dashboard/services-dashboard.component').then(m => m.ServicesDashboardComponent),
     data: {
       title: 'Dashboard / Služby',
+      canActivate: (perms: string[]) => perms.includes('Dashboard(Admin)')
+    }
+  },
+  {
+    path: 'services/:serviceId',
+    loadComponent: () => import('./service-detail/service-detail.component').then(m => m.ServiceDetailComponent),
+    data: {
+      title: 'Dashboard / Služby / Detail',
       canActivate: (perms: string[]) => perms.includes('Dashboard(Admin)')
     }
   },
