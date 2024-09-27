@@ -85,6 +85,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: AdminWeb
         uses: docker/build-push-action@v6
+        if: needs.PathsFilter.outputs.AdminWeb == 'true'
         with:
           context: src/AdminWeb
           push: true
@@ -93,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Production_AdminWeb
     needs: [PathsFilter, CreateDockerImage]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' && needs.PathsFilter.outputs.AdminWeb == 'true'
     steps:
       - name: Execute deployment on SSH
         uses: appleboy/ssh-action@v0.1.8
