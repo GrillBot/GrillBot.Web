@@ -6,7 +6,7 @@ import { AuditLogClient } from "../../../core/clients/audit-log.client";
 import { map } from "rxjs";
 import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
 import { GridOptions } from "ag-grid-community";
-import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
+import { STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 
@@ -34,7 +34,6 @@ export class ApiDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridOptions = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         {
           field: 'name',
@@ -52,10 +51,6 @@ export class ApiDashboardComponent implements OnInit {
           maxWidth: 140
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns();
-      },
       getRowStyle: STRIPED_ROW_STYLE
     };
   }

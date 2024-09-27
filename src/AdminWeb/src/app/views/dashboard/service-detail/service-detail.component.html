@@ -119,6 +119,16 @@
           />
         </div>
       }
+
+      @if (response.value.operations.length > 0) {
+        <div class="mb-3">
+          <app-ag-grid
+            [gridOptions]="operationsGrid"
+            [dataSource]="response.value.operations | withNesting | observable"
+            [height]="'450px'"
+          />
+        </div>
+      }
     }
   </div>
 }

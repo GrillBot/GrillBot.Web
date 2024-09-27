@@ -12,13 +12,14 @@ import { AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent, 
 import { IconDirective } from "@coreui/icons-angular";
 import { FilesizePipe } from "../../../pipes/filesize.pipe";
 import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
-import { GridOptions } from "ag-grid-community";
+import { GridOptions, RowClassParams, RowStyle } from "ag-grid-community";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
-import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
+import { COLUMN_FILTERS, DEFAULT_CELL_PADDING, DEFAULT_CELL_PADDING_LEFT, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
 import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
 import { ObservablePipe } from '../../../pipes/observable.pipe';
 import { DictToListPipe } from '../../../pipes/dict-to-list.pipe';
+import { WithNestingPipe } from '../../../pipes/with-nesting.pipe';
 
 @Component({
   selector: 'app-service-detail',
@@ -43,7 +44,8 @@ import { DictToListPipe } from '../../../pipes/dict-to-list.pipe';
     DatePipe,
     AgGridComponent,
     ObservablePipe,
-    DictToListPipe
+    DictToListPipe,
+    WithNestingPipe
   ]
 })
 export class ServiceDetailComponent {
@@ -54,17 +56,18 @@ export class ServiceDetailComponent {
   $getServiceDetail!: Observable<RawHttpResponse<ServiceDetail>>;
   endpointsGrid!: GridOptions;
   dbStatsGrid!: GridOptions;
+  operationsGrid!: GridOptions;
 
   constructor() {
     const serviceId = this.#activatedRoute.snapshot.params['serviceId'];
     this.$getServiceDetail = this.#client.getServiceDetail(serviceId);
 
     this.endpointsGrid = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         {
           field: 'endpoint',
-          tooltipField: 'endpoint'
+          tooltipField: 'endpoint',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'lastRequestAt',
@@ -76,19 +79,22 @@ export class ServiceDetailComponent {
           field: 'totalTime',
           headerName: 'Celkový čas',
           valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
-          maxWidth: 150
+          maxWidth: 150,
+          filter: COLUMN_FILTERS.NUMBER
         },
         {
           field: 'lastTime',
           headerName: 'Poslední čas',
           valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
-          maxWidth: 150
+          maxWidth: 150,
+          filter: COLUMN_FILTERS.NUMBER
         },
         {
           field: 'avgTime',
           headerName: 'Průměrný čas',
           valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
-          maxWidth: 150
+          maxWidth: 150,
+          filter: COLUMN_FILTERS.NUMBER
         },
         {
           headerName: 'Úspěšnost',
@@ -100,32 +106,69 @@ export class ServiceDetailComponent {
           }
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns()
-      },
       getRowStyle: STRIPED_ROW_STYLE
     };
 
     this.dbStatsGrid = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         {
           field: 'key',
-          headerName: 'Tabulka'
+          headerName: 'Tabulka',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'value',
           headerName: 'Počet záznamů',
           valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 200
+          maxWidth: 200,
+          filter: COLUMN_FILTERS.NUMBER
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns();
-      },
       getRowStyle: STRIPED_ROW_STYLE
     };
+
+    this.operationsGrid = {
+      columnDefs: [
+        {
+          field: 'item.section',
+          cellStyle: $event => {
+            return {
+              ...DEFAULT_CELL_PADDING,
+              'padding-left': $event.data.level === 0 ?
+                `calc(${DEFAULT_CELL_PADDING_LEFT})` :
+                `calc(${$event.data.level * 30}px + (${DEFAULT_CELL_PADDING_LEFT}))`
+            }
+          },
+          headerName: 'Sekce'
+        },
+        {
+          field: 'item.count',
+          headerName: 'Počet',
+          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
+          maxWidth: 150,
+          filter: COLUMN_FILTERS.NUMBER
+        },
+        {
+          field: 'item.totalTime',
+          headerName: 'Celkový čas',
+          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          maxWidth: 200,
+          filter: COLUMN_FILTERS.NUMBER
+        },
+        {
+          field: 'item.averageTime',
+          headerName: 'Průměrný čas',
+          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          maxWidth: 200,
+          filter: COLUMN_FILTERS.NUMBER
+        }
+      ],
+      getRowStyle: this.operationsRowStyleGenerator
+    };
+  }
+
+  private operationsRowStyleGenerator(params: RowClassParams<any>): RowStyle | undefined {
+    const avgTime: number = params.data.item.averageTime;
+    return STRIPED_ROW_STYLE(params);
   }
 }

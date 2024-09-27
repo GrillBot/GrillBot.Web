@@ -5,7 +5,6 @@ import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.componen
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { map } from "rxjs";
 import { GridOptions } from "ag-grid-community";
-import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS } from "../../../../components/ag-grid/ag-grid.defaults";
 import { usePipeTransform } from "../../../../components/ag-grid/ag-grid.functions";
 import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
@@ -30,7 +29,6 @@ export class JobsComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridOptions = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         {
           field: 'name',
@@ -43,10 +41,6 @@ export class JobsComponent implements OnInit {
           valueFormatter: params => usePipeTransform(params, TimeSpanPipe)
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns();
-      },
       getRowClass: params => {
         const data: DashboardInfoRow = params.data;
         return !data.success ? ['bg-danger-subtle'] : [];

@@ -4,3 +4,21 @@
 .ag-theme-balham {
   --ag-font-size: $font-size-base;
 }
+
+.ag-filter-menu {
+  padding: 5px;
+  border-radius: 5px;
+
+  & .ag-picker-field .ag-picker-field-wrapper {
+    padding: 4px;
+  }
+
+  & .ag-filter-body {
+    padding-top: 5px;
+
+    & .ag-input-field-input {
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+}

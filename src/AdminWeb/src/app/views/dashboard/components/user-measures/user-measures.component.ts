@@ -5,7 +5,7 @@ import { UserMeasuresClient } from "../../../../core/clients/user-measures.clien
 import { IconDirective } from "@coreui/icons-angular";
 import { LookupClient } from '../../../../core/clients/lookup.client';
 import { GridOptions } from 'ag-grid-community';
-import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
+import { STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
 import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 import { AsyncLookupCellRendererComponent } from '../../../../components/ag-grid/renderers/async-lookup-cell-renderer/async-lookup-cell-cenderer.component';
 
@@ -30,7 +30,6 @@ export class UserMeasuresComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridOptions = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         {
           field: 'userId',
@@ -51,10 +50,6 @@ export class UserMeasuresComponent implements OnInit {
           valueFormatter: params => String(params.value).replace('Warning', 'Varování')
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns();
-      },
       getRowStyle: STRIPED_ROW_STYLE
     }
   }

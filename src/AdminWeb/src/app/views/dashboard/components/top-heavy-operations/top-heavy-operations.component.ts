@@ -6,7 +6,7 @@ import { IconDirective } from "@coreui/icons-angular";
 import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { map } from 'rxjs';
 import { GridOptions } from 'ag-grid-community';
-import { DEFAULT_COL_DEF, DEFAULT_GRID_OPTIONS, INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
+import { INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
 import { usePipeTransform } from '../../../../components/ag-grid/ag-grid.functions';
 import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 
@@ -30,7 +30,6 @@ export class TopHeavyOperationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridOptions = {
-      ...DEFAULT_GRID_OPTIONS,
       columnDefs: [
         INDEX_COLUMN,
         {
@@ -57,10 +56,6 @@ export class TopHeavyOperationsComponent implements OnInit {
           maxWidth: 150
         }
       ],
-      defaultColDef: DEFAULT_COL_DEF,
-      onGridReady: $event => {
-        $event.api.autoSizeAllColumns();
-      },
       getRowStyle: STRIPED_ROW_STYLE,
     }
   }
