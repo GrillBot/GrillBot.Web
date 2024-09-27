@@ -8,6 +8,7 @@ import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { GridOptions } from "ag-grid-community";
 import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 import { usePipeTransform } from "../../../../components/ag-grid/ag-grid.functions";
+import { COLUMN_FILTERS } from "../../../../components/ag-grid/ag-grid.defaults";
 
 @Component({
   selector: 'app-interactions',
@@ -34,7 +35,8 @@ export class InteractionsComponent implements OnInit {
         {
           field: 'name',
           headerName: 'Příkaz',
-          tooltipField: 'name'
+          tooltipField: 'name',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'duration',

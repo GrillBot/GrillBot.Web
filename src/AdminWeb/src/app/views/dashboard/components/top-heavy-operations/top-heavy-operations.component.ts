@@ -6,7 +6,7 @@ import { IconDirective } from "@coreui/icons-angular";
 import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { map } from 'rxjs';
 import { GridOptions } from 'ag-grid-community';
-import { INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
+import { COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
 import { usePipeTransform } from '../../../../components/ag-grid/ag-grid.functions';
 import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 
@@ -35,13 +35,15 @@ export class TopHeavyOperationsComponent implements OnInit {
         {
           field: 'section',
           headerName: 'Sekce',
-          tooltipField: 'section'
+          tooltipField: 'section',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'count',
           valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           headerName: 'Počet',
-          maxWidth: 100
+          maxWidth: 100,
+          filter: COLUMN_FILTERS.NUMBER
         },
         {
           field: 'totalTime',

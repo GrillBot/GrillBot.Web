@@ -8,6 +8,7 @@ import { GridOptions } from "ag-grid-community";
 import { usePipeTransform } from "../../../../components/ag-grid/ag-grid.functions";
 import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
+import { COLUMN_FILTERS } from "../../../../components/ag-grid/ag-grid.defaults";
 
 @Component({
   selector: 'app-jobs',
@@ -33,7 +34,8 @@ export class JobsComponent implements OnInit {
         {
           field: 'name',
           headerName: 'Úloha',
-          tooltipField: 'name'
+          tooltipField: 'name',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'duration',

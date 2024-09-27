@@ -6,7 +6,7 @@ import { AuditLogClient } from "../../../core/clients/audit-log.client";
 import { map } from "rxjs";
 import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
 import { GridOptions } from "ag-grid-community";
-import { STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
+import { COLUMN_FILTERS, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 
@@ -38,17 +38,20 @@ export class ApiDashboardComponent implements OnInit {
         {
           field: 'name',
           headerName: 'Endpoint',
-          tooltipField: 'name'
+          tooltipField: 'name',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'result',
           headerName: 'Výsledek',
+          filter: COLUMN_FILTERS.TEXT
         },
         {
           field: 'duration',
           headerName: 'Trvání',
           valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
-          maxWidth: 140
+          maxWidth: 140,
+          filter: COLUMN_FILTERS.NUMBER
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE
