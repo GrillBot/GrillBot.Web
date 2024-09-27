@@ -35,6 +35,7 @@ export class AgGridComponent {
       },
       suppressRowHoverHighlight: true,
       localeText: AG_GRID_LOCALE_CZ,
+      columnDefs: [],
       defaultColDef: {
         sortable: false,
         autoHeight: true,
