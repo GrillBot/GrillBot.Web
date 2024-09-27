@@ -10,6 +10,7 @@ on:
       - '**/certificate.cnf'
       - '**/certificate.crt'
       - '**/localhost.key'
+      - '**/.prettierrc'
   pull_request:
     types: [opened, reopened, synchronize]
     branches: [master]
@@ -20,6 +21,7 @@ on:
       - '**/certificate.cnf'
       - '**/certificate.crt'
       - '**/localhost.key'
+      - '**/.prettierrc'
   workflow_dispatch:
 
 jobs:
@@ -30,6 +32,7 @@ jobs:
       Navigation: ${{ steps.filter.outputs.Navigation }}
       PublicAdmin: ${{ steps.filter.outputs.PublicAdmin }}
       KarmaWeb: ${{ steps.filter.outputs.KarmaWeb }}
+      AdminWeb: ${{ steps.filter.outputs.AdminWeb }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -46,6 +49,60 @@ jobs:
               - 'src/PublicAdmin/**'
             KarmaWeb:
               - 'src/KarmaWeb/**'
+            AdminWeb:
+              - 'src/AdminWeb/**'
+  BuildWebsites:
+    runs-on: ubuntu-latest
+    needs: PathsFilter
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.17.0"
+      - name: AdminWeb
+        working-directory: ./src/AdminWeb
+        if: needs.PathsFilter.outputs.AdminWeb == 'true'
+        run: |
+          npm ci
+          npm run production
+  CreateDockerImage:
+    runs-on: ubuntu-latest
+    needs: [PathsFilter, BuildWebsites]
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Login to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: AdminWeb
+        uses: docker/build-push-action@v6
+        with:
+          context: src/AdminWeb
+          push: true
+          tags: ghrc.io/grillbot/grillbot.web:admin_web
+  AdminWeb_Production:
+    runs-on: ubuntu-latest
+    environment: Production_AdminWeb
+    needs: [PathsFilter, CreateDockerImage]
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Execute deployment on SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_Username }}
+          password: ${{ secrets.SSH_Password }}
+          port: 22
+          script: echo '${{ secrets.SSH_Password }}' | sudo -S /scripts/update-grillbot-prod.sh admin_web
   PrivateAdmin_Build:
     runs-on: ubuntu-latest
     needs: PathsFilter
@@ -136,20 +193,6 @@ jobs:
           context: src/Navigation
           push: true
           tags: ghcr.io/grillbot/grillbot.web:navigation
-  Navigation_Deploy_Production:
-    runs-on: ubuntu-latest
-    environment: "Production_Navigation"
-    needs: Navigation_CreateDockerImage
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - name: Execute deployment on SSH
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_Username }}
-          password: ${{ secrets.SSH_Password }}
-          port: 22
-          script: echo '${{ secrets.SSH_Password }}' | sudo -S /scripts/update-grillbot-prod.sh navigation_web
   PublicAdmin_Build:
     runs-on: ubuntu-latest
     needs: PathsFilter
