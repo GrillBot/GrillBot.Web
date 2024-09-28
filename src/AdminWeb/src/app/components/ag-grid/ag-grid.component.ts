@@ -1,11 +1,12 @@
-import { AsyncPipe } from "@angular/common";
-import { Component, computed, input, output, Signal } from "@angular/core";
+import { AsyncPipe, NgClass } from "@angular/common";
+import { Component, computed, inject, input, output, Signal } from "@angular/core";
 import { AgGridAngular } from "ag-grid-angular";
 import { GridOptions, GridReadyEvent } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-overlay.component";
 import { AG_GRID_LOCALE_CZ } from "@ag-grid-community/locale";
 import { DEFAULT_CELL_PADDING } from "./ag-grid.defaults";
+import { ColorModeService } from "@coreui/angular";
 
 @Component({
   selector: 'app-ag-grid',
@@ -13,14 +14,18 @@ import { DEFAULT_CELL_PADDING } from "./ag-grid.defaults";
   standalone: true,
   imports: [
     AgGridAngular,
-    AsyncPipe
+    AsyncPipe,
+    NgClass
   ]
 })
 export class AgGridComponent {
+  readonly #colorModeService = inject(ColorModeService);
+
   gridOptions = input.required<GridOptions>();
   dataSource = input.required<Observable<any>>();
   width = input<string>('100%');
   height = input<string>('450px');
+  colorMode = this.#colorModeService.colorMode;
 
   onGridReady = output<GridReadyEvent<any, any>>();
 

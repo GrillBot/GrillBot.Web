@@ -1,5 +1,5 @@
 <ag-grid-angular
-  class="ag-theme-balham"
+  [ngClass]="colorMode() == 'dark' ? 'ag-theme-balham-dark' : 'ag-theme-balham'"
   [gridOptions]="options()"
   [style.width]="width()"
   [style.height]="height()"

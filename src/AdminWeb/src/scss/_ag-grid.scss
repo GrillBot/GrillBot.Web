@@ -1,7 +1,8 @@
 @import "ag-grid-community/styles/ag-grid.css";
 @import "ag-grid-community/styles/ag-theme-balham.css";
 
-.ag-theme-balham {
+.ag-theme-balham,
+.ag-theme-balham-dark {
   --ag-font-size: $font-size-base;
 }
 
@@ -19,6 +20,20 @@
     & .ag-input-field-input {
       padding: 5px;
       border-radius: 5px;
+    }
+  }
+}
+
+.ag-theme-balham-dark {
+  & .ag-header-cell-text {
+    color: $white;
+  }
+
+  & .ag-row {
+    &.bg-danger-subtle {
+      & .ag-cell {
+        color: $dark;
+      }
     }
   }
 }
