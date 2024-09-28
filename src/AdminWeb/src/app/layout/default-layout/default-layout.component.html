@@ -33,21 +33,23 @@
     ></c-sidebar-nav>
   </ng-scrollbar>
 
-  @if(!sidebar1.narrow) {
-  <c-sidebar-footer
-    cSidebarToggle="sidebar1"
-    class="border-top d-none d-lg-flex"
-    toggle="unfoldable"
-    style="cursor: pointer"
-  >
-    @if($isDevelopment | async; as isDevelopment) { @if(isDevelopment) {
-    <c-badge color="secondary">DEV</c-badge>
-    } @else {
-    <c-badge color="success">PROD</c-badge>
-    } }
+  @if (!sidebar1.narrow) {
+    <c-sidebar-footer
+      cSidebarToggle="sidebar1"
+      class="border-top d-none d-lg-flex"
+      toggle="unfoldable"
+      style="cursor: pointer"
+    >
+      @if ($dashboardInfo | async; as dashboardInfo) {
+        @if (dashboardInfo.isDevelopment) {
+          <c-badge color="secondary">DEV</c-badge>
+        } @else {
+          <c-badge color="success">PROD</c-badge>
+        }
+      }
 
-    <button cSidebarToggler aria-label="Toggle sidebar fold"></button>
-  </c-sidebar-footer>
+      <button cSidebarToggler aria-label="Toggle sidebar fold"></button>
+    </c-sidebar-footer>
   }
 </c-sidebar>
 
