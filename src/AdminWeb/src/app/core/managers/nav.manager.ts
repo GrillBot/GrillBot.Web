@@ -2,59 +2,66 @@ import { Injectable, inject } from "@angular/core";
 import { AuthManager } from "./auth.manager";
 import { INavData } from "@coreui/angular";
 
+const checkPermissions = (currentPerms: string[], requiredPerms: string[]): boolean =>
+  currentPerms.some(p => requiredPerms.includes(p));
+
+const createMenuItem = (name: string, url: string, icon: string, requiredPerms: string[], children: INavData[] = []): INavData => {
+  return {
+    name,
+    url,
+    iconComponent: {
+      name: icon
+    },
+    attributes: {
+      checkPermissions: (perms: string[]) => checkPermissions(perms, requiredPerms)
+    },
+    children
+  };
+};
+
+const createChildMenuItem = (name: string, url: string, requiredPerms: string[]): INavData => {
+  return {
+    name,
+    url,
+    attributes: {
+      checkPermissions: (perms: string[]) => checkPermissions(perms, requiredPerms)
+    }
+  };
+};
+
 @Injectable({ providedIn: 'root' })
 export class NavManager {
   readonly #authManager = inject(AuthManager);
 
   readonly #items: INavData[] = [
-    {
-      name: 'Dashboard',
-      url: '/web/dashboard',
-      attributes: {
-        checkPermissions: (perms: string[]) =>
-          perms.includes('Dashboard(Admin)') || perms.includes('UserMeasures(Admin)')
-      },
-      iconComponent: {
-        name: 'cil-featured-playlist'
-      },
-      children: [
-        {
-          name: 'Bot',
-          url: '/web/dashboard/common',
-          attributes: {
-            checkPermissions: (perms: string[]) =>
-              perms.includes('Dashboard(Admin)') || perms.includes('UserMeasures(Admin)')
-          }
-        },
-        {
-          name: 'Služby',
-          url: '/web/dashboard/services',
-          attributes: {
-            checkPermissions: (perms: string[]) => perms.includes('Dashboard(Admin)')
-          }
-        },
-        {
-          name: 'API',
-          url: '/web/dashboard/api',
-          attributes: {
-            checkPermissions: (perms: string[]) => perms.includes('Dashboard(Admin)') && perms.includes('AuditLog(Admin)')
-          }
-        }
+    createMenuItem(
+      'Dashboard',
+      '/web/dashboard',
+      'cil-featured-playlist',
+      ['Dashboard(Admin)', 'UserMeasures(Admin)'],
+      [
+        createChildMenuItem('Bot', '/web/dashboard/common', ['Dashboard(Admin)', 'UserMeasures(Admin)']),
+        createChildMenuItem('Služby', '/web/dashboard/services', ['Dashboard(Admin)']),
+        createChildMenuItem('API', '/web/dashboard/api', ['Dashboard(Admin)', 'AuditLog(Admin)'])
       ]
-    }
+    ),
+    createMenuItem(
+      'Body',
+      '/web/points',
+      'cil-chat-bubble',
+      ['Points(Leaderboard)', 'Points(Admin)'],
+      [
+        createChildMenuItem('Leaderboard', '/web/points/leaderboard', ['Points(Leaderboard)']),
+        createChildMenuItem('Transakce', '/web/points/transactions', ['Points(Admin)']),
+        createChildMenuItem('Uživatelé', '/web/points/users', ['Points(Admin)'])
+      ]
+    )
   ];
 
   createSidebarMenu(): INavData[] {
-    const result: INavData[] = [];
-
-    for (const item of this.#items) {
-      const menu = this.recursivelyProcessMenu(item);
-      if (menu) {
-        result.push(menu);
-      }
-    }
-
-    return result;
+    return this.#items
+      .map(item => this.recursivelyProcessMenu(item))
+      .filter(item => !!item)
   }
 
   recursivelyProcessMenu(item: INavData): INavData | null {
