@@ -1,15 +1,14 @@
 import { Component, OnInit, inject, input } from '@angular/core';
 import { ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
-import { LoadingComponent } from '../../../../components/loading/loading.component';
+import { LoadingComponent } from '../../../../components';
 import { DashboardClient } from '../../../../core/clients/dashboard.client';
 import { Observable, of } from 'rxjs';
 import { RawHttpResponse } from '../../../../core/models/common';
 import { DashboardService } from '../../../../core/models/dashboard/dashboard-service';
-import { WithLoadingPipe } from '../../../../pipes/with-loading.pipe';
 import { AsyncPipe } from '@angular/common';
-import { TimeSpanPipe } from '../../../../pipes/timespan.pipe';
 import { RouterLink } from '@angular/router';
+import { WithLoadingPipe, TimeSpanPipe } from '../../../../pipes';
 
 @Component({
   selector: 'app-service-info',

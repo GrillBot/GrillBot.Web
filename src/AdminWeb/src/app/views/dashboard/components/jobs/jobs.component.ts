@@ -1,14 +1,12 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from "@coreui/angular";
+import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { map } from "rxjs";
 import { GridOptions } from "ag-grid-community";
-import { usePipeTransform } from "../../../../components/ag-grid/ag-grid.functions";
-import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
+import { TimeSpanPipe } from "../../../../pipes";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
-import { COLUMN_FILTERS } from "../../../../components/ag-grid/ag-grid.defaults";
+import { AgGridComponent, COLUMN_FILTERS, usePipeTransform, CardHeaderComponent } from "../../../../components";
 
 @Component({
   selector: 'app-jobs',

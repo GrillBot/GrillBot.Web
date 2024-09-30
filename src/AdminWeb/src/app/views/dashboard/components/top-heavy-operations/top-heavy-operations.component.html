@@ -1,10 +1,11 @@
 <c-card class="mb-3">
-  <c-card-header>
-    <div class="d-flex align-items-center">
-      <svg cIcon name="cilSpeedometer" size="xxl" class="me-2"></svg>
-      <h4 cCardTitle class="mb-0 fw-normal">Nejnáročnější operace</h4>
-    </div>
-  </c-card-header>
+  <app-card-header
+    icon="cilSpeedometer"
+    size="lg"
+    [title]="'Nejnáročnější operace'"
+    [hideToggleVisibility]="true"
+  />
+
   <c-card-body>
     <app-ag-grid
       [gridOptions]="gridOptions"

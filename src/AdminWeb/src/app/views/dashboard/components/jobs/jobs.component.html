@@ -1,10 +1,11 @@
 <c-card class="mb-3">
-  <c-card-header>
-    <div class="d-flex align-items-center">
-      <svg cIcon name="cibProbot" size="xxl" class="me-2"></svg>
-      <h4 cCardTitle class="mb-0 fw-normal">Naplánované úlohy</h4>
-    </div>
-  </c-card-header>
+  <app-card-header
+    icon="cibProbot"
+    size="lg"
+    [title]="'Naplánované úlohy'"
+    [hideToggleVisibility]="true"
+  />
+
   <c-card-body>
     <app-ag-grid
       [gridOptions]="gridOptions"

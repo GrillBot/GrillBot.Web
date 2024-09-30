@@ -1,14 +1,12 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { CardBodyComponent, CardComponent, CardHeaderComponent, CardTitleDirective } from "@coreui/angular";
+import { CardBodyComponent, CardComponent, CardTitleDirective } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
 import { map } from "rxjs";
-import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
+import { TimeSpanPipe } from "../../../../pipes";
 import { GridOptions } from "ag-grid-community";
-import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
-import { usePipeTransform } from "../../../../components/ag-grid/ag-grid.functions";
-import { COLUMN_FILTERS } from "../../../../components/ag-grid/ag-grid.defaults";
+import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS, usePipeTransform } from "../../../../components";
 
 @Component({
   selector: 'app-interactions',

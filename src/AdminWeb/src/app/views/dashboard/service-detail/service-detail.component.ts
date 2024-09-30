@@ -1,25 +1,19 @@
-import { SpacedNumberPipe } from './../../../pipes/spaced-number.pipe';
 import { Component, inject, LOCALE_ID } from "@angular/core";
 import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
-import { WithLoadingPipe } from "../../../pipes/with-loading.pipe";
 import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
-import { LoadingComponent } from "../../../components/loading/loading.component";
 import { AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent, CardTitleDirective, ColComponent, RowComponent } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { FilesizePipe } from "../../../pipes/filesize.pipe";
-import { TimeSpanPipe } from "../../../pipes/timespan.pipe";
 import { GridOptions, RowClassParams, RowStyle } from "ag-grid-community";
-import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
-import { COLUMN_FILTERS, DEFAULT_CELL_PADDING, DEFAULT_CELL_PADDING_LEFT, STRIPED_ROW_STYLE } from "../../../components/ag-grid/ag-grid.defaults";
-import { usePipeTransform } from "../../../components/ag-grid/ag-grid.functions";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
-import { ObservablePipe } from '../../../pipes/observable.pipe';
-import { DictToListPipe } from '../../../pipes/dict-to-list.pipe';
-import { WithNestingPipe } from '../../../pipes/with-nesting.pipe';
+import {
+  AgGridComponent, COLUMN_FILTERS, DEFAULT_CELL_PADDING, DEFAULT_CELL_PADDING_LEFT,
+  LoadingComponent, STRIPED_ROW_STYLE, usePipeTransform
+} from '../../../components';
+import { WithLoadingPipe, FilesizePipe, TimeSpanPipe, SpacedNumberPipe, ObservablePipe, DictToListPipe, WithNestingPipe } from "../../../pipes";
 
 @Component({
   selector: 'app-service-detail',

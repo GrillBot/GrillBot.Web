@@ -1,5 +1,5 @@
 import { Component, input, signal, TemplateRef } from "@angular/core";
-import { ButtonDirective, CardTitleDirective, CardHeaderComponent as OriginalCardHeader } from "@coreui/angular";
+import { ButtonDirective, CardTitleDirective, CardHeaderComponent as OriginalCardHeader, Sizes } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 
 @Component({
@@ -15,7 +15,7 @@ import { IconDirective } from "@coreui/icons-angular";
 export class CardHeaderComponent extends OriginalCardHeader {
   icon = input<string>();
   title = input.required<string>();
-  size = input<'sm' | 'md' | 'lg'>('md');
+  size = input<Sizes>('md');
   hideToggleVisibility = input<boolean>();
   bodyVisible = signal(true);
 }

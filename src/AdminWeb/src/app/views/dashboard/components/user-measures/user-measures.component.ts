@@ -1,13 +1,11 @@
 import { filter, map } from 'rxjs/operators';
 import { Component, inject, OnInit } from "@angular/core";
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from "@coreui/angular";
+import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
 import { IconDirective } from "@coreui/icons-angular";
 import { LookupClient } from '../../../../core/clients/lookup.client';
 import { GridOptions } from 'ag-grid-community';
-import { STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
-import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
-import { AsyncLookupCellRendererComponent } from '../../../../components/ag-grid/renderers/async-lookup-cell-renderer/async-lookup-cell-cenderer.component';
+import { AgGridComponent, AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE, CardHeaderComponent } from '../../../../components';
 
 @Component({
   selector: 'app-user-measures',

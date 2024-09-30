@@ -1,14 +1,13 @@
-import { SpacedNumberPipe } from './../../../../pipes/spaced-number.pipe';
 import { Component, OnInit, inject } from "@angular/core";
 import { DashboardClient } from "../../../../core/clients/dashboard.client";
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from "@coreui/angular";
+import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { TimeSpanPipe } from "../../../../pipes/timespan.pipe";
 import { map } from 'rxjs';
 import { GridOptions } from 'ag-grid-community';
-import { COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE } from '../../../../components/ag-grid/ag-grid.defaults';
-import { usePipeTransform } from '../../../../components/ag-grid/ag-grid.functions';
-import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.component";
+import {
+  AgGridComponent, COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE, usePipeTransform, CardHeaderComponent
+} from '../../../../components';
+import { SpacedNumberPipe, TimeSpanPipe } from "../../../../pipes";
 
 @Component({
   selector: 'app-top-heavy-operations',
@@ -20,7 +19,7 @@ import { AgGridComponent } from "../../../../components/ag-grid/ag-grid.componen
     CardBodyComponent,
     IconDirective,
     AgGridComponent
-]
+  ]
 })
 export class TopHeavyOperationsComponent implements OnInit {
   readonly #client = inject(DashboardClient);
@@ -58,7 +57,7 @@ export class TopHeavyOperationsComponent implements OnInit {
           maxWidth: 150
         }
       ],
-      getRowStyle: STRIPED_ROW_STYLE,
+      getRowStyle: STRIPED_ROW_STYLE
     }
   }
 }
