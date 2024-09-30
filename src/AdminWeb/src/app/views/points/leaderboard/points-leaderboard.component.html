@@ -1,1 +1,5 @@
-<h1>It works</h1>
+<c-card class="mb-3">
+  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+
+  <c-card-body visibility [isVisible]="header.bodyVisible()" />
+</c-card>

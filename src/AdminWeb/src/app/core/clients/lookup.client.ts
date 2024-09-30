@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BaseClient } from "./base.client";
-import { Observable } from "rxjs";
-import { RawHttpResponse } from "../models/common";
 import { User } from "../models/users/user";
+import { Guild } from "../models/guilds/guild";
 
 @Injectable({ providedIn: 'root' })
 export class LookupClient extends BaseClient {
@@ -10,6 +9,7 @@ export class LookupClient extends BaseClient {
     super();
   }
 
-  resolveUser: (userId: string) => Observable<RawHttpResponse<User>>
-    = (userId: string) => this.getRequest(`lookup/user/${userId}`);
+  resolveUser = (userId: string) => this.getRequest<User>(`lookup/user/${userId}`);
+
+  resolveGuildListAsync = () => this.getRequest<Guild[]>('lookup/guild/list');
 }
