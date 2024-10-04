@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class SpacedNumberPipe implements PipeTransform {
   transform(value: number | string | null, ...args: any[]): string {
-    const defaultValue = args[0] ?? 0;
+    const defaultValue = args[0] ?? '';
     if (value === undefined || value === null) {
       return defaultValue;
     }

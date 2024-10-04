@@ -7,7 +7,7 @@ import { Duration } from 'luxon';
 })
 export class TimeSpanPipe implements PipeTransform {
   transform(value: number, ..._: any[]): string {
-    if (value < 0) {
+    if (value < 0 || value === null) {
       return '';
     } else if (value < 1000) {
       return `${value} ms`;
