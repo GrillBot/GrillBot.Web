@@ -5,7 +5,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { httpCacheInterceptor } from './core/interceptors/http-cache.interceptor';
+import { httpLoggingInterceptor } from './core/interceptors/logging.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +27,17 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
     provideAnimations(),
-    provideHttpClient()
+    provideHttpClient(
+      withInterceptors([
+        httpCacheInterceptor({
+          urlsToCache: [
+            'dashboard/bot-common-info',
+            'lookup\/user\/\\d+$'
+          ],
+          globalTTL: 5 * 60 * 1000
+        }),
+        httpLoggingInterceptor()
+      ])
+    )
   ]
 };

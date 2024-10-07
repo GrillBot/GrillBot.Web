@@ -1,4 +1,4 @@
-import { filter, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Component, inject, OnInit } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
@@ -6,6 +6,10 @@ import { IconDirective } from "@coreui/icons-angular";
 import { LookupClient } from '../../../../core/clients/lookup.client';
 import { GridOptions } from 'ag-grid-community';
 import { AgGridComponent, AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE, CardHeaderComponent } from '../../../../components';
+import { of, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../../../../core/models/users/user';
+import { mapUserToLookupRow } from '../../../../core/mappers/lookup.mapper';
 
 @Component({
   selector: 'app-user-measures',
@@ -36,9 +40,8 @@ export class UserMeasuresComponent implements OnInit {
           cellRendererParams: {
             sourceGenerator: (userId: string) =>
               this.#lookupClient.resolveUser(userId).pipe(
-                filter(response => response.type === 'finish'),
-                map(response => response.value!),
-                map(user => user.globalAlias ? `${user.globalAlias} (${user.username})` : user.username)
+                catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as User | null) : throwError(() => err)),
+                map(user => mapUserToLookupRow(user, userId))
               )
           }
         },

@@ -1,0 +1,28 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+
+[data-coreui-theme="dark"] {
+  & ng-select {
+    & .ng-select-container,
+    & .ng-select.ng-select-opened > .ng-select-container {
+      background-color: var(--cui-body-bg) !important;
+      border-color: var(--cui-border-color) !important;
+
+      & input,
+      & .ng-value .ng-value-label {
+        color: #fff;
+      }
+    }
+  }
+
+  & ng-dropdown-panel {
+    border-color: var(--cui-border-color) !important;
+
+    & .ng-option {
+      background-color: var(--cui-body-bg) !important;
+
+      & .ng-option-label {
+        color: #fff;
+      }
+    }
+  }
+}

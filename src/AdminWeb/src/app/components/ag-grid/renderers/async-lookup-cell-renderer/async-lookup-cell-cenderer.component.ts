@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ICellRendererParams } from "ag-grid-community";
 import { Observable } from "rxjs";
+import { LoadingComponent } from "../../../loading/loading.component";
 
 export type AsyncLookupCellRendererParams = ICellRendererParams & {
   sourceGenerator: (value: any) => Observable<any>;
@@ -12,7 +13,8 @@ export type AsyncLookupCellRendererParams = ICellRendererParams & {
   templateUrl: './async-lookup-cell-cenderer.component.html',
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    LoadingComponent
   ]
 })
 export class AsyncLookupCellRendererComponent implements ICellRendererAngularComp {

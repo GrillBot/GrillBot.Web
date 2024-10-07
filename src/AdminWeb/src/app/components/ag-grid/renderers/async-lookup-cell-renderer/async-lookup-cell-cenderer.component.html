@@ -1,7 +1,11 @@
 @if (params) {
   <div>
     @if (source) {
-      {{ source | async }}
+      @if (source | async; as asyncResponse) {
+        {{ asyncResponse }}
+      } @else {
+        <app-loading [small]="true" [showText]="false" [center]="false" />
+      }
     } @else {
       {{ params.value }}
     }

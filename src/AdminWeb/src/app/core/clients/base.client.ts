@@ -65,11 +65,6 @@ export abstract class BaseClient {
     return concat(
       of({ type: 'start' } as RawHttpResponse<TResponse>),
       this.#http.get<TResponse>(url, this.requestHeaders).pipe(
-        tap(_ => {
-          if (isDevMode()) {
-            console.log(`Time: ${new Date().toISOString()}\nExecuted HTTP request on ${url}\nQueryParams: ${Object.keys(queryParams).length}`);
-          }
-        }),
         map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>),
         catchError(err => this.catchError(err))
       )

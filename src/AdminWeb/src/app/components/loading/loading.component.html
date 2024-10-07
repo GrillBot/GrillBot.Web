@@ -1,15 +1,21 @@
-@if(visible()) {
-<div class="d-flex align-items-center justify-content-center">
-  @if(small()) {
-  <c-spinner variant="grow" size="sm"></c-spinner>
+@if (visible()) {
+  <div [ngClass]="containerClasses()">
+    @if (small()) {
+      <c-spinner variant="grow" size="sm"></c-spinner>
 
-  @if(showText()) {
-  <p class="m-0 ms-2">{{ customText() ? customText() : "Probíhá načítání" }}</p>
-  } } @else {
-  <c-spinner variant="grow"></c-spinner>
+      @if (showText()) {
+        <p class="m-0 ms-2">
+          {{ customText() ? customText() : "Probíhá načítání" }}
+        </p>
+      }
+    } @else {
+      <c-spinner variant="grow"></c-spinner>
 
-  @if(showText()) {
-  <h2 class="ms-3 fw-light">{{ customText() ? customText() : "Probíhá načítání" }}</h2>
-  } }
-</div>
+      @if (showText()) {
+        <h2 class="ms-3 fw-light">
+          {{ customText() ? customText() : "Probíhá načítání" }}
+        </h2>
+      }
+    }
+  </div>
 }

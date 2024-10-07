@@ -157,12 +157,7 @@ export class ServiceDetailComponent {
           filter: COLUMN_FILTERS.NUMBER
         }
       ],
-      getRowStyle: this.operationsRowStyleGenerator
+      getRowStyle: STRIPED_ROW_STYLE
     };
-  }
-
-  private operationsRowStyleGenerator(params: RowClassParams<any>): RowStyle | undefined {
-    const avgTime: number = params.data.item.averageTime;
-    return STRIPED_ROW_STYLE(params);
   }
 }

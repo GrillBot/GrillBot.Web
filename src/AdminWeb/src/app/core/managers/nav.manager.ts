@@ -52,8 +52,8 @@ export class NavManager {
       ['Points(Leaderboard)', 'Points(Admin)'],
       [
         createChildMenuItem('Leaderboard', '/web/points/leaderboard', ['Points(Leaderboard)']),
-        createChildMenuItem('Transakce', '/web/points/transactions', ['Points(Admin)']),
-        createChildMenuItem('Uživatelé', '/web/points/users', ['Points(Admin)'])
+        //createChildMenuItem('Transakce', '/web/points/transactions', ['Points(Admin)']),
+        //createChildMenuItem('Uživatelé', '/web/points/users', ['Points(Admin)'])
       ]
     )
   ];
