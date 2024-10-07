@@ -34,7 +34,10 @@ export const appConfig: ApplicationConfig = {
             'dashboard/bot-common-info',
             'lookup\/user\/\\d+$'
           ],
-          globalTTL: 5 * 60 * 1000
+          globalTTL: 5 * 60 * 1000,
+          ttls: {
+            'dashboard/bot-common-info': 30 * 1000
+          }
         }),
         httpLoggingInterceptor()
       ])
