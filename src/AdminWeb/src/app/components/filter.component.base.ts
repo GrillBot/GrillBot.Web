@@ -53,7 +53,10 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> {
     const filter = this.form.value as TFilter;
 
     if (isDevMode()) {
-      console.log(`Executing filter ${this.filterIdValue}`, filter);
+      console.log(
+        this.filterIdValue ? `Executing filter ${this.filterIdValue}` : 'Executing unsaved filter',
+        filter
+      );
     }
 
     this.filterEvent.emit(filter);

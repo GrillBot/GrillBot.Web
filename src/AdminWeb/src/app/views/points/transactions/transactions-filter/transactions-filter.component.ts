@@ -4,13 +4,12 @@ import {
   CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective, FormLabelDirective,
   InputGroupComponent, RowComponent
 } from "@coreui/angular";
-import { CardHeaderComponent } from "../../../../components";
+import { CardHeaderComponent, FilterBaseComponent } from "../../../../components";
 import { VisibilityDirective } from "../../../../core/directives/visibility.directive";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
-import { FilterBaseComponent } from "../../../../components/filter.component.base";
 import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-select";
 import { NgSelectorDirective } from "../../../../core/directives/ng-selector.directive";
 import { WithLoadingPipe } from "../../../../pipes";

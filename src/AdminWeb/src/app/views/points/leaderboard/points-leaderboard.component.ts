@@ -1,9 +1,9 @@
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { Component, inject } from "@angular/core";
+import { Component, DestroyRef, inject } from "@angular/core";
 import { CardBodyComponent, CardComponent, ColComponent, FormDirective, FormLabelDirective, RowComponent } from "@coreui/angular";
-import { AsyncLookupCellRendererComponent, CardHeaderComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
+import { AsyncLookupCellRendererComponent, CardHeaderComponent, FilterBaseComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
 import { VisibilityDirective } from "../../../core/directives/visibility.directive";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
 import { AsyncPipe } from '@angular/common';
@@ -16,6 +16,8 @@ import { BoardItem } from '../../../core/models/points/board-item';
 import { User } from '../../../core/models/users/user';
 import { HttpErrorResponse } from '@angular/common/http';
 import { mapUserToLookupRow } from '../../../core/mappers/lookup.mapper';
+import { LeaderboardFilter } from '../../../core/models/points/leaderboard-filter';
+import { IForm } from '../../../core/models/common';
 
 @Component({
   templateUrl: './points-leaderboard.component.html',
@@ -38,30 +40,24 @@ import { mapUserToLookupRow } from '../../../core/mappers/lookup.mapper';
     AgGridComponent
   ]
 })
-export class PointsLeaderboardComponent {
-  readonly #formBuilder = inject(FormBuilder);
+export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardFilter> {
   readonly #lookupClient = inject(LookupClient);
   readonly #pointsClient = inject(PointsClient);
+  readonly #destroyRef = inject(DestroyRef);
 
   guildLookupSource$ = this.#lookupClient.resolveGuildList();
   leaderboardSource$ = this.createLeaderboardSource(null);
 
-  form: FormGroup<{
-    guildId: FormControl<string | null>
-  }>;
-
   gridOptions: GridOptions
 
   constructor() {
-    this.form = this.#formBuilder.group({
-      guildId: this.#formBuilder.control(null as string | null, {
-        validators: [Validators.required]
-      })
+    super();
+
+    const sub = this.filterEvent.subscribe(filter => {
+      this.leaderboardSource$ = this.createLeaderboardSource(filter.guildId);
     });
 
-    this.form.controls.guildId.valueChanges.subscribe(guildId => {
-      this.leaderboardSource$ = this.createLeaderboardSource(guildId);
-    });
+    this.#destroyRef.onDestroy(() => sub.unsubscribe());
 
     this.gridOptions = {
       columnDefs: [
@@ -105,6 +101,17 @@ export class PointsLeaderboardComponent {
       getRowStyle: STRIPED_ROW_STYLE
     };
   }
+
+  override configure(): void { }
+
+  override createForm(): IForm<LeaderboardFilter> {
+    return {
+      guildId: this.createControl({
+        validators: [Validators.required]
+      })
+    };
+  }
+
 
   private createLeaderboardSource(guildId: string | null): Observable<BoardItem[]> {
     return guildId ?
