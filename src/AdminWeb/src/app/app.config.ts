@@ -1,13 +1,14 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withEnabledBlockingInitialNavigation, withHashLocation, withInMemoryScrolling, withRouterConfig, withViewTransitions } from '@angular/router';
+import {
+  provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withRouterConfig,
+  withViewTransitions
+} from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-
 import { routes } from './app.routes';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { httpCacheInterceptor } from './core/interceptors/http-cache.interceptor';
-import { httpLoggingInterceptor } from './core/interceptors/logging.interceptor';
+import { httpCacheInterceptor, httpUnauthorizedInterceptor, httpLoggingInterceptor } from './core/interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(
       withInterceptors([
+        httpUnauthorizedInterceptor(),
         httpCacheInterceptor({
           urlsToCache: [
             'dashboard/bot-common-info',
