@@ -1,9 +1,11 @@
 import { Directive, inject } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, FormControl } from "@angular/forms";
+import { LookupClient } from "../../core/clients/lookup.client";
 
 @Directive()
 export abstract class LookupBaseComponent<T> implements ControlValueAccessor {
   readonly #formBuilder = inject(FormBuilder);
+  readonly lookupClient = inject(LookupClient);
 
   formControl: FormControl<T | null>;
 

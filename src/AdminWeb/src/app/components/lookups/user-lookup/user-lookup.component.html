@@ -1,0 +1,28 @@
+@if (userLookup$ | withLoading | async; as lookup) {
+  <ng-select
+    ngSelector
+    [loading]="lookup.loading"
+    [items]="lookup.value"
+    bindValue="id"
+    bindLabel="username"
+  >
+    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+      <div [title]="item.isBot ? 'BOT' : ''">
+        <span [ngOptionHighlight]="search">
+          @if (item.globalAlias) {
+            {{ item.globalAlias }} ({{ item.username }})
+          } @else {
+            {{ item.username }}
+          }
+        </span>
+      </div>
+      <small [title]="item.isBot ? 'BOT' : ''">
+        @if (item.isBot) {
+          <svg cIcon name="cibProbot" class="me-2"></svg>
+        }
+
+        <b>Id: </b>{{ item.id }}
+      </small>
+    </ng-template>
+  </ng-select>
+}

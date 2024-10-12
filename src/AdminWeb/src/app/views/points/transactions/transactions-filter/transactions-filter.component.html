@@ -11,38 +11,7 @@
 
         <c-col>
           <label clabel for="userId">Uživatel</label>
-          @if (userLookup$ | withLoading | async; as userLookup) {
-            <ng-select
-              ngSelector
-              formControlName="userId"
-              [loading]="userLookup.loading"
-              [items]="userLookup.value"
-              bindValue="id"
-              bindLabel="username"
-            >
-              <ng-template
-                ng-option-tmp
-                let-item="item"
-                let-search="searchTerm"
-              >
-                <div>
-                  <span [ngOptionHighlight]="search">
-                    @if (item.globalAlias) {
-                      {{ item.globalAlias }} ({{ item.username }})
-                    } @else {
-                      {{ item.username }}
-                    }
-                  </span>
-                </div>
-                <small>
-                  <b>Id: </b>{{ item.id }}
-                  @if (item.isBot) {
-                    <b>(BOT)</b>
-                  }
-                </small>
-              </ng-template>
-            </ng-select>
-          }
+          <app-user-lookup formControlName="userId" />
         </c-col>
       </c-row>
 

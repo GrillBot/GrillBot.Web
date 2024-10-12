@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component } from "@angular/core";
 import {
   ButtonDirective,
   CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective, FormLabelDirective,
@@ -7,15 +7,9 @@ import {
 import { CardHeaderComponent, FilterBaseComponent } from "../../../../components";
 import { VisibilityDirective } from "../../../../core/directives/visibility.directive";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
-import { LookupClient } from "../../../../core/clients/lookup.client";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
-import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-select";
-import { NgSelectorDirective } from "../../../../core/directives/ng-selector.directive";
-import { WithLoadingPipe } from "../../../../pipes";
-import { AsyncPipe } from "@angular/common";
-import { NgOptionHighlightDirective } from '@ng-select/ng-option-highlight';
-import { GuildLookupComponent } from "../../../../components/lookups";
+import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -30,24 +24,15 @@ import { GuildLookupComponent } from "../../../../components/lookups";
     ReactiveFormsModule,
     RowComponent,
     ColComponent,
-    NgSelectComponent,
-    NgSelectorDirective,
     FormLabelDirective,
-    WithLoadingPipe,
-    AsyncPipe,
     InputGroupComponent,
     FormControlDirective,
-    NgOptionHighlightDirective,
-    NgOptionTemplateDirective,
     ButtonDirective,
-    GuildLookupComponent
+    GuildLookupComponent,
+    UserLookupComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {
-  readonly #lookupClient = inject(LookupClient);
-
-  userLookup$ = this.#lookupClient.resolveUserList();
-
   override configure(): void {
     this.filterId = 'points/transactions';
   }
