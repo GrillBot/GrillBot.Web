@@ -15,9 +15,9 @@
         </c-col>
       </c-row>
 
-      <c-row class="mb-1">
+      <c-row>
         <c-col>
-          <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+          <label cLabel for="createdFrom" class="mb-0">Vytvořeno (OD - DO)</label>
           <c-input-group>
             <input
               cFormControl
@@ -34,13 +34,14 @@
         </c-col>
 
         <c-col>
-          <label cLabel for="messageId">ID zprávy</label>
+          <label cLabel for="messageId" class="mb-0">ID zprávy</label>
           <input
             cFormControl
             type="text"
             formControlName="messageId"
             autocomplete="off"
           />
+          <app-validation-errors [form]="form" formControlName="messageId" />
         </c-col>
       </c-row>
 

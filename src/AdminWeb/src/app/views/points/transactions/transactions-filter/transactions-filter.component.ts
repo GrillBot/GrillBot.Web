@@ -10,6 +10,7 @@ import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
+import { ValidationErrorsComponent } from "../../../../components/forms";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -29,7 +30,8 @@ import { GuildLookupComponent, UserLookupComponent } from "../../../../component
     FormControlDirective,
     ButtonDirective,
     GuildLookupComponent,
-    UserLookupComponent
+    UserLookupComponent,
+    ValidationErrorsComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {

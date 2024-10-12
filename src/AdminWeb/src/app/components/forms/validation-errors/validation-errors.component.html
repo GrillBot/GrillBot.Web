@@ -1,0 +1,20 @@
+@if (hasAnyError) {
+  <small class="text-danger">
+    @for (error of errors; track $index) {
+      @switch (error[0]) {
+        @case ("pattern") {
+          <ng-container
+            [ngTemplateOutlet]="patternError"
+            [ngTemplateOutletContext]="{ error: error[1] }"
+          />
+        }
+      }
+    }
+  </small>
+}
+
+<ng-template #patternError let-error="error">
+  Hodnota "{{ error.actualValue }}" nesplňuje regulární výraz "{{
+    error.requiredPattern
+  }}"
+</ng-template>
