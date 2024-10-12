@@ -22,9 +22,10 @@
   @if (!hideToggleVisibility()) {
     <button
       cButton
-      class="btn-link p-0"
+      class="p-0 text-decoration-underline"
       [color]="'transparent'"
       (click)="bodyVisible.set(!bodyVisible())"
+      [variant]="'ghost'"
     >
       {{ bodyVisible() ? "Skrýt" : "Zobrazit" }}
     </button>

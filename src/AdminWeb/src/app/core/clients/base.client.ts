@@ -37,10 +37,6 @@ export abstract class BaseClient {
     };
   }
 
-  protected catchError(err: HttpErrorResponse): Observable<never> {
-    return throwError(() => err);
-  }
-
   protected createUrl(endpoint: string, queryParams: HttpQueryParams = {}): string {
     let url = environment.baseApiUri + `/${endpoint}`;
 
@@ -65,8 +61,7 @@ export abstract class BaseClient {
     return concat(
       of({ type: 'start' } as RawHttpResponse<TResponse>),
       this.#http.get<TResponse>(url, this.requestHeaders).pipe(
-        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>),
-        catchError(err => this.catchError(err))
+        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>)
       )
     );
   }

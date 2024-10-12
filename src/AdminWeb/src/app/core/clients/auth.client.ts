@@ -12,8 +12,6 @@ export class AuthClient extends BaseClient {
   retrieveJwtToken(): Observable<OAuth2LoginToken> {
     const url = this.createUrl('auth/oauth2/jwt');
 
-    return this.httpClient.get<OAuth2LoginToken>(url, this.requestHeaders).pipe(
-      catchError(err => this.catchError(err))
-    );
+    return this.httpClient.get<OAuth2LoginToken>(url, this.requestHeaders);
   }
 }
