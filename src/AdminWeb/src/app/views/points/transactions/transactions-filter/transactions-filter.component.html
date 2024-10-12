@@ -1,0 +1,176 @@
+<c-card class="mb-3">
+  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+
+  <c-card-body visibility [isVisible]="header.bodyVisible()" class="pt-2">
+    <form cForm [formGroup]="form">
+      <c-row class="mb-1">
+        <c-col>
+          <label clabel for="guildId">Server</label>
+          @if (guildLookup$ | withLoading | async; as guildLookup) {
+            <ng-select
+              ngSelector
+              formControlName="guildId"
+              [loading]="guildLookup.loading"
+              [items]="guildLookup.value"
+              bindLabel="name"
+              bindValue="id"
+            />
+          }
+        </c-col>
+
+        <c-col>
+          <label clabel for="userId">Uživatel</label>
+          @if (userLookup$ | withLoading | async; as userLookup) {
+            <ng-select
+              ngSelector
+              formControlName="userId"
+              [loading]="userLookup.loading"
+              [items]="userLookup.value"
+              bindValue="id"
+              bindLabel="username"
+            >
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-search="searchTerm"
+              >
+                <div>
+                  <span [ngOptionHighlight]="search">
+                    @if (item.globalAlias) {
+                      {{ item.globalAlias }} ({{ item.username }})
+                    } @else {
+                      {{ item.username }}
+                    }
+                  </span>
+                </div>
+                <small>
+                  <b>Id: </b>{{ item.id }}
+                  @if (item.isBot) {
+                    <b>(BOT)</b>
+                  }
+                </small>
+              </ng-template>
+            </ng-select>
+          }
+        </c-col>
+      </c-row>
+
+      <c-row class="mb-1">
+        <c-col>
+          <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+          <c-input-group>
+            <input
+              cFormControl
+              type="datetime-local"
+              formControlName="createdFrom"
+            />
+
+            <input
+              cFormControl
+              type="datetime-local"
+              formControlName="createdTo"
+            />
+          </c-input-group>
+        </c-col>
+
+        <c-col>
+          <label cLabel for="messageId">ID zprávy</label>
+          <input
+            cFormControl
+            type="text"
+            formControlName="messageId"
+            autocomplete="off"
+          />
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col>
+          <label cLabel for="showMerged">Typ transakcí</label>
+
+          <c-row>
+            <c-col>
+              <input
+                type="radio"
+                formControlName="showMerged"
+                [value]="true"
+                class="me-2"
+                id="showMerged-true"
+              />
+
+              <label cLabel for="showMerged-true">Aktivní</label>
+            </c-col>
+
+            <c-col>
+              <input
+                type="radio"
+                formControlName="showMerged"
+                [value]="false"
+                class="me-2"
+                id="showMerged-false"
+              />
+
+              <label cLabel for="showMerged-false">Archivované</label>
+            </c-col>
+          </c-row>
+        </c-col>
+
+        <c-col>
+          <label cLabel>&nbsp;</label>
+
+          <c-row>
+            <c-col>
+              <input
+                type="checkbox"
+                formControlName="onlyMessages"
+                [value]="true"
+                class="me-2"
+                id="onlyMessages"
+              />
+
+              <label cLabel for="onlyMessages">Pouze zprávy</label>
+            </c-col>
+
+            <c-col>
+              <input
+                type="checkbox"
+                formControlName="onlyReactions"
+                [value]="true"
+                class="me-2"
+                id="onlyReactions"
+              />
+
+              <label cLabel for="onlyReactions">Pouze reakce</label>
+            </c-col>
+          </c-row>
+
+          <div></div>
+        </c-col>
+      </c-row>
+
+      <c-row class="mt-1">
+        <c-col class="d-flex justify-content-end">
+          <button
+            cButton
+            [disabled]="form.invalid"
+            [variant]="'ghost'"
+            [color]="'dark'"
+            (click)="submitForm()"
+            class="text-decoration-underline me-2"
+          >
+            Obnovit
+          </button>
+
+          <button
+            cButton
+            [color]="'danger'"
+            [variant]="'outline'"
+            (click)="resetFilter()"
+          >
+            Smazat filtr
+          </button>
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>

@@ -20,7 +20,7 @@
     & .ng-option {
       background-color: var(--cui-body-bg) !important;
 
-      & .ng-option-label {
+      & * {
         color: #fff;
       }
     }

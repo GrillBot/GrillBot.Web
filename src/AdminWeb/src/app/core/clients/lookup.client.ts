@@ -10,10 +10,12 @@ export class LookupClient extends BaseClient {
     super();
   }
 
+  resolveGuildList = () => this.getRequest<Guild[]>('lookup/guild/list');
+
   resolveUser = (userId: string) => this.getRequest<User>(`lookup/user/${userId}`).pipe(
     filter(res => res.type === 'finish'),
     map(res => res.value!)
   );
 
-  resolveGuildList = () => this.getRequest<Guild[]>('lookup/guild/list');
+  resolveUserList = () => this.getRequest<User[]>('lookup/user/list');
 }
