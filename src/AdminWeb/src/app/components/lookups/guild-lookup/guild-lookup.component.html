@@ -1,0 +1,10 @@
+@if (guildLookupSource$ | withLoading | async; as lookup) {
+  <ng-select
+    ngSelector
+    [loading]="lookup.loading"
+    [items]="lookup.value"
+    bindLabel="name"
+    bindValue="id"
+    [formControl]="formControl"
+  />
+}

@@ -6,16 +6,7 @@
       <c-row class="mb-1">
         <c-col>
           <label clabel for="guildId">Server</label>
-          @if (guildLookup$ | withLoading | async; as guildLookup) {
-            <ng-select
-              ngSelector
-              formControlName="guildId"
-              [loading]="guildLookup.loading"
-              [items]="guildLookup.value"
-              bindLabel="name"
-              bindValue="id"
-            />
-          }
+          <app-guild-lookup formControlName="guildId" />
         </c-col>
 
         <c-col>

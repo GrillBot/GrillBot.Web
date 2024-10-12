@@ -15,6 +15,7 @@ import { NgSelectorDirective } from "../../../../core/directives/ng-selector.dir
 import { WithLoadingPipe } from "../../../../pipes";
 import { AsyncPipe } from "@angular/common";
 import { NgOptionHighlightDirective } from '@ng-select/ng-option-highlight';
+import { GuildLookupComponent } from "../../../../components/lookups";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -38,13 +39,13 @@ import { NgOptionHighlightDirective } from '@ng-select/ng-option-highlight';
     FormControlDirective,
     NgOptionHighlightDirective,
     NgOptionTemplateDirective,
-    ButtonDirective
+    ButtonDirective,
+    GuildLookupComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {
   readonly #lookupClient = inject(LookupClient);
 
-  guildLookup$ = this.#lookupClient.resolveGuildList();
   userLookup$ = this.#lookupClient.resolveUserList();
 
   override configure(): void {

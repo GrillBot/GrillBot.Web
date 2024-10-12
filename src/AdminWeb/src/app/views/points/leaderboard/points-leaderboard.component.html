@@ -5,16 +5,7 @@
     <form [formGroup]="form" cForm>
       <div>
         <label cLabel for="guildId">Server</label>
-        @if (guildLookupSource$ | withLoading | async; as guildLookup) {
-          <ng-select
-            ngSelector
-            [loading]="guildLookup.loading"
-            [items]="guildLookup.value"
-            bindLabel="name"
-            bindValue="id"
-            formControlName="guildId"
-          />
-        }
+        <app-guild-lookup formControlName="guildId" />
       </div>
     </form>
   </c-card-body>

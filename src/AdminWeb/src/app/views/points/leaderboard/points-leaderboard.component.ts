@@ -1,4 +1,3 @@
-import { NgSelectComponent } from '@ng-select/ng-select';
 import { Component, DestroyRef, inject } from "@angular/core";
 import { CardBodyComponent, CardComponent, ColComponent, FormDirective, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { AsyncLookupCellRendererComponent, CardHeaderComponent, FilterBaseComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
@@ -6,9 +5,7 @@ import { VisibilityDirective } from "../../../core/directives/visibility.directi
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
-import { AsyncPipe } from '@angular/common';
-import { SpacedNumberPipe, WithLoadingPipe } from '../../../pipes';
-import { NgSelectorDirective } from '../../../core/directives/ng-selector.directive';
+import { SpacedNumberPipe } from '../../../pipes';
 import { GridOptions } from 'ag-grid-community';
 import { PointsClient } from '../../../core/clients/points.client';
 import { catchError, filter, map, Observable, of, throwError } from 'rxjs';
@@ -18,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { mapUserToLookupRow } from '../../../core/mappers/lookup.mapper';
 import { LeaderboardFilter } from '../../../core/models/points/leaderboard-filter';
 import { IForm } from '../../../core/models/common';
+import { GuildLookupComponent } from '../../../components/lookups';
 
 @Component({
   templateUrl: './points-leaderboard.component.html',
@@ -33,11 +31,7 @@ import { IForm } from '../../../core/models/common';
     FormDirective,
     FormLabelDirective,
     AgGridComponent,
-    NgSelectComponent,
-    AsyncPipe,
-    WithLoadingPipe,
-    NgSelectorDirective,
-    AgGridComponent
+    GuildLookupComponent
   ]
 })
 export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardFilter> {
@@ -45,9 +39,7 @@ export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardF
   readonly #pointsClient = inject(PointsClient);
   readonly #destroyRef = inject(DestroyRef);
 
-  guildLookupSource$ = this.#lookupClient.resolveGuildList();
   leaderboardSource$ = this.createLeaderboardSource(null);
-
   gridOptions: GridOptions
 
   constructor() {
@@ -102,7 +94,9 @@ export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardF
     };
   }
 
-  override configure(): void { }
+  override configure(): void {
+    this.debounceTime = 100;
+  }
 
   override createForm(): IForm<LeaderboardFilter> {
     return {

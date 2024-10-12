@@ -1,4 +1,4 @@
-import { Directive, inject, isDevMode, output } from "@angular/core";
+import { Directive, inject, input, isDevMode, output } from "@angular/core";
 import { AbstractControlOptions, FormControl, FormGroup, NonNullableFormBuilder } from "@angular/forms";
 import { LocalStorageService } from "@coreui/angular";
 import { IForm } from "../core/models/common";
@@ -14,6 +14,8 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> {
   filterId: string | null = null;
   autoSubmit = true;
   form: FormGroup<IForm<TFilter>>;
+  debounceTime = 500;
+
   filterEvent = output<TFilter>();
 
   get filterIdValue(): string | null {
@@ -28,7 +30,7 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> {
 
     if (this.autoSubmit) {
       this.form.valueChanges
-        .pipe(debounceTime(500))
+        .pipe(debounceTime(this.debounceTime))
         .subscribe(_ => this.submitForm());
     }
 
