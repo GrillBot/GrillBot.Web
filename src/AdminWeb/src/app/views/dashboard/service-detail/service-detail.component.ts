@@ -5,15 +5,21 @@ import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
 import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
-import { AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent, CardTitleDirective, ColComponent, RowComponent } from "@coreui/angular";
+import {
+  AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent,
+  CardTitleDirective, ColComponent, RowComponent
+} from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { GridOptions, RowClassParams, RowStyle } from "ag-grid-community";
+import { GridOptions } from "ag-grid-community";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
 import {
   AgGridComponent, COLUMN_FILTERS, DEFAULT_CELL_PADDING, DEFAULT_CELL_PADDING_LEFT,
   LoadingComponent, STRIPED_ROW_STYLE, usePipeTransform
 } from '../../../components';
-import { WithLoadingPipe, FilesizePipe, TimeSpanPipe, SpacedNumberPipe, ObservablePipe, DictToListPipe, WithNestingPipe } from "../../../pipes";
+import {
+  WithLoadingPipe, FilesizePipe, TimeSpanPipe, SpacedNumberPipe,
+  ObservablePipe, DictToListPipe, WithNestingPipe
+} from "../../../core/pipes";
 
 @Component({
   selector: 'app-service-detail',

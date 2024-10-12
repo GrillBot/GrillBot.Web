@@ -7,7 +7,7 @@ import { GridOptions } from 'ag-grid-community';
 import {
   AgGridComponent, COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE, usePipeTransform, CardHeaderComponent
 } from '../../../../components';
-import { SpacedNumberPipe, TimeSpanPipe } from "../../../../pipes";
+import { SpacedNumberPipe, TimeSpanPipe } from "../../../../core/pipes";
 
 @Component({
   selector: 'app-top-heavy-operations',

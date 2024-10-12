@@ -1,8 +1,8 @@
 import { AsyncPipe } from "@angular/common";
 import { Component, forwardRef } from "@angular/core";
-import { WithLoadingPipe } from "../../../pipes";
+import { WithLoadingPipe } from "../../../core/pipes";
 import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-select";
-import { NgSelectorDirective } from "../../../core/directives/ng-selector.directive";
+import { NgSelectorDirective } from "../../../core/directives";
 import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { IconDirective } from "@coreui/icons-angular";

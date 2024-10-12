@@ -6,13 +6,13 @@ import {
 import { IconDirective } from "@coreui/icons-angular";
 import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
 import { LoadingComponent } from "../../components";
-import { HasPermissionDirective } from '../../core/directives/has-permission.directive';
+import { HasPermissionDirective } from '../../core/directives';
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
 import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
 import { InteractionsComponent } from "./components/interactions/interactions.component";
 import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
 import { JobsComponent } from "./components/jobs/jobs.component";
-import { TimeSpanPipe, FilesizePipe, WithLoadingPipe } from "../../pipes";
+import { TimeSpanPipe, FilesizePipe, WithLoadingPipe } from "../../core/pipes";
 
 @Component({
   templateUrl: './dashboard.component.html',

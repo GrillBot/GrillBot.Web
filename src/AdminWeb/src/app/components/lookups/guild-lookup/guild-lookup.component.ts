@@ -2,8 +2,8 @@ import { AsyncPipe } from "@angular/common";
 import { Component, forwardRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { NgSelectComponent } from "@ng-select/ng-select";
-import { WithLoadingPipe } from "../../../pipes";
-import { NgSelectorDirective } from "../../../core/directives/ng-selector.directive";
+import { WithLoadingPipe } from "../../../core/pipes";
+import { NgSelectorDirective } from "../../../core/directives";
 import { LookupBaseComponent } from "../lookup.component.base";
 
 @Component({

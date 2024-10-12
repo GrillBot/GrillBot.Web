@@ -3,7 +3,7 @@ import { CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, Row
 import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../core/clients/audit-log.client";
 import { map } from "rxjs";
-import { TimeSpanPipe } from "../../../pipes";
+import { TimeSpanPipe } from "../../../core/pipes";
 import { GridOptions } from "ag-grid-community";
 import { AgGridComponent, COLUMN_FILTERS, LoadingComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
 

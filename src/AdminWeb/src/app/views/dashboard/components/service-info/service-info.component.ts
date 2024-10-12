@@ -8,7 +8,7 @@ import { RawHttpResponse } from '../../../../core/models/common';
 import { DashboardService } from '../../../../core/models/dashboard/dashboard-service';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { WithLoadingPipe, TimeSpanPipe } from '../../../../pipes';
+import { WithLoadingPipe, TimeSpanPipe } from '../../../../core/pipes';
 
 @Component({
   selector: 'app-service-info',

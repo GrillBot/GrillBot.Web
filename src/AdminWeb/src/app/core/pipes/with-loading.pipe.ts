@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { Observable, catchError, isObservable, map, of, startWith } from "rxjs";
-import { RawHttpResponse, HttpResponse } from "../core/models/common";
+import { RawHttpResponse, HttpResponse } from "../models/common";
 
 @Pipe({
   name: 'withLoading',

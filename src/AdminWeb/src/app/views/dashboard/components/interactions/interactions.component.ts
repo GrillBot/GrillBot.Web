@@ -4,7 +4,7 @@ import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
 import { map } from "rxjs";
-import { TimeSpanPipe } from "../../../../pipes";
+import { TimeSpanPipe } from "../../../../core/pipes";
 import { GridOptions } from "ag-grid-community";
 import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS, usePipeTransform } from "../../../../components";
 

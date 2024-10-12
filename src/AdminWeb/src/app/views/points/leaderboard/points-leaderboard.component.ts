@@ -1,11 +1,11 @@
 import { Component, DestroyRef, inject } from "@angular/core";
 import { CardBodyComponent, CardComponent, ColComponent, FormDirective, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { AsyncLookupCellRendererComponent, CardHeaderComponent, FilterBaseComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
-import { VisibilityDirective } from "../../../core/directives/visibility.directive";
+import { VisibilityDirective } from "../../../core/directives";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
-import { SpacedNumberPipe } from '../../../pipes';
+import { SpacedNumberPipe } from '../../../core/pipes';
 import { GridOptions } from 'ag-grid-community';
 import { PointsClient } from '../../../core/clients/points.client';
 import { catchError, filter, map, Observable, of, throwError } from 'rxjs';

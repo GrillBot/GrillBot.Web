@@ -3,7 +3,7 @@ import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent, WidgetStatEComponent } from "@coreui/angular";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { LoadingComponent } from "../../../../components";
-import { WithLoadingPipe, TimeSpanPipe } from "../../../../pipes";
+import { WithLoadingPipe, TimeSpanPipe } from "../../../../core/pipes";
 
 @Component({
   selector: 'app-today-avg-times',

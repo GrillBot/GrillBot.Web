@@ -5,7 +5,7 @@ import {
   InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { CardHeaderComponent, FilterBaseComponent } from "../../../../components";
-import { VisibilityDirective } from "../../../../core/directives/visibility.directive";
+import { VisibilityDirective } from "../../../../core/directives";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
