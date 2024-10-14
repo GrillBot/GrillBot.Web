@@ -1,0 +1,9 @@
+<input
+  type="checkbox"
+  [id]="checkboxId()"
+  [formControl]="formControl"
+  [value]="true"
+  class="me-2"
+  cFormCheckInput
+/>
+<label cFormCheckLabel [attr.for]="checkboxId()">{{ label() }}</label>

@@ -7,11 +7,7 @@ export abstract class LookupBaseComponent<T> implements ControlValueAccessor {
   readonly #formBuilder = inject(FormBuilder);
   readonly lookupClient = inject(LookupClient);
 
-  formControl: FormControl<T | null>;
-
-  constructor() {
-    this.formControl = this.#formBuilder.control(null);
-  }
+  formControl = this.#formBuilder.control(null);
 
   writeValue(obj: T | any): void {
     this.formControl.patchValue(obj, { emitEvent: false });

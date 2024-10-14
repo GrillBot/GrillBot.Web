@@ -11,6 +11,7 @@ import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
 import { ValidationErrorsComponent } from "../../../../components/forms";
+import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbox.component";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -31,7 +32,8 @@ import { ValidationErrorsComponent } from "../../../../components/forms";
     ButtonDirective,
     GuildLookupComponent,
     UserLookupComponent,
-    ValidationErrorsComponent
+    ValidationErrorsComponent,
+    CheckboxComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {

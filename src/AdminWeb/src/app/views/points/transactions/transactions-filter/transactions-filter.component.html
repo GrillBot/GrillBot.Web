@@ -17,7 +17,9 @@
 
       <c-row>
         <c-col>
-          <label cLabel for="createdFrom" class="mb-0">Vytvořeno (OD - DO)</label>
+          <label cLabel for="createdFrom" class="mb-0">
+            Vytvořeno (OD - DO)
+          </label>
           <c-input-group>
             <input
               cFormControl
@@ -81,27 +83,19 @@
 
           <c-row>
             <c-col>
-              <input
-                type="checkbox"
+              <app-checkbox
+                checkboxId="onlyMessages"
+                label="Pouze zprávy"
                 formControlName="onlyMessages"
-                [value]="true"
-                class="me-2"
-                id="onlyMessages"
               />
-
-              <label cLabel for="onlyMessages">Pouze zprávy</label>
             </c-col>
 
             <c-col>
-              <input
-                type="checkbox"
+              <app-checkbox
+                checkboxId="onlyReactions"
+                label="Pouze reakce"
                 formControlName="onlyReactions"
-                [value]="true"
-                class="me-2"
-                id="onlyReactions"
               />
-
-              <label cLabel for="onlyReactions">Pouze reakce</label>
             </c-col>
           </c-row>
 
