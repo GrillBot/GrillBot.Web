@@ -1,0 +1,20 @@
+@for (row of items() | chunk; track $index) {
+  <c-row>
+    @for (item of row; track $index) {
+      <c-col>
+        <input
+          cFormCheckInput
+          type="radio"
+          [formControl]="formControl"
+          [value]="item.value"
+          class="me-2"
+          id="{{ radioId() }}-{{ item.value }}"
+        />
+
+        <label cFormCheckLabel [attr.for]="radioId() + '-' + item.value">
+          {{ item.label }}
+        </label>
+      </c-col>
+    }
+  </c-row>
+}

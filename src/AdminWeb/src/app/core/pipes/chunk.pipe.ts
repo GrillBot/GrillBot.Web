@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from "@angular/core";
   standalone: true
 })
 export class ChunkPipe implements PipeTransform {
-  transform(value: any[], ...args: any[]): any[][] {
+  transform<T>(value: T[], ...args: any[]): T[][] {
     const chunkSize = args[0] ?? 4;
-    const result: any[] = [];
+    const result: T[][] = [];
 
     for (let i = 0; i < value.length; i += chunkSize) {
       result.push(value.slice(i, i + chunkSize));

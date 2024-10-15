@@ -15,7 +15,7 @@
         </c-col>
       </c-row>
 
-      <c-row>
+      <c-row class="mb-1">
         <c-col>
           <label cLabel for="createdFrom" class="mb-0">
             Vytvořeno (OD - DO)
@@ -49,33 +49,15 @@
 
       <c-row>
         <c-col>
-          <label cLabel for="showMerged">Typ transakcí</label>
-
-          <c-row>
-            <c-col>
-              <input
-                type="radio"
-                formControlName="showMerged"
-                [value]="true"
-                class="me-2"
-                id="showMerged-true"
-              />
-
-              <label cLabel for="showMerged-true">Aktivní</label>
-            </c-col>
-
-            <c-col>
-              <input
-                type="radio"
-                formControlName="showMerged"
-                [value]="false"
-                class="me-2"
-                id="showMerged-false"
-              />
-
-              <label cLabel for="showMerged-false">Archivované</label>
-            </c-col>
-          </c-row>
+          <label cLabel for="showMerged" class="mb-0">Typ transakcí</label>
+          <app-radio-group
+            radioId="showMerged"
+            [items]="[
+              { label: 'Aktivní', value: true },
+              { label: 'Archivované', value: false },
+            ]"
+            formControlName="showMerged"
+          />
         </c-col>
 
         <c-col>

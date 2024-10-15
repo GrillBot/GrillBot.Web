@@ -10,8 +10,7 @@ import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
-import { ValidationErrorsComponent } from "../../../../components/forms";
-import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbox.component";
+import { CheckboxComponent, RadioGroupComponent, ValidationErrorsComponent } from "../../../../components/forms";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -33,7 +32,8 @@ import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbo
     GuildLookupComponent,
     UserLookupComponent,
     ValidationErrorsComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    RadioGroupComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {
