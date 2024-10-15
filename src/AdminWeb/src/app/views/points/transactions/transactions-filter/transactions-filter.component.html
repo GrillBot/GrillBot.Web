@@ -87,25 +87,11 @@
 
       <c-row class="mt-1">
         <c-col class="d-flex justify-content-end">
-          <button
-            cButton
+          <app-filter-buttons
             [disabled]="form.invalid"
-            [variant]="'ghost'"
-            [color]="'dark'"
-            (click)="submitForm()"
-            class="text-decoration-underline me-2"
-          >
-            Obnovit
-          </button>
-
-          <button
-            cButton
-            [color]="'danger'"
-            [variant]="'outline'"
-            (click)="resetFilter()"
-          >
-            Smazat filtr
-          </button>
+            (onRefreshClick)="submitForm()"
+            (onResetClick)="resetFilter()"
+          />
         </c-col>
       </c-row>
     </form>

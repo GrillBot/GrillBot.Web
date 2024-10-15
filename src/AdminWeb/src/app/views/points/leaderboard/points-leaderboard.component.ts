@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject } from "@angular/core";
 import { CardBodyComponent, CardComponent, ColComponent, FormDirective, FormLabelDirective, RowComponent } from "@coreui/angular";
-import { AsyncLookupCellRendererComponent, CardHeaderComponent, FilterBaseComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
+import { AsyncLookupCellRendererComponent, CardHeaderComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
 import { VisibilityDirective } from "../../../core/directives";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
@@ -16,6 +16,7 @@ import { mapUserToLookupRow } from '../../../core/mappers/lookup.mapper';
 import { LeaderboardFilter } from '../../../core/models/points/leaderboard-filter';
 import { IForm } from '../../../core/models/common';
 import { GuildLookupComponent } from '../../../components/lookups';
+import { FilterBaseComponent } from "../../../components/filters";
 
 @Component({
   templateUrl: './points-leaderboard.component.html',

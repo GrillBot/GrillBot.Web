@@ -1,0 +1,19 @@
+<button
+  cButton
+  [disabled]="disabled()"
+  [variant]="'ghost'"
+  [color]="'dark'"
+  (click)="onRefreshClick.emit()"
+  class="text-decoration-underline me-2"
+>
+  Obnovit
+</button>
+
+<button
+  cButton
+  [color]="'danger'"
+  [variant]="'outline'"
+  (click)="onResetClick.emit()"
+>
+  Smazat filtr
+</button>
