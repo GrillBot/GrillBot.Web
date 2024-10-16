@@ -13,3 +13,19 @@ export interface HttpResponse<TResponse> {
 export type IForm<T> = {
   [K in keyof T]?: any | FormControl<T[K]>;
 }
+
+export interface PaginatedResponse<TData> {
+  data: TData[];
+  page: number;
+  totalItemsCount: number;
+}
+
+export interface PaginatedParams {
+  page: number;
+  pageSize: number;
+}
+
+export interface SortParamters {
+  orderBy?: string;
+  descending?: boolean;
+}

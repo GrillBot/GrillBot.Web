@@ -1,1 +1,2 @@
-<app-transactions-filter />
+<app-transactions-filter (filterEvent)="list.onFilterChanged($event)" />
+<app-transactions-list #list />

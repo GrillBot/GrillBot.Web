@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
         httpCacheInterceptor({
           urlsToCache: [
             'dashboard/bot-common-info',
-            'lookup\/user\/\\d+$'
+            'lookup\/(?:user|guild)\/\\d+$'
           ],
           globalTTL: 5 * 60 * 1000,
           ttls: {

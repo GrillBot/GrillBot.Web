@@ -1,4 +1,4 @@
-import { Directive, inject, isDevMode, output } from "@angular/core";
+import { Directive, inject, isDevMode, OnInit, output } from "@angular/core";
 import { AbstractControlOptions, FormControl, FormGroup, NonNullableFormBuilder } from "@angular/forms";
 import { LocalStorageService } from "@coreui/angular";
 import { IForm } from "../../core/models/common";
@@ -7,14 +7,14 @@ import { debounceTime } from "rxjs";
 type FormControlValueTypes = string | number | boolean | null;
 
 @Directive()
-export abstract class FilterBaseComponent<TFilter extends {} = any> {
+export abstract class FilterBaseComponent<TFilter extends {} = any> implements OnInit {
   readonly #formBuilder = inject(NonNullableFormBuilder);
   readonly #storage = inject(LocalStorageService);
 
   filterId: string | null = null;
   autoSubmit = true;
   form: FormGroup<IForm<TFilter>>;
-  debounceTime = 500;
+  debounceTime = 300;
 
   filterEvent = output<TFilter>();
 
@@ -33,7 +33,9 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> {
         .pipe(debounceTime(this.debounceTime))
         .subscribe(_ => this.submitForm());
     }
+  }
 
+  ngOnInit(): void {
     this.submitForm();
   }
 

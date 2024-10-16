@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <app-loading [visible]="this.loading()" />
+
+  <app-ag-grid
+    [gridOptions]="gridConfiguration()"
+    [width]="width()"
+    [height]="height()"
+    [dataSource]="source$"
+    (rowsUpdated)="rowsUpdated.emit($event)"
+  ></app-ag-grid>
+</div>

@@ -1,12 +1,13 @@
 import { AsyncPipe, NgClass } from "@angular/common";
-import { Component, computed, inject, input, output, Signal } from "@angular/core";
+import { Component, computed, inject, input, OnChanges, output, Signal, SimpleChanges } from "@angular/core";
 import { AgGridAngular } from "ag-grid-angular";
-import { GridOptions, GridReadyEvent } from "ag-grid-community";
+import { GridOptions, GridReadyEvent, RowDataUpdatedEvent, SortChangedEvent } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-overlay.component";
 import { AG_GRID_LOCALE_CZ } from "@ag-grid-community/locale";
 import { DEFAULT_CELL_PADDING } from "./ag-grid.defaults";
 import { ColorModeService } from "@coreui/angular";
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-ag-grid',
@@ -15,7 +16,8 @@ import { ColorModeService } from "@coreui/angular";
   imports: [
     AgGridAngular,
     AsyncPipe,
-    NgClass
+    NgClass,
+    LoadingComponent
   ]
 })
 export class AgGridComponent {
@@ -28,6 +30,7 @@ export class AgGridComponent {
   colorMode = this.#colorModeService.colorMode;
 
   onGridReady = output<GridReadyEvent<any, any>>();
+  rowsUpdated = output<RowDataUpdatedEvent>();
 
   options: Signal<GridOptions> = computed(() => {
     return {
@@ -55,6 +58,9 @@ export class AgGridComponent {
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
         this.onGridReady.emit($event);
+      },
+      onRowDataUpdated: $event => {
+        this.rowsUpdated.emit($event);
       },
       ...this.gridOptions(),
     };

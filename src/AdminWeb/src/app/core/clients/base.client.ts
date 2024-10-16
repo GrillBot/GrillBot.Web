@@ -65,4 +65,19 @@ export abstract class BaseClient {
       )
     );
   }
+
+  protected postRequest<TResponse>(
+    endpoint: string,
+    body: any,
+    queryParams: HttpQueryParams = {}
+  ): Observable<RawHttpResponse<TResponse>> {
+    const url = this.createUrl(endpoint, queryParams);
+
+    return concat(
+      of({ type: 'start' } as RawHttpResponse<TResponse>),
+      this.#http.post<TResponse>(url, body, this.requestHeaders).pipe(
+        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>)
+      )
+    );
+  }
 }

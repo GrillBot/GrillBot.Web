@@ -1,0 +1,12 @@
+.grid-container {
+  position: relative;
+
+  & app-loading {
+    position: absolute;
+    z-index: 10000;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    top: 50%;
+  }
+}
