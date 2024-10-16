@@ -51,7 +51,7 @@ export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRe
       }),
       onlyMessages: this.createControl({ validators: [] }, false),
       onlyReactions: this.createControl({ validators: [] }, false),
-      showMerged: this.createControl({ validators: [] }, true),
+      showMerged: this.createControl({ validators: [] }, false),
       userId: this.createControl()
     };
   }
