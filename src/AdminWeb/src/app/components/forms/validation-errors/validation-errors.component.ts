@@ -14,9 +14,9 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 })
 export class ValidationErrorsComponent implements OnInit {
   form = input.required<FormGroup<any>>();
-  formControlName = input.required<string>();
+  controlName = input.required<string>();
 
-  control = computed(() => this.form().get(this.formControlName()));
+  control = computed(() => this.form().get(this.controlName()));
 
   hasAnyError: boolean = false;
   errors: string[][] = [];
