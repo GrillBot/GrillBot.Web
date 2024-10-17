@@ -25,7 +25,7 @@ export interface PaginatedParams {
   pageSize: number;
 }
 
-export interface SortParamters {
+export interface SortParameters {
   orderBy?: string;
   descending?: boolean;
 }

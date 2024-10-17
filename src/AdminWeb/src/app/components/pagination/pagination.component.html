@@ -1,0 +1,53 @@
+<div>
+  <c-button-group>
+    <button
+      cButton
+      [variant]="'outline'"
+      [disabled]="isDisabled('first')"
+      (click)="move('first')"
+    >
+      <svg cIcon name="cilArrowThickToLeft"></svg>
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [disabled]="isDisabled('prev')"
+      (click)="move('prev')"
+    >
+      <svg cIcon name="cilArrowThickLeft"></svg>
+    </button>
+  </c-button-group>
+
+  <span class="text-nowrap page-number">
+    <input
+      cFormControl
+      [sizing]="'sm'"
+      type="number"
+      [(ngModel)]="currentPage"
+      (ngModelChange)="pageChanged()"
+    />
+
+    <span>/ {{ pageCount() }}</span>
+  </span>
+
+  <c-button-group>
+    <button
+      cButton
+      [variant]="'outline'"
+      [disabled]="isDisabled('next')"
+      (click)="move('next')"
+    >
+      <svg cIcon name="cilArrowThickRight"></svg>
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [disabled]="isDisabled('last')"
+      (click)="move('last')"
+    >
+      <svg cIcon name="cilArrowThickToRight"></svg>
+    </button>
+  </c-button-group>
+</div>

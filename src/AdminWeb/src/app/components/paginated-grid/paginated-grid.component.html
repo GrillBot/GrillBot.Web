@@ -24,7 +24,12 @@
       </div>
     </c-col>
 
-    <c-col [md]="true">
+    <c-col [md]="true" class="d-flex justify-content-end align-items-lg-end mt-2">
+      <app-pagination
+        [itemsCount]="itemsCount"
+        [pageSize]="pageSize.value ?? this.defaultPageSize()"
+        [formControl]="currentPage"
+      />
     </c-col>
   </c-row>
 </div>

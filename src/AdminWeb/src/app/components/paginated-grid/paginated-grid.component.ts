@@ -1,13 +1,15 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { AgGridComponent } from "../ag-grid/ag-grid.component";
-import { concat, filter, map, Observable, of, tap } from "rxjs";
-import { PaginatedParams, SortParamters } from "../../core/models/common";
+import { concat, map, Observable, of, tap } from "rxjs";
+import { PaginatedParams, SortParameters } from "../../core/models/common";
 import { TSourceGenerator } from "./paginated-grid.models";
 import { LoadingComponent } from "../loading/loading.component";
 import { ColComponent, FormFloatingDirective, FormLabelDirective, FormSelectDirective, RowComponent } from "@coreui/angular";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { IconDirective } from "@coreui/icons-angular";
+import { PaginationComponent } from "../pagination/pagination.component";
+import { mapSortEventToSortingParams } from "../../core/mappers/grid.mapper";
 
 @Component({
   selector: 'app-paginated-grid',
@@ -22,7 +24,8 @@ import { IconDirective } from "@coreui/icons-angular";
     FormSelectDirective,
     FormLabelDirective,
     ReactiveFormsModule,
-    IconDirective
+    IconDirective,
+    PaginationComponent
   ],
   styleUrl: './paginated-grid.component.scss'
 })
@@ -33,6 +36,7 @@ export class PaginatedGridComponent {
   width = input<string>('100%');
   height = input<string>('450px');
   defaultPageSize = input(25);
+  defaultPage = input(0);
 
   rowsUpdated = output<RowDataUpdatedEvent>();
   reloadRequested = output();
@@ -40,25 +44,18 @@ export class PaginatedGridComponent {
   loading = signal(false);
 
   source$: Observable<any> = of(null);
-  sorting?: SortParamters;
+  sorting?: SortParameters;
   pagination?: PaginatedParams;
+  itemsCount: number = 0;
 
   pageSize = this.#formBuilder.control(this.defaultPageSize());
+  currentPage = this.#formBuilder.control(this.defaultPage());
 
   gridConfiguration = computed(() => {
     return {
       suppressNoRowsOverlay: true,
       onSortChanged: $event => {
-        const sortingColumn = $event.columns?.find(o => o.getSortIndex() !== null);
-        if (!sortingColumn) {
-          return;
-        }
-
-        this.sorting = {
-          descending: sortingColumn.getSort() === "desc",
-          orderBy: sortingColumn.getColId()
-        };
-
+        this.sorting = mapSortEventToSortingParams($event);
         this.reloadRequested.emit();
       },
       ...this.gridOptions()
@@ -67,37 +64,35 @@ export class PaginatedGridComponent {
 
   constructor() {
     this.pageSize.valueChanges
-      .pipe(filter(pageSize => !!pageSize))
-      .subscribe(pageSize => {
-        this.pagination = {
-          page: 0,
-          pageSize: pageSize!
-        };
+      .subscribe(_ => this.reloadRequested.emit());
 
-        this.reloadRequested.emit();
-      });
+    this.currentPage.valueChanges
+      .subscribe(_ => this.reloadRequested.emit());
   }
 
   loadData(
     filter: any,
     sourceGenerator: TSourceGenerator,
-    defaultSort: SortParamters = {}
+    defaultSort: SortParameters = {}
   ) {
-    const pagination = this.pagination ?? {
-      page: 0,
-      pageSize: this.defaultPageSize()
+    const pagination = {
+      page: this.currentPage.value ?? this.defaultPage(),
+      pageSize: this.pageSize.value ?? this.defaultPageSize()
     };
 
     const sort = this.sorting ?? defaultSort;
     this.loading.set(true);
 
-    const source = sourceGenerator({ pagination, sort, ...filter });
-
     this.source$ = concat(
       of([]),
-      source.pipe(
+      sourceGenerator({ pagination, sort, ...filter }).pipe(
+        tap(data => {
+          this.itemsCount = data.totalItemsCount;
+        }),
         map(res => res.data),
-        tap(_ => this.loading.set(false))
+        tap(_ => {
+          this.loading.set(false);
+        })
       )
     );
   }
