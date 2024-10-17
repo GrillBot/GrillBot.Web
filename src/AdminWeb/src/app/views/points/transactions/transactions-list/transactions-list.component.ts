@@ -12,6 +12,10 @@ import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mapper
 import { User } from "../../../../core/models/users/user";
 import { DatePipe } from "@angular/common";
 import { SpacedNumberPipe } from "../../../../core/pipes";
+import { ListBaseComponent } from "../../../../components/list.component.base";
+import { TransactionItem } from "../../../../core/models/points/transaction-item";
+import { RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-transactions-list',
@@ -21,18 +25,13 @@ import { SpacedNumberPipe } from "../../../../core/pipes";
     PaginatedGridComponent
   ]
 })
-export class TransactionsListComponent {
+export class TransactionsListComponent extends ListBaseComponent<AdminListRequest, TransactionItem> {
   readonly #pointsClient = inject(PointsClient);
   readonly #lookupClient = inject(LookupClient);
   readonly #LOCALE_ID = inject(LOCALE_ID);
 
-  grid = viewChild<PaginatedGridComponent>('grid');
-
-  gridOptions: GridOptions;
-  filter!: AdminListRequest;
-
-  constructor() {
-    this.gridOptions = {
+  override createGridOptions(): GridOptions {
+    return {
       columnDefs: [
         {
           field: 'guildId',
@@ -115,20 +114,12 @@ export class TransactionsListComponent {
     };
   }
 
-  onFilterChanged(filter: AdminListRequest) {
-    this.filter = filter;
-    this.reload();
+  override createRequest(request: any): Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
+    return this.#pointsClient.getTransactionList(request);
   }
 
-  reload(): void {
-    this.grid()?.loadData(
-      this.filter,
-      request => this.#pointsClient.getTransactionList(request).pipe(
-        rxjs.filter(res => res.type === 'finish'),
-        rxjs.map(res => res.value!)
-      ),
-      { descending: true }
-    );
+  override createDefaultSort(): SortParameters {
+    return { descending: true };
   }
 
   onRowsUpdated(event: RowDataUpdatedEvent): void {
