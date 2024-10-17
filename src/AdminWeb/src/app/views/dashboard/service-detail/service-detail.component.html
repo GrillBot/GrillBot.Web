@@ -104,7 +104,7 @@
         <app-ag-grid
           [gridOptions]="endpointsGrid"
           [dataSource]="response.value.endpoints | observable"
-          [height]="'300px'"
+          [height]="'400px'"
         />
       </div>
 
@@ -115,7 +115,7 @@
             [dataSource]="
               response.value.databaseStatistics | dictToList | observable
             "
-            height="300px"
+            height="400px"
           />
         </div>
       }
