@@ -10,7 +10,7 @@
   ></app-ag-grid>
 
   <c-row class="mt-1">
-    <c-col md="2">
+    <c-col md="2" class="pe-1">
       <div cFormFloating>
         <select cSelect id="pageSize" [formControl]="pageSize" no-validation>
           <option value="5">5</option>
@@ -24,7 +24,22 @@
       </div>
     </c-col>
 
-    <c-col [md]="true" class="d-flex justify-content-end align-items-lg-end mt-2">
+    <c-col md="2" class="ps-1">
+      <div cFormFloating>
+        <input
+          cFormControl
+          id="totalCount"
+          disabled
+          [value]="itemsCount | spacedNumber"
+        />
+        <label cLabel for="totalCount">Celkem záznamů</label>
+      </div>
+    </c-col>
+
+    <c-col
+      [md]="true"
+      class="d-flex justify-content-end align-items-lg-end mt-2"
+    >
       <app-pagination
         [itemsCount]="itemsCount"
         [pageSize]="pageSize.value ?? this.defaultPageSize()"

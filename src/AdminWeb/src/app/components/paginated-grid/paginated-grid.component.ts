@@ -5,11 +5,14 @@ import { concat, map, Observable, of, tap } from "rxjs";
 import { PaginatedParams, SortParameters } from "../../core/models/common";
 import { TSourceGenerator } from "./paginated-grid.models";
 import { LoadingComponent } from "../loading/loading.component";
-import { ColComponent, FormFloatingDirective, FormLabelDirective, FormSelectDirective, RowComponent } from "@coreui/angular";
+import {
+  ColComponent, FormControlDirective, FormFloatingDirective, FormLabelDirective, FormSelectDirective, RowComponent
+} from "@coreui/angular";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { IconDirective } from "@coreui/icons-angular";
 import { PaginationComponent } from "../pagination/pagination.component";
 import { mapSortEventToSortingParams } from "../../core/mappers/grid.mapper";
+import { SpacedNumberPipe } from "../../core/pipes";
 
 @Component({
   selector: 'app-paginated-grid',
@@ -25,7 +28,9 @@ import { mapSortEventToSortingParams } from "../../core/mappers/grid.mapper";
     FormLabelDirective,
     ReactiveFormsModule,
     IconDirective,
-    PaginationComponent
+    PaginationComponent,
+    FormControlDirective,
+    SpacedNumberPipe
   ],
   styleUrl: './paginated-grid.component.scss'
 })
@@ -37,6 +42,7 @@ export class PaginatedGridComponent {
   height = input<string>('450px');
   defaultPageSize = input(25);
   defaultPage = input(0);
+  showTotalCount = input(true);
 
   rowsUpdated = output<RowDataUpdatedEvent>();
   reloadRequested = output();
