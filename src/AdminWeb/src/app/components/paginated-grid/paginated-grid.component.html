@@ -8,4 +8,23 @@
     [dataSource]="source$"
     (rowsUpdated)="rowsUpdated.emit($event)"
   ></app-ag-grid>
+
+  <c-row class="mt-1">
+    <c-col md="2">
+      <div cFormFloating>
+        <select cSelect id="pageSize" [formControl]="pageSize" no-validation>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+        <label cLabel for="pageSize">Zobrazit záznamů</label>
+      </div>
+    </c-col>
+
+    <c-col [md]="true">
+    </c-col>
+  </c-row>
 </div>
