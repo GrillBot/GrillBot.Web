@@ -5,6 +5,7 @@
     [items]="lookup.value"
     bindValue="id"
     bindLabel="username"
+    [formControl]="formControl"
   >
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
       <div [title]="item.isBot ? 'BOT' : ''">
