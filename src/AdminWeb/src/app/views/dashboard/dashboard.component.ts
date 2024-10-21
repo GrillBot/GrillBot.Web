@@ -4,7 +4,7 @@ import {
   ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
-import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { LoadingComponent } from "../../components";
 import { HasPermissionDirective } from '../../core/directives';
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
@@ -13,6 +13,7 @@ import { InteractionsComponent } from "./components/interactions/interactions.co
 import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
 import { JobsComponent } from "./components/jobs/jobs.component";
 import { TimeSpanPipe, FilesizePipe, WithLoadingPipe } from "../../core/pipes";
+import { LocaleDatePipe } from "../../core/pipes/locale-date.pipe";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -23,7 +24,6 @@ import { TimeSpanPipe, FilesizePipe, WithLoadingPipe } from "../../core/pipes";
     WidgetStatFComponent,
     TemplateIdDirective,
     IconDirective,
-    DatePipe,
     TimeSpanPipe,
     FilesizePipe,
     AsyncPipe,
@@ -35,7 +35,8 @@ import { TimeSpanPipe, FilesizePipe, WithLoadingPipe } from "../../core/pipes";
     UserMeasuresComponent,
     InteractionsComponent,
     TodayAvgTimesComponent,
-    JobsComponent
+    JobsComponent,
+    LocaleDatePipe
   ]
 })
 export class DashboardComponent {

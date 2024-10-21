@@ -11,7 +11,7 @@
           [ngTemplateOutlet]="dashboardWidget"
           [ngTemplateOutletContext]="{
             title: 'Bot spuštěn',
-            value: commonInfo.value!.startAt | date: 'dd. MM. yyyy HH:mm:ss',
+            value: commonInfo.value!.startAt | localeDatePipe,
             icon: 'cilPowerStandby',
             color: commonInfo.value!.isActive ? 'success' : 'danger',
           }"

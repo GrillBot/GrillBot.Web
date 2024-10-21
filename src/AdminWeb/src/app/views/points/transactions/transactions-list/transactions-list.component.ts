@@ -1,4 +1,4 @@
-import { Component, inject, LOCALE_ID, viewChild } from "@angular/core";
+import { Component, inject, LOCALE_ID } from "@angular/core";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PaginatedGridComponent } from "../../../../components/paginated-grid/paginated-grid.component";
@@ -10,12 +10,12 @@ import { Guild } from "../../../../core/models/guilds/guild";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
-import { DatePipe } from "@angular/common";
 import { SpacedNumberPipe } from "../../../../core/pipes";
 import { ListBaseComponent } from "../../../../components/list.component.base";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { Observable } from "rxjs";
+import { LocaleDatePipe } from "../../../../core/pipes/locale-date.pipe";
 
 @Component({
   selector: 'app-transactions-list',
@@ -60,7 +60,7 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',
-          valueFormatter: params => new DatePipe(this.#LOCALE_ID).transform(params.value, 'dd. MM. yyyy HH:mm:ss')!,
+          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
           sortable: true,
           initialSort: 'desc'
@@ -99,14 +99,14 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           field: 'mergedFrom',
           headerName: 'Sloučeno od',
-          valueFormatter: params => new DatePipe(this.#LOCALE_ID).transform(params.value, 'dd. MM. yyyy HH:mm:ss')!,
+          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
           hide: true
         },
         {
           field: 'mergedTo',
           headerName: 'Sloučeno do',
-          valueFormatter: params => new DatePipe(this.#LOCALE_ID).transform(params.value, 'dd. MM. yyyy HH:mm:ss')!,
+          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
           hide: true
         }

@@ -71,8 +71,7 @@
                 [ngTemplateOutlet]="detailInfoRow"
                 [ngTemplateOutletContext]="{
                   key: 'Měřeno od',
-                  value:
-                    response.value.measuredFrom | date: 'dd. MM. yyyy HH:mm:ss',
+                  value: response.value.measuredFrom | localeDatePipe,
                 }"
               />
             </c-card-body>

@@ -34,11 +34,13 @@ export const appConfig: ApplicationConfig = {
         httpCacheInterceptor({
           urlsToCache: [
             'dashboard/bot-common-info',
-            'lookup\/(?:user|guild)\/\\d+$'
+            'lookup\/(?:user|guild)\/\\d+$',
+            'service/Points/list/chart'
           ],
           globalTTL: 5 * 60 * 1000,
           ttls: {
-            'dashboard/bot-common-info': 30 * 1000
+            'dashboard/bot-common-info': 30 * 1000,
+            'service/Points/list/chart': 1000
           }
         }),
         httpLoggingInterceptor()

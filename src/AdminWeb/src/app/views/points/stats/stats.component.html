@@ -1,0 +1,20 @@
+<app-transactions-filter (filterEvent)="onFilterChanged($event)" />
+
+@if (messagePointsSource$) {
+  <app-chart
+    [title]="'Zprávy'"
+    [source]="messagePointsSource$"
+    bindValue="messagePoints"
+    bindLabel="day"
+  />
+}
+
+@if (reactionPointsSource$) {
+  <app-chart
+    [title]="'Reakce'"
+    [source]="reactionPointsSource$"
+    bindValue="reactionPoints"
+    bindLabel="day"
+    color="warning"
+  />
+}

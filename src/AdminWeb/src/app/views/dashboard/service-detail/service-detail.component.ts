@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
-import { AsyncPipe, DatePipe, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import {
   AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent,
   CardTitleDirective, ColComponent, RowComponent
@@ -20,6 +20,7 @@ import {
   WithLoadingPipe, FilesizePipe, TimeSpanPipe, SpacedNumberPipe,
   ObservablePipe, DictToListPipe, WithNestingPipe
 } from "../../../core/pipes";
+import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
 
 @Component({
   selector: 'app-service-detail',
@@ -41,11 +42,11 @@ import {
     FilesizePipe,
     TimeSpanPipe,
     SpacedNumberPipe,
-    DatePipe,
     AgGridComponent,
     ObservablePipe,
     DictToListPipe,
-    WithNestingPipe
+    WithNestingPipe,
+    LocaleDatePipe
   ]
 })
 export class ServiceDetailComponent {
@@ -72,7 +73,7 @@ export class ServiceDetailComponent {
         {
           field: 'lastRequestAt',
           headerName: 'Poslední požadavek',
-          valueFormatter: params => new DatePipe(this.#LOCALE_ID).transform(params.value, 'dd. MM. yyyy HH:mm:ss')!,
+          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200
         },
         {

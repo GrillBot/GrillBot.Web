@@ -1,0 +1,20 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <h4 cCardTitle>{{ title() }}</h4>
+
+    @if (source$()) {
+      @if (source$()! | withLoading | async; as chartResponse) {
+        <app-loading [visible]="chartResponse.loading" />
+
+        @if (!chartResponse.loading) {
+          <c-chart
+            [height]="300"
+            [type]="type()"
+            [data]="chartResponse.value"
+            [options]="options"
+          ></c-chart>
+        }
+      }
+    }
+  </c-card-body>
+</c-card>

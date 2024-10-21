@@ -16,5 +16,13 @@ export const routes: Routes = [
       title: 'Body / Transakce',
       canActivate: (perms: string[]) => perms.includes('Points(Admin)')
     }
+  },
+  {
+    path: 'stats',
+    loadComponent: () => import('./stats/stats.component').then(m => m.ChartsComponent),
+    data: {
+      title: 'Body / Statistiky',
+      canActivate: (perms: string[]) => perms.includes('Points(Admin)')
+    }
   }
 ];
