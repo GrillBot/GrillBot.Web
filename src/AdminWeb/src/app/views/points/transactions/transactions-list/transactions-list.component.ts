@@ -13,7 +13,7 @@ import { User } from "../../../../core/models/users/user";
 import { SpacedNumberPipe } from "../../../../core/pipes";
 import { ListBaseComponent } from "../../../../components/list.component.base";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
-import { RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
+import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
 import { Observable } from "rxjs";
 import { LocaleDatePipe } from "../../../../core/pipes/locale-date.pipe";
 
@@ -43,7 +43,8 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
                 rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
                 rxjs.map(guild => mapGuildToLookupRow(guild, guildId))
               )
-          }
+          },
+          maxWidth: 500
         },
         {
           field: 'userId',
@@ -114,7 +115,8 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
     };
   }
 
-  override createRequest(request: any): Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
+  override createRequest(request: WithSortAndPagination<AdminListRequest>)
+    : Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
     return this.#pointsClient.getTransactionList(request);
   }
 

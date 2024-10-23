@@ -1,0 +1,8 @@
+<div class="mb-2">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'900px'"
+    (reloadRequested)="reload()"
+  />
+</div>

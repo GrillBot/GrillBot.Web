@@ -29,3 +29,11 @@ export interface SortParameters {
   orderBy?: string;
   descending?: boolean;
 }
+
+export type PaginatedType<T> = T & {
+  pagination: PaginatedParams;
+  sort?: SortParameters
+};
+
+export type WithPagination<T> = T & { pagination: PaginatedParams; };
+export type WithSortAndPagination<T> = WithPagination<T> & { sort: SortParameters };
