@@ -7,3 +7,55 @@
     (reloadRequested)="reload()"
   />
 </div>
+
+<c-modal #removeTransactionModal alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Smazání transakce</h5>
+    <button
+      cButtonClose
+      (click)="removeTransactionModal.visible = false"
+    ></button>
+  </c-modal-header>
+  <c-modal-body>
+    Opravdu si přejete smazat transakci?
+
+    @if (rowInModal) {
+      <table cTable bordered="true" class="mb-0 mt-3">
+        <tr>
+          <th>ID zprávy</th>
+          <td>{{ rowInModal.messageId }}</td>
+        </tr>
+        <tr>
+          <th>Vytvořeno</th>
+          <td>{{ rowInModal.createdAt | localeDatePipe }}</td>
+        </tr>
+        <tr>
+          <th>Typ</th>
+          <td>{{ getType(rowInModal.reactionId) }}</td>
+        </tr>
+        <tr>
+          <th>Množství bodů</th>
+          <td>{{ rowInModal.value }}</td>
+        </tr>
+      </table>
+    }
+  </c-modal-body>
+  <c-modal-footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="confirmRemoveTransaction()"
+    >
+      Potvrdit
+    </button>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="removeTransactionModal.visible = false"
+    >
+      Zrušit
+    </button>
+  </c-modal-footer>
+</c-modal>

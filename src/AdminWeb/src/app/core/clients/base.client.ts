@@ -80,4 +80,15 @@ export abstract class BaseClient {
       )
     );
   }
+
+  protected deleteRequest(endpoint: string, queryParams: HttpQueryParams = {}): Observable<RawHttpResponse<unknown>> {
+    const url = this.createUrl(endpoint, queryParams);
+
+    return concat(
+      of({ type: 'start' } as RawHttpResponse<unknown>),
+      this.#http.delete(url, this.requestHeaders).pipe(
+        map(_ => ({ type: 'finish' }) as RawHttpResponse<unknown>)
+      )
+    );
+  }
 }

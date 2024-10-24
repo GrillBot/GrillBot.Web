@@ -1,32 +1,49 @@
-import { Component, inject, LOCALE_ID } from "@angular/core";
+import { Component, inject, LOCALE_ID, viewChild } from "@angular/core";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
-import { PaginatedGridComponent } from "../../../../components/paginated-grid/paginated-grid.component";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
-import { AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, usePipeTransform } from "../../../../components";
+import {
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
+  PaginatedGridComponent, usePipeTransform
+} from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { Guild } from "../../../../core/models/guilds/guild";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
 import { SpacedNumberPipe, LocaleDatePipe } from "../../../../core/pipes";
-import { ListBaseComponent } from "../../../../components/list.component.base";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
+import {
+  ButtonCloseDirective, ButtonDirective, TableDirective,
+  ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective
+} from "@coreui/angular";
 
 @Component({
   selector: 'app-transactions-list',
   templateUrl: './transactions-list.component.html',
   standalone: true,
   imports: [
-    PaginatedGridComponent
+    PaginatedGridComponent,
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    ModalFooterComponent,
+    ModalTitleDirective,
+    ButtonCloseDirective,
+    TableDirective,
+    LocaleDatePipe,
+    ButtonDirective
   ]
 })
 export class TransactionsListComponent extends ListBaseComponent<AdminListRequest, TransactionItem> {
   readonly #pointsClient = inject(PointsClient);
   readonly #lookupClient = inject(LookupClient);
   readonly #LOCALE_ID = inject(LOCALE_ID);
+
+  removeTransactionModal = viewChild<ModalComponent>('removeTransactionModal');
+  rowInModal?: TransactionItem;
 
   override createGridOptions(): GridOptions {
     return {
@@ -72,15 +89,7 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           field: 'reactionId',
           headerName: 'Typ',
-          valueFormatter: params => {
-            if (String(params.value).endsWith('_Burst')) {
-              return 'Super reakce';
-            } else if (String(params.value).length > 0) {
-              return 'Reakce';
-            } else {
-              return 'Zpráva';
-            }
-          },
+          valueFormatter: params => this.getType(params.value),
           maxWidth: 110
         },
         {
@@ -112,14 +121,14 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           headerName: 'Akce',
           colId: 'actions',
-          maxWidth: 300,
+          maxWidth: 200,
           cellRenderer: ButtonsCellRendererComponent,
           cellRendererParams: {
             buttons: [
               {
                 id: 'remove-transaction',
                 title: 'Smazat transakci',
-                action: this.onRemoveTransactionClick,
+                action: (row) => this.openRemoveTransaction(row),
                 size: 'sm',
                 variant: 'ghost',
                 color: 'primary'
@@ -146,9 +155,44 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
     event.api.sizeColumnsToFit();
   }
 
-  onRemoveTransactionClick(row: TransactionItem) {
-    // TODO Implement execution with confirmation modal and toast notification.
-    console.log(row);
-    alert('TODO');
+  openRemoveTransaction(row: TransactionItem) {
+    const modal = this.removeTransactionModal();
+    if (!modal) {
+      return;
+    }
+
+    this.rowInModal = row;
+    modal.visible = true;
+
+    const visibleChange = modal.visibleChange
+      .pipe(rxjs.filter(visible => !visible))
+      .subscribe(() => {
+        this.rowInModal = undefined;
+        visibleChange.unsubscribe();
+      });
+  }
+
+  confirmRemoveTransaction() {
+    const modal = this.removeTransactionModal();
+    if (!this.rowInModal || !modal) {
+      return;
+    }
+
+    this.#pointsClient
+      .deleteTransaction(this.rowInModal.guildId, this.rowInModal.messageId, this.rowInModal.reactionId)
+      .subscribe(() => {
+        modal.visible = false;
+        this.reload();
+      });
+  }
+
+  getType(reactionId: string): string {
+    if (reactionId.endsWith('_Burst')) {
+      return 'Super reakce';
+    } else if (reactionId.length > 0) {
+      return 'Reakce';
+    } else {
+      return 'Zpráva';
+    }
   }
 }

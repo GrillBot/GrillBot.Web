@@ -24,4 +24,12 @@ export class PointsClient extends BaseClient {
 
   getUserList = (request: PaginatedType<UserListRequest>) =>
     this.postRequest<PaginatedResponse<UserListItem>>('service/Points/list/users', request);
+
+  deleteTransaction = (guildId: string, messageId: string, reactionId?: string) => {
+    if (reactionId) {
+      return this.deleteRequest(`service/Points/${guildId}/${messageId}`, { reactionId: reactionId });
+    } else {
+      return this.deleteRequest(`service/Points/${guildId}/${messageId}`);
+    }
+  }
 }
