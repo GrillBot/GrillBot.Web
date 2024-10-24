@@ -13,7 +13,7 @@ import { ICellRendererParams } from "ag-grid-community";
     'input:disabled { opacity: 1 !important }'
   ]
 })
-export class CheckboxRenderer implements ICellRendererAngularComp {
+export class CheckboxCellRenderer implements ICellRendererAngularComp {
   value = signal(false);
   checkboxId = signal('');
 

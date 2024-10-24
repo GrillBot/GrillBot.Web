@@ -1,13 +1,9 @@
 import { Component, inject } from "@angular/core";
-import { ListBaseComponent } from "../../../../components/list.component.base";
-import { UserListItem } from "../../../../core/models/points/user-list-item";
 import { UserListRequest } from "../../../../core/models/points/user-list-request";
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
 import { PointsClient } from "../../../../core/clients/points.client";
-import { PaginatedGridComponent } from "../../../../components/paginated-grid/paginated-grid.component";
-import { AsyncLookupCellRendererComponent, usePipeTransform } from "../../../../components";
 import { HttpErrorResponse } from "@angular/common/http";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
@@ -15,7 +11,10 @@ import * as rxjs from 'rxjs';
 import { Guild } from "../../../../core/models/guilds/guild";
 import { User } from "../../../../core/models/users/user";
 import { SpacedNumberPipe } from "../../../../core/pipes";
-import { CheckboxRenderer } from "../../../../components/ag-grid/renderers/checkbox-renderer/checkbox-renderer.component";
+import {
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, usePipeTransform
+} from "../../../../components";
+import { UserListItem } from "../../../../core/models/points/user-list-item";
 
 @Component({
   selector: 'app-users-list',
@@ -60,7 +59,7 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
         {
           field: 'pointsDeactivated',
           headerName: 'Body deaktivované',
-          cellRenderer: CheckboxRenderer,
+          cellRenderer: CheckboxCellRenderer,
           maxWidth: 180
         },
         {

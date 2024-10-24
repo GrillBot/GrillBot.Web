@@ -1,0 +1,17 @@
+@if (buttons) {
+  @for (button of buttons; track button.id) {
+    <button
+      cButton
+      [variant]="button.variant"
+      [color]="button.color ?? 'transparent'"
+      [size]="button.size ?? 'lg'"
+      class="text-decoration-underline"
+      (click)="button.action(rowData)"
+    >
+      @if (button.icon) {
+        <svg cIcon name="{{ button.icon }}"></svg>
+      }
+      {{ button.title ?? "" }}
+    </button>
+  }
+}

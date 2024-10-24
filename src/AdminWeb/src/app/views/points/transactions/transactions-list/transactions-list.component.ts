@@ -4,18 +4,16 @@ import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PaginatedGridComponent } from "../../../../components/paginated-grid/paginated-grid.component";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
-import { AsyncLookupCellRendererComponent, usePipeTransform } from "../../../../components";
+import { AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, usePipeTransform } from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { Guild } from "../../../../core/models/guilds/guild";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
-import { SpacedNumberPipe } from "../../../../core/pipes";
+import { SpacedNumberPipe, LocaleDatePipe } from "../../../../core/pipes";
 import { ListBaseComponent } from "../../../../components/list.component.base";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
-import { Observable } from "rxjs";
-import { LocaleDatePipe } from "../../../../core/pipes/locale-date.pipe";
 
 @Component({
   selector: 'app-transactions-list',
@@ -110,13 +108,31 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
           valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
           hide: true
+        },
+        {
+          headerName: 'Akce',
+          colId: 'actions',
+          maxWidth: 300,
+          cellRenderer: ButtonsCellRendererComponent,
+          cellRendererParams: {
+            buttons: [
+              {
+                id: 'remove-transaction',
+                title: 'Smazat transakci',
+                action: this.onRemoveTransactionClick,
+                size: 'sm',
+                variant: 'ghost',
+                color: 'primary'
+              } as ButtonDef,
+            ]
+          }
         }
       ]
     };
   }
 
   override createRequest(request: WithSortAndPagination<AdminListRequest>)
-    : Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
+    : rxjs.Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
     return this.#pointsClient.getTransactionList(request);
   }
 
@@ -126,6 +142,13 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
 
   onRowsUpdated(event: RowDataUpdatedEvent): void {
     event.api.setColumnsVisible(['mergedCount', 'mergedFrom', 'mergedTo'], this.filter.showMerged);
+    event.api.setColumnsVisible(['actions'], !this.filter.showMerged);
     event.api.sizeColumnsToFit();
+  }
+
+  onRemoveTransactionClick(row: TransactionItem) {
+    // TODO Implement execution with confirmation modal and toast notification.
+    console.log(row);
+    alert('TODO');
   }
 }
