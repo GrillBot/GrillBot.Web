@@ -6,6 +6,10 @@
     </div>
 
     <div class="col-md-6">
-        <app-transfer-points></app-transfer-points>
+        <app-card [title]="'Převod bodů'" [icon]="'fas fa-exchange-alt'">
+            <app-new-web-info
+                [text]="'Převod bodů se nachází v nové administraci.'"
+            />
+        </app-card>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <app-navigation [navigation]="navigation"></app-navigation>
 
 <common-dashboard>
-    <app-filter filter (filterChanged)="list.filterChanged($event)"></app-filter>
-    <app-list #list></app-list>
+    <app-new-web-info
+        [text]="'Seznam uživatelů byl převeden do nové administrace.'"
+    />
 </common-dashboard>

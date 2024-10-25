@@ -25,6 +25,7 @@ import { SortingDirective } from './data-list/sorting.directive';
 import { DataListComponent } from './data-list/data-list.component';
 import { ItemsCountComponent } from './data-list/items-count.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { NewWebInfoComponent } from './new-web-info/new-web-info.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { PaginationComponent } from './pagination/pagination.component';
         SortingDirective,
         DataListComponent,
         ItemsCountComponent,
-        PaginationComponent
+        PaginationComponent,
+        NewWebInfoComponent
     ],
     imports: [
         CommonModule,
@@ -84,7 +86,8 @@ import { PaginationComponent } from './pagination/pagination.component';
         SortingDirective,
         DataListComponent,
         ItemsCountComponent,
-        PaginationComponent
+        PaginationComponent,
+        NewWebInfoComponent
     ]
 })
 export class SharedModule { }
