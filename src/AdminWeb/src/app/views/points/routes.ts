@@ -32,5 +32,13 @@ export const routes: Routes = [
       title: 'Body / Uživatelé',
       canActivate: (perms: string[]) => perms.includes('Points(Admin)')
     }
+  },
+  {
+    path: 'transfer',
+    loadComponent: () => import('./transfer/transfer.component').then(m => m.TransferComponent),
+    data: {
+      title: 'Body / Převod bodů',
+      canActivate: (perms: string[]) => perms.includes('Points(Admin)')
+    }
   }
 ];

@@ -7,6 +7,7 @@ import { AdminListRequest } from "../models/points/admin-list-request";
 import { PointsChartItem } from "../models/points/points-chart-item";
 import { UserListItem } from "../models/points/user-list-item";
 import { UserListRequest } from "../models/points/user-list-request";
+import { TransferPointsRequest } from "../models/points/transfer-points-request";
 
 @Injectable({ providedIn: 'root' })
 export class PointsClient extends BaseClient {
@@ -32,4 +33,6 @@ export class PointsClient extends BaseClient {
       return this.deleteRequest(`service/Points/${guildId}/${messageId}`);
     }
   }
+
+  transferPoints = (request: TransferPointsRequest) => this.postRequest('service/Points/transfer', request);
 }

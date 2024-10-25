@@ -1,0 +1,91 @@
+<c-container>
+  <c-card class="mb-3">
+    <c-card-body>
+      <form cForm [formGroup]="form">
+        <c-row>
+          <c-col>
+            <label cLabel for="guildId">Server</label>
+            <app-guild-lookup formControlName="guildId" />
+            <app-validation-errors [form]="form" controlName="guildId" />
+          </c-col>
+          <c-col>
+            <label cLabel for="fromUserId">Od uživatele</label>
+            <app-user-lookup formControlName="fromUserId" />
+            <app-validation-errors [form]="form" controlName="fromUserId" />
+          </c-col>
+        </c-row>
+
+        <c-row class="mt-3">
+          <c-col>
+            <label cLabel for="amount">Množství bodů</label>
+            <input cFormControl type="number" formControlName="amount" />
+            <app-validation-errors [form]="form" controlName="amount" />
+          </c-col>
+
+          <c-col>
+            <label cLabel for="toUserId">Cílový uživatel</label>
+            <app-user-lookup formControlName="toUserId" />
+            <app-validation-errors [form]="form" controlName="toUserId" />
+          </c-col>
+        </c-row>
+
+        <c-row class="mt-3">
+          <c-col class="d-flex justify-content-end">
+            <button
+              cButton
+              [variant]="'outline'"
+              [color]="'primary'"
+              [disabled]="form.invalid"
+              (click)="executeTransfer()"
+            >
+              Provést
+            </button>
+          </c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+
+  <c-alert
+    [color]="stateColor()"
+    [visible]="state() != 'NotStarted'"
+    [fade]="true"
+  >
+    @switch (state()) {
+      @case ("Executing") {
+        <app-loading
+          [rotating]="true"
+          [center]="false"
+          [customText]="'Odesílání žádosti o převod bodů'"
+          [small]="true"
+        />
+      }
+
+      @case ("Success") {
+        <div class="d-flex align-items-center">
+          <svg cIcon name="cilCheckCircle"></svg>
+          <p class="m-0 ms-2">
+            Žádost o převod bodů byla úspěšně zkontrolována a odeslána. Bot v
+            nejbližší době žádost odbaví.
+          </p>
+        </div>
+      }
+
+      @case ("Failed") {
+        <div class="d-flex align-items-center">
+          <svg cIcon name="cilXCircle"></svg>
+          <p class="m-0 ms-2">
+            Tvoji žádost o převod bodů se nepodařilo odeslat ke zpracování.
+            Zkontroluj důvod odeslání.
+          </p>
+        </div>
+
+        <ul class="mb-0 mt-3">
+          @for (message of stateErrorMessages(); track $index) {
+            <li>{{ message }}</li>
+          }
+        </ul>
+      }
+    }
+  </c-alert>
+</c-container>

@@ -8,6 +8,20 @@
             [ngTemplateOutletContext]="{ error: error[1] }"
           />
         }
+
+        @case ("required") {
+          <ng-container
+            [ngTemplateOutlet]="requiredError"
+            [ngTemplateOutletContext]="{ error: error[1] }"
+          />
+        }
+
+        @case ("min") {
+          <ng-container
+            [ngTemplateOutlet]="minError"
+            [ngTemplateOutletContext]="{ error: error[1] }"
+          />
+        }
       }
     }
   </small>
@@ -17,4 +31,12 @@
   Hodnota "{{ error.actualValue }}" nesplňuje regulární výraz "{{
     error.requiredPattern
   }}"
+</ng-template>
+
+<ng-template #requiredError let-error="error">
+  Hodnota je povinná.
+</ng-template>
+
+<ng-template #minError let-error="error">
+  Nejmenší povolená hodnota je {{ error.min }}.
 </ng-template>

@@ -37,3 +37,9 @@ export type PaginatedType<T> = T & {
 
 export type WithPagination<T> = T & { pagination: PaginatedParams; };
 export type WithSortAndPagination<T> = WithPagination<T> & { sort: SortParameters };
+
+export interface ValidationProblemDetails {
+  errors: { [K: string]: string[] };
+  status: number;
+  title: string;
+}

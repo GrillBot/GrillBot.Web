@@ -17,12 +17,15 @@ export class LoadingComponent {
   readonly visible = input(true);
   readonly small = input(false);
   readonly center = input(true);
+  readonly rotating = input(false);
 
   containerClasses = computed(() => {
     return {
       'd-flex': true,
-      'align-items-center': this.center(),
+      'align-items-center': true,
       'justify-content-center': this.center()
     }
   });
+
+  variant = computed(() => this.rotating() ? 'border' : 'grow');
 }
