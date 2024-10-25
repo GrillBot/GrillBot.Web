@@ -35,7 +35,8 @@ export const appConfig: ApplicationConfig = {
           urlsToCache: [
             'dashboard/bot-common-info',
             'lookup\/(?:user|guild)\/\\d+$',
-            'service/Points/list/chart'
+            'service/Points/list/chart',
+            'lookup\/(?:user|guild)\/list'
           ],
           globalTTL: 5 * 60 * 1000,
           ttls: {
