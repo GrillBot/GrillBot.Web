@@ -5,6 +5,7 @@ import { ICellRendererAngularComp } from "ag-grid-angular";
 import { from } from 'typescript-extended-linq';
 import { ButtonDirective } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
+import { VisibilityDirective } from "../../../../core/directives";
 
 export type ButtonsCellRendererParams = ICellRendererParams & {
   buttons: ButtonDef[];
@@ -15,7 +16,8 @@ export type ButtonsCellRendererParams = ICellRendererParams & {
   standalone: true,
   imports: [
     ButtonDirective,
-    IconDirective
+    IconDirective,
+    VisibilityDirective
   ]
 })
 export class ButtonsCellRendererComponent implements ICellRendererAngularComp {

@@ -15,6 +15,8 @@ import { User } from "../../../../core/models/users/user";
 import { Guild } from "../../../../core/models/guilds/guild";
 import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, TableDirective } from "@coreui/angular";
 
+const MAX_REASON_CELL_LENGTH = 30;
+
 @Component({
   selector: 'app-measures-list-list',
   templateUrl: './measures-list-list.component.html',
@@ -104,7 +106,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           field: 'reason',
           headerName: 'Důvod',
           tooltipField: 'reason',
-          valueFormatter: params => usePipeTransform(params, CutStringPipe, 30, false),
+          valueFormatter: params => usePipeTransform(params, CutStringPipe, MAX_REASON_CELL_LENGTH, false),
           maxWidth: 330
         },
         {
@@ -119,7 +121,8 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
                 size: 'sm',
                 variant: 'ghost',
                 color: 'primary',
-                action: row => this.openFullReason(row)
+                action: row => this.openFullReason(row),
+                isVisible: row => row.reason.length >= MAX_REASON_CELL_LENGTH
               },
               {
                 id: 'remove-measure',
