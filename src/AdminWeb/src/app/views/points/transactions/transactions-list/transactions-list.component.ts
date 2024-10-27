@@ -5,7 +5,7 @@ import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
-  PaginatedGridComponent, usePipeTransform
+  PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
 } from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { Guild } from "../../../../core/models/guilds/guild";
@@ -128,15 +128,16 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
               {
                 id: 'remove-transaction',
                 title: 'Smazat transakci',
-                action: (row) => this.openRemoveTransaction(row),
+                action: row => this.openRemoveTransaction(row),
                 size: 'sm',
                 variant: 'ghost',
-                color: 'primary'
-              } as ButtonDef,
-            ]
+                color: 'danger'
+              },
+            ] as ButtonDef[]
           }
         }
-      ]
+      ],
+      getRowStyle: STRIPED_ROW_STYLE
     };
   }
 
@@ -156,20 +157,11 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
   }
 
   openRemoveTransaction(row: TransactionItem) {
-    const modal = this.removeTransactionModal();
-    if (!modal) {
-      return;
-    }
-
-    this.rowInModal = row;
-    modal.visible = true;
-
-    const visibleChange = modal.visibleChange
-      .pipe(rxjs.filter(visible => !visible))
-      .subscribe(() => {
-        this.rowInModal = undefined;
-        visibleChange.unsubscribe();
-      });
+    this.openModal(
+      this.removeTransactionModal(),
+      () => this.rowInModal = row,
+      () => this.rowInModal = undefined
+    );
   }
 
   confirmRemoveTransaction() {

@@ -28,6 +28,13 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
+      },
+      {
+        path: 'user-measures',
+        loadChildren: () => import('./views/user-measures/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
       }
     ]
   },

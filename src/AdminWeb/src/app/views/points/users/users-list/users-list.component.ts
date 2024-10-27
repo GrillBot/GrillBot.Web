@@ -12,7 +12,7 @@ import { Guild } from "../../../../core/models/guilds/guild";
 import { User } from "../../../../core/models/users/user";
 import { SpacedNumberPipe } from "../../../../core/pipes";
 import {
-  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, usePipeTransform
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
 } from "../../../../components";
 import { UserListItem } from "../../../../core/models/points/user-list-item";
 
@@ -80,7 +80,8 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
           valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           maxWidth: 250
         }
-      ]
+      ],
+      getRowStyle: STRIPED_ROW_STYLE
     };
   }
 

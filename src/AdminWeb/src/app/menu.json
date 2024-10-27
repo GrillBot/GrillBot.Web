@@ -78,5 +78,22 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Uživatelská opatření",
+    "url": "/web/user-measures",
+    "icon": "cil-shield-alt",
+    "permissions": [
+      "UserMeasures(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Seznam opatření",
+        "url": "/web/user-measures/measures-list",
+        "permissions": [
+          "UserMeasures(Admin)"
+        ]
+      }
+    ]
   }
 ]

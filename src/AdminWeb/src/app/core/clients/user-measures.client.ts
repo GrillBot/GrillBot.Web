@@ -1,14 +1,16 @@
 import { DashboardRow } from './../models/user-measures/dashboard-row';
 import { Injectable } from "@angular/core";
 import { BaseClient } from "./base.client";
-import { Observable } from "rxjs";
-import { RawHttpResponse } from '../models/common';
+import { PaginatedResponse, WithPagination } from '../models/common';
+import { MeasuresListParams } from '../models/user-measures/measures-list-params';
+import { MeasuresItem } from '../models/user-measures/measures-item';
 
 @Injectable({ providedIn: 'root' })
 export class UserMeasuresClient extends BaseClient {
-  constructor() {
-    super();
-  }
+  getMeasuresList = (request: WithPagination<MeasuresListParams>) =>
+    this.postRequest<PaginatedResponse<MeasuresItem>>('service/UserMeasures/measures-list', request);
 
-  getDashboard: () => Observable<RawHttpResponse<DashboardRow[]>> = () => this.getRequest('service/usermeasures/dashboard');
+  deleteMeasure = (measureId: string) => this.deleteRequest(`service/UserMeasures/${measureId}`);
+
+  getDashboard = () => this.getRequest<DashboardRow[]>('service/usermeasures/dashboard');
 }

@@ -42,6 +42,7 @@ export class AgGridComponent {
         showText: false
       },
       suppressRowHoverHighlight: true,
+      enableCellTextSelection: true,
       localeText: AG_GRID_LOCALE_CZ,
       columnDefs: [],
       defaultColDef: {

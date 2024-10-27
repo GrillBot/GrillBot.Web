@@ -1,0 +1,70 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'700px'"
+    (reloadRequested)="reload()"
+  />
+</div>
+
+<c-modal #openFullReasonModal alignment="center" size="xl">
+  <c-modal-header>
+    <h5 cModalTitle>Důvod opatření</h5>
+    <button cButtonClose (click)="openFullReasonModal.visible = false"></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    @if (reasonInModal) {
+      {{ reasonInModal }}
+    }
+  </c-modal-body>
+</c-modal>
+
+<c-modal #removeMeasureModal alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Smazání opatření</h5>
+    <button cButtonClose (click)="removeMeasureModal.visible = false"></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    Opravdu si přejete smazat tohle opatření?
+
+    @if (rowInModal) {
+      <table cTable bordered="true" class="mb-0 mt-3">
+        <tr>
+          <th>ID opatření</th>
+          <td>{{ rowInModal.measureId }}</td>
+        </tr>
+
+        <tr>
+          <th>Typ opatření</th>
+          <td>{{ getMeasureType(rowInModal.type) }}</td>
+        </tr>
+
+        <tr>
+          <th>Vytvořeno</th>
+          <td>{{ rowInModal.createdAtUtc | localeDatePipe }}</td>
+        </tr>
+      </table>
+    }
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="confirmRemoveMeasure()"
+    >
+      Potvrdit
+    </button>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="removeMeasureModal.visible = false"
+    >
+      Zrušit
+    </button>
+  </c-modal-footer>
+</c-modal>

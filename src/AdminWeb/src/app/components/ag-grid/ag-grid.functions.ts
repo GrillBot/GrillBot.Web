@@ -6,5 +6,5 @@ export function usePipeTransform<TPipe extends PipeTransform>(
   pipeType: new () => TPipe,
   ...pipeArgs: any[]
 ): string {
-  return new pipeType().transform(params.value, pipeArgs);
+  return new pipeType().transform(params.value, ...pipeArgs);
 }

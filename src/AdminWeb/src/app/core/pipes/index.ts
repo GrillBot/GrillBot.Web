@@ -7,3 +7,4 @@ export * from './timespan.pipe';
 export * from './with-loading.pipe';
 export * from './with-nesting.pipe';
 export * from './locale-date.pipe';
+export * from './cut-string.pipe';
