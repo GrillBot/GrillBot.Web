@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Dashboard",
+    "url": "/web/dashboard",
+    "icon": "cil-featured-playlist",
+    "permissions": [
+      "Dashboard(Admin)",
+      "UserMeasures(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Bot",
+        "url": "/web/dashboard/common",
+        "permissions": [
+          "Dashboard(Admin)",
+          "UserMeasures(Admin)"
+        ]
+      },
+      {
+        "name": "Služby",
+        "url": "/web/dashboard/services",
+        "permissions": [
+          "Dashboard(Admin)"
+        ]
+      },
+      {
+        "name": "API",
+        "url": "/web/dashboard/api",
+        "permissions": [
+          "Dashboard(Admin)",
+          "AuditLog(Admin)"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Body",
+    "url": "/web/points",
+    "icon": "cil-chat-bubble",
+    "permissions": [
+      "Points(Leaderboard)",
+      "Points(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Leaderboard",
+        "url": "/web/points/leaderboard",
+        "permissions": [
+          "Points(Leaderboard)"
+        ]
+      },
+      {
+        "name": "Transakce",
+        "url": "/web/points/transactions",
+        "permissions": [
+          "Points(Admin)"
+        ]
+      },
+      {
+        "name": "Statistiky",
+        "url": "/web/points/stats",
+        "permissions": [
+          "Points(Admin)"
+        ]
+      },
+      {
+        "name": "Uživatelé",
+        "url": "/web/points/users",
+        "permissions": [
+          "Points(Admin)"
+        ]
+      },
+      {
+        "name": "Převod bodů",
+        "url": "/web/points/transfer",
+        "permissions": [
+          "Points(Admin)"
+        ]
+      }
+    ]
+  }
+]
