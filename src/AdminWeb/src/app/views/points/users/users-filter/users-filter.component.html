@@ -12,8 +12,7 @@
         <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
           <app-filter-buttons
             [disabled]="form.invalid"
-            (onRefreshClick)="submitForm()"
-            (onResetClick)="resetFilter()"
+            [filterComponent]="this"
           />
         </c-col>
       </c-row>

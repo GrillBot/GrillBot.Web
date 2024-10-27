@@ -35,8 +35,7 @@ export type TransferState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     AlertComponent,
     LoadingComponent,
     IconDirective
-  ],
-  styleUrl: './transfer.component.scss'
+  ]
 })
 export class TransferComponent implements OnInit {
   readonly #formBuilder = inject(FormBuilder);

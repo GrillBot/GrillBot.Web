@@ -1,5 +1,6 @@
-import { Component, input, output } from "@angular/core";
+import { Component, computed, input, output } from "@angular/core";
 import { ButtonDirective } from "@coreui/angular";
+import { FilterBaseComponent } from "../filter.component.base";
 
 @Component({
   selector: 'app-filter-buttons',
@@ -11,7 +12,13 @@ import { ButtonDirective } from "@coreui/angular";
 })
 export class FilterButtonsComponent {
   disabled = input.required<boolean>();
+  filterComponent = input.required<FilterBaseComponent<any>>();
 
-  onRefreshClick = output();
-  onResetClick = output();
+  refreshClick() {
+    this.filterComponent().submitForm();
+  }
+
+  resetClick() {
+    this.filterComponent().resetFilter();
+  }
 }

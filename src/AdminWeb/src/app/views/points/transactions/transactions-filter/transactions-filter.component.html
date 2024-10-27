@@ -17,9 +17,7 @@
 
       <c-row class="mb-1">
         <c-col>
-          <label cLabel for="createdFrom" class="mb-0">
-            Vytvořeno (OD - DO)
-          </label>
+          <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
           <c-input-group>
             <input
               cFormControl
@@ -36,7 +34,7 @@
         </c-col>
 
         <c-col>
-          <label cLabel for="messageId" class="mb-0">ID zprávy</label>
+          <label cLabel for="messageId">ID zprávy</label>
           <input
             cFormControl
             type="text"
@@ -49,7 +47,7 @@
 
       <c-row>
         <c-col>
-          <label cLabel for="showMerged" class="mb-0">Typ transakcí</label>
+          <label cLabel for="showMerged">Typ transakcí</label>
           <app-radio-group
             radioId="showMerged"
             [items]="[
@@ -89,8 +87,7 @@
         <c-col class="d-flex justify-content-end">
           <app-filter-buttons
             [disabled]="form.invalid"
-            (onRefreshClick)="submitForm()"
-            (onResetClick)="resetFilter()"
+            [filterComponent]="this"
           />
         </c-col>
       </c-row>

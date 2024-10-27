@@ -3,3 +3,7 @@ input.ng-dirty {
     border-color: $danger;
   }
 }
+
+label.form-label {
+  margin-bottom: 0;
+}
