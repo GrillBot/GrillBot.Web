@@ -4,24 +4,30 @@ on:
   push:
     branches: [master]
     paths-ignore:
-      - '**/README.md'
-      - '**/LICENSE'
-      - '**/.editorconfig'
-      - '**/certificate.cnf'
-      - '**/certificate.crt'
-      - '**/localhost.key'
-      - '**/.prettierrc'
+      - "**/README.md"
+      - "**/LICENSE"
+      - "**/.editorconfig"
+      - "**/certificate.cnf"
+      - "**/certificate.crt"
+      - "**/localhost.key"
+      - "**/localhost.crt"
+      - "**/localhost.pfx"
+      - "**/.prettierrc"
+      - "**/.vscode/*"
   pull_request:
     types: [opened, reopened, synchronize]
     branches: [master]
     paths-ignore:
-      - '**/README.md'
-      - '**/LICENSE'
-      - '**/.editorconfig'
-      - '**/certificate.cnf'
-      - '**/certificate.crt'
-      - '**/localhost.key'
-      - '**/.prettierrc'
+      - "**/README.md"
+      - "**/LICENSE"
+      - "**/.editorconfig"
+      - "**/certificate.cnf"
+      - "**/certificate.crt"
+      - "**/localhost.key"
+      - "**/localhost.crt"
+      - "**/localhost.pfx"
+      - "**/.prettierrc"
+      - "**/.vscode/*"
   workflow_dispatch:
 
 jobs:
@@ -29,7 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       PrivateAdmin: ${{ steps.filter.outputs.PrivateAdmin }}
-      Navigation: ${{ steps.filter.outputs.Navigation }}
       PublicAdmin: ${{ steps.filter.outputs.PublicAdmin }}
       KarmaWeb: ${{ steps.filter.outputs.KarmaWeb }}
       AdminWeb: ${{ steps.filter.outputs.AdminWeb }}
@@ -43,8 +48,6 @@ jobs:
           filters: |
             PrivateAdmin:
               - 'src/PrivateAdmin/**'
-            Navigation:
-              - 'src/Navigation/**'
             PublicAdmin:
               - 'src/PublicAdmin/**'
             KarmaWeb:
@@ -160,40 +163,6 @@ jobs:
           password: ${{ secrets.SSH_Password }}
           port: 22
           script: echo '${{ secrets.SSH_Password }}' | sudo -S /scripts/update-grillbot-prod.sh private_admin_web
-  Navigation_Check:
-    runs-on: ubuntu-latest
-    needs: PathsFilter
-    if: needs.PathsFilter.outputs.Navigation == 'true'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Check HTML
-        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
-        with:
-          root: src/Navigation/
-          css: true
-  Navigation_CreateDockerImage:
-    runs-on: ubuntu-latest
-    needs: Navigation_Check
-    if: github.ref == 'refs/heads/master'
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Log in to the container repository
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push image
-        uses: docker/build-push-action@v4
-        with:
-          context: src/Navigation
-          push: true
-          tags: ghcr.io/grillbot/grillbot.web:navigation
   PublicAdmin_Build:
     runs-on: ubuntu-latest
     needs: PathsFilter
