@@ -2,43 +2,48 @@
   <c-card class="mb-3">
     <c-card-body>
       <form cForm [formGroup]="form">
-        <c-row>
+        <c-row class="mb-1">
           <c-col>
             <label cLabel for="guildId">Server</label>
             <app-guild-lookup formControlName="guildId" />
             <app-validation-errors [form]="form" controlName="guildId" />
           </c-col>
+
           <c-col>
-            <label cLabel for="fromUserId">Od uživatele</label>
-            <app-user-lookup formControlName="fromUserId" />
-            <app-validation-errors [form]="form" controlName="fromUserId" />
+            <label cLabel for="userId">Uživatel</label>
+            <app-user-lookup formControlName="userId" />
+            <app-validation-errors [form]="form" controlName="userId" />
           </c-col>
         </c-row>
 
-        <c-row class="mt-3">
+        <c-row class="mb-1">
           <c-col>
-            <label cLabel for="amount">Množství bodů</label>
-            <input cFormControl type="number" formControlName="amount" />
-            <app-validation-errors [form]="form" controlName="amount" />
-          </c-col>
-
-          <c-col>
-            <label cLabel for="toUserId">Cílový uživatel</label>
-            <app-user-lookup formControlName="toUserId" />
-            <app-validation-errors [form]="form" controlName="toUserId" />
+            <app-checkbox
+              checkboxId="sendDmNotification"
+              label="Poslat soukromou zprávu uživateli"
+              formControlName="sendDmNotification"
+            />
           </c-col>
         </c-row>
 
-        <c-row class="mt-3">
+        <c-row class="mb-3">
+          <c-col>
+            <label cLabel for="message">Zpráva</label>
+            <textarea cFormControl formControlName="message"></textarea>
+            <app-validation-errors [form]="form" controlName="message" />
+          </c-col>
+        </c-row>
+
+        <c-row>
           <c-col class="d-flex justify-content-end">
             <button
               cButton
               [variant]="'outline'"
               [color]="'primary'"
               [disabled]="form.invalid"
-              (click)="executeTransfer()"
+              (click)="submitWarning()"
             >
-              Provést
+              Vytvořit
             </button>
           </c-col>
         </c-row>
@@ -56,7 +61,7 @@
         <app-loading
           [rotating]="true"
           [center]="false"
-          [customText]="'Odesílání žádosti o převod bodů'"
+          customText="Probíhá vytváření varování"
           [small]="true"
         />
       }
@@ -65,8 +70,7 @@
         <div class="d-flex align-items-center">
           <svg cIcon name="cilCheckCircle"></svg>
           <p class="m-0 ms-2">
-            Žádost o převod bodů byla úspěšně zkontrolována a odeslána. Bot v
-            nejbližší době žádost odbaví.
+            Tvé varování bylo úspěšně vytvořeno a bude co nejdříve zpracováno.
           </p>
         </div>
       }
@@ -75,8 +79,8 @@
         <div class="d-flex align-items-center">
           <svg cIcon name="cilXCircle"></svg>
           <p class="m-0 ms-2">
-            Tvoji žádost o převod bodů se nepodařilo odeslat ke zpracování.
-            Zkontroluj, proč se nepodařilo žádost odeslat.
+            Tvé varování se nepodařilo vytvořit. Zkontroluj důvody, proč se
+            nepodařilo varování vytvořit.
           </p>
         </div>
 

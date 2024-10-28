@@ -1,29 +1,33 @@
 @if (hasAnyError) {
   <small class="text-danger">
-    @for (error of errors; track $index) {
-      @switch (error[0]) {
-        @case ("pattern") {
-          <ng-container
-            [ngTemplateOutlet]="patternError"
-            [ngTemplateOutletContext]="{ error: error[1] }"
-          />
-        }
+    <ul class="mb-0 ps-4">
+      @for (error of errors; track $index) {
+        <li>
+          @switch (error[0]) {
+            @case ("pattern") {
+              <ng-container
+                [ngTemplateOutlet]="patternError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
 
-        @case ("required") {
-          <ng-container
-            [ngTemplateOutlet]="requiredError"
-            [ngTemplateOutletContext]="{ error: error[1] }"
-          />
-        }
+            @case ("required") {
+              <ng-container
+                [ngTemplateOutlet]="requiredError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
 
-        @case ("min") {
-          <ng-container
-            [ngTemplateOutlet]="minError"
-            [ngTemplateOutletContext]="{ error: error[1] }"
-          />
-        }
+            @case ("min") {
+              <ng-container
+                [ngTemplateOutlet]="minError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
+          }
+        </li>
       }
-    }
+    </ul>
   </small>
 }
 

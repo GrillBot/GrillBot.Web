@@ -93,6 +93,13 @@
         "permissions": [
           "UserMeasures(Admin)"
         ]
+      },
+      {
+        "name": "Vytvořit varování",
+        "url": "/web/user-measures/create-warning",
+        "permissions": [
+          "UserMeasures(Admin)"
+        ]
       }
     ]
   }
