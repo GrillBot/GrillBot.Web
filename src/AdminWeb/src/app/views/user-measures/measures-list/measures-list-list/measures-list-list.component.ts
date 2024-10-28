@@ -51,19 +51,19 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
         {
           field: 'type',
           headerName: 'Typ',
-          maxWidth: 130,
+          maxWidth: 100,
           valueFormatter: params => this.getMeasureType(params.value)
         },
         {
           field: 'createdAtUtc',
           headerName: 'Vytvořeno',
-          maxWidth: 250,
+          maxWidth: 200,
           valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID)
         },
         {
           field: 'validTo',
           headerName: 'Platí do',
-          maxWidth: 250,
+          maxWidth: 200,
           valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID)
         },
         {
@@ -107,7 +107,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           headerName: 'Důvod',
           tooltipField: 'reason',
           valueFormatter: params => usePipeTransform(params, CutStringPipe, MAX_REASON_CELL_LENGTH, false),
-          maxWidth: 330
+          maxWidth: 300
         },
         {
           headerName: 'Akce',
