@@ -20,8 +20,4 @@ export class StorageService {
     store<TITem>(key: string, item: TITem, useSession: boolean = false): void {
         this.getStorage(useSession).setItem(key, JSON.stringify(item));
     }
-
-    clear(useSession: boolean = false): void {
-        this.getStorage(useSession).clear();
-    }
 }

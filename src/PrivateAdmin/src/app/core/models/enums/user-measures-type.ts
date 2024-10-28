@@ -5,9 +5,3 @@ export enum UserMeasuresType {
     Timeout = 1,
     Warning = 2
 }
-
-export enum UserMeasuresTypeText {
-    Unverify = 'Unverify',
-    Timeout = 'Timeout',
-    Warning = 'Varování'
-}

@@ -13,7 +13,6 @@ export class CardComponent {
     @Input() header = true;
     @Input() allowHideButton = false;
     @Input() classes: string[];
-    @Input() maxWidth?: string;
     @Input() recordsCount?: number;
     @Input() bodyClasses: string[];
     @Input() footer?: TemplateBinding;
