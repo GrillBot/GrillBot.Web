@@ -87,7 +87,7 @@ export class CreateWarningComponent implements OnInit {
           this.state.set('Failed');
           this.stateErrorMessages.set(mapHttpErrors(err));
 
-          return err.status === 400 ? EMPTY : throwError(() => err);
+          return EMPTY;
         })
       ).subscribe(() => { this.state.set('Success'); });
   }

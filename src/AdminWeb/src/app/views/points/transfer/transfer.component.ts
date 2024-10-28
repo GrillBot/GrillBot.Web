@@ -12,6 +12,7 @@ import { PointsClient } from "../../../core/clients/points.client";
 import { IconDirective } from "@coreui/icons-angular";
 import { catchError, debounceTime, EMPTY, throwError } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
+import { mapHttpErrors } from "../../../core/mappers/validations.mapper";
 
 export type TransferState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
 
@@ -83,21 +84,19 @@ export class TransferComponent implements OnInit {
       .pipe(
         debounceTime(300),
         catchError((err: HttpErrorResponse) => {
-          if (err.status === 400) {
-            this.processValidationErrors(err.error);
+          this.state.set('Failed');
+          this.stateErrorMessages.set([...new Set(
+            mapHttpErrors(err).map(err => {
+              if (!err.startsWith('ValidationError')) {
+                return err;
+              } else {
+                const [key, value] = err.replace('ValidationError:', '').trim().split(' => ');
+                return this.processValidationError(key, value);
+              }
+            })
+          )]);
 
-            this.state.set('Failed');
-            return EMPTY;
-          } else {
-            if (Array.isArray(err.error)) {
-              this.stateErrorMessages.set(err.error.map(o => typeof o === 'object' ? JSON.stringify(o) : String(o)))
-            } else {
-              this.stateErrorMessages.set([JSON.stringify(err.error)]);
-            }
-
-            this.state.set('Failed');
-            return throwError(() => err);
-          }
+          return EMPTY;
         })
       )
       .subscribe(() => { this.state.set('Success'); });
