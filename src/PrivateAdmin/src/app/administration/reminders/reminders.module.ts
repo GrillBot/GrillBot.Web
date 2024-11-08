@@ -8,7 +8,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [DashboardComponent,],
+    declarations: [DashboardComponent],
     imports: [
         SharedModule,
         RouterModule.forChild(routes)
