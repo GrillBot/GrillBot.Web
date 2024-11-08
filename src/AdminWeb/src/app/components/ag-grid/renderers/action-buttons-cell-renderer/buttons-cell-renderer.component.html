@@ -3,9 +3,9 @@
     <button
       cButton
       visibility
-      [variant]="button.variant"
+      [variant]="button.variant ?? 'ghost'"
       [color]="button.color ?? 'transparent'"
-      [size]="button.size ?? 'lg'"
+      [size]="button.size ?? 'sm'"
       class="text-decoration-underline pt-0 pb-0 mb-1"
       (click)="button.action(rowData)"
       [isVisible]="button.isVisible ? button.isVisible(rowData) : true"

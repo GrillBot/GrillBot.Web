@@ -9,6 +9,6 @@ export const mapSortEventToSortingParams = (event: SortChangedEvent<any, any>) =
 
   return {
     descending: sortingColumn.getSort() === 'desc',
-    orderBy: sortingColumn.getId()
+    orderBy: sortingColumn.getColDef().context?.sortKey ?? sortingColumn.getId()
   } as SortParameters
 };

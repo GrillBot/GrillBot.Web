@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { inject, isDevMode } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { inject } from "@angular/core";
 import { LocalStorageService } from "@coreui/angular";
-import { Observable, catchError, concat, map, of, tap, throwError } from 'rxjs';
+import { Observable, concat, map, of } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
 import { RawHttpResponse } from "../models/common";
@@ -57,13 +57,7 @@ export abstract class BaseClient {
     queryParams: HttpQueryParams = {}
   ): Observable<RawHttpResponse<TResponse>> {
     const url = this.createUrl(endpoint, queryParams);
-
-    return concat(
-      of({ type: 'start' } as RawHttpResponse<TResponse>),
-      this.#http.get<TResponse>(url, this.requestHeaders).pipe(
-        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>)
-      )
-    );
+    return this.createRequest<TResponse>(this.#http.get<TResponse>(url, this.requestHeaders));
   }
 
   protected postRequest<TResponse>(
@@ -72,23 +66,25 @@ export abstract class BaseClient {
     queryParams: HttpQueryParams = {}
   ): Observable<RawHttpResponse<TResponse>> {
     const url = this.createUrl(endpoint, queryParams);
-
-    return concat(
-      of({ type: 'start' } as RawHttpResponse<TResponse>),
-      this.#http.post<TResponse>(url, body, this.requestHeaders).pipe(
-        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>)
-      )
-    );
+    return this.createRequest<TResponse>(this.#http.post<TResponse>(url, body, this.requestHeaders));
   }
 
   protected deleteRequest(endpoint: string, queryParams: HttpQueryParams = {}): Observable<RawHttpResponse<unknown>> {
     const url = this.createUrl(endpoint, queryParams);
+    return this.createRequest<unknown>(this.#http.delete(url, this.requestHeaders));
+  }
 
+  protected putRequest<TResponse>(endpoint: string, body: any, queryParams: HttpQueryParams = {}): Observable<RawHttpResponse<TResponse>> {
+    const url = this.createUrl(endpoint, queryParams);
+    return this.createRequest<TResponse>(this.#http.put<TResponse>(url, body, this.requestHeaders));
+  }
+
+  private createRequest<TResponse>(observable: Observable<TResponse>): Observable<RawHttpResponse<TResponse>> {
     return concat(
-      of({ type: 'start' } as RawHttpResponse<unknown>),
-      this.#http.delete(url, this.requestHeaders).pipe(
-        map(_ => ({ type: 'finish' }) as RawHttpResponse<unknown>)
+      of({ type: 'start' } as RawHttpResponse<TResponse>),
+      observable.pipe(
+        map(response => ({ type: 'finish', value: response }) as RawHttpResponse<TResponse>)
       )
-    );
+    )
   }
 }

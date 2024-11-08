@@ -35,6 +35,13 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
+      },
+      {
+        path: 'reminder',
+        loadChildren: () => import('./views/reminder/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
       }
     ]
   },

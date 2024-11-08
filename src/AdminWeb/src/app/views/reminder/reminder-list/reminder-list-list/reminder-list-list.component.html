@@ -1,0 +1,23 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'700px'"
+    (reloadRequested)="reload()"
+  />
+</div>
+
+<c-modal #messageModal alignment="center" size="xl">
+  <c-modal-header>
+    @if (messageModalRow) {
+      <h5 cModalTitle>Zpráva oznámení #{{ messageModalRow.id }}</h5>
+      <button cButtonClose (click)="messageModal.visible = false"></button>
+    }
+  </c-modal-header>
+
+  <c-modal-body>
+    <c-alert class="mb-0 p-0" color="transparent">
+      <pre class="m-0 p-0 text-wrap">{{ messageModalRow?.message }}</pre>
+    </c-alert>
+  </c-modal-body>
+</c-modal>
