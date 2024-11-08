@@ -17,7 +17,7 @@ export class ReminderClient extends BaseClient {
     const requestBody = {
       ...request,
       isAdminExecution: true,
-      executiongUserId: this.#authManager.token.id
+      executingUserId: this.#authManager.token.id
     };
 
     return this.putRequest<unknown>('service/Remind/cancel', requestBody);

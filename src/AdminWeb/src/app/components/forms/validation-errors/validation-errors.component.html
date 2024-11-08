@@ -24,6 +24,13 @@
                 [ngTemplateOutletContext]="{ error: error[1] }"
               />
             }
+
+            @case ("minlength") {
+              <ng-container
+                [ngTemplateOutlet]="minLengthError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
           }
         </li>
       }
@@ -43,4 +50,8 @@
 
 <ng-template #minError let-error="error">
   Nejmenší povolená hodnota je {{ error.min }}.
+</ng-template>
+
+<ng-template #minLengthError let-error="error">
+  Minimální povolená délka je {{ error.requiredLength }}
 </ng-template>

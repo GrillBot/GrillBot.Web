@@ -17,9 +17,10 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
 import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import {
-  AlertComponent, ButtonCloseDirective, ModalBodyComponent, ModalComponent, ModalHeaderComponent,
-  ModalTitleDirective
+  AlertComponent, ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent,
+  ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, TableDirective
 } from "@coreui/angular";
+import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-reminder-request";
 
 @Component({
   selector: 'app-reminder-list-list',
@@ -32,7 +33,11 @@ import {
     ModalTitleDirective,
     ModalBodyComponent,
     ButtonCloseDirective,
-    AlertComponent
+    AlertComponent,
+    TableDirective,
+    LocaleDatePipe,
+    ModalFooterComponent,
+    ButtonDirective
   ]
 })
 export class ReminderListListComponent extends ListBaseComponent<ReminderListRequest, RemindMessageItem> {
@@ -41,7 +46,10 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
   readonly #LOCALE_ID = inject(LOCALE_ID);
 
   messageModal = viewChild<ModalComponent>('messageModal');
-  messageModalRow?: RemindMessageItem;
+  modalRow?: RemindMessageItem;
+
+  cancelModal = viewChild<ModalComponent>('cancelModal');
+  cancelModalRow?: { notify: boolean, row: RemindMessageItem };
 
   override createGridOptions(): GridOptions {
     return {
@@ -129,15 +137,15 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
                 id: 'cancel-and-notify',
                 title: 'Oznámit a stornovat',
                 color: 'dark',
-                action: row => this.openCancellationModal(row, true),
-                isVisible: row => !this.isNotified(row)
+                action: row => this.openCancelModal(row, true),
+                isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
               },
               {
                 id: 'cancel',
                 title: 'Stornovat',
                 color: 'dark',
-                action: row => this.openCancellationModal(row, false),
-                isVisible: row => !this.isNotified(row)
+                action: row => this.openCancelModal(row, false),
+                isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
               }
             ] as ButtonDef[]
           }
@@ -150,6 +158,14 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
 
   override createRequest(request: WithSortAndPagination<ReminderListRequest>)
     : rxjs.Observable<RawHttpResponse<PaginatedResponse<RemindMessageItem>>> {
+    if (request.notifyAtFromUtc) {
+      request.notifyAtFromUtc = `${request.notifyAtFromUtc}Z`;
+    }
+
+    if (request.notifyAtToUtc) {
+      request.notifyAtToUtc = `${request.notifyAtToUtc}Z`;
+    }
+
     return this.#client.getReminderList(request);
   }
 
@@ -161,18 +177,39 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
   }
 
   private isNotified(row: RemindMessageItem): boolean {
-    return row.isSendInProgress || String(row.notificationMessageId ?? '').length > 0;
+    return row.isSendInProgress || (String(row.notificationMessageId ?? '').length > 0 && row.notificationMessageId !== "0");
   }
 
   private openMessage(row: RemindMessageItem): void {
     this.openModal(
       this.messageModal(),
-      () => this.messageModalRow = row,
-      () => this.messageModalRow = undefined
+      () => this.modalRow = row,
+      () => this.modalRow = undefined
     );
   }
 
-  private openCancellationModal(row: RemindMessageItem, notify: boolean) {
-    alert(notify); // TODO Implement modal and confirmation.
+  private openCancelModal(row: RemindMessageItem, notify: boolean) {
+    this.openModal(
+      this.cancelModal(),
+      () => this.cancelModalRow = { notify, row },
+      () => this.cancelModalRow = undefined
+    )
+  }
+
+  confirmCancel(): void {
+    const modal = this.cancelModal();
+    if (!modal || !this.cancelModalRow) {
+      return;
+    }
+
+    const request: CancelReminderRequest = {
+      notifyUser: this.cancelModalRow.notify,
+      remindId: this.cancelModalRow.row.id
+    };
+
+    this.#client.cancelRemind(request).subscribe(() => {
+      modal.visible = false;
+      this.reload();
+    });
   }
 }

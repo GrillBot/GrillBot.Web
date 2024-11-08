@@ -43,7 +43,10 @@ export class ReminderListFilterComponent extends FilterBaseComponent<ReminderLis
   override createForm(): IForm<ReminderListRequest> {
     return {
       commandMessageId: this.createControl({
-        validators: [Validators.pattern(/\d+/)]
+        validators: [
+          Validators.pattern(/\d+/),
+          Validators.minLength(15)
+        ]
       }),
       fromUserId: this.createControl(),
       messageContains: this.createControl(),
