@@ -1,0 +1,25 @@
+<ng-container>
+  <c-toast-header [closeButton]="true">
+    <strong [ngClass]="{ 'text-danger': notification.isError }">
+      @if (notification) {
+        @if (notification.isError) {
+          Při běhu aplikace došlo k chybě.
+        } @else {
+          Oznámení z aplikace
+        }
+      }
+    </strong>
+  </c-toast-header>
+
+  <c-toast-body
+    #toast
+    [cToastClose]="toast.toast"
+    class="bg-light rounded-2 rounded-top-0"
+  >
+    @if (notification) {
+      <p class="mb-1">{{ notification.message }}</p>
+    }
+
+    <ng-content />
+  </c-toast-body>
+</ng-container>

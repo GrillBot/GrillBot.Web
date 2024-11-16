@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import {
   provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withRouterConfig,
   withViewTransitions
@@ -9,6 +9,7 @@ import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpCacheInterceptor, httpUnauthorizedInterceptor, httpLoggingInterceptor } from './core/interceptors';
+import { GlobalErrorHandler } from './core/handlers/error.handler';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,6 +47,7 @@ export const appConfig: ApplicationConfig = {
         }),
         httpLoggingInterceptor()
       ])
-    )
+    ),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ]
 };

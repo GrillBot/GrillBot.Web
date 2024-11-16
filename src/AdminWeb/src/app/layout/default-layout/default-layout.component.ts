@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, OnInit, inject, viewChild } from "@angular/core";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import {
   SidebarComponent, SidebarHeaderComponent, SidebarBrandComponent, SidebarNavComponent,
   SidebarFooterComponent, SidebarToggleDirective, SidebarTogglerDirective,
-  ShadowOnScrollDirective, ContainerComponent, INavData, BadgeComponent
+  ShadowOnScrollDirective, ContainerComponent, INavData, BadgeComponent,
+  ToasterComponent
 } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
 import { DefaultFooterComponent } from "./default-footer/default-footer.component";
 import { DefaultHeaderComponent } from "./default-header/default-header.component";
 import { NgScrollbar } from 'ngx-scrollbar';
@@ -14,6 +14,8 @@ import { DashboardClient } from "../../core/clients/dashboard.client";
 import { Observable, filter, map } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { DashboardInfo } from "../../core/models/dashboard/dashboard-info";
+import { NotificationsManager } from "../../core/managers/notifications.manager";
+import { NotificationToastComponent } from "../../components/notification-toast/notification-toast.component";
 
 const isOverflown = (element: HTMLElement) => {
   return (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
@@ -29,7 +31,6 @@ const isOverflown = (element: HTMLElement) => {
     SidebarHeaderComponent,
     SidebarBrandComponent,
     RouterLink,
-    IconDirective,
     NgScrollbar,
     SidebarNavComponent,
     SidebarFooterComponent,
@@ -41,16 +42,20 @@ const isOverflown = (element: HTMLElement) => {
     RouterOutlet,
     DefaultFooterComponent,
     BadgeComponent,
-    AsyncPipe
+    AsyncPipe,
+    ToasterComponent
   ]
 })
 export class DefaultLayoutComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #navManager = inject(NavManager);
   readonly #dashboardClient = inject(DashboardClient);
+  readonly #notificationsManager = inject(NotificationsManager);
 
   menuItems: INavData[] = [];
   $dashboardInfo!: Observable<DashboardInfo>;
+
+  readonly toaster = viewChild(ToasterComponent);
 
   onScrollbarUpdate(_: any) { }
 
@@ -67,5 +72,17 @@ export class DefaultLayoutComponent implements OnInit {
       filter(response => response.type === 'finish' && !!response.value),
       map(response => response.value!)
     );
+
+    this.#notificationsManager.$notifications.subscribe(notification => {
+      const options = {
+        notification,
+        delay: 5000,
+        placement: 'top-end',
+        autohide: true,
+        color: 'info'
+      };
+
+      this.toaster()?.addToast(NotificationToastComponent, { ...options })
+    });
   }
 }
