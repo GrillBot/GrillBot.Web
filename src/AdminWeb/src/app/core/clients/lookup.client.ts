@@ -3,6 +3,7 @@ import { BaseClient } from "./base.client";
 import { User } from "../models/users/user";
 import { Guild } from "../models/guilds/guild";
 import { filter, map } from "rxjs";
+import { Channel } from "../models/channels/channel";
 
 @Injectable({ providedIn: 'root' })
 export class LookupClient extends BaseClient {
@@ -16,6 +17,8 @@ export class LookupClient extends BaseClient {
   );
 
   resolveGuildList = () => this.getRequest<Guild[]>('lookup/guild/list');
+
+  resolveChannelList = () => this.getRequest<Channel[]>('lookup/channel/list');
 
   resolveUser = (userId: string) => this.getRequest<User>(`lookup/user/${userId}`).pipe(
     filter(res => res.type === 'finish'),

@@ -1,0 +1,41 @@
+@if (channelLookupSource$ | withLoading | async; as lookup) {
+  <ng-select
+    ngSelector
+    [loading]="lookup.loading"
+    [items]="lookup.value"
+    bindLabel="name"
+    bindValue="id"
+    [formControl]="formControl"
+  >
+    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+      <div>
+        <span [ngOptionHighlight]="search">{{ item.name }}</span>
+      </div>
+      <small>
+        @switch (item.type) {
+          @case (0) {
+            Textový kanál
+          }
+          @case (2) {
+            Hlasový kanál
+          }
+          @case (11) {
+            Veřejné vlákno
+          }
+          @case (12) {
+            Soukromé vlákno
+          }
+          @case (13) {
+            Stage
+          }
+          @case (15) {
+            Fórum
+          }
+          @default {
+            Channel type {{ item.type }}
+          }
+        }
+      </small>
+    </ng-template>
+  </ng-select>
+}
