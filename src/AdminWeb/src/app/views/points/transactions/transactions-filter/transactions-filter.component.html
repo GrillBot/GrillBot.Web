@@ -1,96 +1,94 @@
 <c-card class="mb-3">
   <app-card-header #header icon="cilSearch" title="Vyhledávání" />
 
-  <c-card-body visibility [isVisible]="header.bodyVisible()" class="pt-2">
-    <form cForm [formGroup]="form">
-      <c-row class="mb-1">
-        <c-col>
-          <label clabel for="guildId">Server</label>
-          <app-guild-lookup formControlName="guildId" />
-        </c-col>
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label clabel for="guildId">Server</label>
+        <app-guild-lookup formControlName="guildId" />
+      </c-col>
 
-        <c-col>
-          <label clabel for="userId">Uživatel</label>
-          <app-user-lookup formControlName="userId" />
-        </c-col>
-      </c-row>
+      <c-col>
+        <label clabel for="userId">Uživatel</label>
+        <app-user-lookup formControlName="userId" />
+      </c-col>
+    </c-row>
 
-      <c-row class="mb-1">
-        <c-col>
-          <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
-          <c-input-group>
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdFrom"
-            />
-
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdTo"
-            />
-          </c-input-group>
-        </c-col>
-
-        <c-col>
-          <label cLabel for="messageId">ID zprávy</label>
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+        <c-input-group>
           <input
             cFormControl
-            type="text"
-            formControlName="messageId"
-            autocomplete="off"
+            type="datetime-local"
+            formControlName="createdFrom"
           />
-          <app-validation-errors [form]="form" controlName="messageId" />
-        </c-col>
-      </c-row>
 
-      <c-row>
-        <c-col>
-          <label cLabel for="showMerged">Typ transakcí</label>
-          <app-radio-group
-            radioId="showMerged"
-            [items]="[
-              { label: 'Aktivní', value: false },
-              { label: 'Archivované', value: true },
-            ]"
-            formControlName="showMerged"
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdTo"
           />
-        </c-col>
+        </c-input-group>
+      </c-col>
 
-        <c-col>
-          <label cLabel>&nbsp;</label>
+      <c-col>
+        <label cLabel for="messageId">ID zprávy</label>
+        <input
+          cFormControl
+          type="text"
+          formControlName="messageId"
+          autocomplete="off"
+        />
+        <app-validation-errors [form]="form" controlName="messageId" />
+      </c-col>
+    </c-row>
 
-          <c-row>
-            <c-col>
-              <app-checkbox
-                checkboxId="onlyMessages"
-                label="Pouze zprávy"
-                formControlName="onlyMessages"
-              />
-            </c-col>
+    <c-row>
+      <c-col>
+        <label cLabel for="showMerged">Typ transakcí</label>
+        <app-radio-group
+          radioId="showMerged"
+          [items]="[
+            { label: 'Aktivní', value: false },
+            { label: 'Archivované', value: true },
+          ]"
+          formControlName="showMerged"
+        />
+      </c-col>
 
-            <c-col>
-              <app-checkbox
-                checkboxId="onlyReactions"
-                label="Pouze reakce"
-                formControlName="onlyReactions"
-              />
-            </c-col>
-          </c-row>
+      <c-col>
+        <label cLabel>&nbsp;</label>
 
-          <div></div>
-        </c-col>
-      </c-row>
+        <c-row>
+          <c-col>
+            <app-checkbox
+              checkboxId="onlyMessages"
+              label="Pouze zprávy"
+              formControlName="onlyMessages"
+            />
+          </c-col>
 
-      <c-row class="mt-1">
-        <c-col class="d-flex justify-content-end">
-          <app-filter-buttons
-            [disabled]="form.invalid"
-            [filterComponent]="this"
-          />
-        </c-col>
-      </c-row>
-    </form>
-  </c-card-body>
+          <c-col>
+            <app-checkbox
+              checkboxId="onlyReactions"
+              label="Pouze reakce"
+              formControlName="onlyReactions"
+            />
+          </c-col>
+        </c-row>
+
+        <div></div>
+      </c-col>
+    </c-row>
+
+    <c-row class="mt-1">
+      <c-col class="d-flex justify-content-end">
+        <app-filter-buttons
+          [disabled]="form.invalid"
+          [filterComponent]="this"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
 </c-card>

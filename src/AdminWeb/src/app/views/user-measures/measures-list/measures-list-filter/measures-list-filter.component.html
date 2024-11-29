@@ -1,65 +1,63 @@
 <c-card class="mb-3">
   <app-card-header #header icon="cilSearch" title="Vyhledávání" />
 
-  <c-card-body visibility [isVisible]="header.bodyVisible()" class="pt-2">
-    <form cForm [formGroup]="form">
-      <c-row class="mb-1">
-        <c-col>
-          <label cLabel for="type">Typ</label>
-          <ng-select
-            formControlName="type"
-            ngSelector
-            [items]="[
-              { key: 'Warning', value: 'Varování' },
-              { key: 'Unverify', value: 'Unverify' },
-              { key: 'Timeout', value: 'Timeout' },
-            ]"
-          ></ng-select>
-        </c-col>
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="type">Typ</label>
+        <ng-select
+          formControlName="type"
+          ngSelector
+          [items]="[
+            { key: 'Warning', value: 'Varování' },
+            { key: 'Unverify', value: 'Unverify' },
+            { key: 'Timeout', value: 'Timeout' },
+          ]"
+        ></ng-select>
+      </c-col>
 
-        <c-col>
-          <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
-          <c-input-group>
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdFrom"
-            />
-
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdTo"
-            />
-          </c-input-group>
-        </c-col>
-      </c-row>
-
-      <c-row class="mb-1">
-        <c-col>
-          <label cLabel for="guildId">Server</label>
-          <app-guild-lookup formControlName="guildId" />
-        </c-col>
-
-        <c-col>
-          <label cLabel for="userId">Uživatel</label>
-          <app-user-lookup formControlName="userId" />
-        </c-col>
-      </c-row>
-
-      <c-row>
-        <c-col>
-          <label cLabel for="moderatorId">Moderátor</label>
-          <app-user-lookup formControlName="moderatorId" />
-        </c-col>
-
-        <c-col class="d-flex align-items-end justify-content-end">
-          <app-filter-buttons
-            [disabled]="form.invalid"
-            [filterComponent]="this"
+      <c-col>
+        <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdFrom"
           />
-        </c-col>
-      </c-row>
-    </form>
-  </c-card-body>
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdTo"
+          />
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="guildId">Server</label>
+        <app-guild-lookup formControlName="guildId" />
+      </c-col>
+
+      <c-col>
+        <label cLabel for="userId">Uživatel</label>
+        <app-user-lookup formControlName="userId" />
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col>
+        <label cLabel for="moderatorId">Moderátor</label>
+        <app-user-lookup formControlName="moderatorId" />
+      </c-col>
+
+      <c-col class="d-flex align-items-end justify-content-end">
+        <app-filter-buttons
+          [disabled]="form.invalid"
+          [filterComponent]="this"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
 </c-card>

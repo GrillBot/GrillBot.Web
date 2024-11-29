@@ -1,16 +1,14 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
-  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, UserLookupComponent,
+  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FormCardBodyComponent, UserLookupComponent,
   ValidationErrorsComponent
 } from "../../../../components";
 import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
 import { IForm } from "../../../../core/models/common";
 import {
-  CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective,
-  FormLabelDirective, InputGroupComponent, RowComponent
+  CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
-import { VisibilityDirective } from "../../../../core/directives";
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 
 @Component({
@@ -21,9 +19,6 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     ReactiveFormsModule,
     CardComponent,
     CardHeaderComponent,
-    CardBodyComponent,
-    VisibilityDirective,
-    FormDirective,
     RowComponent,
     ColComponent,
     FormLabelDirective,
@@ -32,7 +27,8 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     UserLookupComponent,
     FilterButtonsComponent,
     ValidationErrorsComponent,
-    TriStateCheckboxModule
+    TriStateCheckboxModule,
+    FormCardBodyComponent
   ]
 })
 export class ReminderListFilterComponent extends FilterBaseComponent<ReminderListRequest> {

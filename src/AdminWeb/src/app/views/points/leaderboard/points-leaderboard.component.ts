@@ -1,7 +1,6 @@
 import { Component, DestroyRef, inject } from "@angular/core";
-import { CardBodyComponent, CardComponent, ColComponent, FormDirective, FormLabelDirective, RowComponent } from "@coreui/angular";
-import { AsyncLookupCellRendererComponent, CardHeaderComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
-import { VisibilityDirective } from "../../../core/directives";
+import { CardComponent, FormLabelDirective } from "@coreui/angular";
+import { AsyncLookupCellRendererComponent, CardHeaderComponent, FormCardBodyComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
@@ -22,17 +21,13 @@ import { FilterBaseComponent } from "../../../components/filters";
   templateUrl: './points-leaderboard.component.html',
   standalone: true,
   imports: [
-    RowComponent,
-    ColComponent,
     CardComponent,
     CardHeaderComponent,
-    CardBodyComponent,
-    VisibilityDirective,
     ReactiveFormsModule,
-    FormDirective,
     FormLabelDirective,
     AgGridComponent,
-    GuildLookupComponent
+    GuildLookupComponent,
+    FormCardBodyComponent
   ]
 })
 export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardFilter> {

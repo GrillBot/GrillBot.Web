@@ -1,15 +1,13 @@
 import { Component } from "@angular/core";
 import {
-  CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective, FormLabelDirective,
-  InputGroupComponent, RowComponent
+  CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { CardHeaderComponent } from "../../../../components";
-import { VisibilityDirective } from "../../../../core/directives";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
-import { CheckboxComponent, RadioGroupComponent, ValidationErrorsComponent } from "../../../../components/forms";
+import { CheckboxComponent, FormCardBodyComponent, RadioGroupComponent, ValidationErrorsComponent } from "../../../../components/forms";
 import { FilterBaseComponent, FilterButtonsComponent } from "../../../../components/filters";
 
 @Component({
@@ -19,9 +17,6 @@ import { FilterBaseComponent, FilterButtonsComponent } from "../../../../compone
   imports: [
     CardComponent,
     CardHeaderComponent,
-    CardBodyComponent,
-    VisibilityDirective,
-    FormDirective,
     ReactiveFormsModule,
     RowComponent,
     ColComponent,
@@ -33,7 +28,8 @@ import { FilterBaseComponent, FilterButtonsComponent } from "../../../../compone
     ValidationErrorsComponent,
     CheckboxComponent,
     RadioGroupComponent,
-    FilterButtonsComponent
+    FilterButtonsComponent,
+    FormCardBodyComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {

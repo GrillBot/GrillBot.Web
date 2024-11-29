@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, GuildLookupComponent, UserLookupComponent } from "../../../../components";
+import {
+  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FormCardBodyComponent, GuildLookupComponent, UserLookupComponent
+} from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { IForm } from "../../../../core/models/common";
-import { CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
-import { VisibilityDirective } from "../../../../core/directives";
+import { CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
 import { NgSelectorDirective } from "../../../../core/directives/ng-selector.directive";
 import { NgSelectComponent } from "@ng-select/ng-select";
 
@@ -16,9 +17,6 @@ import { NgSelectComponent } from "@ng-select/ng-select";
     ReactiveFormsModule,
     CardComponent,
     CardHeaderComponent,
-    CardBodyComponent,
-    VisibilityDirective,
-    FormDirective,
     FormLabelDirective,
     GuildLookupComponent,
     UserLookupComponent,
@@ -28,7 +26,8 @@ import { NgSelectComponent } from "@ng-select/ng-select";
     ColComponent,
     NgSelectComponent,
     NgSelectorDirective,
-    InputGroupComponent
+    InputGroupComponent,
+    FormCardBodyComponent
   ]
 })
 export class MeasuresListFilterComponent extends FilterBaseComponent<MeasuresListParams> {

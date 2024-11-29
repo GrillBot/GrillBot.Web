@@ -1,79 +1,77 @@
 <c-card class="mb-3">
   <app-card-header #header icon="cilSearch" title="Vyhledávání" />
 
-  <c-card-body visibility [isVisible]="header.bodyVisible()" class="pt-2">
-    <form cForm [formGroup]="form">
-      <c-row class="mb-1">
-        <c-col>
-          <label cLabel for="fromUserId">Od uživatele</label>
-          <app-user-lookup formControlName="fromUserId" />
-        </c-col>
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="fromUserId">Od uživatele</label>
+        <app-user-lookup formControlName="fromUserId" />
+      </c-col>
 
-        <c-col>
-          <label cLabel for="toUserId">Pro uživatele</label>
-          <app-user-lookup formControlName="toUserId" />
-        </c-col>
+      <c-col>
+        <label cLabel for="toUserId">Pro uživatele</label>
+        <app-user-lookup formControlName="toUserId" />
+      </c-col>
 
-        <c-col>
-          <label cLabel for="notifyAt">Oznámit v (OD - DO)</label>
-          <c-input-group>
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="notifyAtFromUtc"
-            />
-
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="notifyAtToUtc"
-            />
-          </c-input-group>
-        </c-col>
-      </c-row>
-
-      <c-row class="mb-2">
-        <c-col>
-          <label cLabel for="commandMessageId">ID zprávy</label>
-          <input cFormControl type="text" formControlName="commandMessageId" />
-          <app-validation-errors controlName="commandMessageId" [form]="form" />
-        </c-col>
-
-        <c-col>
-          <label cLabel for="messageContains">Zpráva obsahuje</label>
-          <input cFormControl type="text" formControlName="messageContains" />
-        </c-col>
-      </c-row>
-
-      <c-row>
-        <c-col>
-          <c-row>
-            <c-col>
-              <p-triStateCheckbox
-                inputId="onlyInProcess"
-                formControlName="onlyInProcess"
-                class="me-2"
-                label="Zpracovávané"
-              />
-            </c-col>
-
-            <c-col>
-              <p-triStateCheckbox
-                inputId="onlyPending"
-                formControlName="onlyPending"
-                label="Čekající"
-              />
-            </c-col>
-          </c-row>
-        </c-col>
-
-        <c-col class="d-flex justify-content-end">
-          <app-filter-buttons
-            [filterComponent]="this"
-            [disabled]="form.invalid"
+      <c-col>
+        <label cLabel for="notifyAt">Oznámit v (OD - DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="notifyAtFromUtc"
           />
-        </c-col>
-      </c-row>
-    </form>
-  </c-card-body>
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="notifyAtToUtc"
+          />
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-2">
+      <c-col>
+        <label cLabel for="commandMessageId">ID zprávy</label>
+        <input cFormControl type="text" formControlName="commandMessageId" />
+        <app-validation-errors controlName="commandMessageId" [form]="form" />
+      </c-col>
+
+      <c-col>
+        <label cLabel for="messageContains">Zpráva obsahuje</label>
+        <input cFormControl type="text" formControlName="messageContains" />
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col>
+        <c-row>
+          <c-col>
+            <p-triStateCheckbox
+              inputId="onlyInProcess"
+              formControlName="onlyInProcess"
+              class="me-2"
+              label="Zpracovávané"
+            />
+          </c-col>
+
+          <c-col>
+            <p-triStateCheckbox
+              inputId="onlyPending"
+              formControlName="onlyPending"
+              label="Čekající"
+            />
+          </c-col>
+        </c-row>
+      </c-col>
+
+      <c-col class="d-flex justify-content-end">
+        <app-filter-buttons
+          [filterComponent]="this"
+          [disabled]="form.invalid"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
 </c-card>

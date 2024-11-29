@@ -1,14 +1,12 @@
 <c-card class="mb-3">
   <app-card-header #header icon="cilSearch" title="Vyhledávání" />
 
-  <c-card-body visibility [isVisible]="header.bodyVisible()">
-    <form [formGroup]="form" cForm>
-      <div>
-        <label cLabel for="guildId">Server</label>
-        <app-guild-lookup formControlName="guildId" />
-      </div>
-    </form>
-  </c-card-body>
+  <app-form-card-body [form]="form" [header]="header">
+    <div>
+      <label cLabel for="guildId">Server</label>
+      <app-guild-lookup formControlName="guildId" />
+    </div>
+  </app-form-card-body>
 </c-card>
 
 <div class="mb-3">
