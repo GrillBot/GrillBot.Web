@@ -111,5 +111,14 @@
       "Remind(Admin)"
     ],
     "childItems": []
+  },
+  {
+    "name": "Hledání",
+    "url": "/web/searching",
+    "icon": "cil-search",
+    "permissions": [
+      "Searching(Admin)"
+    ],
+    "childItems": []
   }
 ]
