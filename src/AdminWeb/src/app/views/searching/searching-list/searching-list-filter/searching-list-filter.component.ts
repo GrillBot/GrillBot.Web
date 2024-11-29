@@ -1,13 +1,12 @@
 import { Component } from "@angular/core";
 import {
-  CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, GuildLookupComponent,
+  CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, FormCardBodyComponent, GuildLookupComponent,
   UserLookupComponent
 } from "../../../../components";
 import { SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
-  CardBodyComponent, CardComponent, ColComponent, FormControlDirective, FormDirective,
-  FormLabelDirective, InputGroupComponent, RowComponent
+  CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { VisibilityDirective } from "../../../../core/directives";
 import { IForm } from "../../../../core/models/common";
@@ -21,9 +20,7 @@ import { ChannelLookupComponent } from "../../../../components/lookups/channel-l
     ReactiveFormsModule,
     CardComponent,
     CardHeaderComponent,
-    CardBodyComponent,
     VisibilityDirective,
-    FormDirective,
     RowComponent,
     ColComponent,
     FormLabelDirective,
@@ -33,7 +30,8 @@ import { ChannelLookupComponent } from "../../../../components/lookups/channel-l
     GuildLookupComponent,
     FilterButtonsComponent,
     ChannelLookupComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    FormCardBodyComponent
   ]
 })
 export class SearchingListFilterComponent extends FilterBaseComponent<SearchingListRequest> {
@@ -51,8 +49,8 @@ export class SearchingListFilterComponent extends FilterBaseComponent<SearchingL
       createdTo: this.createControl(),
       validFrom: this.createControl(),
       validTo: this.createControl(),
-      hideInvalid: this.createControl(),
-      showDeleted: this.createControl()
+      hideInvalid: this.createControl({ validators: [] }, true),
+      showDeleted: this.createControl({ validators: [] }, false)
     }
   }
 }

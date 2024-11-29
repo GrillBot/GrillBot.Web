@@ -1,86 +1,88 @@
 <c-card class="mb-3">
   <app-card-header #header icon="cilSearch" title="Vyhledávání" />
 
-  <c-card-body visibility [isVisible]="header.bodyVisible()" class="pt-2">
-    <form cForm [formGroup]="form">
-      <c-row class="mb-1">
-        <c-col>
-          <label cLabel for="guildId">Server</label>
-          <app-guild-lookup formControlName="guildId" />
-        </c-col>
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="guildId">Server</label>
+        <app-guild-lookup formControlName="guildId" />
+      </c-col>
 
-        <c-col>
-          <label cLabel for="userId">Uživatel</label>
-          <app-user-lookup formControlName="userId" />
-        </c-col>
+      <c-col>
+        <label cLabel for="userId">Uživatel</label>
+        <app-user-lookup formControlName="userId" />
+      </c-col>
 
-        <c-col>
-          <label cLabel for="channelId">Kanál</label>
-          <app-channel-lookup formControlName="channelId" />
-        </c-col>
-      </c-row>
+      <c-col>
+        <label cLabel for="channelId">Kanál</label>
+        <app-channel-lookup formControlName="channelId" />
+      </c-col>
+    </c-row>
 
-      <c-row class="mb-2">
-        <c-col>
-          <label cLabel for="created">Vytvořeno (OD - DO)</label>
-          <c-input-group>
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdFrom"
-            />
-
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="createdTo"
-            />
-          </c-input-group>
-        </c-col>
-
-        <c-col>
-          <label cLabel for="validity">Platnost (OD - DO)</label>
-          <c-input-group>
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="validFrom"
-            />
-
-            <input
-              cFormControl
-              type="datetime-local"
-              formControlName="validTo"
-            />
-          </c-input-group>
-        </c-col>
-      </c-row>
-
-      <c-row class="mb-2">
-        <c-col>
-          <label cLabel for="messageQuery">Obsah hledání</label>
-          <input cFormControl type="text" formControlName="messageQuery" />
-        </c-col>
-
-        <c-col>
-          <c-row>
-            <c-col>
-              <app-checkbox checkboxId="hideInvalid" label="Skrýt neplatné" />
-            </c-col>
-
-            <c-col>
-              <app-checkbox checkboxId="showDeleted" label="Zobrazit smazané" />
-            </c-col>
-          </c-row>
-        </c-col>
-
-        <c-col class="d-flex justify-content-end align-items-end">
-          <app-filter-buttons
-            [disabled]="form.invalid"
-            [filterComponent]="this"
+    <c-row class="mb-2">
+      <c-col>
+        <label cLabel for="created">Vytvořeno (OD - DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdFrom"
           />
-        </c-col>
-      </c-row>
-    </form>
-  </c-card-body>
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdTo"
+          />
+        </c-input-group>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="validity">Platnost (OD - DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="validFrom"
+          />
+
+          <input cFormControl type="datetime-local" formControlName="validTo" />
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-2">
+      <c-col>
+        <label cLabel for="messageQuery">Obsah hledání</label>
+        <input cFormControl type="text" formControlName="messageQuery" />
+      </c-col>
+
+      <c-col>
+        <c-row>
+          <c-col>
+            <app-checkbox
+              checkboxId="hideInvalid"
+              label="Skrýt neplatné"
+              formControlName="hideInvalid"
+            />
+          </c-col>
+
+          <c-col>
+            <app-checkbox
+              checkboxId="showDeleted"
+              label="Zobrazit smazané"
+              formControlName="showDeleted"
+            />
+          </c-col>
+        </c-row>
+      </c-col>
+
+      <c-col class="d-flex justify-content-end align-items-end">
+        <app-filter-buttons
+          [disabled]="form.invalid"
+          [filterComponent]="this"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
 </c-card>

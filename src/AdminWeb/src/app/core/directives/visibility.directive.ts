@@ -8,10 +8,13 @@ export class VisibilityDirective {
   readonly #element = inject(ElementRef<HTMLElement>);
 
   isVisible = input<boolean>(false);
+  isVisibleBy = input<{ bodyVisible: () => boolean }>();
 
   constructor() {
     effect(() => {
-      if (this.isVisible()) {
+      const isVisible = this.isVisibleBy()?.bodyVisible() ?? this.isVisible();
+
+      if (isVisible) {
         this.#element.nativeElement.classList.remove('d-none');
       } else {
         this.#element.nativeElement.classList.add('d-none');
