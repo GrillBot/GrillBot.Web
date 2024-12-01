@@ -7,6 +7,7 @@
     [height]="height()"
     [dataSource]="source$"
     (rowsUpdated)="rowsUpdated.emit($event)"
+    (selectedRowsChanged)="selectedRowsChanged.emit($event)"
   ></app-ag-grid>
 
   <c-row class="mt-1">

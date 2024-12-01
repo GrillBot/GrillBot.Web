@@ -27,7 +27,6 @@ import { SpacedNumberPipe } from "../../core/pipes";
     FormSelectDirective,
     FormLabelDirective,
     ReactiveFormsModule,
-    IconDirective,
     PaginationComponent,
     FormControlDirective,
     SpacedNumberPipe
@@ -46,6 +45,7 @@ export class PaginatedGridComponent {
 
   rowsUpdated = output<RowDataUpdatedEvent>();
   reloadRequested = output();
+  selectedRowsChanged = output<any[]>();
 
   loading = signal(false);
 

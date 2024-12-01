@@ -1,1 +1,4 @@
-<app-searching-list-filter></app-searching-list-filter>
+<app-searching-list-filter
+  (filterEvent)="list.onFilterChanged($event)"
+></app-searching-list-filter>
+<app-searching-list-list #list></app-searching-list-list>

@@ -7,7 +7,6 @@ import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-ove
 import { AG_GRID_LOCALE_CZ } from "@ag-grid-community/locale";
 import { DEFAULT_CELL_PADDING } from "./ag-grid.defaults";
 import { ColorModeService } from "@coreui/angular";
-import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-ag-grid',
@@ -16,8 +15,7 @@ import { LoadingComponent } from "../loading/loading.component";
   imports: [
     AgGridAngular,
     AsyncPipe,
-    NgClass,
-    LoadingComponent
+    NgClass
   ]
 })
 export class AgGridComponent {
@@ -31,6 +29,7 @@ export class AgGridComponent {
 
   onGridReady = output<GridReadyEvent<any, any>>();
   rowsUpdated = output<RowDataUpdatedEvent>();
+  selectedRowsChanged = output<any[]>();
 
   options: Signal<GridOptions> = computed(() => {
     return {
@@ -62,6 +61,10 @@ export class AgGridComponent {
       },
       onRowDataUpdated: $event => {
         this.rowsUpdated.emit($event);
+      },
+      onRowSelected: $event => {
+        const rows = $event.api.getSelectedRows();
+        this.selectedRowsChanged.emit(rows);
       },
       ...this.gridOptions(),
     };

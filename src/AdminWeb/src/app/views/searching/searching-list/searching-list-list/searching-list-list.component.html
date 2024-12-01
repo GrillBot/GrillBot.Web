@@ -1,0 +1,103 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'700px'"
+    (reloadRequested)="reload()"
+    (selectedRowsChanged)="selectedRows.set($event)"
+  />
+
+  <c-row class="pt-2">
+    <c-col>
+      <button
+        cButton
+        [disabled]="!canDeleteMultipleRows()"
+        [variant]="'outline'"
+        [color]="'danger'"
+        (click)="removeSelectedRows()"
+      >
+        Smazat vybrané
+      </button>
+    </c-col>
+  </c-row>
+</div>
+
+<c-modal #messageModal alignment="center" size="xl">
+  <c-modal-header>
+    @if (modalRows) {
+      <h5 cModalTitle>Zpráva hledání #{{ modalRows[0].id }}</h5>
+    }
+    <button cButtonClose (click)="messageModal.visible = false"></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    <c-alert class="mb-0 p-0" color="transparent">
+      @if (modalRows) {
+        <pre class="m-0 p-0 text-wrap">{{ modalRows[0].content }}</pre>
+      }
+    </c-alert>
+  </c-modal-body>
+</c-modal>
+
+<c-modal #removeModal alignment="center" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Mazání hledání</h5>
+    <button cButtonClose (click)="removeModal.visible = false"></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    @if (modalRows) {
+      @if (modalRows.length > 1) {
+        Opravdu si přejete smazat vybraná hledání?
+      } @else {
+        Opravdu si přejete smazat hledání?
+      }
+
+      <table
+        cTable
+        bordered="true"
+        responsive="true"
+        small="true"
+        striped="true"
+        class="mb-0 mt-3"
+      >
+        <tr>
+          <th>Identifikátory</th>
+          <td>{{ modalRows | props: "id" }}</td>
+        </tr>
+
+        @if (modalRows.length === 1) {
+          <tr>
+            <th>Vytvořeno</th>
+            <td>{{ modalRows[0].createdAtUtc | localeDatePipe }}</td>
+          </tr>
+
+          <tr>
+            <th>Platné do</th>
+            <td>{{ modalRows[0].validToUtc | localeDatePipe }}</td>
+          </tr>
+        }
+      </table>
+    }
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="confirmRemove()"
+    >
+      Potvrdit
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="removeModal.visible = false"
+    >
+      Zrušit
+    </button>
+  </c-modal-footer>
+</c-modal>
