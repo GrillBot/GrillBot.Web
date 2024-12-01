@@ -3,7 +3,10 @@ import { SearchingListFilterComponent } from "./searching-list-filter/searching-
 import { SearchingListListComponent } from "./searching-list-list/searching-list-list.component";
 
 @Component({
-  templateUrl: './searching-list.component.html',
+  template: `
+    <app-searching-list-filter (filterEvent)="list.onFilterChanged($event)"></app-searching-list-filter>
+    <app-searching-list-list #list></app-searching-list-list>
+  `,
   standalone: true,
   imports: [SearchingListFilterComponent, SearchingListListComponent]
 })

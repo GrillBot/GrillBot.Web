@@ -3,7 +3,7 @@ import { TransactionsFilterComponent } from "./transactions-filter/transactions-
 import { TransactionsListComponent } from "./transactions-list/transactions-list.component";
 
 @Component({
-  templateUrl: './transactions.component.html',
+  template: '<app-transactions-filter (filterEvent)="list.onFilterChanged($event)" /><app-transactions-list #list />',
   standalone: true,
   imports: [
     TransactionsFilterComponent,

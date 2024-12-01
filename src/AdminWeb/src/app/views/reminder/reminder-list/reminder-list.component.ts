@@ -3,7 +3,7 @@ import { ReminderListFilterComponent } from "./reminder-list-filter/reminder-lis
 import { ReminderListListComponent } from "./reminder-list-list/reminder-list-list.component";
 
 @Component({
-  templateUrl: './reminder-list.component.html',
+  template: '<app-reminder-list-filter (filterEvent)="list.onFilterChanged($event)" /><app-reminder-list-list #list />',
   standalone: true,
   imports: [
     ReminderListFilterComponent,

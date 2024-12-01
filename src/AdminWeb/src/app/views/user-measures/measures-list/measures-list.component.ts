@@ -3,7 +3,10 @@ import { MeasuresListFilterComponent } from "./measures-list-filter/measures-lis
 import { MeasuresListListComponent } from "./measures-list-list/measures-list-list.component";
 
 @Component({
-  templateUrl: './measures-list.component.html',
+  template: `
+    <app-measures-list-filter (filterEvent)="list.onFilterChanged($event)" />
+    <app-measures-list-list #list />
+  `,
   standalone: true,
   imports: [
     MeasuresListFilterComponent,

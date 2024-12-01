@@ -3,7 +3,7 @@ import { UsersFilterComponent } from "./users-filter/users-filter.component";
 import { UsersListComponent } from "./users-list/users-list.component";
 
 @Component({
-  templateUrl: './users.component.html',
+  template: '<app-users-filter (filterEvent)="list.onFilterChanged($event)" /><app-users-list #list />',
   standalone: true,
   imports: [
     UsersFilterComponent,
