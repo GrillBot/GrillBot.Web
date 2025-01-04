@@ -1,8 +1,9 @@
 import { Component, forwardRef, inject, input } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { ColComponent, FormCheckInputDirective, FormCheckLabelDirective, RowComponent } from "@coreui/angular";
+import { ColComponent, RowComponent } from "@coreui/angular";
 import { RadioItem } from "./radio-group.models";
 import { ChunkPipe } from "../../../core/pipes";
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-radio-group',
@@ -12,9 +13,8 @@ import { ChunkPipe } from "../../../core/pipes";
     RowComponent,
     ColComponent,
     ReactiveFormsModule,
-    FormCheckInputDirective,
-    FormCheckLabelDirective,
-    ChunkPipe
+    ChunkPipe,
+    RadioButtonModule
   ],
   providers: [
     {

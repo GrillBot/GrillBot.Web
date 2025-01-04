@@ -1,6 +1,6 @@
 import { Component, forwardRef, inject, input } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { FormCheckInputDirective, FormCheckLabelDirective } from "@coreui/angular";
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-checkbox',
@@ -8,8 +8,7 @@ import { FormCheckInputDirective, FormCheckLabelDirective } from "@coreui/angula
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormCheckInputDirective,
-    FormCheckLabelDirective
+    CheckboxModule
   ],
   providers: [
     {

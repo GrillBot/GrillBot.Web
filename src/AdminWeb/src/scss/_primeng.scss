@@ -6,4 +6,10 @@
     color: #444;
     user-select: none;
   }
+
+  [data-coreui-theme="dark"] {
+    & .p-checkbox-label {
+      color: #fff;
+    }
+  }
 }
