@@ -1,5 +1,8 @@
-import { Component, inject, LOCALE_ID, viewChild } from "@angular/core";
-import { AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../../components";
+import { Component, inject, viewChild } from "@angular/core";
+import {
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
+  PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
+} from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
 import { GridOptions } from "ag-grid-community";
@@ -13,7 +16,10 @@ import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mapper
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
 import { Guild } from "../../../../core/models/guilds/guild";
-import { ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, TableDirective } from "@coreui/angular";
+import {
+  ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent,
+  ModalHeaderComponent, ModalTitleDirective, TableDirective
+} from "@coreui/angular";
 
 const MAX_REASON_CELL_LENGTH = 30;
 
@@ -37,7 +43,6 @@ const MAX_REASON_CELL_LENGTH = 30;
 export class MeasuresListListComponent extends ListBaseComponent<MeasuresListParams, MeasuresItem> {
   readonly #client = inject(UserMeasuresClient);
   readonly #lookupClient = inject(LookupClient);
-  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   openFullReasonModal = viewChild<ModalComponent>('openFullReasonModal');
   reasonInModal?: string;
@@ -58,13 +63,13 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           field: 'createdAtUtc',
           headerName: 'Vytvořeno',
           maxWidth: 200,
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID)
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'validTo',
           headerName: 'Platí do',
           maxWidth: 200,
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID)
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'moderatorId',

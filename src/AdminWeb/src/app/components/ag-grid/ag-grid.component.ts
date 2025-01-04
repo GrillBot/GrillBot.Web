@@ -1,12 +1,14 @@
 import { AsyncPipe, NgClass } from "@angular/common";
-import { Component, computed, inject, input, OnChanges, output, Signal, SimpleChanges } from "@angular/core";
+import { Component, computed, inject, input, LOCALE_ID, output, Signal } from "@angular/core";
 import { AgGridAngular } from "ag-grid-angular";
-import { GridOptions, GridReadyEvent, RowDataUpdatedEvent, SortChangedEvent } from "ag-grid-community";
+import { GridOptions, GridReadyEvent, RowDataUpdatedEvent } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-overlay.component";
 import { AG_GRID_LOCALE_CZ } from "@ag-grid-community/locale";
 import { DEFAULT_CELL_PADDING } from "./ag-grid.defaults";
 import { ColorModeService } from "@coreui/angular";
+import { useLitePipeTransform } from "./ag-grid.functions";
+import { LocaleDatePipe, SpacedNumberPipe, TimeSpanPipe } from "../../core/pipes";
 
 @Component({
   selector: 'app-ag-grid',
@@ -20,6 +22,7 @@ import { ColorModeService } from "@coreui/angular";
 })
 export class AgGridComponent {
   readonly #colorModeService = inject(ColorModeService);
+  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   gridOptions = input.required<GridOptions>();
   dataSource = input.required<Observable<any>>();
@@ -65,6 +68,23 @@ export class AgGridComponent {
       onRowSelected: $event => {
         const rows = $event.api.getSelectedRows();
         this.selectedRowsChanged.emit(rows);
+      },
+      dataTypeDefinitions: {
+        duration: {
+          extendsDataType: 'number',
+          baseDataType: 'number',
+          valueFormatter: params => useLitePipeTransform(params, TimeSpanPipe)
+        },
+        spacedNumber: {
+          extendsDataType: 'number',
+          baseDataType: 'number',
+          valueFormatter: params => useLitePipeTransform(params, SpacedNumberPipe)
+        },
+        localeDatetime: {
+          extendsDataType: 'text',
+          baseDataType: 'text',
+          valueFormatter: params => LocaleDatePipe.transformValue(params.value ?? '', 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID)
+        }
       },
       ...this.gridOptions(),
     };

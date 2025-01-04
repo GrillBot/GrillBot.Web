@@ -1,12 +1,10 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { map } from "rxjs";
 import { GridOptions } from "ag-grid-community";
-import { TimeSpanPipe } from "../../../../core/pipes";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
-import { AgGridComponent, COLUMN_FILTERS, usePipeTransform, CardHeaderComponent } from "../../../../components";
+import { AgGridComponent, COLUMN_FILTERS, CardHeaderComponent } from "../../../../components";
 
 @Component({
   selector: 'app-jobs',
@@ -16,7 +14,6 @@ import { AgGridComponent, COLUMN_FILTERS, usePipeTransform, CardHeaderComponent 
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    IconDirective,
     AgGridComponent
   ]
 })
@@ -38,7 +35,7 @@ export class JobsComponent implements OnInit {
         {
           field: 'duration',
           maxWidth: 150,
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe)
+          cellDataType: 'duration'
         }
       ],
       getRowClass: params => {

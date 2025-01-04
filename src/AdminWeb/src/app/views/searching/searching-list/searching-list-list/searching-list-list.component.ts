@@ -1,12 +1,14 @@
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
-import { AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent, PaginatedGridComponent, usePipeTransform } from "../../../../components";
+import {
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent, PaginatedGridComponent
+} from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
 import { SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
-import { Component, computed, inject, LOCALE_ID, signal, viewChild } from "@angular/core";
+import { Component, computed, inject, signal, viewChild } from "@angular/core";
 import { SearchingClient } from "../../../../core/clients/searching.client";
-import { LocaleDatePipe, PropsPipe, SpacedNumberPipe } from "../../../../core/pipes";
+import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import * as rxjs from 'rxjs';
 import { HttpErrorResponse } from "@angular/common/http";
@@ -14,7 +16,10 @@ import { Guild } from "../../../../core/models/guilds/guild";
 import { mapChannelToLookupRow, mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
 import { Channel } from "../../../../core/models/channels/channel";
-import { AlertComponent, ButtonCloseDirective, ButtonDirective, ColComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, RowComponent, TableDirective } from "@coreui/angular";
+import {
+  AlertComponent, ButtonCloseDirective, ButtonDirective, ColComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent,
+  ModalHeaderComponent, ModalTitleDirective, RowComponent, TableDirective
+} from "@coreui/angular";
 
 @Component({
   selector: 'app-searching-list-list',
@@ -40,7 +45,6 @@ import { AlertComponent, ButtonCloseDirective, ButtonDirective, ColComponent, Mo
 export class SearchingListListComponent extends ListBaseComponent<SearchingListRequest, SearchListItem> {
   readonly #client = inject(SearchingClient);
   readonly #lookupClient = inject(LookupClient);
-  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   selectedRows = signal<SearchListItem[]>([]);
   canDeleteMultipleRows = computed(() => this.selectedRows().length > 0);
@@ -56,12 +60,12 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
           field: 'id',
           headerName: '#',
           maxWidth: 100,
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           sortable: true,
           context: {
             sortingKey: 'Id'
           },
-          sort: 'desc'
+          sort: 'desc',
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'guildId',
@@ -102,22 +106,22 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
         {
           field: 'createdAtUtc',
           headerName: 'Vytvořeno',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 230,
           sortable: true,
           context: {
             sortingKey: 'CreatedAt'
-          }
+          },
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'validToUtc',
           headerName: 'Platné do',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 230,
           sortable: true,
           context: {
             sortingKey: 'ValidTo'
-          }
+          },
+          cellDataType: 'localeDatetime'
         },
         {
           headerName: 'Akce',

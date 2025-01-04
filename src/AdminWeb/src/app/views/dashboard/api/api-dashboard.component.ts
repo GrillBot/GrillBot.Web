@@ -1,23 +1,19 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
 import { AuditLogClient } from "../../../core/clients/audit-log.client";
 import { map } from "rxjs";
-import { TimeSpanPipe } from "../../../core/pipes";
 import { GridOptions } from "ag-grid-community";
-import { AgGridComponent, COLUMN_FILTERS, LoadingComponent, STRIPED_ROW_STYLE, usePipeTransform } from "../../../components";
+import { AgGridComponent, COLUMN_FILTERS, STRIPED_ROW_STYLE } from "../../../components";
 
 @Component({
   selector: 'app-api-dashboard',
   templateUrl: './api-dashboard.component.html',
   standalone: true,
   imports: [
-    LoadingComponent,
     RowComponent,
     ColComponent,
     CardComponent,
     CardBodyComponent,
-    IconDirective,
     CardTitleDirective,
     AgGridComponent
   ]
@@ -46,7 +42,7 @@ export class ApiDashboardComponent implements OnInit {
         {
           field: 'duration',
           headerName: 'Trvání',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
+          cellDataType: 'duration',
           maxWidth: 140,
           filter: COLUMN_FILTERS.NUMBER
         }

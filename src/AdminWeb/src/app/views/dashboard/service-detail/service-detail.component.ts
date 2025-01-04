@@ -1,4 +1,4 @@
-import { Component, inject, LOCALE_ID } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
@@ -6,7 +6,7 @@ import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import {
-  AlertComponent, CardBodyComponent, CardComponent, CardFooterComponent,
+  AlertComponent, CardBodyComponent, CardComponent,
   CardTitleDirective, ColComponent, RowComponent
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
@@ -14,8 +14,7 @@ import { GridOptions } from "ag-grid-community";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
 import {
   AgGridComponent, COLUMN_FILTERS, DEFAULT_CELL_PADDING, DEFAULT_CELL_PADDING_LEFT,
-  LoadingComponent, STRIPED_ROW_STYLE, usePipeTransform
-} from '../../../components';
+  LoadingComponent, STRIPED_ROW_STYLE} from '../../../components';
 import {
   WithLoadingPipe, FilesizePipe, TimeSpanPipe, SpacedNumberPipe,
   ObservablePipe, DictToListPipe, WithNestingPipe
@@ -37,7 +36,6 @@ import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
     CardComponent,
     CardTitleDirective,
     CardBodyComponent,
-    CardFooterComponent,
     NgTemplateOutlet,
     FilesizePipe,
     TimeSpanPipe,
@@ -52,7 +50,6 @@ import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
 export class ServiceDetailComponent {
   readonly #client = inject(DashboardClient);
   readonly #activatedRoute = inject(ActivatedRoute);
-  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   $getServiceDetail!: Observable<RawHttpResponse<ServiceDetail>>;
   endpointsGrid!: GridOptions;
@@ -73,29 +70,29 @@ export class ServiceDetailComponent {
         {
           field: 'lastRequestAt',
           headerName: 'Poslední požadavek',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
-          maxWidth: 200
+          maxWidth: 200,
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'totalTime',
           headerName: 'Celkový čas',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           maxWidth: 150,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'duration'
         },
         {
           field: 'lastTime',
           headerName: 'Poslední čas',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           maxWidth: 150,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'duration'
         },
         {
           field: 'avgTime',
           headerName: 'Průměrný čas',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           maxWidth: 150,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'duration'
         },
         {
           headerName: 'Úspěšnost',
@@ -120,9 +117,9 @@ export class ServiceDetailComponent {
         {
           field: 'value',
           headerName: 'Počet záznamů',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           maxWidth: 200,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'spacedNumber'
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE
@@ -145,23 +142,23 @@ export class ServiceDetailComponent {
         {
           field: 'item.count',
           headerName: 'Počet',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           maxWidth: 150,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'item.totalTime',
           headerName: 'Celkový čas',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           maxWidth: 200,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'duration'
         },
         {
           field: 'item.averageTime',
           headerName: 'Průměrný čas',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           maxWidth: 200,
-          filter: COLUMN_FILTERS.NUMBER
+          filter: COLUMN_FILTERS.NUMBER,
+          cellDataType: 'duration'
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE

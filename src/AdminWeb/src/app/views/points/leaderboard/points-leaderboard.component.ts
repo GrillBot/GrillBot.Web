@@ -64,26 +64,26 @@ export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardF
         {
           field: 'yearBack',
           headerName: 'Za posl. rok',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 200
+          maxWidth: 200,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'monthBack',
           headerName: 'Za posl. měsíc',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 200
+          maxWidth: 200,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'today',
           headerName: 'Dnes',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 200
+          maxWidth: 200,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'total',
           headerName: 'Celkem',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 200
+          maxWidth: 200,
+          cellDataType: 'spacedNumber'
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE

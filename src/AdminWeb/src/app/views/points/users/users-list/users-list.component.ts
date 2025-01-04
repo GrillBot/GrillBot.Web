@@ -10,10 +10,8 @@ import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mapper
 import * as rxjs from 'rxjs';
 import { Guild } from "../../../../core/models/guilds/guild";
 import { User } from "../../../../core/models/users/user";
-import { SpacedNumberPipe } from "../../../../core/pipes";
 import {
-  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
-} from "../../../../components";
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
 import { UserListItem } from "../../../../core/models/points/user-list-item";
 
 @Component({
@@ -65,20 +63,20 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
         {
           field: 'activePoints',
           headerName: 'Aktivní body',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 250
+          maxWidth: 250,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'expiredPoints',
           headerName: 'Expirované',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 250
+          maxWidth: 250,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'mergedPoints',
           headerName: 'Expirované sloučené',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          maxWidth: 250
+          maxWidth: 250,
+          cellDataType: 'spacedNumber'
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE

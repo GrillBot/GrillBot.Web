@@ -1,8 +1,7 @@
-import { Component, inject, LOCALE_ID, viewChild } from "@angular/core";
+import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
-} from "../../../../components";
+  ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
 import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
 import { GridOptions } from "ag-grid-community";
@@ -12,7 +11,7 @@ import {
 } from "../../../../core/models/common";
 import { ReminderClient } from "../../../../core/clients/reminder.client";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { LocaleDatePipe, SpacedNumberPipe } from "../../../../core/pipes";
+import { LocaleDatePipe } from "../../../../core/pipes";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
 import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
@@ -43,7 +42,6 @@ import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-r
 export class ReminderListListComponent extends ListBaseComponent<ReminderListRequest, RemindMessageItem> {
   readonly #client = inject(ReminderClient);
   readonly #lookupClient = inject(LookupClient);
-  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   messageModal = viewChild<ModalComponent>('messageModal');
   modalRow?: RemindMessageItem;
@@ -58,7 +56,7 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
           field: 'id',
           headerName: 'Id',
           maxWidth: 100,
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe)
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'fromUserId',
@@ -88,21 +86,21 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
           field: 'notifyAtUtc',
           headerName: 'Datum a čas oznámení',
           maxWidth: 230,
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           sortable: true,
           context: {
             sortKey: 'NotifyAt'
-          }
+          },
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'postponeCount',
           headerName: 'Počet odložení',
           maxWidth: 170,
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
           sortable: true,
           context: {
             sortKey: 'PostponeCount'
-          }
+          },
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'notificationMessageId',

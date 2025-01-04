@@ -1,18 +1,17 @@
-import { Component, inject, LOCALE_ID, viewChild } from "@angular/core";
+import { Component, inject, viewChild } from "@angular/core";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
-  PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
-} from "../../../../components";
+  PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { Guild } from "../../../../core/models/guilds/guild";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
-import { SpacedNumberPipe, LocaleDatePipe } from "../../../../core/pipes";
+import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
 import {
@@ -40,7 +39,6 @@ import {
 export class TransactionsListComponent extends ListBaseComponent<AdminListRequest, TransactionItem> {
   readonly #pointsClient = inject(PointsClient);
   readonly #lookupClient = inject(LookupClient);
-  readonly #LOCALE_ID = inject(LOCALE_ID);
 
   removeTransactionModal = viewChild<ModalComponent>('removeTransactionModal');
   rowInModal?: TransactionItem;
@@ -76,10 +74,10 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
           sortable: true,
-          initialSort: 'desc'
+          initialSort: 'desc',
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'messageId',
@@ -95,28 +93,28 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
         {
           field: 'value',
           headerName: 'Hodnota',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          sortable: true
+          sortable: true,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'mergedCount',
           headerName: 'Sloučených',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
-          hide: true
+          hide: true,
+          cellDataType: 'spacedNumber'
         },
         {
           field: 'mergedFrom',
           headerName: 'Sloučeno od',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
-          hide: true
+          hide: true,
+          cellDataType: 'localeDatetime'
         },
         {
           field: 'mergedTo',
           headerName: 'Sloučeno do',
-          valueFormatter: params => LocaleDatePipe.transformValue(params.value, 'dd. MM. yyyy HH:mm:ss', this.#LOCALE_ID),
           maxWidth: 200,
-          hide: true
+          hide: true,
+          cellDataType: 'localeDatetime'
         },
         {
           headerName: 'Akce',

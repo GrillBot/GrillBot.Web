@@ -1,12 +1,10 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { CardBodyComponent, CardComponent, CardTitleDirective } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
 import { map } from "rxjs";
-import { TimeSpanPipe } from "../../../../core/pipes";
 import { GridOptions } from "ag-grid-community";
-import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS, usePipeTransform } from "../../../../components";
+import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS } from "../../../../components";
 
 @Component({
   selector: 'app-interactions',
@@ -16,8 +14,6 @@ import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS, usePipeTransform 
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    IconDirective,
-    CardTitleDirective,
     AgGridComponent
   ]
 })
@@ -39,7 +35,7 @@ export class InteractionsComponent implements OnInit {
         {
           field: 'duration',
           maxWidth: 150,
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe)
+          cellDataType: 'duration'
         }
       ],
       getRowClass: params => {

@@ -1,13 +1,11 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { DashboardClient } from "../../../../core/clients/dashboard.client";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
 import { map } from 'rxjs';
 import { GridOptions } from 'ag-grid-community';
 import {
-  AgGridComponent, COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE, usePipeTransform, CardHeaderComponent
+  AgGridComponent, COLUMN_FILTERS, INDEX_COLUMN, STRIPED_ROW_STYLE, CardHeaderComponent
 } from '../../../../components';
-import { SpacedNumberPipe, TimeSpanPipe } from "../../../../core/pipes";
 
 @Component({
   selector: 'app-top-heavy-operations',
@@ -17,7 +15,6 @@ import { SpacedNumberPipe, TimeSpanPipe } from "../../../../core/pipes";
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    IconDirective,
     AgGridComponent
   ]
 })
@@ -39,22 +36,22 @@ export class TopHeavyOperationsComponent implements OnInit {
         },
         {
           field: 'count',
-          valueFormatter: params => usePipeTransform(params, SpacedNumberPipe),
+          cellDataType: 'spacedNumber',
           headerName: 'Počet',
           maxWidth: 100,
           filter: COLUMN_FILTERS.NUMBER
         },
         {
           field: 'totalTime',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           headerName: 'Celkový čas',
-          maxWidth: 150
+          maxWidth: 150,
+          cellDataType: 'duration'
         },
         {
           field: 'averageTime',
-          valueFormatter: params => usePipeTransform(params, TimeSpanPipe),
           headerName: 'Průměrný čas',
-          maxWidth: 150
+          maxWidth: 150,
+          cellDataType: 'duration'
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE
