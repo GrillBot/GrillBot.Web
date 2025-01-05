@@ -1,9 +1,8 @@
 import { NgStyle, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {
   ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardGroupComponent, ColComponent, ContainerComponent,
-  FormControlDirective, FormDirective, InputGroupComponent, InputGroupTextDirective, RowComponent,
-  TextColorDirective
+  LocalStorageService, RowComponent, TextColorDirective
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { AuthClient } from "../../../core/clients/auth.client";
@@ -11,6 +10,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { filter, tap } from "rxjs";
 import { AuthManager } from "../../../core/managers/auth.manager";
 import { environment } from "../../../../environments/environment";
+
+const REDIRECT_URI_KEY = 'X-GrillBot-RedirectUri';
 
 @Component({
   selector: 'app-login',
@@ -25,11 +26,7 @@ import { environment } from "../../../../environments/environment";
     CardComponent,
     CardBodyComponent,
     CardFooterComponent,
-    FormDirective,
-    InputGroupComponent,
-    InputGroupTextDirective,
     IconDirective,
-    FormControlDirective,
     ButtonDirective,
     NgStyle,
     NgTemplateOutlet
@@ -40,15 +37,29 @@ export class LoginComponent {
   readonly #authManager = inject(AuthManager);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
+  readonly #storage = inject(LocalStorageService);
 
   constructor() {
-    if (!this.#route.snapshot.queryParams['fromCallback']) {
+    const isFromCallback = !this.#route.snapshot.queryParams['fromCallback'];
+    let redirectUri = this.#route.snapshot.queryParams['redirectUri'];
+
+    if (redirectUri) {
+      this.#storage.removeItem(REDIRECT_URI_KEY);
+      this.#storage.setItem(REDIRECT_URI_KEY, redirectUri);
+    } else {
+      redirectUri = this.#storage.getItem(REDIRECT_URI_KEY);
+    }
+
+    if (isFromCallback) {
       return;
     }
 
     this.#authClient.retrieveJwtToken().pipe(
       filter(token => this.#authManager.setToken(token)),
-      tap(_ => { this.#router.navigateByUrl('/'); })
+      tap(_ => {
+        this.#storage.removeItem(REDIRECT_URI_KEY);
+        this.#router.navigateByUrl(redirectUri ?? '/');
+      })
     ).subscribe();
   }
 

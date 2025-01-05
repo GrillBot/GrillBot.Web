@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { LocalStorageService } from "@coreui/angular";
 import { OAuth2LoginToken } from "../models/auth/oauth2-login-token";
-import { Router } from "@angular/router";
+import { Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { JwtToken } from "../models/auth/jwt-token";
 
 export const ACCESS_TOKEN_KEY = 'X-GrillBot-Storage-AccessToken';
@@ -33,9 +33,9 @@ export class AuthManager {
     return true;
   }
 
-  logout(): void {
+  logout(loginPath?: string | UrlTree): void {
     this.#storage.removeItem(ACCESS_TOKEN_KEY);
-    this.#router.navigateByUrl('/login');
+    this.#router.navigateByUrl(loginPath?.toString() ?? '/login');
   }
 
   hasPermission(permission: string): boolean {
@@ -44,5 +44,12 @@ export class AuthManager {
 
   hasAnyPermission(...permissions: string[]): boolean {
     return permissions.some(p => this.token.permissions.includes(p));
+  }
+
+  createLoginPath(state: RouterStateSnapshot): UrlTree {
+    const loginPath = this.#router.parseUrl('/login');
+    loginPath.queryParams['redirectUri'] = state.url;
+
+    return loginPath;
   }
 }

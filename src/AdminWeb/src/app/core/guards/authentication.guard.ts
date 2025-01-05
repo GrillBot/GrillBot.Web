@@ -8,6 +8,13 @@ export class AuthenticationGuard implements CanActivateChild {
   readonly #router = inject(Router);
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+    if (!this.#authManager.token.isLogged) {
+      const loginPath = this.#authManager.createLoginPath(state);
+
+      this.#authManager.logout(loginPath);
+      return new RedirectCommand(loginPath);
+    }
+
     const canActivate: (permissions: string[]) => boolean | undefined = childRoute.data['canActivate'];
     const currentPermissions = this.#authManager.token.permissions;
 
