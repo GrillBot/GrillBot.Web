@@ -139,16 +139,21 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
                 id: 'remove-message',
                 title: 'Smazat zprávu',
                 color: 'danger',
-                action: row => this.removeSearch(row)
+                action: row => this.removeSearch(row),
+                isVisible: row => !row.isDeleted
               }
             ] as ButtonDef[]
           }
         }
       ],
       selection: {
-        mode: 'multiRow'
+        mode: 'multiRow',
+        isRowSelectable: row => !row.data.isDeleted
       },
-      getRowClass: params => params.data.isInvalid ? ['bg-warning-subtle'] : undefined
+      context: {
+        indicateDeletion: true,
+        indicateInvalid: true
+      }
     };
   }
 

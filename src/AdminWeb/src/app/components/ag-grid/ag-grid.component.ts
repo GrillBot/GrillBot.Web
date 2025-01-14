@@ -1,7 +1,7 @@
 import { AsyncPipe, NgClass } from "@angular/common";
 import { Component, computed, inject, input, LOCALE_ID, output, Signal } from "@angular/core";
 import { AgGridAngular } from "ag-grid-angular";
-import { GridOptions, GridReadyEvent, RowDataUpdatedEvent } from "ag-grid-community";
+import { CellClassParams, GridOptions, GridReadyEvent, RowDataUpdatedEvent } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { LoadingOverlayComponent } from "./renderers/loading-overlay/loading-overlay.component";
 import { AG_GRID_LOCALE_CZ } from "@ag-grid-community/locale";
@@ -56,7 +56,8 @@ export class AgGridComponent {
         editable: false,
         headerClass: () => ['text-dark'],
         autoHeaderHeight: true,
-        cellStyle: DEFAULT_CELL_PADDING
+        cellStyle: DEFAULT_CELL_PADDING,
+        cellClass: params => this.getCellClass(params)
       },
       onGridReady: $event => {
         $event.api.autoSizeAllColumns();
@@ -89,4 +90,19 @@ export class AgGridComponent {
       ...this.gridOptions(),
     };
   });
+
+  getCellClass(params: CellClassParams<any, any>): string[] | undefined {
+    const indicateDeletion = (params.context.indicateDeletion as boolean | undefined) ?? false;
+    const indicateInvalid = (params.context.indicateInvalid as boolean | undefined) ?? false;
+
+    if (indicateDeletion && params.data.isDeleted) {
+      return ['text-decoration-line-through', 'bg-danger-subtle'];
+    }
+
+    if (indicateInvalid && params.data.isInvalid) {
+      return ['bg-warning-subtle'];
+    }
+
+    return undefined;
+  }
 }

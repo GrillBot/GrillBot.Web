@@ -7,4 +7,5 @@ export interface SearchListItem {
   createdAtUtc: string;
   validToUtc: string;
   isInvalid: boolean;
+  isDeleted: boolean;
 }
