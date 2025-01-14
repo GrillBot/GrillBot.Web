@@ -92,8 +92,8 @@ export class AgGridComponent {
   });
 
   getCellClass(params: CellClassParams<any, any>): string[] | undefined {
-    const indicateDeletion = (params.context.indicateDeletion as boolean | undefined) ?? false;
-    const indicateInvalid = (params.context.indicateInvalid as boolean | undefined) ?? false;
+    const indicateDeletion = (params.context?.indicateDeletion as boolean | undefined) ?? false;
+    const indicateInvalid = (params.context?.indicateInvalid as boolean | undefined) ?? false;
 
     if (indicateDeletion && params.data.isDeleted) {
       return ['text-decoration-line-through', 'bg-danger-subtle'];
