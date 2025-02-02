@@ -1,0 +1,98 @@
+<c-card class="mb-3">
+  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="guildId">Server</label>
+        <app-guild-lookup formControlName="guildId" />
+      </c-col>
+
+      <c-col>
+        <label cLabel for="userId">Použil uživatel</label>
+        <app-user-lookup formControlName="userId" />
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="firstOccurence">První výskyt (OD-DO)</label>¨
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="firstOccurenceFrom"
+          />
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="firstOccurenceTo"
+          />
+        </c-input-group>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="lastOccurence">Poslední výskyt (OD-DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="lastOccurenceFrom"
+          />
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="lastOccurenceTo"
+          />
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-2">
+      <c-col md="6">
+        <label cLabel for="useCount">Počet použití (OD-DO)</label>
+        <c-input-group>
+          <input cFormControl type="number" formControlName="useCountFrom" />
+          <input cFormControl type="number" formControlName="useCountTo" />
+        </c-input-group>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="emoteName">Název</label>
+        <input cFormControl type="text" formControlName="emoteName" />
+      </c-col>
+
+      <c-col>
+        <label cLabel for="emoteFullId">ID (v plném formátu)</label>
+        <input cFormControl type="text" formControlName="emoteFullId" />
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col md="6">
+        <app-radio-group
+          radioId="'unsupported'"
+          formControlName="unsupported"
+          [items]="unsupportedItems"
+        />
+      </c-col>
+
+      <c-col>
+        <app-checkbox
+          formControlName="ignoreAnimated"
+          checkboxId="ignoreAnimated"
+          label="Skrýt animované"
+        />
+      </c-col>
+
+      <c-col class="d-flex justify-content-end align-items-end">
+        <app-filter-buttons
+          [disabled]="form.invalid"
+          [filterComponent]="this"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
+</c-card>

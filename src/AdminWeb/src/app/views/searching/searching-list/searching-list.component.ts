@@ -4,8 +4,8 @@ import { SearchingListListComponent } from "./searching-list-list/searching-list
 
 @Component({
   template: `
-    <app-searching-list-filter (filterEvent)="list.onFilterChanged($event)"></app-searching-list-filter>
-    <app-searching-list-list #list></app-searching-list-list>
+    <app-searching-list-filter (filterEvent)="list.onFilterChanged($event)" />
+    <app-searching-list-list #list />
   `,
   standalone: true,
   imports: [SearchingListFilterComponent, SearchingListListComponent]

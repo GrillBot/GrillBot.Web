@@ -80,6 +80,48 @@
     ]
   },
   {
+    "name": "Emoty",
+    "url": "/web/emote",
+    "icon": "cil-smile",
+    "permissions": [
+      "Emote(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Statistiky",
+        "url": "/web/emote/stats",
+        "permissions": [
+          "Emote(Admin)"
+        ]
+      },
+      {
+        "name": "Podporované emoty",
+        "url": "/web/emote/supported",
+        "permissions": [
+          "Emote(Admin)"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Hledání",
+    "url": "/web/searching",
+    "icon": "cil-search",
+    "permissions": [
+      "Searching(Admin)"
+    ],
+    "childItems": []
+  },
+  {
+    "name": "Reminder",
+    "url": "/web/reminder",
+    "icon": "cil-clock",
+    "permissions": [
+      "Remind(Admin)"
+    ],
+    "childItems": []
+  },
+  {
     "name": "Uživatelská opatření",
     "url": "/web/user-measures",
     "icon": "cil-shield-alt",
@@ -102,23 +144,5 @@
         ]
       }
     ]
-  },
-  {
-    "name": "Reminder",
-    "url": "/web/reminder",
-    "icon": "cil-clock",
-    "permissions": [
-      "Remind(Admin)"
-    ],
-    "childItems": []
-  },
-  {
-    "name": "Hledání",
-    "url": "/web/searching",
-    "icon": "cil-search",
-    "permissions": [
-      "Searching(Admin)"
-    ],
-    "childItems": []
   }
 ]

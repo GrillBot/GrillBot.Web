@@ -1,0 +1,9 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'800px'"
+    (reloadRequested)="reload()"
+    (rowsUpdated)="onRowsUpdated($event)"
+  />
+</div>
