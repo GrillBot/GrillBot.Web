@@ -157,6 +157,6 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
 
   openDetail(row: EmoteStatisticsItem): void {
     const emoteId = encodeURIComponent(`<${(row.emoteIsAnimated ? 'a' : '')}:${row.emoteName}:${row.emoteId}>`);
-    this.#router.navigateByUrl(`/web/emote/stats/${row.guildId}/${emoteId}/${this.filter.unsupported}`);
+    this.#router.navigateByUrl(`/web/emote/stats/${row.guildId}/${emoteId}`);
   }
 }
