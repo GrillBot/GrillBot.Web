@@ -124,7 +124,8 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
                 action: row => this.openDetail(row)
               }
             ] as ButtonDef[]
-          }
+          },
+          maxWidth: 200
         }
       ],
       getRowStyle: STRIPED_ROW_STYLE
