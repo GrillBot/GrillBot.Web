@@ -11,21 +11,23 @@
   ></app-ag-grid>
 
   <c-row class="mt-1">
-    <c-col md="2" class="pe-1">
-      <div cFormFloating>
-        <select cSelect id="pageSize" [formControl]="pageSize" no-validation>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
-        </select>
-        <label cLabel for="pageSize">Zobrazit záznamů</label>
-      </div>
-    </c-col>
+    @if (!singlePage()) {
+      <c-col md="2" class="pe-1">
+        <div cFormFloating>
+          <select cSelect id="pageSize" [formControl]="pageSize" no-validation>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+          <label cLabel for="pageSize">Zobrazit záznamů</label>
+        </div>
+      </c-col>
+    }
 
-    <c-col md="2" class="ps-1">
+    <c-col md="2" class="pe-1">
       <div cFormFloating>
         <input
           cFormControl
@@ -37,15 +39,17 @@
       </div>
     </c-col>
 
-    <c-col
-      [md]="true"
-      class="d-flex justify-content-end align-items-lg-end mt-2"
-    >
-      <app-pagination
-        [itemsCount]="itemsCount"
-        [pageSize]="pageSize.value ?? this.defaultPageSize()"
-        [formControl]="currentPage"
-      />
-    </c-col>
+    @if (!singlePage()) {
+      <c-col
+        [md]="true"
+        class="d-flex justify-content-end align-items-lg-end mt-2"
+      >
+        <app-pagination
+          [itemsCount]="itemsCount"
+          [pageSize]="pageSize.value ?? this.defaultPageSize()"
+          [formControl]="currentPage"
+        />
+      </c-col>
+    }
   </c-row>
 </div>

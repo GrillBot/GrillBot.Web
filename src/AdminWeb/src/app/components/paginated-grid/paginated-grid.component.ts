@@ -42,6 +42,7 @@ export class PaginatedGridComponent {
   defaultPageSize = input(25);
   defaultPage = input(0);
   showTotalCount = input(true);
+  singlePage = input(false);
 
   rowsUpdated = output<RowDataUpdatedEvent>();
   reloadRequested = output();
@@ -82,8 +83,8 @@ export class PaginatedGridComponent {
     defaultSort: SortParameters = {}
   ) {
     const pagination = {
-      page: this.currentPage.value ?? this.defaultPage(),
-      pageSize: this.pageSize.value ?? this.defaultPageSize()
+      page: this.singlePage() ? 1 : (this.currentPage.value ?? this.defaultPage()),
+      pageSize: this.singlePage() ? 2147483647 : (this.pageSize.value ?? this.defaultPageSize())
     };
 
     const sort = this.sorting ?? defaultSort;

@@ -1,0 +1,35 @@
+import { Component } from "@angular/core";
+import { CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FormCardBodyComponent, GuildLookupComponent } from "../../../../components";
+import { IForm } from "../../../../core/models/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import { CardComponent, ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
+import { VisibilityDirective } from "../../../../core/directives";
+
+@Component({
+  selector: 'app-support-list-filter',
+  templateUrl: './support-list-filter.component.html',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    CardComponent,
+    CardHeaderComponent,
+    RowComponent,
+    ColComponent,
+    VisibilityDirective,
+    FormLabelDirective,
+    GuildLookupComponent,
+    FilterButtonsComponent,
+    FormCardBodyComponent
+  ]
+})
+export class SupportListFilterComponent extends FilterBaseComponent<{ guildId: string | null }> {
+  override configure(): void {
+    this.filterId = 'emote/support-list';
+  }
+
+  override createForm(): IForm<{ guildId: string | null; }> {
+    return {
+      guildId: this.createControl()
+    };
+  }
+}
