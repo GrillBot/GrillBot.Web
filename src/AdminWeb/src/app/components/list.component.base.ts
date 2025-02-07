@@ -4,10 +4,10 @@ import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { PaginatedResponse, RawHttpResponse, SortParameters, WithSortAndPagination } from "../core/models/common";
 import * as rxjs from 'rxjs';
-import { ModalComponent } from "@coreui/angular";
+import { ComponentBase } from "./component.base";
 
 @Directive()
-export abstract class ListBaseComponent<TFilter, TResponse> {
+export abstract class ListBaseComponent<TFilter, TResponse> extends ComponentBase {
   grid = viewChild<PaginatedGridComponent>('grid');
 
   gridOptions = this.createGridOptions();
@@ -27,31 +27,6 @@ export abstract class ListBaseComponent<TFilter, TResponse> {
       ),
       this.createDefaultSort()
     );
-  }
-
-  openModal(
-    modal?: ModalComponent,
-    beforeOpen: (() => void) | null = null,
-    afterClose: (() => void) | null = null
-  ) {
-    if (!modal) {
-      return;
-    }
-
-    if (beforeOpen) {
-      beforeOpen();
-    }
-
-    modal.visible = true;
-
-    if (afterClose) {
-      const visibleChange = modal.visibleChange
-        .pipe(rxjs.filter(visible => !visible))
-        .subscribe(() => {
-          afterClose();
-          visibleChange.unsubscribe();
-        })
-    }
   }
 
   abstract createGridOptions(): GridOptions;

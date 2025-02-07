@@ -16,5 +16,13 @@ export const routes: Routes = [
       title: 'Podporované emoty',
       canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
     }
+  },
+  {
+    path: 'stats/:guildId/:emoteId',
+    loadComponent: () => import('./emote-detail/emote-detail.component').then(m => m.EmoteDetailComponent),
+    data: {
+      title: 'Detail emote',
+      canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
+    }
   }
 ]

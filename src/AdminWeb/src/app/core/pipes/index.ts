@@ -9,3 +9,4 @@ export * from './with-nesting.pipe';
 export * from './locale-date.pipe';
 export * from './cut-string.pipe';
 export * from './props.pipe';
+export * from './as-readonly-formcontrol.pipe';

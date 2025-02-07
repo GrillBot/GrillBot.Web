@@ -19,7 +19,7 @@ export class EmoteClient extends BaseClient {
     this.postRequest<PaginatedResponse<EmoteStatisticsItem>>('service/Emote/statistics-list', request);
 
   getEmoteInfo = (guildId: string, emoteId: string) =>
-    this.getRequest<EmoteInfo>(`list/Emote/${guildId}/${emoteId}`);
+    this.getRequest<EmoteInfo>(`service/Emote/${guildId}/${emoteId}`);
 
   mergeStatistics = (guildId: string, sourceEmoteId: string, destinationEmoteId: string) =>
     this.putRequest<MergeStatisticsResult>(`service/Emote/merge/${guildId}/${sourceEmoteId}/${destinationEmoteId}`, null);

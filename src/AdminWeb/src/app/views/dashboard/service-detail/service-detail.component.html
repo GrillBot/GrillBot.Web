@@ -1,9 +1,7 @@
 @if ($getServiceDetail | withLoading | async; as response) {
   <div class="mb-3">
     @if (response.loading) {
-      <div class="d-flex justify-content-center">
-        <app-loading customText="Načítají se podrobnosti o službě" />
-      </div>
+      <app-loading customText="Načítají se podrobnosti o službě" />
     } @else if (!response.value) {
       <c-alert [color]="'danger'">
         <div class="d-flex align-items-center">

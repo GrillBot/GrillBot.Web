@@ -1,0 +1,173 @@
+@if (getEmoteInfoRequest$() | withLoading | async; as response) {
+  <div class="mb-3">
+    @if (response.loading) {
+      <app-loading [customText]="'Načítají se podrobnosti o emote'" />
+    } @else if (!response.value) {
+      <c-alert color="danger">
+        <div class="d-flex align-items-center">
+          <svg cIcon name="cilWarning" size="xxl" class="me-3"></svg>
+          Při načítání podrobností o emote došlo k neočekávané situaci.
+        </div>
+      </c-alert>
+    } @else {
+      <c-row>
+        <c-col>
+          <c-card>
+            <c-row class="g-0">
+              <c-col [cCol]="'auto'" class="overflow-hidden position-relative">
+                <img
+                  cCardImg="start"
+                  [src]="response.value.emoteUrl"
+                  [alt]="response.value.emoteName"
+                  class="d-none d-md-inline object-fit-cover"
+                  style="min-height: 100%; object-position: left"
+                />
+
+                <img
+                  cCardImg="top"
+                  [src]="response.value.emoteUrl"
+                  [alt]="response.value.emoteName"
+                  class="d-md-none d-sm-inline"
+                />
+              </c-col>
+
+              <c-card-body cCol="8">
+                <h5 cCardTitle>{{ response.value.emoteName }}</h5>
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{ key: 'ID', value: emoteId() }"
+                />
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{
+                    key: 'Vlastník',
+                    value: response.value.ownerGuildId | guildLookup | async,
+                  }"
+                />
+
+                <c-row>
+                  <c-col> <b>Animovaný</b>: </c-col>
+                  <c-col>
+                    <app-checkbox
+                      [checkboxId]="'isEmoteAnimated'"
+                      [label]="''"
+                      [formControl]="
+                        response.value.isEmoteAnimated | asReadonlyFormControl
+                      "
+                    />
+                  </c-col>
+                </c-row>
+              </c-card-body>
+
+              @if (response.value.statistics) {
+                <c-card-footer>
+                  <button
+                    cButton
+                    [color]="'danger'"
+                    [size]="'sm'"
+                    [variant]="'outline'"
+                    (click)="deleteAllStatistics('confirm')"
+                  >
+                    Smazat všechny statistiky
+                  </button>
+                </c-card-footer>
+              }
+            </c-row>
+          </c-card>
+        </c-col>
+
+        @if (response.value.statistics) {
+          <c-col md="4">
+            <c-card>
+              <c-card-body>
+                <h5 cCardTitle>Statistiky</h5>
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{
+                    key: 'Počet použití',
+                    value: response.value.statistics.useCount | spacedNumber,
+                  }"
+                />
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{
+                    key: 'Použilo uživatelů',
+                    value: response.value.statistics.usersCount | spacedNumber,
+                  }"
+                />
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{
+                    key: 'První použití',
+                    value:
+                      response.value.statistics.firstOccurenceUtc
+                      | localeDatePipe,
+                  }"
+                />
+
+                <ng-container
+                  [ngTemplateOutlet]="detailInfoRow"
+                  [ngTemplateOutletContext]="{
+                    key: 'Poslední použití',
+                    value:
+                      response.value.statistics.lastOccurenceUtc
+                      | localeDatePipe,
+                  }"
+                />
+              </c-card-body>
+            </c-card>
+          </c-col>
+        }
+      </c-row>
+    }
+  </div>
+}
+
+<ng-template #detailInfoRow let-key="key" let-value="value">
+  <c-row>
+    <c-col>
+      <b>{{ key }}:</b>
+    </c-col>
+    <c-col>{{ value }}</c-col>
+  </c-row>
+</ng-template>
+
+<c-modal #deleteAllStatisticsModal alignment="center" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Smazat statistiky emote {{ emoteName() }}</h5>
+
+    <button
+      cButtonClose
+      (click)="deleteAllStatisticsModal.visible = false"
+    ></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    Opravdu si přejete smazat všechny statistiky pro tento emote?
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="deleteAllStatistics('process')"
+    >
+      Ano
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="deleteAllStatisticsModal.visible = false"
+    >
+      Ne
+    </button>
+  </c-modal-footer>
+</c-modal>
