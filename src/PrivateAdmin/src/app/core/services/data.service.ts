@@ -1,5 +1,5 @@
 import { QueryParam } from './../models/http';
-import { Dictionary, ObservableDict, ObservableList } from './../models/common';
+import { Dictionary, ObservableDict } from './../models/common';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map, catchError } from 'rxjs/operators';
