@@ -16,6 +16,7 @@ import { ComponentBase } from "../../../components/component.base";
 import { Observable, tap } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { EmoteInfo } from "../../../core/models/emote";
+import { EmoteUsageListComponent } from "./emote-usage-list/emote-usage-list.component";
 
 @Component({
   templateUrl: './emote-detail.component.html',
@@ -46,7 +47,8 @@ import { EmoteInfo } from "../../../core/models/emote";
     ButtonCloseDirective,
     ModalTitleDirective,
     ModalBodyComponent,
-    ModalFooterComponent
+    ModalFooterComponent,
+    EmoteUsageListComponent
   ]
 })
 export class EmoteDetailComponent extends ComponentBase {
@@ -76,6 +78,12 @@ export class EmoteDetailComponent extends ComponentBase {
     this.#client.deleteStatistics(this.guildId(), this.emoteFullId(), null).pipe(
       tap(() => this.getEmoteInfoRequest$ = computed(() => this.createRequest())),
     ).subscribe(_ => modal.visible = false);
+  }
+
+  reload(): void {
+    setTimeout(() => {
+      this.getEmoteInfoRequest$ = computed(() => this.createRequest());
+    }, 100);
   }
 
   private createRequest(): Observable<RawHttpResponse<EmoteInfo>> {

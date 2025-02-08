@@ -124,6 +124,18 @@
           </c-col>
         }
       </c-row>
+
+      @if (response.value.statistics) {
+        <c-row>
+          <c-col>
+            <app-emote-usage-list
+              [emoteFullId]="emoteFullId()"
+              [guildId]="guildId()"
+              (statisticsReloaded)="reload()"
+            />
+          </c-col>
+        </c-row>
+      }
     }
   </div>
 }

@@ -1,0 +1,38 @@
+<div class="mt-3">
+  <app-paginated-grid #grid [gridOptions]="gridOptions" />
+</div>
+
+<c-modal #deleteUserStatisticsModal alignment="center" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Smazat statistiky emote {{ emoteName() }} pro uživatele</h5>
+
+    <button
+      cButtonClose
+      (click)="deleteUserStatisticsModal.visible = false"
+    ></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    Opravdu si přejete smazat statistiky pro uživatele?
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="deleteUserStatistics()"
+    >
+      Ano
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="deleteUserStatisticsModal.visible = false"
+    >
+      Ne
+    </button>
+  </c-modal-footer>
+</c-modal>
