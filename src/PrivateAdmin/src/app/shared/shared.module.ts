@@ -15,7 +15,6 @@ import { TimeSpanInputComponent } from './time-span-input/time-span-input.compon
 import { SearchInputComponent } from './search-input/search-input.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NavigationComponent } from './navigation/navigation.component';
-import { EmotePickerComponent } from './emote-picker/emote-picker.component';
 import { SelectComponent } from './select/select.component';
 import { ChartsModule } from './charts/charts.module';
 import { CommonPageModule } from './common-page/common-page.module';
@@ -37,7 +36,6 @@ import { NewWebInfoComponent } from './new-web-info/new-web-info.component';
         TimeSpanInputComponent,
         SearchInputComponent,
         NavigationComponent,
-        EmotePickerComponent,
         SelectComponent,
         TabsComponent,
         ModalBoxComponent,
@@ -77,7 +75,6 @@ import { NewWebInfoComponent } from './new-web-info/new-web-info.component';
         DirectivesModule,
         NavigationComponent,
         PipesModule,
-        EmotePickerComponent,
         SelectComponent,
         ChartsModule,
         CommonPageModule,

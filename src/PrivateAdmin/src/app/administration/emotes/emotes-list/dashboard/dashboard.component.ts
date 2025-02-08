@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { INavigation } from 'src/app/shared/navigation/navigation';
-import { EmotesNavigation } from '../../navigation';
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html'
+    template: `<common-dashboard>
+        <app-new-web-info [text]="'Správa emotů byla přesunuta do nové administrace.'" />
+    </common-dashboard>`
 })
-export class DashboardComponent {
-    navigation: INavigation;
-
-    constructor(route: ActivatedRoute) {
-        this.navigation = new EmotesNavigation(route);
-    }
-}
+export class DashboardComponent { }
