@@ -3,7 +3,6 @@ import { LookupClient } from "../../../core/clients";
 import { catchError, map, Observable, of, throwError } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Guild } from "../../../core/models/guilds";
-import { mapGuildToLookupRow } from "../../../core/mappers";
 
 @Pipe({
   name: 'guildLookup',
@@ -13,13 +12,21 @@ export class GuildLookupPipe implements PipeTransform {
   readonly #lookupClient = inject(LookupClient);
 
   transform(value: string | null, ...args: any[]): Observable<string> {
-    if (!value) {
-      return of(mapGuildToLookupRow(null, undefined));
+    return GuildLookupPipe.processTransform(value, this.#lookupClient);
+  }
+
+  static processTransform(guildId: string | null, lookupClient: LookupClient): Observable<string> {
+    if (!guildId) {
+      return of(this.createGuildName(null, undefined));
     }
 
-    return this.#lookupClient.resolveGuild(value).pipe(
+    return lookupClient.resolveGuild(guildId).pipe(
       catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as Guild | null) : throwError(() => err)),
-      map(guild => mapGuildToLookupRow(guild, value))
+      map(guild => this.createGuildName(guild, guildId))
     );
+  }
+
+  private static createGuildName(guild: Guild | null, guildId?: string): string {
+    return guild?.name ?? 'Neznámý server' + (guildId ? ` ${guildId}` : '');
   }
 }

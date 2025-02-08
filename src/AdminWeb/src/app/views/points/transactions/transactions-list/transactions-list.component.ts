@@ -4,12 +4,11 @@ import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
   PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { Guild } from "../../../../core/models/guilds/guild";
 import { HttpErrorResponse } from "@angular/common/http";
-import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
+import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
 import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
@@ -51,11 +50,7 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
           headerName: 'Server',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (guildId: string) =>
-              this.#lookupClient.resolveGuild(guildId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
-                rxjs.map(guild => mapGuildToLookupRow(guild, guildId))
-              )
+            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
           },
           maxWidth: 500
         },

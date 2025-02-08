@@ -6,12 +6,12 @@ import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPaginati
 import { PointsClient } from "../../../../core/clients/points.client";
 import { HttpErrorResponse } from "@angular/common/http";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
+import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import * as rxjs from 'rxjs';
-import { Guild } from "../../../../core/models/guilds/guild";
 import { User } from "../../../../core/models/users/user";
 import {
-  AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+} from "../../../../components";
 import { UserListItem } from "../../../../core/models/points/user-list-item";
 
 @Component({
@@ -34,11 +34,7 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
           headerName: 'Server',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (guildId: string) =>
-              this.#lookupClient.resolveGuild(guildId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
-                rxjs.map(guild => mapGuildToLookupRow(guild, guildId))
-              )
+            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
           },
           maxWidth: 500
         },

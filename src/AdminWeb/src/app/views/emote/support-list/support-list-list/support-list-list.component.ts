@@ -1,13 +1,14 @@
 import { Component, inject } from "@angular/core";
-import { AsyncLookupCellRendererComponent, CheckboxCellRenderer, ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent } from "../../../../components";
+import {
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ImageCellRendererComponent,
+  ListBaseComponent, PaginatedGridComponent
+} from "../../../../components";
 import { EmoteDefinition } from "../../../../core/models/emote";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { EmoteClient, LookupClient } from "../../../../core/clients";
-import { mapEmoteIdToAnimatedFlag, mapEmoteIdToName, mapEmoteIdToNumberId, mapEmoteIdToUrl, mapGuildToLookupRow } from "../../../../core/mappers";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Guild } from "../../../../core/models/guilds";
+import { mapEmoteIdToAnimatedFlag, mapEmoteIdToName, mapEmoteIdToNumberId, mapEmoteIdToUrl } from "../../../../core/mappers";
 
 @Component({
   selector: 'app-support-list-list',
@@ -58,11 +59,7 @@ export class SupportListListComponent extends ListBaseComponent<{ guildId: strin
           headerName: 'Server',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (guildId: string) =>
-              this.#lookupClient.resolveGuild(guildId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
-                rxjs.map(guild => mapGuildToLookupRow(guild, guildId))
-              )
+            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
           },
           maxWidth: 500
         },

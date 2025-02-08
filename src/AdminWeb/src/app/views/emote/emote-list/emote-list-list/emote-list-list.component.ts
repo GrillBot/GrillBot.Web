@@ -1,14 +1,11 @@
 import { Component, inject } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+  GuildLookupPipe, ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
 } from "../../../../components";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
-import { Guild } from "../../../../core/models/guilds";
-import { HttpErrorResponse } from "@angular/common/http";
-import { mapGuildToLookupRow } from "../../../../core/mappers";
 import { Router } from "@angular/router";
 import { EmoteClient, LookupClient } from "../../../../core/clients";
 import { EmoteStatisticsItem, EmoteStatisticsListRequest } from "../../../../core/models/emote";
@@ -101,11 +98,7 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
           headerName: 'Server',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (guildId: string) =>
-              this.#lookupClient.resolveGuild(guildId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
-                rxjs.map(guild => mapGuildToLookupRow(guild, guildId))
-              )
+            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
           },
           maxWidth: 500
         },

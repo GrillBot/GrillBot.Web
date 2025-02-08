@@ -1,6 +1,6 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ListBaseComponent,
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
   PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
 } from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
@@ -12,10 +12,9 @@ import { UserMeasuresClient } from "../../../../core/clients/user-measures.clien
 import { CutStringPipe, LocaleDatePipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import * as rxjs from 'rxjs';
-import { mapGuildToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
+import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
-import { Guild } from "../../../../core/models/guilds/guild";
 import {
   ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent,
   ModalHeaderComponent, ModalTitleDirective, TableDirective
@@ -100,11 +99,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           headerName: 'Server',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (guildId: string) =>
-              this.#lookupClient.resolveGuild(guildId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Guild | null) : rxjs.throwError(() => err)),
-                rxjs.map(guild => mapGuildToLookupRow(guild, guildId)),
-              )
+            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
           }
         },
         {
