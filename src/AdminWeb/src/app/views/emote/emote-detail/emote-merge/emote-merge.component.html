@@ -1,0 +1,95 @@
+<c-card class="mt-3">
+  <c-card-body>
+    <h5 cCardTitle>Sloučení statistik</h5>
+
+    <form cForm [formGroup]="form" class="mb-3">
+      <c-row class="mb-2">
+        <c-col>
+          <label cLabel for="destinationEmoteId">Cílový emote</label>
+          <app-supported-emotes-lookup
+            [guildId]="guildId()"
+            formControlName="destinationEmoteId"
+          />
+          <app-validation-errors
+            [form]="form"
+            controlName="destinationEmoteId"
+          />
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col class="d-flex justify-content-end">
+          <button
+            cButton
+            [variant]="'outline'"
+            [color]="'primary'"
+            [disabled]="form.invalid"
+            (click)="executeMerge()"
+          >
+            Provést sloučení
+          </button>
+        </c-col>
+      </c-row>
+    </form>
+
+    <c-alert
+      class="mb-0"
+      [color]="stateColor()"
+      [visible]="state() != 'NotStarted'"
+      [fade]="true"
+    >
+      @switch (state()) {
+        @case ("Executing") {
+          <app-loading
+            [rotating]="true"
+            [center]="false"
+            [customText]="'Provádí se sloučení emotů'"
+            [small]="true"
+          />
+        }
+
+        @case ("Success") {
+          <div class="d-flex align-items-center">
+            <svg cIcon name="cilCheckCircle"></svg>
+            <p class="m-0 ms-2">Emoty byly úspěšně sloučeny.</p>
+          </div>
+
+          <ul class="m-0 ms-2">
+            <li>
+              Vytvořených záznamů:
+              {{ mergeResult()?.createdEmotesCount ?? 0 | spacedNumber }}
+            </li>
+            <li>
+              Smazaných záznamů:
+              {{ mergeResult()?.deletedEmotesCount ?? 0 | spacedNumber }}
+            </li>
+            <li>
+              Modifikovaných záznamů:
+              {{ mergeResult()?.modifiedEmotesCount ?? 0 | spacedNumber }}
+            </li>
+          </ul>
+
+          @if (newEmoteUrl()) {
+            <a [href]="[newEmoteUrl()]">Přejít na detail nového emote</a>
+          }
+        }
+
+        @case ("Failed") {
+          <div class="d-flex align-items-center">
+            <svg cIcon name="cilXCircle"></svg>
+            <p class="m-0 ms-2">
+              Při slučování emotů došlo k chybě. Zkontroluj, proč se nepodařilo
+              emoty sloučit.
+            </p>
+          </div>
+
+          <ul class="mb-0 mt-3">
+            @for (message of stateErrorMessages(); track $index) {
+              <li>{{ message }}</li>
+            }
+          </ul>
+        }
+      }
+    </c-alert>
+  </c-card-body>
+</c-card>

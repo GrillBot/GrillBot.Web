@@ -17,6 +17,7 @@ import { Observable, tap } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { EmoteInfo } from "../../../core/models/emote";
 import { EmoteUsageListComponent } from "./emote-usage-list/emote-usage-list.component";
+import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
 
 @Component({
   templateUrl: './emote-detail.component.html',
@@ -48,7 +49,8 @@ import { EmoteUsageListComponent } from "./emote-usage-list/emote-usage-list.com
     ModalTitleDirective,
     ModalBodyComponent,
     ModalFooterComponent,
-    EmoteUsageListComponent
+    EmoteUsageListComponent,
+    EmoteMergeComponent
   ]
 })
 export class EmoteDetailComponent extends ComponentBase {

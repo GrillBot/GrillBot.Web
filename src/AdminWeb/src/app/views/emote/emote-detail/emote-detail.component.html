@@ -134,6 +134,13 @@
               (statisticsReloaded)="reload()"
             />
           </c-col>
+
+          <c-col md="4">
+            <app-emote-merge
+              [guildId]="guildId()"
+              [sourceEmoteId]="emoteFullId()"
+            />
+          </c-col>
         </c-row>
       }
     }

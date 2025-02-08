@@ -102,16 +102,6 @@ export class TransferComponent implements OnInit {
       .subscribe(() => { this.state.set('Success'); });
   }
 
-  private processValidationErrors(error: ValidationProblemDetails): void {
-    const result: string[] = [];
-
-    for (const errorKey of Object.keys(error.errors)) {
-      result.push(...error.errors[errorKey].map(val => this.processValidationError(errorKey, val)))
-    }
-
-    this.stateErrorMessages.set(result);
-  }
-
   private processValidationError(key: string, value: string): string {
     const fallback = `${key}: ${value}`;
 

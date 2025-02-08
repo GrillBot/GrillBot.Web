@@ -1,0 +1,35 @@
+@if (emotesLookup$() | withLoading | async; as lookup) {
+  <ng-select
+    ngSelector
+    [loading]="lookup.loading"
+    [items]="lookup.value"
+    bindValue="fullId"
+    bindLabel="fullId"
+    [formControl]="formControl"
+  >
+    <ng-template ng-label-tmp let-item="item">
+      @if (item.fullId) {
+        <img
+          height="32"
+          width="32"
+          [src]="mapRowImageUrl(item.fullId)"
+          [alt]="item.fullId"
+        />
+
+        <span class="ms-3">{{ mapRowLabel(item.fullId) }}</span>
+      }
+    </ng-template>
+
+    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+      <img
+        [src]="mapRowImageUrl(item.fullId)"
+        [alt]="item.fullId"
+        width="32"
+        height="32"
+      />
+      <span [ngOptionHighlight]="search" class="ms-3">{{
+        mapRowLabel(item.fullId)
+      }}</span>
+    </ng-template>
+  </ng-select>
+}

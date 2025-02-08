@@ -31,6 +31,13 @@
                 [ngTemplateOutletContext]="{ error: error[1] }"
               />
             }
+
+            @case ("customValidationError") {
+              <ng-container
+                [ngTemplateOutlet]="customValidationError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
           }
         </li>
       }
@@ -54,4 +61,8 @@
 
 <ng-template #minLengthError let-error="error">
   Minimální povolená délka je {{ error.requiredLength }}
+</ng-template>
+
+<ng-template #customValidationError let-error="error">
+  {{ error.message }}
 </ng-template>
