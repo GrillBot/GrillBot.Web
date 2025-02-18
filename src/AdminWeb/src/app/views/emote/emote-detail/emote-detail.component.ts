@@ -12,7 +12,6 @@ import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent } 
 import { IconDirective } from "@coreui/icons-angular";
 import { mapEmoteIdToNumberId } from "../../../core/mappers";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ComponentBase } from "../../../components/component.base";
 import { Observable, tap } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { EmoteInfo } from "../../../core/models/emote";
@@ -48,7 +47,7 @@ import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
     EmoteMergeComponent
   ]
 })
-export class EmoteDetailComponent extends ComponentBase {
+export class EmoteDetailComponent {
   readonly #client = inject(EmoteClient);
   readonly #router = inject(Router);
 
