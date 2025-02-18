@@ -156,21 +156,16 @@
   </c-row>
 </ng-template>
 
-<c-modal #deleteAllStatisticsModal alignment="center" size="lg">
-  <c-modal-header>
-    <h5 cModalTitle>Smazat statistiky emote {{ emoteName() }}</h5>
-
-    <button
-      cButtonClose
-      (click)="deleteAllStatisticsModal.visible = false"
-    ></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #deleteAllStatisticsModal
+  [title]="'Smazat statistiky emote ' + emoteName()"
+  [enableFooter]="true"
+>
+  <ng-container body>
     Opravdu si přejete smazat všechny statistiky pro tento emote?
-  </c-modal-body>
+  </ng-container>
 
-  <c-modal-footer>
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -184,9 +179,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="deleteAllStatisticsModal.visible = false"
+      (click)="deleteAllStatisticsModal.close()"
     >
       Ne
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

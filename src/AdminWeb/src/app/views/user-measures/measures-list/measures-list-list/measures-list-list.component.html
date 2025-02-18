@@ -7,26 +7,19 @@
   />
 </div>
 
-<c-modal #openFullReasonModal alignment="center" size="xl">
-  <c-modal-header>
-    <h5 cModalTitle>Důvod opatření</h5>
-    <button cButtonClose (click)="openFullReasonModal.visible = false"></button>
-  </c-modal-header>
+<app-modal #openFullReasonModal size="xl" [title]="'Důvod opatření'">
+  <ng-container body>
+    {{ reasonInModal }}
+  </ng-container>
+</app-modal>
 
-  <c-modal-body>
-    @if (reasonInModal) {
-      {{ reasonInModal }}
-    }
-  </c-modal-body>
-</c-modal>
-
-<c-modal #removeMeasureModal alignment="center">
-  <c-modal-header>
-    <h5 cModalTitle>Smazání opatření</h5>
-    <button cButtonClose (click)="removeMeasureModal.visible = false"></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #removeMeasureModal
+  [title]="'Smazání opatření'"
+  [size]="undefined"
+  [enableFooter]="true"
+>
+  <ng-container body>
     Opravdu si přejete smazat tohle opatření?
 
     @if (rowInModal) {
@@ -47,9 +40,9 @@
         </tr>
       </table>
     }
-  </c-modal-body>
+  </ng-container>
 
-  <c-modal-footer>
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -62,9 +55,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="removeMeasureModal.visible = false"
+      (click)="removeMeasureModal.close()"
     >
       Zrušit
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
 } from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
@@ -15,10 +15,7 @@ import * as rxjs from 'rxjs';
 import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
-import {
-  ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent,
-  ModalHeaderComponent, ModalTitleDirective, TableDirective
-} from "@coreui/angular";
+import { ButtonDirective, TableDirective } from "@coreui/angular";
 
 const MAX_REASON_CELL_LENGTH = 30;
 
@@ -29,13 +26,8 @@ const MAX_REASON_CELL_LENGTH = 30;
   imports: [
     PaginatedGridComponent,
     ModalComponent,
-    ModalHeaderComponent,
-    ModalTitleDirective,
-    ModalBodyComponent,
-    ButtonCloseDirective,
     TableDirective,
     LocaleDatePipe,
-    ModalFooterComponent,
     ButtonDirective
   ]
 })
@@ -121,7 +113,10 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
                 size: 'sm',
                 variant: 'ghost',
                 color: 'primary',
-                action: row => this.openFullReason(row),
+                action: row => this.openFullReasonModal()?.open(
+                  () => this.reasonInModal = row.reason,
+                  () => this.reasonInModal = undefined
+                ),
                 isVisible: row => row.reason.length >= MAX_REASON_CELL_LENGTH
               },
               {
@@ -130,7 +125,10 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
                 size: 'sm',
                 variant: 'ghost',
                 color: 'danger',
-                action: row => this.removeMeasure(row)
+                action: row => this.removeMeasureModal()?.open(
+                  () => this.rowInModal = row,
+                  () => this.rowInModal = undefined
+                )
               }
             ] as ButtonDef[]
           }
@@ -150,22 +148,6 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
     return {};
   }
 
-  private openFullReason(row: MeasuresItem): void {
-    this.openModal(
-      this.openFullReasonModal(),
-      () => this.reasonInModal = row.reason,
-      () => this.reasonInModal = undefined
-    );
-  }
-
-  private removeMeasure(row: MeasuresItem): void {
-    this.openModal(
-      this.removeMeasureModal(),
-      () => this.rowInModal = row,
-      () => this.rowInModal = undefined
-    );
-  }
-
   confirmRemoveMeasure(): void {
     const modal = this.removeMeasureModal();
     if (!modal || !this.rowInModal) {
@@ -173,7 +155,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
     }
 
     this.#client.deleteMeasure(this.rowInModal.measureId).subscribe(() => {
-      modal.visible = false;
+      modal.close();
       this.reload();
     });
   }

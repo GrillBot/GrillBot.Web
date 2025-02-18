@@ -8,15 +8,13 @@
   />
 </div>
 
-<c-modal #removeTransactionModal alignment="center">
-  <c-modal-header>
-    <h5 cModalTitle>Smazání transakce</h5>
-    <button
-      cButtonClose
-      (click)="removeTransactionModal.visible = false"
-    ></button>
-  </c-modal-header>
-  <c-modal-body>
+<app-modal
+  #removeTransactionModal
+  [size]="undefined"
+  [title]="'Smazání transakce'"
+  [enableFooter]="true"
+>
+  <ng-container body>
     Opravdu si přejete smazat transakci?
 
     @if (rowInModal) {
@@ -39,8 +37,9 @@
         </tr>
       </table>
     }
-  </c-modal-body>
-  <c-modal-footer>
+  </ng-container>
+
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -53,9 +52,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="removeTransactionModal.visible = false"
+      (click)="removeTransactionModal.close()"
     >
       Zrušit
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

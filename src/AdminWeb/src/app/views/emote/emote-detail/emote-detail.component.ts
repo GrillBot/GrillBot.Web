@@ -1,14 +1,14 @@
 import { Component, computed, inject, signal, viewChild } from "@angular/core";
 import { EmoteClient } from "../../../core/clients";
 import {
-  AlertComponent, ButtonCloseDirective, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent,
-  CardTitleDirective, ColComponent, ColDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, RowComponent
+  AlertComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardTitleDirective,
+  ColComponent, ColDirective, RowComponent
 } from "@coreui/angular";
 import { Router } from "@angular/router";
 import { mapParamsFromSnapshot as mapParamsFromSnapshot } from "../../../core/mappers/router.mapper";
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe, WithLoadingPipe } from "../../../core/pipes";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
-import { CheckboxComponent, GuildLookupPipe, LoadingComponent } from "../../../components";
+import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent } from "../../../components";
 import { IconDirective } from "@coreui/icons-angular";
 import { mapEmoteIdToNumberId } from "../../../core/mappers";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -44,11 +44,6 @@ import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
     SpacedNumberPipe,
     ButtonDirective,
     ModalComponent,
-    ModalHeaderComponent,
-    ButtonCloseDirective,
-    ModalTitleDirective,
-    ModalBodyComponent,
-    ModalFooterComponent,
     EmoteUsageListComponent,
     EmoteMergeComponent
   ]
@@ -73,13 +68,13 @@ export class EmoteDetailComponent extends ComponentBase {
     }
 
     if (action === 'confirm') {
-      this.openModal(modal);
+      this.deleteAllStatisticsModal()?.open();
       return;
     }
 
     this.#client.deleteStatistics(this.guildId(), this.emoteFullId(), null).pipe(
       tap(() => this.getEmoteInfoRequest$ = computed(() => this.createRequest())),
-    ).subscribe(_ => modal.visible = false);
+    ).subscribe(_ => this.deleteAllStatisticsModal()?.close());
   }
 
   reload(): void {

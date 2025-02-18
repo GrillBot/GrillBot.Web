@@ -6,21 +6,16 @@
   />
 </div>
 
-<c-modal #deleteUserStatisticsModal alignment="center" size="lg">
-  <c-modal-header>
-    <h5 cModalTitle>Smazat statistiky emote {{ emoteName() }} pro uživatele</h5>
-
-    <button
-      cButtonClose
-      (click)="deleteUserStatisticsModal.visible = false"
-    ></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #removeUserStatisticsRowModal
+  title="Smazat statistiky emote {{ emoteName() }} pro uživatele"
+  [enableFooter]="true"
+>
+  <ng-container body>
     Opravdu si přejete smazat statistiky pro uživatele?
-  </c-modal-body>
+  </ng-container>
 
-  <c-modal-footer>
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -34,9 +29,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="deleteUserStatisticsModal.visible = false"
+      (click)="removeUserStatisticsRowModal.close()"
     >
       Ne
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

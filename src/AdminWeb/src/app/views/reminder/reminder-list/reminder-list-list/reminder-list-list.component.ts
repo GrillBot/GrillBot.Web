@@ -1,24 +1,20 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
+  ListBaseComponent, ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+} from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
 import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
-import {
-  WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters
-} from "../../../../core/models/common";
+import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { ReminderClient } from "../../../../core/clients/reminder.client";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { LocaleDatePipe } from "../../../../core/pipes";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
 import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import {
-  AlertComponent, ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent,
-  ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, TableDirective
-} from "@coreui/angular";
+import { AlertComponent, ButtonDirective, TableDirective } from "@coreui/angular";
 import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-reminder-request";
 
 @Component({
@@ -28,14 +24,9 @@ import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-r
   imports: [
     PaginatedGridComponent,
     ModalComponent,
-    ModalHeaderComponent,
-    ModalTitleDirective,
-    ModalBodyComponent,
-    ButtonCloseDirective,
     AlertComponent,
     TableDirective,
     LocaleDatePipe,
-    ModalFooterComponent,
     ButtonDirective
   ]
 })
@@ -129,20 +120,29 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
                 id: 'show-message',
                 title: 'Zobrazit zprávu',
                 color: 'primary',
-                action: row => this.openMessage(row)
+                action: row => this.messageModal()?.open(
+                  () => this.modalRow = row,
+                  () => this.modalRow = undefined
+                )
               },
               {
                 id: 'cancel-and-notify',
                 title: 'Oznámit a stornovat',
                 color: 'dark',
-                action: row => this.openCancelModal(row, true),
+                action: row => this.cancelModal()?.open(
+                  () => this.cancelModalRow = { notify: true, row },
+                  () => this.cancelModalRow = undefined
+                ),
                 isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
               },
               {
                 id: 'cancel',
                 title: 'Stornovat',
                 color: 'dark',
-                action: row => this.openCancelModal(row, false),
+                action: row => this.cancelModal()?.open(
+                  () => this.cancelModalRow = { notify: false, row },
+                  () => this.cancelModalRow = undefined
+                ),
                 isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
               }
             ] as ButtonDef[]
@@ -178,22 +178,6 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
     return row.isSendInProgress || (String(row.notificationMessageId ?? '').length > 0 && row.notificationMessageId !== "0");
   }
 
-  private openMessage(row: RemindMessageItem): void {
-    this.openModal(
-      this.messageModal(),
-      () => this.modalRow = row,
-      () => this.modalRow = undefined
-    );
-  }
-
-  private openCancelModal(row: RemindMessageItem, notify: boolean) {
-    this.openModal(
-      this.cancelModal(),
-      () => this.cancelModalRow = { notify, row },
-      () => this.cancelModalRow = undefined
-    )
-  }
-
   confirmCancel(): void {
     const modal = this.cancelModal();
     if (!modal || !this.cancelModalRow) {
@@ -206,7 +190,7 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
     };
 
     this.#client.cancelRemind(request).subscribe(() => {
-      modal.visible = false;
+      modal.close();
       this.reload();
     });
   }

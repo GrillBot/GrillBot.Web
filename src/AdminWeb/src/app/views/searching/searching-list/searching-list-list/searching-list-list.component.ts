@@ -1,7 +1,8 @@
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe,
+  ListBaseComponent, ModalComponent, PaginatedGridComponent
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
@@ -15,10 +16,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { mapChannelToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { User } from "../../../../core/models/users/user";
 import { Channel } from "../../../../core/models/channels/channel";
-import {
-  AlertComponent, ButtonCloseDirective, ButtonDirective, ColComponent, ModalBodyComponent, ModalComponent, ModalFooterComponent,
-  ModalHeaderComponent, ModalTitleDirective, RowComponent, TableDirective
-} from "@coreui/angular";
+import { AlertComponent, ButtonDirective, ColComponent, RowComponent, TableDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-searching-list-list',
@@ -30,12 +28,7 @@ import {
     ColComponent,
     ButtonDirective,
     ModalComponent,
-    ModalHeaderComponent,
-    ModalBodyComponent,
     AlertComponent,
-    ButtonCloseDirective,
-    ModalTitleDirective,
-    ModalFooterComponent,
     TableDirective,
     PropsPipe,
     LocaleDatePipe
@@ -128,13 +121,19 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
                 id: 'show-message',
                 title: 'Zobrazit zprávu',
                 color: 'primary',
-                action: row => this.openMessage(row)
+                action: row => this.messageModal()?.open(
+                  () => this.modalRows = [row],
+                  () => this.modalRows = undefined
+                )
               },
               {
                 id: 'remove-message',
                 title: 'Smazat zprávu',
                 color: 'danger',
-                action: row => this.removeSearch(row),
+                action: row => this.removeModal()?.open(
+                  () => this.modalRows = [row],
+                  () => this.modalRows = undefined
+                ),
                 isVisible: row => !row.isDeleted
               }
             ] as ButtonDef[]
@@ -169,25 +168,8 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
     };
   }
 
-  openMessage(row: SearchListItem): void {
-    this.openModal(
-      this.messageModal(),
-      () => this.modalRows = [row],
-      () => this.modalRows = undefined
-    );
-  }
-
-  removeSearch(row: SearchListItem): void {
-    this.openModal(
-      this.removeModal(),
-      () => this.modalRows = [row],
-      () => this.modalRows = undefined
-    );
-  }
-
   removeSelectedRows(): void {
-    this.openModal(
-      this.removeModal(),
+    this.removeModal()?.open(
       () => this.modalRows = this.selectedRows(),
       () => this.modalRows = undefined
     );
@@ -205,7 +187,7 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
       .forkJoin(requests)
       .pipe(rxjs.filter(responses => responses.every(x => x.type == 'finish')))
       .subscribe(() => {
-        modal.visible = false;
+        modal.close();
         this.reload();
       });
   }

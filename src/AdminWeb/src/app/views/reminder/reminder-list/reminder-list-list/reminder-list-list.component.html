@@ -7,33 +7,26 @@
   />
 </div>
 
-<c-modal #messageModal alignment="center" size="xl">
-  <c-modal-header>
-    @if (modalRow) {
-      <h5 cModalTitle>Zpráva oznámení #{{ modalRow.id }}</h5>
-    }
-    <button cButtonClose (click)="messageModal.visible = false"></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #messageModal
+  [size]="'xl'"
+  [title]="'Zpráva oznámení #' + modalRow?.id"
+>
+  <ng-container body>
     <c-alert class="mb-0 p-0" color="transparent">
       <pre class="m-0 p-0 text-wrap">{{ modalRow?.message }}</pre>
     </c-alert>
-  </c-modal-body>
-</c-modal>
+  </ng-container>
+</app-modal>
 
-<c-modal #cancelModal alignment="center" size="lg">
-  <c-modal-header>
-    @if (cancelModalRow) {
-      <h5 cModalTitle>
-        Storno {{ cancelModalRow.notify ? "a oznámení" : "" }} upozornění.
-      </h5>
-    }
-
-    <button cButtonClose (click)="cancelModal.visible = false"></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #cancelModal
+  [title]="
+    'Storno ' + (cancelModalRow?.notify ? 'a oznámení' : '') + ' upozornění'
+  "
+  [enableFooter]="true"
+>
+  <ng-container body>
     @if (cancelModalRow?.notify) {
       Opravdu si přejete předčasně odeslat upozornění a stornovat jej?
     } @else {
@@ -56,15 +49,16 @@
           <th>Zpráva</th>
           <td>
             <pre class="m-0 p-0 text-wrap">
-              {{ cancelModalRow.row.message }}
-            </pre>
+            {{ cancelModalRow.row.message }}
+          </pre
+            >
           </td>
         </tr>
       }
     </table>
-  </c-modal-body>
+  </ng-container>
 
-  <c-modal-footer>
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -78,9 +72,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="cancelModal.visible = false"
+      (click)="cancelModal.close()"
     >
       Zrušit
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

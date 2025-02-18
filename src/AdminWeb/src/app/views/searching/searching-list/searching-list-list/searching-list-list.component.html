@@ -22,30 +22,22 @@
   </c-row>
 </div>
 
-<c-modal #messageModal alignment="center" size="xl">
-  <c-modal-header>
-    @if (modalRows) {
-      <h5 cModalTitle>Zpráva hledání #{{ modalRows[0].id }}</h5>
-    }
-    <button cButtonClose (click)="messageModal.visible = false"></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal
+  #messageModal
+  size="xl"
+  [title]="'Zpráva hledání #' + (modalRows ? modalRows[0].id : '')"
+>
+  <ng-container body>
     <c-alert class="mb-0 p-0" color="transparent">
       @if (modalRows) {
         <pre class="m-0 p-0 text-wrap">{{ modalRows[0].content }}</pre>
       }
     </c-alert>
-  </c-modal-body>
-</c-modal>
+  </ng-container>
+</app-modal>
 
-<c-modal #removeModal alignment="center" size="lg">
-  <c-modal-header>
-    <h5 cModalTitle>Mazání hledání</h5>
-    <button cButtonClose (click)="removeModal.visible = false"></button>
-  </c-modal-header>
-
-  <c-modal-body>
+<app-modal #removeModal [title]="'Mazání hledání'" [enableFooter]="true">
+  <ng-container body>
     @if (modalRows) {
       @if (modalRows.length > 1) {
         Opravdu si přejete smazat vybraná hledání?
@@ -79,9 +71,9 @@
         }
       </table>
     }
-  </c-modal-body>
+  </ng-container>
 
-  <c-modal-footer>
+  <ng-container footer>
     <button
       cButton
       [variant]="'outline'"
@@ -95,9 +87,9 @@
       cButton
       [variant]="'outline'"
       [color]="'danger'"
-      (click)="removeModal.visible = false"
+      (click)="removeModal.close()"
     >
       Zrušit
     </button>
-  </c-modal-footer>
-</c-modal>
+  </ng-container>
+</app-modal>

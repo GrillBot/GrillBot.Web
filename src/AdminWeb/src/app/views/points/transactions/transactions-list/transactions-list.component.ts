@@ -5,7 +5,8 @@ import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  PaginatedGridComponent, STRIPED_ROW_STYLE} from "../../../../components";
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+} from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
@@ -13,10 +14,7 @@ import { User } from "../../../../core/models/users/user";
 import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
-import {
-  ButtonCloseDirective, ButtonDirective, TableDirective,
-  ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective
-} from "@coreui/angular";
+import { ButtonDirective, TableDirective} from "@coreui/angular";
 
 @Component({
   selector: 'app-transactions-list',
@@ -25,11 +23,6 @@ import {
   imports: [
     PaginatedGridComponent,
     ModalComponent,
-    ModalHeaderComponent,
-    ModalBodyComponent,
-    ModalFooterComponent,
-    ModalTitleDirective,
-    ButtonCloseDirective,
     TableDirective,
     LocaleDatePipe,
     ButtonDirective
@@ -121,7 +114,10 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
               {
                 id: 'remove-transaction',
                 title: 'Smazat transakci',
-                action: row => this.openRemoveTransaction(row),
+                action: row => this.removeTransactionModal()?.open(
+                  () => this.rowInModal = row,
+                  () => this.rowInModal = undefined
+                ),
                 size: 'sm',
                 variant: 'ghost',
                 color: 'danger'
@@ -149,14 +145,6 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
     event.api.sizeColumnsToFit();
   }
 
-  openRemoveTransaction(row: TransactionItem) {
-    this.openModal(
-      this.removeTransactionModal(),
-      () => this.rowInModal = row,
-      () => this.rowInModal = undefined
-    );
-  }
-
   confirmRemoveTransaction() {
     const modal = this.removeTransactionModal();
     if (!this.rowInModal || !modal) {
@@ -166,7 +154,7 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
     this.#pointsClient
       .deleteTransaction(this.rowInModal.guildId, this.rowInModal.messageId, this.rowInModal.reactionId)
       .subscribe(() => {
-        modal.visible = false;
+        modal.close();
         this.reload();
       });
   }

@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, OnInit, output, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent,
-  ListBaseComponent, PaginatedGridComponent
+  ListBaseComponent, ModalComponent, PaginatedGridComponent
 } from "../../../../components";
 import { EmoteUserUsageItem, EmoteUserUsageListRequest } from "../../../../core/models/emote";
 import { GridOptions } from "ag-grid-community";
@@ -12,10 +12,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "../../../../core/models/users/user";
 import { mapEmoteIdToName, mapUserToLookupRow } from "../../../../core/mappers";
 import * as rxjs from 'rxjs';
-import {
-  ButtonCloseDirective, ButtonDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent,
-  ModalHeaderComponent, ModalTitleDirective
-} from "@coreui/angular";
+import { ButtonDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-emote-usage-list',
@@ -23,20 +20,15 @@ import {
   standalone: true,
   imports: [
     PaginatedGridComponent,
-    ModalComponent,
-    ModalHeaderComponent,
-    ModalBodyComponent,
-    ModalFooterComponent,
     ButtonDirective,
-    ModalTitleDirective,
-    ButtonCloseDirective
+    ModalComponent
   ]
 })
 export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageListRequest, EmoteUserUsageItem> implements OnInit {
   readonly #client = inject(EmoteClient);
   readonly #lookupClient = inject(LookupClient);
 
-  deleteUserStatisticsModal = viewChild<ModalComponent>('deleteUserStatisticsModal');
+  removeUserStatisticsRowModal = viewChild<ModalComponent>('removeUserStatisticsRowModal');
   userUsageItemRow?: EmoteUserUsageItem;
 
   guildId = input.required<string>();
@@ -109,8 +101,7 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
                 size: 'sm',
                 variant: 'ghost',
                 color: 'danger',
-                action: row => this.openModal(
-                  this.deleteUserStatisticsModal(),
+                action: row => this.removeUserStatisticsRowModal()?.open(
                   () => this.userUsageItemRow = row,
                   () => this.userUsageItemRow = undefined
                 )
@@ -136,13 +127,13 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
   }
 
   deleteUserStatistics(): void {
-    const modal = this.deleteUserStatisticsModal();
+    const modal = this.removeUserStatisticsRowModal();
     if (!modal || !this.userUsageItemRow) {
       return;
     }
 
     this.#client.deleteStatistics(this.guildId(), this.emoteFullId(), this.userUsageItemRow.userId).subscribe(() => {
-      modal.visible = false;
+      this.removeUserStatisticsRowModal()?.close();
       this.reload();
       this.statisticsReloaded.emit();
     });

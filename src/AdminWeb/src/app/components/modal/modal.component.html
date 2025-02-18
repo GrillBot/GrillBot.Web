@@ -1,0 +1,17 @@
+<c-modal #modal [alignment]="alignment()" [size]="size()">
+  <c-modal-header>
+    <h5 cModalTitle>{{ title() }}</h5>
+
+    <button cButtonClose (click)="modal.visible = false"></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    <ng-content select="[body]" />
+  </c-modal-body>
+
+  @if (enableFooter()) {
+    <c-modal-footer>
+      <ng-content select="[footer]" />
+    </c-modal-footer>
+  }
+</c-modal>
