@@ -86,13 +86,20 @@
           label="Skrýt animované"
         />
       </c-col>
+    </c-row>
+  </app-form-card-body>
 
-      <c-col class="d-flex justify-content-end align-items-end">
+  <c-card-footer>
+    <c-row>
+      <c-col>
+        <app-filter-store [form]="form" />
+      </c-col>
+      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
         <app-filter-buttons
           [disabled]="form.invalid"
           [filterComponent]="this"
         />
       </c-col>
     </c-row>
-  </app-form-card-body>
+  </c-card-footer>
 </c-card>

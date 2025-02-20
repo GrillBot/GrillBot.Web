@@ -7,13 +7,20 @@
         <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
       </c-col>
+    </c-row>
+  </app-form-card-body>
 
-      <c-col md="2" class="d-flex align-items-end justify-content-end">
+  <c-card-footer>
+    <c-row>
+      <c-col>
+        <app-filter-store [form]="form" />
+      </c-col>
+      <c-col cCol="auto" class="d-flex align-items-end justify-content-end">
         <app-filter-buttons
           [disabled]="form.invalid"
           [filterComponent]="this"
         />
       </c-col>
     </c-row>
-  </app-form-card-body>
+  </c-card-footer>
 </c-card>

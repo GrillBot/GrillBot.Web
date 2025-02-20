@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import {
-  CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, FormCardBodyComponent, GuildLookupComponent,
+  CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent, FormCardBodyComponent, GuildLookupComponent,
   UserLookupComponent
 } from "../../../../components";
 import { SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
-  CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
+  CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { VisibilityDirective } from "../../../../core/directives";
 import { IForm } from "../../../../core/models/common";
@@ -31,7 +31,9 @@ import { ChannelLookupComponent } from "../../../../components/lookups/channel-l
     FilterButtonsComponent,
     ChannelLookupComponent,
     CheckboxComponent,
-    FormCardBodyComponent
+    FormCardBodyComponent,
+    CardFooterComponent,
+    FilterStoreComponent
   ]
 })
 export class SearchingListFilterComponent extends FilterBaseComponent<SearchingListRequest> {

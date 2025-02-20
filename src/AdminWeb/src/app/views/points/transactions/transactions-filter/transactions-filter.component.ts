@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import {
-  CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
+  CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { CardHeaderComponent } from "../../../../components";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
@@ -8,7 +8,7 @@ import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
 import { CheckboxComponent, FormCardBodyComponent, RadioGroupComponent, ValidationErrorsComponent } from "../../../../components/forms";
-import { FilterBaseComponent, FilterButtonsComponent } from "../../../../components/filters";
+import { FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent } from "../../../../components/filters";
 
 @Component({
   selector: 'app-transactions-filter',
@@ -29,7 +29,9 @@ import { FilterBaseComponent, FilterButtonsComponent } from "../../../../compone
     CheckboxComponent,
     RadioGroupComponent,
     FilterButtonsComponent,
-    FormCardBodyComponent
+    FormCardBodyComponent,
+    CardFooterComponent,
+    FilterStoreComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {

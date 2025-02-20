@@ -1,12 +1,16 @@
 import { Component } from "@angular/core";
 import {
   CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent,
-  FormCardBodyComponent, GuildLookupComponent, RadioGroupComponent, RadioItem, UserLookupComponent
+  FilterStoreComponent, FormCardBodyComponent, GuildLookupComponent, RadioGroupComponent,
+  RadioItem, UserLookupComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { EmoteStatisticsListRequest } from "../../../../core/models/emote/emote-statistics-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import {
+  CardComponent, CardFooterComponent, ColComponent, FormControlDirective,
+  FormLabelDirective, InputGroupComponent, RowComponent
+} from "@coreui/angular";
 import { VisibilityDirective } from "../../../../core/directives";
 
 @Component({
@@ -28,7 +32,9 @@ import { VisibilityDirective } from "../../../../core/directives";
     FilterButtonsComponent,
     CheckboxComponent,
     FormCardBodyComponent,
-    RadioGroupComponent
+    RadioGroupComponent,
+    CardFooterComponent,
+    FilterStoreComponent
   ]
 })
 export class EmoteListFilterComponent extends FilterBaseComponent<EmoteStatisticsListRequest> {

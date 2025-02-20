@@ -51,13 +51,21 @@
         <label cLabel for="moderatorId">Moderátor</label>
         <app-user-lookup formControlName="moderatorId" />
       </c-col>
+    </c-row>
+  </app-form-card-body>
 
-      <c-col class="d-flex align-items-end justify-content-end">
+  <c-card-footer>
+    <c-row>
+      <c-col>
+        <app-filter-store [form]="form" />
+      </c-col>
+
+      <c-col cCol="auto" class="d-flex align-items-end justify-content-end">
         <app-filter-buttons
           [disabled]="form.invalid"
           [filterComponent]="this"
         />
       </c-col>
     </c-row>
-  </app-form-card-body>
+  </c-card-footer>
 </c-card>
