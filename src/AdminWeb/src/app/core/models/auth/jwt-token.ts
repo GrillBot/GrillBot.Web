@@ -16,8 +16,8 @@ export class JwtToken {
 
     const [header, body, footer] = this.rawToken.split('.');
 
-    this.header = JSON.parse(atob(header));
-    this.body = JSON.parse(atob(body));
+    this.header = JSON.parse(atob(header.replace(/-/g, '+').replace(/_/g, '/')));
+    this.body = JSON.parse(atob(body.replace(/-/g, '+').replace(/_/g, '/')));
     this.footer = footer;
   }
 
