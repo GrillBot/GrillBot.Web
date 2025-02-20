@@ -1,0 +1,53 @@
+@if (state() === "not-started" || state() === "failed") {
+  <button
+    cButton
+    class="p-0"
+    [color]="'transparent'"
+    (click)="storeFilter()"
+    [variant]="'ghost'"
+  >
+    <svg cIcon name="cilShare"></svg>
+    <span class="ms-1 text-decoration-underline">Sdílet</span>
+  </button>
+}
+
+<c-alert
+  [color]="stateColor()"
+  [fade]="true"
+  [visible]="state() !== 'not-started'"
+  class="mb-0"
+>
+  @switch (state()) {
+    @case ("creating") {
+      <app-loading
+        [rotating]="true"
+        [center]="false"
+        [customText]="'Probíhá ukládání pohledu'"
+        [small]="true"
+      />
+    }
+
+    @case ("created") {
+      <div class="d-flex align-items-center">
+        <svg cIcon name="cilCheckCircle"></svg>
+        <p class="m-0 ms-2">
+          Pohled byl úspěšně uložen.<br />
+          Adresa na tenhle pohled je
+          <code>{{ address() }}</code>
+          a bude platit do
+          {{ validTo() | localeDatePipe }}
+        </p>
+      </div>
+    }
+
+    @case ("failed") {
+      <div class="d-flex align-items-center">
+        <svg cIcon name="cilXCircle"></svg>
+        <p class="m-0 ms-2">
+          Pohled se bohužel nepodařilo uložit.<br />
+          {{ errorMessage() }}
+        </p>
+      </div>
+    }
+  }
+</c-alert>

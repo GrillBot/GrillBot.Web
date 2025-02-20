@@ -1,4 +1,4 @@
-import { JsonPipe, NgTemplateOutlet } from "@angular/common";
+import { NgTemplateOutlet } from "@angular/common";
 import { Component, computed, input, OnInit } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 
@@ -8,7 +8,6 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    JsonPipe,
     NgTemplateOutlet
   ]
 })

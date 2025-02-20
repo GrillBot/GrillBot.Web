@@ -5,8 +5,13 @@
     <div>
       <label cLabel for="guildId">Server</label>
       <app-guild-lookup formControlName="guildId" />
+      <app-validation-errors [form]="form" controlName="guildId" />
     </div>
   </app-form-card-body>
+
+  <c-card-footer>
+    <app-filter-store [form]="form" />
+  </c-card-footer>
 </c-card>
 
 <div class="mb-3">

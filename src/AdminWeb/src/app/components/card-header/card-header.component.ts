@@ -1,4 +1,4 @@
-import { Component, input, signal, TemplateRef } from "@angular/core";
+import { Component, input, signal } from "@angular/core";
 import { ButtonDirective, CardTitleDirective, CardHeaderComponent as OriginalCardHeader, Sizes } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 
