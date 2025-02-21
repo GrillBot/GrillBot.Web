@@ -80,7 +80,7 @@ export class FilterStoreComponent implements OnInit {
       this.validTo.set(data.value.expiresAtUtc);
 
       const url = new URL(location.href);
-      url.searchParams.append('filterId', data.value.id);
+      url.searchParams.set('filterId', data.value.id);
 
       this.address.set(url.toString());
       this.state.set('created');
