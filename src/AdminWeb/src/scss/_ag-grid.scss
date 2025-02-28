@@ -30,8 +30,18 @@
   }
 
   & .ag-row {
-    &.bg-danger-subtle {
+    &.bg-danger-subtle,
+    &.bg-warning-subtle,
+    &.bg-success-subtle {
       & .ag-cell {
+        color: $dark;
+      }
+    }
+
+    & .bg-danger-subtle,
+    & .bg-warning-subtle,
+    & .bg-success-subtle {
+      &.ag-cell {
         color: $dark;
       }
     }
