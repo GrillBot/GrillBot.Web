@@ -8,7 +8,7 @@ import { mapQueryParamsFromSnapshot } from "../../core/mappers/router.mapper";
 import { NotificationsManager } from "../../core/managers/notifications.manager";
 import { FiltersClient } from "../../core/clients/filters.client";
 
-type FormControlValueTypes = string | number | boolean | null;
+type FormControlValueTypes = string | number | boolean | string[] | number[] | boolean[] | null;
 
 @Directive()
 export abstract class FilterBaseComponent<TFilter extends {} = any> implements OnInit {

@@ -34,6 +34,15 @@
     ]
   },
   {
+    "name": "AuditLog",
+    "url": "/web/auditlog",
+    "icon": "cil-description",
+    "permissions": [
+      "AuditLog(Admin)"
+    ],
+    "childItems": []
+  },
+  {
     "name": "Body",
     "url": "/web/points",
     "icon": "cil-chat-bubble",

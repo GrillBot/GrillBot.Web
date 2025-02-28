@@ -34,5 +34,6 @@ export const iconSubset = {
   cilArrowThickRight: icons.cilArrowThickRight,
   cilArrowThickToRight: icons.cilArrowThickToRight,
   cilSmile: icons.cilSmile,
-  cilShare: icons.cilShare
+  cilShare: icons.cilShare,
+  cilDescription: icons.cilDescription
 };

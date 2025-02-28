@@ -1,0 +1,79 @@
+<c-card class="mb-3">
+  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+
+  <app-form-card-body [form]="form" [header]="header">
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="ids">ID záznamů (oddělovat čárkou)</label>
+        <input cFormControl type="text" formControlName="ids" />
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="guildId">Server</label>
+        <app-guild-lookup formControlName="guildId" />
+      </c-col>
+
+      <c-col>
+        <label cLabel for="userIds">Uživatel</label>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="channelId">Kanál</label>
+        <app-channel-lookup formControlName="channelId" />
+      </c-col>
+    </c-row>
+
+    <c-row class="mb-1">
+      <c-col>
+        <label cLabel for="showTypes">Zobrazit operace</label>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="ignoreTypes">Vynechat operace</label>
+      </c-col>
+
+      <c-col>
+        <label cLabel for="createdFrom">Vytvořeno (OD-DO)</label>
+        <c-input-group>
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdFrom"
+          />
+
+          <input
+            cFormControl
+            type="datetime-local"
+            formControlName="createdTo"
+          />
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col>
+        <app-checkbox
+          checkboxId="onlyWithFiles"
+          formControlName="onlyWithFiles"
+          label="Pouze se soubory"
+        />
+      </c-col>
+    </c-row>
+  </app-form-card-body>
+
+  <c-card-footer>
+    <c-row>
+      <c-col>
+        <app-filter-store [form]="form" />
+      </c-col>
+      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
+        <app-filter-buttons
+          [disabled]="form.invalid"
+          [filterComponent]="this"
+        />
+      </c-col>
+    </c-row>
+  </c-card-footer>
+</c-card>

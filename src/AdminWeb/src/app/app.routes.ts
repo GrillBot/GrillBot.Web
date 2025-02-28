@@ -56,6 +56,13 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
+      },
+      {
+        path: 'auditlog',
+        loadChildren: () => import('./views/auditlog/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
       }
     ]
   },
