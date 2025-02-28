@@ -1,7 +1,7 @@
 
 export interface FormSearchRequest {
   guildId: string | null;
-  userIds: string[];
+  userId: string | null;
   channelId: string | null;
   showTypes: number[];
   ignoreTypes: number[];
@@ -13,7 +13,7 @@ export interface FormSearchRequest {
 
 export interface SearchRequest {
   guildId: string | null;
-  userIds: string[];
+  userIds: string[] | null;
   channelId: string | null;
   showTypes: number[];
   ignoreTypes: number[];

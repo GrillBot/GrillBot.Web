@@ -2,7 +2,8 @@ import { ChannelLookupComponent } from './../../../../components/lookups/channel
 import { Component } from "@angular/core";
 import {
   CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent,
-  FormCardBodyComponent, GuildLookupComponent
+  FormCardBodyComponent, GuildLookupComponent,
+  UserLookupComponent
 } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FilterButtonsComponent,
     ChannelLookupComponent,
     CheckboxComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UserLookupComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
@@ -41,7 +43,7 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
   override createForm(): IForm<FormSearchRequest> {
     return {
       guildId: this.createControl(),
-      userIds: this.createControl(),
+      userId: this.createControl(),
       channelId: this.createControl(),
       showTypes: this.createControl(),
       ignoreTypes: this.createControl({ validators: [] }, [AuditLogType.Api]),
