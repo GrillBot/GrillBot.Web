@@ -7,6 +7,7 @@ import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { IconDirective } from "@coreui/icons-angular";
 import { LookupBaseComponent } from "../lookup.component.base";
+import { User } from "../../../core/models/users/user";
 
 @Component({
   selector: 'app-user-lookup',
@@ -32,4 +33,9 @@ import { LookupBaseComponent } from "../lookup.component.base";
 })
 export class UserLookupComponent extends LookupBaseComponent<string> {
   userLookup$ = this.lookupClient.resolveUserList();
+
+  userSearch = (term: string, item: User): boolean => {
+    const name = item.globalAlias ? `${item.globalAlias} (${item.username})` : item.username;
+    return name.includes(term) || item.id.startsWith(term);
+  }
 }

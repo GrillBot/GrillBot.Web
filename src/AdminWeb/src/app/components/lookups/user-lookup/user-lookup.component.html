@@ -6,6 +6,7 @@
     bindValue="id"
     bindLabel="username"
     [formControl]="formControl"
+    [searchFn]="userSearch"
   >
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
       <div [title]="item.isBot ? 'BOT' : ''">
@@ -22,7 +23,10 @@
           <svg cIcon name="cibProbot" class="me-2"></svg>
         }
 
-        <b>Id: </b>{{ item.id }}
+        <b>Id: </b>
+        <span [ngOptionHighlight]="search">
+          {{ item.id }}
+        </span>
       </small>
     </ng-template>
   </ng-select>

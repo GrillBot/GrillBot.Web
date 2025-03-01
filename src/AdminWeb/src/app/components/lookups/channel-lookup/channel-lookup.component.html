@@ -6,6 +6,7 @@
     bindLabel="name"
     bindValue="id"
     [formControl]="formControl"
+    [searchFn]="channelSearch"
   >
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
       <div>

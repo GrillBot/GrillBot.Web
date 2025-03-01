@@ -6,6 +6,7 @@ import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-sele
 import { NgSelectorDirective } from "../../../core/directives";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
+import { Channel } from "../../../core/models/channels/channel";
 
 @Component({
   selector: 'app-channel-lookup',
@@ -30,4 +31,8 @@ import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
 })
 export class ChannelLookupComponent extends LookupBaseComponent<string> {
   channelLookupSource$ = this.lookupClient.resolveChannelList();
+
+  channelSearch = (term: string, item: Channel): boolean => {
+    return item.name.includes(term) || item.id.startsWith(term);
+  }
 }

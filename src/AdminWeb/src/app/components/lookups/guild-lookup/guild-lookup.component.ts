@@ -5,6 +5,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { WithLoadingPipe } from "../../../core/pipes";
 import { NgSelectorDirective } from "../../../core/directives";
 import { LookupBaseComponent } from "../lookup.component.base";
+import { Guild } from "../../../core/models/guilds";
 
 @Component({
   selector: 'app-guild-lookup',
@@ -27,4 +28,8 @@ import { LookupBaseComponent } from "../lookup.component.base";
 })
 export class GuildLookupComponent extends LookupBaseComponent<string> {
   guildLookupSource$ = this.lookupClient.resolveGuildList();
+
+  guildSearch = (term: string, item: Guild): boolean => {
+    return item.name.includes(term) || item.id.startsWith(term);
+  };
 }
