@@ -65,13 +65,32 @@
       </c-col>
     </c-row>
 
-    <c-row>
+    <c-row class="mb-2">
       <c-col>
         <app-checkbox
           checkboxId="onlyWithFiles"
           formControlName="onlyWithFiles"
           label="Pouze se soubory"
         />
+      </c-col>
+    </c-row>
+
+    <c-row>
+      <c-col>
+        @if (canShowAdvancedFilter(AuditLogType.Info)) {
+          <app-text-search
+            formControlName="adv_info"
+            title="Informační zpráva"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.Warning)) {
+          <app-text-search formControlName="adv_warning" title="Varování" />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.Error)) {
+          <app-text-search formControlName="adv_error" title="Chyba" />
+        }
       </c-col>
     </c-row>
   </app-form-card-body>

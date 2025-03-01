@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { NgSelectorDirective } from '../../../../core/directives';
 import { mapEnumToDict } from '../../../../core/mappers';
+import { TextSearchComponent } from '../advanced-filters/test-search/text-search.component';
 
 @Component({
   selector: 'app-auditlog-list-filter',
@@ -36,11 +37,14 @@ import { mapEnumToDict } from '../../../../core/mappers';
     ReactiveFormsModule,
     UserLookupComponent,
     NgSelectComponent,
-    NgSelectorDirective
+    NgSelectorDirective,
+    TextSearchComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
   logTypes = computed(() => mapEnumToDict(AuditLogType, AuditLogTypeLocalization));
+
+  get AuditLogType(): typeof AuditLogType { return AuditLogType; }
 
   override configure(): void {
     this.filterId = 'auditlog/auditlog-list';
@@ -56,7 +60,20 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       createdFrom: this.createControl(),
       createdTo: this.createControl(),
       onlyWithFiles: this.createControl({ validators: [] }, false),
-      ids: this.createControl()
+      ids: this.createControl(),
+
+      adv_info: this.createControl(),
+      adv_warning: this.createControl(),
+      adv_error: this.createControl(),
     };
+  }
+
+  canShowAdvancedFilter(type: AuditLogType): boolean {
+    const selected = (this.form.value.showTypes ?? []) as number[];
+    const excluded = (this.form.value.ignoreTypes ?? []) as number[];
+
+    return selected
+      .filter(o => !excluded.includes(o))
+      .some(o => o === type);
   }
 }

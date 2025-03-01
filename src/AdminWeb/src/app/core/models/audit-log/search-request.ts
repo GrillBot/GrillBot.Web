@@ -1,3 +1,4 @@
+import { TextSearchRequest } from "./text-search-request";
 
 export interface FormSearchRequest {
   guildId: string | null;
@@ -9,6 +10,10 @@ export interface FormSearchRequest {
   createdTo: string | null;
   onlyWithFiles: boolean;
   ids: string | null;
+
+  adv_info: TextSearchRequest | null;
+  adv_warning: TextSearchRequest | null;
+  adv_error: TextSearchRequest | null;
 }
 
 export interface SearchRequest {
