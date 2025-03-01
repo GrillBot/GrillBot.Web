@@ -15,7 +15,7 @@ export class NavManager {
     const menuItems: IMenuItem[] = menu;
 
     return menuItems
-      .filter(o => isDevMode() || (o.productionDisabled ?? false))
+      .filter(o => isDevMode() || !(o.productionDisabled ?? false))
       .map(item => this.createMenuItem(item))
       .map(item => this.recursivelyProcessMenu(item))
       .filter(item => !!item);
