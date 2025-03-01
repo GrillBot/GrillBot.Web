@@ -14,5 +14,9 @@ export class NgSelectorDirective {
     this.#component.virtualScroll = true;
     this.#component.bindLabel ??= 'value';
     this.#component.bindValue ??= 'key';
+
+    if (this.#component.multiple) {
+      this.#component.closeOnSelect = false;
+    }
   }
 }

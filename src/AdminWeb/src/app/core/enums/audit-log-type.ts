@@ -22,6 +22,32 @@ export enum AuditLogType {
   JobCompleted = 22,
   Api = 23,
   ThreadUpdated = 24,
-  RoleDeleted = 25,
-  MemberWarning = 26
+  RoleDeleted = 25
+}
+
+export enum AuditLogTypeLocalization {
+  Info = 'Informační zpráva',
+  Warning = 'Varování',
+  Error = 'Chyba',
+  ChannelCreated = 'Vytvořen kanál',
+  ChannelDeleted = 'Smazán kanál',
+  ChannelUpdated = 'Upraven kanál',
+  EmoteDeleted = 'Smazán emote',
+  OverwriteCreated = 'Vytvořena výjimka do kanálu',
+  OverwriteDeleted = 'Smazána výjimka do kanálu',
+  OverwriteUpdated = 'Upravena výjimka do kanálu',
+  Unban = 'Odblokován uživatel',
+  MemberUpdated = 'Upraven uživatel',
+  MemberRoleUpdated = 'Role uživatele upraveny',
+  GuildUpdated = 'Server upraven',
+  UserLeft = 'Uživatel opustil server',
+  UserJoined = 'Uživatel se připojil na server',
+  MessageEdited = 'Zpráva upravena',
+  MessageDeleted = 'Zpráva odebrána',
+  InteractionCommand = 'Integrovaný příkaz',
+  ThreadDeleted = 'Smazáno vlákno',
+  JobCompleted = 'Naplánovaná úloha',
+  Api = 'API požadavek',
+  ThreadUpdated = 'Vlákno upraveno',
+  RoleDeleted = 'Smazaná role'
 }

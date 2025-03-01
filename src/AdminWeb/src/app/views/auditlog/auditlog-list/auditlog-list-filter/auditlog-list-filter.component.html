@@ -29,10 +29,22 @@
     <c-row class="mb-1">
       <c-col>
         <label cLabel for="showTypes">Zobrazit operace</label>
+        <ng-select
+          ngSelector
+          [items]="logTypes()"
+          formControlName="showTypes"
+          multiple="true"
+        />
       </c-col>
 
       <c-col>
         <label cLabel for="ignoreTypes">Vynechat operace</label>
+        <ng-select
+          ngSelector
+          [items]="logTypes()"
+          formControlName="ignoreTypes"
+          multiple="true"
+        />
       </c-col>
 
       <c-col>

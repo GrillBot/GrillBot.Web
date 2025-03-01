@@ -1,0 +1,7 @@
+@include color-mode(dark) {
+  button {
+    &.btn-ghost-dark {
+      color: #fff;
+    }
+  }
+}

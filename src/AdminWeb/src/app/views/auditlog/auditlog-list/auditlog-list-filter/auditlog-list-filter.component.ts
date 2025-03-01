@@ -1,16 +1,18 @@
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
-import { Component } from "@angular/core";
+import { Component, computed } from "@angular/core";
 import {
-  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent,
-  FormCardBodyComponent, GuildLookupComponent,
-  UserLookupComponent
+  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent, FormCardBodyComponent,
+  GuildLookupComponent, UserLookupComponent
 } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
-import { AuditLogType } from "../../../../core/enums/audit-log-type";
+import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
 import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbox.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { NgSelectorDirective } from '../../../../core/directives';
+import { mapEnumToDict } from '../../../../core/mappers';
 
 @Component({
   selector: 'app-auditlog-list-filter',
@@ -32,10 +34,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     ChannelLookupComponent,
     CheckboxComponent,
     ReactiveFormsModule,
-    UserLookupComponent
+    UserLookupComponent,
+    NgSelectComponent,
+    NgSelectorDirective
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
+  logTypes = computed(() => mapEnumToDict(AuditLogType, AuditLogTypeLocalization));
+
   override configure(): void {
     this.filterId = 'auditlog/auditlog-list';
   }

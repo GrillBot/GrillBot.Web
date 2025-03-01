@@ -1,6 +1,6 @@
 @import "@ng-select/ng-select/themes/default.theme.css";
 
-[data-coreui-theme="dark"] {
+@include color-mode(dark) {
   & ng-select {
     & .ng-select-container,
     & .ng-select.ng-select-opened > .ng-select-container {
@@ -11,6 +11,10 @@
       & .ng-value .ng-value-label,
       & .ng-value {
         color: #fff;
+      }
+
+      & .ng-value-container .ng-value .ng-value-label {
+        color: var(--cui-body-bg);
       }
     }
   }

@@ -8,8 +8,6 @@ import { mapQueryParamsFromSnapshot } from "../../core/mappers/router.mapper";
 import { NotificationsManager } from "../../core/managers/notifications.manager";
 import { FiltersClient } from "../../core/clients/filters.client";
 
-type FormControlValueTypes = string | number | boolean | string[] | number[] | boolean[] | null;
-
 @Directive()
 export abstract class FilterBaseComponent<TFilter extends {} = any> implements OnInit {
   readonly #formBuilder = inject(NonNullableFormBuilder);
@@ -49,8 +47,8 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> implements O
 
   createControl(
     options: AbstractControlOptions | null = null,
-    defaultValue: FormControlValueTypes = null
-  ): FormControl<FormControlValueTypes> {
+    defaultValue: any = null
+  ): FormControl<any> {
     return this.#formBuilder.control(defaultValue, options);
   }
 
@@ -77,7 +75,7 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> implements O
   resetFilter(): void {
     const defaultFilter = this.createForm();
     const defaultValues = Object.keys(defaultFilter).map(k => {
-      const value = ((defaultFilter as any)[k] as FormControl<FormControlValueTypes>).value;
+      const value = ((defaultFilter as any)[k] as FormControl<any>).value;
       return [k, value];
     });
 
