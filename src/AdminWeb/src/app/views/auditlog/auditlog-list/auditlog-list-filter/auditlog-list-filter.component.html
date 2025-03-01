@@ -91,6 +91,20 @@
         @if (canShowAdvancedFilter(AuditLogType.Error)) {
           <app-text-search formControlName="adv_error" title="Chyba" />
         }
+
+        @if (canShowAdvancedFilter(AuditLogType.InteractionCommand)) {
+          <app-execution-search
+            formControlName="adv_interaction"
+            title="Příkazy"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.JobCompleted)) {
+          <app-execution-search
+            formControlName="adv_jobs"
+            title="Naplánované úlohy"
+          />
+        }
       </c-col>
     </c-row>
   </app-form-card-body>

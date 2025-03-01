@@ -1,0 +1,50 @@
+<c-card class="mb-1">
+  <c-card-body>
+    <h5 cCardTitle>{{ title() }}</h5>
+
+    <form [formGroup]="form">
+      <c-row>
+        <c-col>
+          <label cLabel for="actionName">Název</label>
+          <input
+            cFormControl
+            type="text"
+            formControlName="actionName"
+            sizing="sm"
+          />
+        </c-col>
+
+        <c-col>
+          <label cLabel for="durationFrom">
+            Trvání (OD-DO) <small>v milisekundách</small>
+          </label>
+          <c-input-group>
+            <input
+              cFormControl
+              type="number"
+              formControlName="durationFrom"
+              sizing="sm"
+              placeholder="OD"
+            />
+
+            <input
+              cFormControl
+              type="number"
+              formControlName="durationTo"
+              sizing="sm"
+              placeholder="DO"
+            />
+          </c-input-group>
+        </c-col>
+
+        <c-col class="d-flex align-items-end">
+          <p-triStateCheckbox
+            inputId="success"
+            formControlName="success"
+            label="Dokončeno úspěšně"
+          />
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>

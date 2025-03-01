@@ -1,3 +1,4 @@
+import { ExecutionSearchRequest } from "./execution-search-request";
 import { TextSearchRequest } from "./text-search-request";
 
 export interface FormSearchRequest {
@@ -14,6 +15,8 @@ export interface FormSearchRequest {
   adv_info: TextSearchRequest | null;
   adv_warning: TextSearchRequest | null;
   adv_error: TextSearchRequest | null;
+  adv_interaction: ExecutionSearchRequest | null;
+  adv_jobs: ExecutionSearchRequest | null;
 }
 
 export interface SearchRequest {

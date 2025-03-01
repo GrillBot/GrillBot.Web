@@ -1,9 +1,12 @@
 import { ControlValueAccessor, FormBuilder, FormGroup } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
-import { inject } from "@angular/core";
+import { Directive, inject, input } from "@angular/core";
 
+@Directive()
 export abstract class AdvancedFilterBase<TAdvancedFilter> implements ControlValueAccessor {
   protected readonly formBuilder = inject(FormBuilder);
+
+  title = input.required<string>();
 
   form!: FormGroup<IForm<TAdvancedFilter>>;
 

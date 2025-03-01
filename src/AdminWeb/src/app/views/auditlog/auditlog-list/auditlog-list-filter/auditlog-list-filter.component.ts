@@ -1,3 +1,4 @@
+import { ExecutionSearchComponent } from './../advanced-filters/execution-search/execution-search.component';
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
 import { Component, computed } from "@angular/core";
 import {
@@ -38,7 +39,8 @@ import { TextSearchComponent } from '../advanced-filters/test-search/text-search
     UserLookupComponent,
     NgSelectComponent,
     NgSelectorDirective,
-    TextSearchComponent
+    TextSearchComponent,
+    ExecutionSearchComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
@@ -65,6 +67,8 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       adv_info: this.createControl(),
       adv_warning: this.createControl(),
       adv_error: this.createControl(),
+      adv_interaction: this.createControl(),
+      adv_jobs: this.createControl()
     };
   }
 

@@ -31,8 +31,6 @@ import { AdvancedFilterBase } from "../advanced-filter.component.base";
   ]
 })
 export class TextSearchComponent extends AdvancedFilterBase<TextSearchRequest> {
-  title = input.required<string>();
-
   override createForm(): IForm<TextSearchRequest> {
     return {
       source: this.formBuilder.control<string>(''),
