@@ -15,6 +15,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { NgSelectorDirective } from '../../../../core/directives';
 import { mapEnumToDict } from '../../../../core/mappers';
 import { TextSearchComponent } from '../advanced-filters/test-search/text-search.component';
+import { UserSearchComponent } from '../advanced-filters/user-search/user-search.component';
 
 @Component({
   selector: 'app-auditlog-list-filter',
@@ -40,7 +41,8 @@ import { TextSearchComponent } from '../advanced-filters/test-search/text-search
     NgSelectComponent,
     NgSelectorDirective,
     TextSearchComponent,
-    ExecutionSearchComponent
+    ExecutionSearchComponent,
+    UserSearchComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
@@ -68,7 +70,12 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       adv_warning: this.createControl(),
       adv_error: this.createControl(),
       adv_interaction: this.createControl(),
-      adv_jobs: this.createControl()
+      adv_jobs: this.createControl(),
+      adv_memberRolesUpdated: this.createControl(),
+      adv_memberUpdated: this.createControl(),
+      adv_overwriteCreated: this.createControl(),
+      adv_overwriteDeleted: this.createControl(),
+      adv_overwriteUpdated: this.createControl()
     };
   }
 

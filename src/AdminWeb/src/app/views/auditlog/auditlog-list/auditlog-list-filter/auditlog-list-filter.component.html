@@ -105,6 +105,41 @@
             title="Naplánované úlohy"
           />
         }
+
+        @if (canShowAdvancedFilter(AuditLogType.OverwriteCreated)) {
+          <app-user-search
+            formControlName="adv_overwriteCreated"
+            title="Vytvoření výjimky do kanálu"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.OverwriteDeleted)) {
+          <app-user-search
+            formControlName="adv_overwriteDeleted"
+            title="Smazání výjimky do kanálu"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.OverwriteUpdated)) {
+          <app-user-search
+            formControlName="adv_overwriteUpdated"
+            title="Úprava výjimky do kanálu"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.MemberUpdated)) {
+          <app-user-search
+            formControlName="adv_memberUpdated"
+            title="Upraven uživatel"
+          />
+        }
+
+        @if (canShowAdvancedFilter(AuditLogType.MemberRoleUpdated)) {
+          <app-user-search
+            formControlName="adv_memberRolesUpdated"
+            title="Úprava rolí uživatele"
+          />
+        }
       </c-col>
     </c-row>
   </app-form-card-body>

@@ -1,0 +1,14 @@
+<c-card class="mb-1">
+  <c-card-body>
+    <h5 cCardTitle>{{ title() }}</h5>
+
+    <form [formGroup]="form">
+      <c-row>
+        <c-col>
+          <label cLabel for="text">Uživatel</label>
+          <app-user-lookup formControlName="userId" />
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>

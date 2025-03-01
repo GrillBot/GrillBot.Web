@@ -8,4 +8,4 @@ export * from './message-deleted-search-request';
 export * from './search-request';
 export * from './text-search-request';
 export * from './today-avg-times';
-export * from './user-id-search-request';
+export * from './user-search-request';
