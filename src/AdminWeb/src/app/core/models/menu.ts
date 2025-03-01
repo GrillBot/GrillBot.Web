@@ -6,5 +6,6 @@ export interface IChildMenuItem {
 
 export interface IMenuItem extends IChildMenuItem {
   icon: string;
+  productionDisabled?: boolean;
   childItems: IChildMenuItem[];
 }

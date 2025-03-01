@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, isDevMode } from "@angular/core";
 import { AuthManager } from "./auth.manager";
 import { INavData } from "@coreui/angular";
 import { IChildMenuItem, IMenuItem } from "../models/menu";
@@ -15,12 +15,13 @@ export class NavManager {
     const menuItems: IMenuItem[] = menu;
 
     return menuItems
+      .filter(o => isDevMode() || (o.productionDisabled ?? false))
       .map(item => this.createMenuItem(item))
       .map(item => this.recursivelyProcessMenu(item))
       .filter(item => !!item);
   }
 
-  private createMenuItem(item: IMenuItem): INavData | null {
+  private createMenuItem(item: IMenuItem): INavData {
     return {
       name: item.name,
       url: item.url,
