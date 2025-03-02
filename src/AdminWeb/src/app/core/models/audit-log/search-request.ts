@@ -1,3 +1,4 @@
+import { AdvancedSearchRequest } from "./advanced-search-request";
 import { ApiSearchRequest } from "./api-search-request";
 import { ExecutionSearchRequest } from "./execution-search-request";
 import { MessageDeletedSearchRequest } from "./message-deleted-search-request";
@@ -39,4 +40,5 @@ export interface SearchRequest {
   createdTo: string | null;
   onlyWithFiles: boolean;
   ids: string[] | null;
+  advancedSearch: AdvancedSearchRequest | null;
 }

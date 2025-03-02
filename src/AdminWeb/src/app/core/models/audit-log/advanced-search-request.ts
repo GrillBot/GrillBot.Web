@@ -17,5 +17,4 @@ export interface AdvancedSearchRequest {
   memberRolesUpdated: UserSearchRequest | null;
   memberUpdated: UserSearchRequest | null;
   messageDeleted: MessageDeletedSearchRequest | null;
-  memberWarning: UserSearchRequest | null;
 }
