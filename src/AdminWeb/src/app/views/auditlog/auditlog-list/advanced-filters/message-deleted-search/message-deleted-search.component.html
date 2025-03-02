@@ -1,0 +1,34 @@
+<c-card class="mb-1">
+  <c-card-body>
+    <h5 cCardTitle>{{ title() }}</h5>
+
+    <form [formGroup]="form">
+      <c-row class="mb-1">
+        <c-col>
+          <label cLabel for="authorId">Autor</label>
+          <app-user-lookup formControlName="authorId" />
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col>
+          <label cLabel for="contentContains">Text obashuje</label>
+          <input
+            cFormControl
+            formControlName="contentContains"
+            type="text"
+            sizing="sm"
+          />
+        </c-col>
+
+        <c-col class="d-flex align-items-end">
+          <p-triStateCheckbox
+            inputId="containsEmbed"
+            formControlName="containsEmbed"
+            label="Obsahuje embed"
+          />
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>

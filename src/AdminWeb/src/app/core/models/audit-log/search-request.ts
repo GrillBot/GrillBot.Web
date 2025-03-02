@@ -1,5 +1,6 @@
 import { ApiSearchRequest } from "./api-search-request";
 import { ExecutionSearchRequest } from "./execution-search-request";
+import { MessageDeletedSearchRequest } from "./message-deleted-search-request";
 import { TextSearchRequest } from "./text-search-request";
 import { UserSearchRequest } from "./user-search-request";
 
@@ -25,6 +26,7 @@ export interface FormSearchRequest {
   adv_memberUpdated: UserSearchRequest | null;
   adv_memberRolesUpdated: UserSearchRequest | null;
   adv_api: ApiSearchRequest | null;
+  adv_messageDeleted: MessageDeletedSearchRequest | null;
 }
 
 export interface SearchRequest {

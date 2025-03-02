@@ -144,6 +144,13 @@
         @if (canShowAdvancedFilter(AuditLogType.Api)) {
           <app-api-search formControlName="adv_api" title="API požadavek" />
         }
+
+        @if (canShowAdvancedFilter(AuditLogType.MessageDeleted)) {
+          <app-message-deleted-search
+            formControlName="adv_messageDeleted"
+            title="Zpráva odebrána"
+          />
+        }
       </c-col>
     </c-row>
   </app-form-card-body>

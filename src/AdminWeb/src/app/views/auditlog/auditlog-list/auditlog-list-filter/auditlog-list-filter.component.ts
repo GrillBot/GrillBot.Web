@@ -1,4 +1,3 @@
-import { ExecutionSearchComponent } from './../advanced-filters/execution-search/execution-search.component';
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
 import { Component, computed } from "@angular/core";
 import {
@@ -14,9 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { NgSelectorDirective } from '../../../../core/directives';
 import { mapEnumToDict } from '../../../../core/mappers';
-import { TextSearchComponent } from '../advanced-filters/test-search/text-search.component';
-import { UserSearchComponent } from '../advanced-filters/user-search/user-search.component';
-import { ApiSearchComponent } from '../advanced-filters/api-search/api-search.component';
+import { AdvancedFilters } from '../advanced-filters';
 
 @Component({
   selector: 'app-auditlog-list-filter',
@@ -41,10 +38,7 @@ import { ApiSearchComponent } from '../advanced-filters/api-search/api-search.co
     UserLookupComponent,
     NgSelectComponent,
     NgSelectorDirective,
-    TextSearchComponent,
-    ExecutionSearchComponent,
-    UserSearchComponent,
-    ApiSearchComponent
+    ...AdvancedFilters
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
@@ -78,7 +72,8 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       adv_overwriteCreated: this.createControl(),
       adv_overwriteDeleted: this.createControl(),
       adv_overwriteUpdated: this.createControl(),
-      adv_api: this.createControl()
+      adv_api: this.createControl(),
+      adv_messageDeleted: this.createControl()
     };
   }
 
