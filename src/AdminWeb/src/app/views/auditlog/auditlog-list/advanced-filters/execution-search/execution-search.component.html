@@ -4,7 +4,7 @@
 
     <form [formGroup]="form">
       <c-row>
-        <c-col>
+        <c-col md="4">
           <label cLabel for="actionName">Název</label>
           <input
             cFormControl
@@ -14,7 +14,7 @@
           />
         </c-col>
 
-        <c-col>
+        <c-col md="4">
           <label cLabel for="durationFrom">
             Trvání (OD-DO) <small>v milisekundách</small>
           </label>
@@ -37,7 +37,7 @@
           </c-input-group>
         </c-col>
 
-        <c-col class="d-flex align-items-end">
+        <c-col md="4" class="d-flex align-items-end">
           <p-triStateCheckbox
             inputId="success"
             formControlName="success"

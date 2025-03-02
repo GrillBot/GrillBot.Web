@@ -4,7 +4,7 @@
 
     <form [formGroup]="form">
       <c-row class="mb-1">
-        <c-col>
+        <c-col md="4">
           <label cLabel for="controllerName">Controller</label>
           <input
             cFormControl
@@ -14,7 +14,7 @@
           />
         </c-col>
 
-        <c-col>
+        <c-col md="4">
           <label cLabel for="actionName">Akce</label>
           <input
             cFormControl
@@ -24,7 +24,7 @@
           />
         </c-col>
 
-        <c-col>
+        <c-col md="4">
           <label cLabel for="pathTemplate">Šablona cesty</label>
           <input
             cFormControl
@@ -59,7 +59,7 @@
           </c-input-group>
         </c-col>
 
-        <c-col>
+        <c-col md="8">
           <label cLabel for="identification">Identifikace</label>
           <input
             cFormControl
@@ -71,7 +71,7 @@
       </c-row>
 
       <c-row>
-        <c-col>
+        <c-col md="6">
           <label cLabel for="apiGroupName">Verze API</label>
           <ng-select
             ngSelector
@@ -80,7 +80,7 @@
           />
         </c-col>
 
-        <c-col>
+        <c-col md="6">
           <label cLabel for="method">HTTP metoda</label>
           <ng-select ngSelector [items]="methods" formControlName="method" />
         </c-col>
