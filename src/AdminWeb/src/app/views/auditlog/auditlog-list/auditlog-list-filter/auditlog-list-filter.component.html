@@ -140,6 +140,10 @@
             title="Úprava rolí uživatele"
           />
         }
+
+        @if (canShowAdvancedFilter(AuditLogType.Api)) {
+          <app-api-search formControlName="adv_api" title="API požadavek" />
+        }
       </c-col>
     </c-row>
   </app-form-card-body>

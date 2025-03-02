@@ -1,3 +1,4 @@
+import { ApiSearchRequest } from "./api-search-request";
 import { ExecutionSearchRequest } from "./execution-search-request";
 import { TextSearchRequest } from "./text-search-request";
 import { UserSearchRequest } from "./user-search-request";
@@ -23,6 +24,7 @@ export interface FormSearchRequest {
   adv_overwriteUpdated: UserSearchRequest | null;
   adv_memberUpdated: UserSearchRequest | null;
   adv_memberRolesUpdated: UserSearchRequest | null;
+  adv_api: ApiSearchRequest | null;
 }
 
 export interface SearchRequest {

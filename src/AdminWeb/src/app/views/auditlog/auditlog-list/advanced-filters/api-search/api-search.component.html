@@ -1,0 +1,90 @@
+<c-card class="mb-1">
+  <c-card-body>
+    <h5 cCardTitle>{{ title() }}</h5>
+
+    <form [formGroup]="form">
+      <c-row class="mb-1">
+        <c-col>
+          <label cLabel for="controllerName">Controller</label>
+          <input
+            cFormControl
+            formControlName="controllerName"
+            type="text"
+            sizing="sm"
+          />
+        </c-col>
+
+        <c-col>
+          <label cLabel for="actionName">Akce</label>
+          <input
+            cFormControl
+            formControlName="actionName"
+            type="text"
+            sizing="sm"
+          />
+        </c-col>
+
+        <c-col>
+          <label cLabel for="pathTemplate">Šablona cesty</label>
+          <input
+            cFormControl
+            formControlName="pathTemplate"
+            type="text"
+            sizing="sm"
+          />
+        </c-col>
+      </c-row>
+
+      <c-row class="mb-1">
+        <c-col md="4">
+          <label cLabel for="durationFrom">
+            Trvání (OD-DO) <small>v milisekundách</small>
+          </label>
+          <c-input-group>
+            <input
+              cFormControl
+              formControlName="durationFrom"
+              type="number"
+              sizing="sm"
+              placeholder="OD"
+            />
+
+            <input
+              cFormControl
+              formControlName="durationTo"
+              type="number"
+              sizing="sm"
+              placeholder="DO"
+            />
+          </c-input-group>
+        </c-col>
+
+        <c-col>
+          <label cLabel for="identification">Identifikace</label>
+          <input
+            cFormControl
+            formControlName="identification"
+            type="text"
+            sizing="sm"
+          />
+        </c-col>
+      </c-row>
+
+      <c-row>
+        <c-col>
+          <label cLabel for="apiGroupName">Verze API</label>
+          <ng-select
+            ngSelector
+            [items]="api_groups"
+            formControlName="apiGroupName"
+          />
+        </c-col>
+
+        <c-col>
+          <label cLabel for="method">HTTP metoda</label>
+          <ng-select ngSelector [items]="methods" formControlName="method" />
+        </c-col>
+      </c-row>
+    </form>
+  </c-card-body>
+</c-card>
