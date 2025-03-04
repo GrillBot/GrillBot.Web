@@ -11,7 +11,7 @@ import { Guild } from "../../../core/models/guilds";
 export class GuildLookupPipe implements PipeTransform {
   readonly #lookupClient = inject(LookupClient);
 
-  transform(value: string | null, ...args: any[]): Observable<string> {
+  transform(value: string | null, ..._: any[]): Observable<string> {
     return GuildLookupPipe.processTransform(value, this.#lookupClient);
   }
 

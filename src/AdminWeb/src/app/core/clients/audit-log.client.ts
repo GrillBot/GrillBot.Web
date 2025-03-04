@@ -3,7 +3,7 @@ import { BaseClient } from "./base.client";
 import { PaginatedResponse, WithSortAndPagination } from "../models/common";
 import { DashboardInfoRow } from "../models/audit-log/dashboard-info-row";
 import { TodayAvgTimes } from "../models/audit-log/today-avg-times";
-import { LogListItem, SearchRequest } from "../models/audit-log";
+import { Detail, LogListItem, SearchRequest } from "../models/audit-log";
 
 @Injectable({ providedIn: 'root' })
 export class AuditLogClient extends BaseClient {
@@ -21,4 +21,7 @@ export class AuditLogClient extends BaseClient {
 
   searchItems = (request: WithSortAndPagination<SearchRequest>) =>
     this.postRequest<PaginatedResponse<LogListItem>>('service/auditlog/search', request);
+
+  getDetail = (id: string) =>
+    this.getRequest<Detail>(`service/auditlog/${id}`);
 }

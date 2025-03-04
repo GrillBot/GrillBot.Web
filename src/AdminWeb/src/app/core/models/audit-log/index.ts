@@ -1,6 +1,7 @@
 export * from './advanced-search-request';
 export * from './api-search-request';
 export * from './dashboard-info-row';
+export * from './detail';
 export * from './execution-search-request';
 export * from './file';
 export * from './log-list-item';
