@@ -13,7 +13,7 @@ import { map, Observable } from "rxjs";
 import { RawHttpResponse, WithSortAndPagination } from "../../../core/models/common";
 import { LogListItem, SearchRequest } from "../../../core/models/audit-log";
 import {
-  AlertComponent, CardBodyComponent, CardComponent, ColComponent, ContainerComponent, RowComponent, TableDirective
+  AlertComponent, CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, ContainerComponent, RowComponent, TableDirective
 } from "@coreui/angular";
 import { InfoRowComponent } from "../../../components/info-row/info-row.component";
 import { IconDirective } from "@coreui/icons-angular";
@@ -48,7 +48,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     CheckboxComponent,
     AsReadonlyFormControlPipe,
     ReactiveFormsModule,
-    RoleLookupPipe
+    RoleLookupPipe,
+    CardTitleDirective
   ]
 })
 export class AuditLogDetailComponent {
