@@ -25,52 +25,31 @@
             <c-card-body>
               <h5 cCardTitle>{{ response.value.name }}</h5>
 
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'URL',
-                  value: response.value.url,
-                }"
+              <app-info-row key="URL" [value]="response.value.url" />
+
+              <app-info-row
+                key="Využitá paměť"
+                [value]="response.value.usedMemory | filesize"
               />
 
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'Využitá paměť',
-                  value: response.value.usedMemory | filesize,
-                }"
+              <app-info-row
+                key="Uptime"
+                [value]="response.value.uptime | timespan"
               />
 
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'Uptime',
-                  value: response.value.uptime | timespan,
-                }"
+              <app-info-row
+                key="CPU čas"
+                [value]="response.value.cpuTime | timespan"
               />
 
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'CPU čas',
-                  value: response.value.cpuTime | timespan,
-                }"
+              <app-info-row
+                key="Počet požadavků"
+                [value]="response.value.requestsCount | spacedNumber"
               />
 
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'Počet požadavků',
-                  value: response.value.requestsCount | spacedNumber,
-                }"
-              />
-
-              <ng-container
-                [ngTemplateOutlet]="detailInfoRow"
-                [ngTemplateOutletContext]="{
-                  key: 'Měřeno od',
-                  value: response.value.measuredFrom | localeDatePipe,
-                }"
+              <app-info-row
+                key="Měřeno od"
+                [value]="response.value.measuredFrom | localeDatePipe"
               />
             </c-card-body>
           </c-card>
@@ -86,10 +65,7 @@
                   row of response.value.additionalData | dictToList;
                   track $index
                 ) {
-                  <ng-container
-                    [ngTemplateOutlet]="detailInfoRow"
-                    [ngTemplateOutletContext]="row"
-                  />
+                  <app-info-row [key]="row.key" [value]="row.value" />
                 }
               </c-card-body>
             </c-card>
@@ -129,12 +105,3 @@
     }
   </div>
 }
-
-<ng-template #detailInfoRow let-key="key" let-value="value">
-  <c-row>
-    <c-col>
-      <b>{{ key }}:</b>
-    </c-col>
-    <c-col> {{ value }}</c-col>
-  </c-row>
-</ng-template>

@@ -34,17 +34,12 @@
               <c-card-body cCol="8">
                 <h5 cCardTitle>{{ response.value.emoteName }}</h5>
 
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{ key: 'ID', value: emoteId() }"
-                />
-
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{
-                    key: 'Vlastník',
-                    value: response.value.ownerGuildId | guildLookup | async,
-                  }"
+                <app-info-row key="ID" [value]="emoteId()" />
+                <app-info-row
+                  key="Vlastník"
+                  [value]="
+                    (response.value.ownerGuildId | guildLookup | async) ?? ''
+                  "
                 />
 
                 <c-row>
@@ -84,40 +79,28 @@
               <c-card-body>
                 <h5 cCardTitle>Statistiky</h5>
 
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{
-                    key: 'Počet použití',
-                    value: response.value.statistics.useCount | spacedNumber,
-                  }"
+                <app-info-row
+                  key="Počet použití"
+                  [value]="response.value.statistics.useCount | spacedNumber"
                 />
 
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{
-                    key: 'Použilo uživatelů',
-                    value: response.value.statistics.usersCount | spacedNumber,
-                  }"
+                <app-info-row
+                  key="Použilo uživatelů"
+                  [value]="response.value.statistics.usersCount | spacedNumber"
                 />
 
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{
-                    key: 'První použití',
-                    value:
-                      response.value.statistics.firstOccurenceUtc
-                      | localeDatePipe,
-                  }"
+                <app-info-row
+                  key="První použití"
+                  [value]="
+                    response.value.statistics.firstOccurenceUtc | localeDatePipe
+                  "
                 />
 
-                <ng-container
-                  [ngTemplateOutlet]="detailInfoRow"
-                  [ngTemplateOutletContext]="{
-                    key: 'Poslední použití',
-                    value:
-                      response.value.statistics.lastOccurenceUtc
-                      | localeDatePipe,
-                  }"
+                <app-info-row
+                  key="Poslední použití"
+                  [value]="
+                    response.value.statistics.lastOccurenceUtc | localeDatePipe
+                  "
                 />
               </c-card-body>
             </c-card>
@@ -146,15 +129,6 @@
     }
   </div>
 }
-
-<ng-template #detailInfoRow let-key="key" let-value="value">
-  <c-row>
-    <c-col>
-      <b>{{ key }}:</b>
-    </c-col>
-    <c-col>{{ value }}</c-col>
-  </c-row>
-</ng-template>
 
 <app-modal
   #deleteAllStatisticsModal

@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { RawHttpResponse } from "../../../core/models/common";
 import { ServiceDetail } from "../../../core/models/dashboard/service-detail";
-import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import {
   AlertComponent, CardBodyComponent, CardComponent,
   CardTitleDirective, ColComponent, RowComponent
@@ -20,6 +20,7 @@ import {
   ObservablePipe, DictToListPipe, WithNestingPipe
 } from "../../../core/pipes";
 import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
+import { InfoRowComponent } from "../../../components/info-row/info-row.component";
 
 @Component({
   selector: 'app-service-detail',
@@ -36,7 +37,6 @@ import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
     CardComponent,
     CardTitleDirective,
     CardBodyComponent,
-    NgTemplateOutlet,
     FilesizePipe,
     TimeSpanPipe,
     SpacedNumberPipe,
@@ -44,7 +44,8 @@ import { LocaleDatePipe } from "../../../core/pipes/locale-date.pipe";
     ObservablePipe,
     DictToListPipe,
     WithNestingPipe,
-    LocaleDatePipe
+    LocaleDatePipe,
+    InfoRowComponent
   ]
 })
 export class ServiceDetailComponent {

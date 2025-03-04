@@ -7,7 +7,7 @@ import {
 import { Router } from "@angular/router";
 import { mapParamsFromSnapshot as mapParamsFromSnapshot } from "../../../core/mappers/router.mapper";
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe, WithLoadingPipe } from "../../../core/pipes";
-import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent } from "../../../components";
 import { IconDirective } from "@coreui/icons-angular";
 import { mapEmoteIdToNumberId } from "../../../core/mappers";
@@ -17,6 +17,7 @@ import { RawHttpResponse } from "../../../core/models/common";
 import { EmoteInfo } from "../../../core/models/emote";
 import { EmoteUsageListComponent } from "./emote-usage-list/emote-usage-list.component";
 import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
+import { InfoRowComponent } from "../../../components/info-row/info-row.component";
 
 @Component({
   templateUrl: './emote-detail.component.html',
@@ -33,7 +34,6 @@ import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
     AlertComponent,
     IconDirective,
     CardTitleDirective,
-    NgTemplateOutlet,
     ColDirective,
     CheckboxComponent,
     AsReadonlyFormControlPipe,
@@ -44,7 +44,8 @@ import { EmoteMergeComponent } from "./emote-merge/emote-merge.component";
     ButtonDirective,
     ModalComponent,
     EmoteUsageListComponent,
-    EmoteMergeComponent
+    EmoteMergeComponent,
+    InfoRowComponent
   ]
 })
 export class EmoteDetailComponent {
