@@ -117,6 +117,13 @@
                 }
               }
             }
+
+            @case (13) {
+              <app-info-row
+                key="Uživatel"
+                [value]="response.value.data.userId | userLookup | async"
+              />
+            }
           }
 
           @if ([7, 11, 13, 15, 24].includes(response.value.type)) {
@@ -168,6 +175,13 @@
         @case (11) {
           <ng-container
             [ngTemplateOutlet]="overwriteUpdatedDiff"
+            [ngTemplateOutletContext]="{ data }"
+          />
+        }
+
+        @case (13) {
+          <ng-container
+            [ngTemplateOutlet]="memberUpdated"
             [ngTemplateOutletContext]="{ data }"
           />
         }
@@ -287,6 +301,102 @@
             <li>{{ perm }}</li>
           }
         </ul>
+      </td>
+    </tr>
+  }
+</ng-template>
+
+<ng-template #memberUpdated let-data="data">
+  @if (data.nickname && data.nickname.before != data.nickname.after) {
+    <tr>
+      <th>Přezdívka</th>
+      <td>{{ data.nickname.before }}</td>
+      <td>{{ data.nickname.after }}</td>
+    </tr>
+  }
+
+  @if (data.isMuted && data.isMuted.before != data.isMuted.after) {
+    <tr>
+      <th>Ztlumen mikrofon</th>
+      <td>
+        <app-checkbox
+          [checkboxId]="'isMuted'"
+          [label]="''"
+          [formControl]="data.isMuted.before | asReadonlyFormControl"
+        />
+      </td>
+      <td>
+        <app-checkbox
+          [checkboxId]="'isMuted'"
+          [label]="''"
+          [formControl]="data.isMuted.after | asReadonlyFormControl"
+        />
+      </td>
+    </tr>
+  }
+
+  @if (data.isDeaf && data.isDeaf.before != data.isDeaf.after) {
+    <tr>
+      <th>Umlčen</th>
+      <td>
+        <app-checkbox
+          [checkboxId]="'isDeaf'"
+          [label]="''"
+          [formControl]="data.isDeaf.before | asReadonlyFormControl"
+        />
+      </td>
+      <td>
+        <app-checkbox
+          [checkboxId]="'isDeaf'"
+          [label]="''"
+          [formControl]="data.isDeaf.after | asReadonlyFormControl"
+        />
+      </td>
+    </tr>
+  }
+
+  @if (
+    data.selfUnverifyMinimalTime &&
+    data.selfUnverifyMinimalTime.before != data.selfUnverifyMinimalTime.after
+  ) {
+    <tr>
+      <th>Minimální čas self-unverify</th>
+      <td>{{ data.selfUnverifyMinimalTime.before }}</td>
+      <td>{{ data.selfUnverifyMinimalTime.after }}</td>
+    </tr>
+  }
+
+  @if (data.flags && data.flags.before != data.flags.after) {
+    <tr>
+      <th>Příznaky</th>
+      <td>
+        {{ data.flags.before }} ({{ data.flags.before | asBitmaskString: 32 }})
+      </td>
+      <td>
+        {{ data.flags.after }} ({{ data.flags.after | asBitmaskString: 32 }})
+      </td>
+    </tr>
+  }
+
+  @if (
+    data.pointsDeactivated &&
+    data.pointsDeactivated.before != data.pointsDeactivated.after
+  ) {
+    <tr>
+      <th>Body deaktivovány</th>
+      <td>
+        <app-checkbox
+          [checkboxId]="'pointsDeactivated'"
+          [label]="''"
+          [formControl]="data.pointsDeactivated.before | asReadonlyFormControl"
+        />
+      </td>
+      <td>
+        <app-checkbox
+          [checkboxId]="'pointsDeactivated'"
+          [label]="''"
+          [formControl]="data.pointsDeactivated.after | asReadonlyFormControl"
+        />
       </td>
     </tr>
   }
