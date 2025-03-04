@@ -34,7 +34,7 @@
     ]
   },
   {
-    "name": "AuditLog",
+    "name": "Audit log",
     "url": "/web/auditlog",
     "icon": "cil-description",
     "permissions": [
