@@ -1,7 +1,7 @@
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe,
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
   ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
@@ -12,9 +12,6 @@ import { SearchingClient } from "../../../../core/clients/searching.client";
 import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import * as rxjs from 'rxjs';
-import { HttpErrorResponse } from "@angular/common/http";
-import { mapChannelToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import { Channel } from "../../../../core/models/channels/channel";
 import { AlertComponent, ButtonDirective, ColComponent, RowComponent, TableDirective } from "@coreui/angular";
 
 @Component({
@@ -79,11 +76,7 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
           headerName: 'Kanál',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (channelId: string) =>
-              this.#lookupClient.resolveChannel(channelId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as Channel | null) : rxjs.throwError(() => err)),
-                rxjs.map(channel => mapChannelToLookupRow(channel, channelId))
-              )
+            sourceGenerator: (channelId: string) => ChannelLookupPipe.processTransform(channelId, this.#lookupClient)
           }
         },
         {

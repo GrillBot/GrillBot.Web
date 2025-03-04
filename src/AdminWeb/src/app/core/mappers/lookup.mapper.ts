@@ -1,9 +1,3 @@
-import { Channel } from "../models/channels/channel";
-
-export const mapChannelToLookupRow = (channel: Channel | null, channelId?: string) => {
-  return channel?.name ?? 'Neznámý kanál' + (channelId ? ` ${channelId}` : '');
-};
-
 export const mapEnumToDict = (enumType: any, localizationEnumType: any): { key: number; value: string }[] => {
   return Object.keys(enumType)
     .map(o => parseInt(o, 10))

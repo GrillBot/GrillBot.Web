@@ -1,17 +1,14 @@
 import { Component, inject, isDevMode } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe,
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
   ListBaseComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { FormSearchRequest, LogListItem, SearchRequest } from "../../../../core/models/audit-log";
 import { GridOptions } from "ag-grid-community";
-import { catchError, map, Observable, of, throwError } from "rxjs";
+import { Observable } from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { mapAuditLogSearchRequest } from "../../../../core/mappers/auditlog.mapper";
 import { AuditLogClient, LookupClient } from "../../../../core/clients";
-import { HttpErrorResponse } from "@angular/common/http";
-import { mapChannelToLookupRow } from "../../../../core/mappers";
-import { Channel } from "../../../../core/models/channels/channel";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { Router } from "@angular/router";
 
@@ -64,11 +61,7 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           headerName: 'Kanál',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (channelId: string) => channelId ?
-              this.#lookupClient.resolveChannel(channelId).pipe(
-                catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as Channel | null) : throwError(() => err)),
-                map(channel => mapChannelToLookupRow(channel, channelId)),
-              ) : null
+            sourceGenerator: (channelId: string) => channelId ? ChannelLookupPipe.processTransform(channelId, this.#lookupClient) : null
           }
         },
         {
