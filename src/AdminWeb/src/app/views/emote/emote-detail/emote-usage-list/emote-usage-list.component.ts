@@ -1,17 +1,15 @@
 import { Component, computed, inject, input, OnInit, output, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent
+  ListBaseComponent, ModalComponent, PaginatedGridComponent,
+  UserLookupPipe
 } from "../../../../components";
 import { EmoteUserUsageItem, EmoteUserUsageListRequest } from "../../../../core/models/emote";
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { EmoteClient, LookupClient } from "../../../../core/clients";
-import { HttpErrorResponse } from "@angular/common/http";
-import { User } from "../../../../core/models/users/user";
-import { mapEmoteIdToName, mapUserToLookupRow } from "../../../../core/mappers";
-import * as rxjs from 'rxjs';
+import { mapEmoteIdToName } from "../../../../core/mappers";
 import { ButtonDirective } from "@coreui/angular";
 
 @Component({
@@ -52,11 +50,7 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

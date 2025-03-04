@@ -6,14 +6,11 @@ import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
 import { GridOptions } from 'ag-grid-community';
 import { PointsClient } from '../../../core/clients/points.client';
-import { catchError, filter, map, Observable, of, throwError } from 'rxjs';
+import { filter, map, Observable, of } from 'rxjs';
 import { BoardItem } from '../../../core/models/points/board-item';
-import { User } from '../../../core/models/users/user';
-import { HttpErrorResponse } from '@angular/common/http';
-import { mapUserToLookupRow } from '../../../core/mappers/lookup.mapper';
 import { LeaderboardFilter } from '../../../core/models/points/leaderboard-filter';
 import { IForm } from '../../../core/models/common';
-import { GuildLookupComponent } from '../../../components/lookups';
+import { GuildLookupComponent, UserLookupPipe } from '../../../components/lookups';
 import { FilterBaseComponent, FilterStoreComponent } from "../../../components/filters";
 import { ValidationErrorsComponent } from "../../../components/forms/validation-errors/validation-errors.component";
 
@@ -57,11 +54,7 @@ export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardF
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as User | null) : throwError(() => err)),
-                map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

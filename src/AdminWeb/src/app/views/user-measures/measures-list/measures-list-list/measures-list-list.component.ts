@@ -1,7 +1,8 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform,
+  UserLookupPipe
 } from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
@@ -11,10 +12,6 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
 import { CutStringPipe, LocaleDatePipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import * as rxjs from 'rxjs';
-import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import { HttpErrorResponse } from "@angular/common/http";
-import { User } from "../../../../core/models/users/user";
 import { ButtonDirective, TableDirective } from "@coreui/angular";
 
 const MAX_REASON_CELL_LENGTH = 30;
@@ -67,11 +64,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           headerName: 'Moderátor',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {
@@ -79,11 +72,7 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

@@ -4,13 +4,10 @@ import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
 import { PointsClient } from "../../../../core/clients/points.client";
-import { HttpErrorResponse } from "@angular/common/http";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import * as rxjs from 'rxjs';
-import { User } from "../../../../core/models/users/user";
 import {
-  AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE,
+  UserLookupPipe
 } from "../../../../components";
 import { UserListItem } from "../../../../core/models/points/user-list-item";
 
@@ -43,11 +40,7 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

@@ -1,15 +1,13 @@
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component, inject, OnInit } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
-import { IconDirective } from "@coreui/icons-angular";
 import { LookupClient } from '../../../../core/clients/lookup.client';
 import { GridOptions } from 'ag-grid-community';
-import { AgGridComponent, AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE, CardHeaderComponent } from '../../../../components';
-import { of, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { User } from '../../../../core/models/users/user';
-import { mapUserToLookupRow } from '../../../../core/mappers/lookup.mapper';
+import {
+  AgGridComponent, AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE,
+  CardHeaderComponent, UserLookupPipe
+} from '../../../../components';
 
 @Component({
   selector: 'app-user-measures',
@@ -19,7 +17,6 @@ import { mapUserToLookupRow } from '../../../../core/mappers/lookup.mapper';
     CardComponent,
     CardHeaderComponent,
     CardBodyComponent,
-    IconDirective,
     AgGridComponent
   ]
 })
@@ -38,11 +35,7 @@ export class UserMeasuresComponent implements OnInit {
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as User | null) : throwError(() => err)),
-                map(user => mapUserToLookupRow(user, userId))
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

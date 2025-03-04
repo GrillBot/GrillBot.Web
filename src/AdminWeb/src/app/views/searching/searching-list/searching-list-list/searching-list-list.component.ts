@@ -2,7 +2,7 @@ import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent
+  ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
@@ -13,8 +13,7 @@ import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import * as rxjs from 'rxjs';
 import { HttpErrorResponse } from "@angular/common/http";
-import { mapChannelToLookupRow, mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import { User } from "../../../../core/models/users/user";
+import { mapChannelToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { Channel } from "../../../../core/models/channels/channel";
 import { AlertComponent, ButtonDirective, ColComponent, RowComponent, TableDirective } from "@coreui/angular";
 
@@ -72,11 +71,7 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId))
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

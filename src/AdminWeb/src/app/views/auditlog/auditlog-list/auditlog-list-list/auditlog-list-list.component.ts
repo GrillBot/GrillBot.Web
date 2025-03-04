@@ -1,5 +1,8 @@
-import { Component, inject, isDevMode, LOCALE_ID } from "@angular/core";
-import { AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent } from "../../../../components";
+import { Component, inject, isDevMode } from "@angular/core";
+import {
+  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe,
+  ListBaseComponent, PaginatedGridComponent, UserLookupPipe
+} from "../../../../components";
 import { FormSearchRequest, LogListItem, SearchRequest } from "../../../../core/models/audit-log";
 import { GridOptions } from "ag-grid-community";
 import { catchError, map, Observable, of, throwError } from "rxjs";
@@ -7,8 +10,7 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
 import { mapAuditLogSearchRequest } from "../../../../core/mappers/auditlog.mapper";
 import { AuditLogClient, LookupClient } from "../../../../core/clients";
 import { HttpErrorResponse } from "@angular/common/http";
-import { mapChannelToLookupRow, mapUserToLookupRow } from "../../../../core/mappers";
-import { User } from "../../../../core/models/users/user";
+import { mapChannelToLookupRow } from "../../../../core/mappers";
 import { Channel } from "../../../../core/models/channels/channel";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { Router } from "@angular/router";
@@ -54,11 +56,7 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) => userId ?
-              this.#lookupClient.resolveUser(userId).pipe(
-                catchError((err: HttpErrorResponse) => err.status == 404 ? of(null as User | null) : throwError(() => err)),
-                map(user => mapUserToLookupRow(user, userId)),
-              ) : null
+            sourceGenerator: (userId: string) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null
           }
         },
         {

@@ -5,16 +5,14 @@ import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE,
+  UserLookupPipe
 } from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { HttpErrorResponse } from "@angular/common/http";
-import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
-import { User } from "../../../../core/models/users/user";
 import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
-import { ButtonDirective, TableDirective} from "@coreui/angular";
+import { ButtonDirective, TableDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-transactions-list',
@@ -52,11 +50,7 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
           headerName: 'Uživatel',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {

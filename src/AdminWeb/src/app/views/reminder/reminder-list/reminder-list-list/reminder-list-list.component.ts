@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+  ListBaseComponent, ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
 import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
@@ -11,9 +11,6 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
 import { ReminderClient } from "../../../../core/clients/reminder.client";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { LocaleDatePipe } from "../../../../core/pipes";
-import { HttpErrorResponse } from "@angular/common/http";
-import { User } from "../../../../core/models/users/user";
-import { mapUserToLookupRow } from "../../../../core/mappers/lookup.mapper";
 import { AlertComponent, ButtonDirective, TableDirective } from "@coreui/angular";
 import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-reminder-request";
 
@@ -54,11 +51,7 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
           headerName: 'Od uživatele',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {
@@ -66,11 +59,7 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
           headerName: 'Komu',
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
-            sourceGenerator: (userId: string) =>
-              this.#lookupClient.resolveUser(userId).pipe(
-                rxjs.catchError((err: HttpErrorResponse) => err.status == 404 ? rxjs.of(null as User | null) : rxjs.throwError(() => err)),
-                rxjs.map(user => mapUserToLookupRow(user, userId)),
-              )
+            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
           }
         },
         {
