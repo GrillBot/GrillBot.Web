@@ -5,3 +5,4 @@ export * from './pipes/channel-lookup.pipe';
 export * from './pipes/guild-lookup.pipe';
 export * from './pipes/user-lookup.pipe';
 export * from './supported-emotes-lookup/supported-emotes-lookup.component';
+export * from './pipes/role-lookup.pipe';

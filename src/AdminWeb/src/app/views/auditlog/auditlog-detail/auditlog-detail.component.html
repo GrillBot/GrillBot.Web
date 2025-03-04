@@ -1,14 +1,14 @@
 <c-container>
   <c-card class="mb-3">
     <c-card-body>
-      @if (logItemRequest$() | withLoading | async; as logItemResponse) {
-        @if (logItemResponse.loading) {
+      @if (logItemRequest$() | withLoading | async; as response) {
+        @if (response.loading) {
           <app-loading
             [center]="false"
             customText="Načítám záznam"
             [small]="true"
           />
-        } @else if (!logItemResponse.value) {
+        } @else if (!response.value) {
           <c-alert color="warning" class="mb-0">
             <div class="d-flex align-items-center">
               <svg cIcon name="cilWarning" size="xl" class="me-2"></svg>
@@ -16,44 +16,34 @@
             </div>
           </c-alert>
         } @else {
-          <app-info-row key="ID" [value]="logItemResponse.value.id" />
+          <app-info-row key="ID" [value]="response.value.id" />
 
           <app-info-row
             key="Vytvořeno"
-            [value]="logItemResponse.value.createdAt | localeDatePipe"
+            [value]="response.value.createdAt | localeDatePipe"
           />
 
-          <app-info-row
-            key="Typ"
-            [value]="mapLogType(logItemResponse.value.type)"
-          />
+          <app-info-row key="Typ" [value]="mapLogType(response.value.type)" />
 
           <div class="mt-2">
-            @if (logItemResponse.value.guildId) {
+            @if (response.value.guildId) {
               <app-info-row
                 key="Server"
-                [value]="
-                  (logItemResponse.value.guildId | guildLookup | async) ?? ''
-                "
+                [value]="response.value.guildId | guildLookup | async"
               />
             }
 
-            @if (logItemResponse.value.userId) {
+            @if (response.value.userId) {
               <app-info-row
                 key="Uživatel"
-                [value]="
-                  (logItemResponse.value.userId | userLookup | async) ?? ''
-                "
+                [value]="response.value.userId | userLookup | async"
               />
             }
 
-            @if (logItemResponse.value.channelId) {
+            @if (response.value.channelId) {
               <app-info-row
                 key="Kanál"
-                [value]="
-                  (logItemResponse.value.channelId | channelLookup | async) ??
-                  ''
-                "
+                [value]="response.value.channelId | channelLookup | async"
               />
             }
           </div>
@@ -64,14 +54,14 @@
 
   <c-card class="mb-2">
     <c-card-body>
-      @if (detailRequest$() | withLoading | async; as detailResponse) {
-        @if (detailResponse.loading) {
+      @if (detailRequest$() | withLoading | async; as response) {
+        @if (response.loading) {
           <app-loading
             [center]="false"
             customText="Načítám detail záznamu"
             [small]="true"
           />
-        } @else if (!detailResponse.value) {
+        } @else if (!response.value) {
           <c-alert color="warning" class="mb-0">
             <div class="d-flex align-items-center">
               <svg cIcon name="cilWarning" size="xl" class="me-2"></svg>
@@ -79,12 +69,12 @@
             </div>
           </c-alert>
         } @else {
-          @switch (detailResponse.value.type) {
+          @switch (response.value.type) {
             @case (1) {
               <ng-container
                 [ngTemplateOutlet]="textDetail"
                 [ngTemplateOutletContext]="{
-                  data: detailResponse.value.data,
+                  data: response.value.data,
                   color: 'secondary',
                 }"
               />
@@ -94,7 +84,7 @@
               <ng-container
                 [ngTemplateOutlet]="textDetail"
                 [ngTemplateOutletContext]="{
-                  data: detailResponse.value.data,
+                  data: response.value.data,
                   color: 'warning',
                 }"
               />
@@ -104,19 +94,37 @@
               <ng-container
                 [ngTemplateOutlet]="textDetail"
                 [ngTemplateOutletContext]="{
-                  data: detailResponse.value.data,
+                  data: response.value.data,
                   color: 'danger',
                 }"
               />
             }
+
+            @case (11) {
+              @switch (response.value.data.targetType) {
+                @case (0) {
+                  <app-info-row
+                    key="Role"
+                    [value]="response.value.data.targetId | roleLookup | async"
+                  />
+                }
+
+                @case (1) {
+                  <app-info-row
+                    key="Uživatel"
+                    [value]="response.value.data.targetId | userLookup | async"
+                  />
+                }
+              }
+            }
           }
 
-          @if ([7, 11, 13, 15, 24].includes(detailResponse.value.type)) {
+          @if ([7, 11, 13, 15, 24].includes(response.value.type)) {
             <ng-container
               [ngTemplateOutlet]="diffTable"
               [ngTemplateOutletContext]="{
-                data: detailResponse.value.data,
-                type: detailResponse.value.type,
+                data: response.value.data,
+                type: response.value.type,
               }"
             />
           }
@@ -140,7 +148,7 @@
 </ng-template>
 
 <ng-template #diffTable let-data="data" let-type="type">
-  <table cTable class="mb-0" [small]="true" [striped]="true">
+  <table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
     <thead>
       <tr>
         <th>Položka</th>
@@ -153,6 +161,13 @@
         @case (7) {
           <ng-container
             [ngTemplateOutlet]="channelUpdatedDiff"
+            [ngTemplateOutletContext]="{ data }"
+          />
+        }
+
+        @case (11) {
+          <ng-container
+            [ngTemplateOutlet]="overwriteUpdatedDiff"
             [ngTemplateOutletContext]="{ data }"
           />
         }
@@ -231,6 +246,48 @@
       <th>Název</th>
       <td>{{ data.name.before }}</td>
       <td>{{ data.name.after }}</td>
+    </tr>
+  }
+</ng-template>
+
+<ng-template #overwriteUpdatedDiff let-data="data">
+  @if (data.allow && data.allow.before?.length != data.allow.after?.length) {
+    <tr>
+      <th>Povolené oprávnění</th>
+      <td>
+        <ul class="m-0">
+          @for (perm of data.allow.before; track $index) {
+            <li>{{ perm }}</li>
+          }
+        </ul>
+      </td>
+      <td>
+        <ul class="m-0">
+          @for (perm of data.allow.after; track $index) {
+            <li>{{ perm }}</li>
+          }
+        </ul>
+      </td>
+    </tr>
+  }
+
+  @if (data.deny && data.deny.before?.length != data.deny.after?.length) {
+    <tr>
+      <th>Zakázané oprávnění</th>
+      <td>
+        <ul class="m-0">
+          @for (perm of data.deny.before; track $index) {
+            <li>{{ perm }}</li>
+          }
+        </ul>
+      </td>
+      <td>
+        <ul class="m-0">
+          @for (perm of data.deny.after; track $index) {
+            <li>{{ perm }}</li>
+          }
+        </ul>
+      </td>
     </tr>
   }
 </ng-template>

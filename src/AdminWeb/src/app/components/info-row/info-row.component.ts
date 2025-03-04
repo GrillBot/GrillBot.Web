@@ -9,5 +9,5 @@ import { ColComponent, RowComponent } from "@coreui/angular";
 })
 export class InfoRowComponent {
   key = input.required<string>();
-  value = input.required<string>();
+  value = input.required<string | null | undefined>();
 }
