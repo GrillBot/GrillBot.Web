@@ -1,0 +1,133 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row
+      key="Uživatel"
+      [value]="detail().data.userId | userLookup | async"
+    />
+  </c-col>
+</c-row>
+
+<table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
+  <thead>
+    <tr>
+      <th>Položka</th>
+      <th>Před</th>
+      <th>Po</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (
+      detail().data.nickname &&
+      detail().data.nickname.before != detail().data.nickname.after
+    ) {
+      <tr>
+        <th>Přezdívka</th>
+        <td>{{ detail().data.nickname.before }}</td>
+        <td>{{ detail().data.nickname.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.isMuted &&
+      detail().data.isMuted.before != detail().data.isMuted.after
+    ) {
+      <tr>
+        <th>Ztlumen mikrofon</th>
+        <td>
+          <app-checkbox
+            [checkboxId]="'isMuted'"
+            [label]="''"
+            [formControl]="detail().data.isMuted.before | asReadonlyFormControl"
+          />
+        </td>
+        <td>
+          <app-checkbox
+            [checkboxId]="'isMuted'"
+            [label]="''"
+            [formControl]="detail().data.isMuted.after | asReadonlyFormControl"
+          />
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.isDeaf &&
+      detail().data.isDeaf.before != detail().data.isDeaf.after
+    ) {
+      <tr>
+        <th>Umlčen</th>
+        <td>
+          <app-checkbox
+            [checkboxId]="'isDeaf'"
+            [label]="''"
+            [formControl]="detail().data.isDeaf.before | asReadonlyFormControl"
+          />
+        </td>
+        <td>
+          <app-checkbox
+            [checkboxId]="'isDeaf'"
+            [label]="''"
+            [formControl]="detail().data.isDeaf.after | asReadonlyFormControl"
+          />
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.selfUnverifyMinimalTime &&
+      detail().data.selfUnverifyMinimalTime.before !=
+        detail().data.selfUnverifyMinimalTime.after
+    ) {
+      <tr>
+        <th>Minimální čas self-unverify</th>
+        <td>{{ detail().data.selfUnverifyMinimalTime.before }}</td>
+        <td>{{ detail().data.selfUnverifyMinimalTime.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.flags &&
+      detail().data.flags.before != detail().data.flags.after
+    ) {
+      <tr>
+        <th>Příznaky</th>
+        <td>
+          {{ detail().data.flags.before }}
+          ({{ detail().data.flags.before | asBitmaskString: 32 }})
+        </td>
+        <td>
+          {{ detail().data.flags.after }}
+          ({{ detail().data.flags.after | asBitmaskString: 32 }})
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.pointsDeactivated &&
+      detail().data.pointsDeactivated.before !=
+        detail().data.pointsDeactivated.after
+    ) {
+      <tr>
+        <th>Body deaktivovány</th>
+        <td>
+          <app-checkbox
+            [checkboxId]="'pointsDeactivated'"
+            [label]="''"
+            [formControl]="
+              detail().data.pointsDeactivated.before | asReadonlyFormControl
+            "
+          />
+        </td>
+        <td>
+          <app-checkbox
+            [checkboxId]="'pointsDeactivated'"
+            [label]="''"
+            [formControl]="
+              detail().data.pointsDeactivated.after | asReadonlyFormControl
+            "
+          />
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

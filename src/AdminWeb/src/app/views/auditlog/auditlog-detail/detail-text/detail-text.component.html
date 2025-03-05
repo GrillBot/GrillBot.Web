@@ -1,0 +1,10 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row key="Aplikace" [value]="detail().data.sourceAppName" />
+    <app-info-row key="Zdroj" [value]="detail().data.source" />
+  </c-col>
+</c-row>
+
+<c-alert [color]="alertColor()" class="mb-0 mt-3">
+  <pre class="mb-0">{{ detail().data.text }}</pre>
+</c-alert>

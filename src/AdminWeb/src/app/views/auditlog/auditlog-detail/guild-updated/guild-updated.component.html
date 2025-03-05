@@ -1,0 +1,376 @@
+<table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
+  <thead>
+    <tr>
+      <th>Položka</th>
+      <th>Před</th>
+      <th>Po</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (
+      detail().data.defaultMessageNotifications &&
+      detail().data.defaultMessageNotifications.before !=
+        detail().data.defaultMessageNotifications.after
+    ) {
+      <tr>
+        <th>Výchozí upozornění</th>
+        <td>
+          {{
+            formatDefaultMessageNotifications(
+              detail().data.defaultMessageNotifications.before
+            )
+          }}
+        </td>
+        <td>
+          {{
+            formatDefaultMessageNotifications(
+              detail().data.defaultMessageNotifications.after
+            )
+          }}
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.description &&
+      detail().data.description.before != detail().data.description.after
+    ) {
+      <tr>
+        <th>Popis</th>
+        <td>{{ detail().data.description.before }}</td>
+        <td>{{ detail().data.description.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.vanityUrl &&
+      detail().data.vanityUrl.before != detail().data.vanityUrl.after
+    ) {
+      <tr>
+        <th>Vanity URL</th>
+        <td>{{ detail().data.vanityUrl.before }}</td>
+        <td>{{ detail().data.vanityUrl.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.bannerId &&
+      detail().data.bannerId.before != detail().data.bannerId.after
+    ) {
+      <tr>
+        <th>Banner ID</th>
+        <td>{{ detail().data.bannerId.before }}</td>
+        <td>{{ detail().data.bannerId.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.discoverySplashId &&
+      detail().data.discoverySplashId.before !=
+        detail().data.discoverySplashId.after
+    ) {
+      <tr>
+        <th>ID komunitního pozadí</th>
+        <td>{{ detail().data.discoverySplashId.before }}</td>
+        <td>{{ detail().data.discoverySplashId.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.splashId &&
+      detail().data.splashId.before != detail().data.splashId.after
+    ) {
+      <tr>
+        <th>ID pozadí pozvánky</th>
+        <td>{{ detail().data.splashId.before }}</td>
+        <td>{{ detail().data.splashId.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.iconId &&
+      detail().data.iconId.before != detail().data.iconId.after
+    ) {
+      <tr>
+        <th>ID ikony</th>
+        <td>{{ detail().data.iconId.before }}</td>
+        <td>{{ detail().data.iconId.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.iconData &&
+      (detail().data.iconData.before || detail().data.iconData.after)
+    ) {
+      <tr>
+        <th>Ikona</th>
+        <td>
+          @if (detail().data.iconData.before) {
+            <img
+              [src]="'data:image/png;base64, ' + detail().data.iconData.before"
+              alt="GuildUpdated-Icon-Before"
+            />
+          }
+        </td>
+        <td>
+          @if (detail().data.iconData.after) {
+            <img
+              [src]="'data:image/png;base64, ' + detail().data.iconData.after"
+              alt="GuildUpdated-Icon-After"
+            />
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.publicUpdatesChannelId &&
+      detail().data.publicUpdatesChannelId.before !=
+        detail().data.publicUpdatesChannelId.after
+    ) {
+      <tr>
+        <th>Kanál na novinky</th>
+        <td>
+          @if (detail().data.publicUpdatesChannelId.before) {
+            {{
+              detail().data.publicUpdatesChannelId.before
+                | channelLookup
+                | async
+            }}
+          }
+        </td>
+        <td>
+          @if (detail().data.publicUpdatesChannelId.after) {
+            {{
+              detail().data.publicUpdatesChannelId.after | channelLookup | async
+            }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.rulesChannelId &&
+      detail().data.rulesChannelId.before != detail().data.rulesChannelId.after
+    ) {
+      <tr>
+        <th>Kanál s pravidly</th>
+        <td>
+          @if (detail().data.rulesChannelId.before) {
+            {{ detail().data.rulesChannelId.before | channelLookup | async }}
+          }
+        </td>
+        <td>
+          @if (detail().data.rulesChannelId.after) {
+            {{ detail().data.rulesChannelId.after | channelLookup | async }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.systemChannelId &&
+      detail().data.systemChannelId.before !=
+        detail().data.systemChannelId.after
+    ) {
+      <tr>
+        <th>Systémový kanál</th>
+        <td>
+          @if (detail().data.systemChannelId.before) {
+            {{ detail().data.systemChannelId.before | channelLookup | async }}
+          }
+        </td>
+        <td>
+          @if (detail().data.systemChannelId.after) {
+            {{ detail().data.systemChannelId.after | channelLookup | async }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.afkChannelId &&
+      detail().data.afkChannelId.before != detail().data.afkChannelId.after
+    ) {
+      <tr>
+        <th>AFK kanál</th>
+        <td>
+          @if (detail().data.afkChannelId.before) {
+            {{ detail().data.afkChannelId.before | channelLookup | async }}
+          }
+        </td>
+        <td>
+          @if (detail().data.afkChannelId.after) {
+            {{ detail().data.afkChannelId.after | channelLookup | async }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.afkTimeout &&
+      detail().data.afkTimeout.before != detail().data.afkTimeout.after
+    ) {
+      <tr>
+        <th>AFK timeout</th>
+        <td>
+          @if (detail().data.afkTimeout.before) {
+            {{ detail().data.afkTimeout.before * 1000 | timespan }}
+          }
+        </td>
+        <td>
+          @if (detail().data.afkTimeout.after) {
+            {{ detail().data.afkTimeout.after * 1000 | timespan }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.name &&
+      detail().data.name.before != detail().data.name.after
+    ) {
+      <tr>
+        <th>Název</th>
+        <td>{{ detail().data.name.before }}</td>
+        <td>{{ detail().data.name.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.mfaLevel &&
+      detail().data.mfaLevel.before != detail().data.mfaLevel.after
+    ) {
+      <tr>
+        <th>2FA úroveň</th>
+        <td>
+          <app-checkbox
+            [checkboxId]="'mfaLevelBefore'"
+            [label]="''"
+            [formControl]="
+              detail().data.mfaLevel.before == 1 | asReadonlyFormControl
+            "
+          />
+        </td>
+        <td>
+          <app-checkbox
+            [checkboxId]="'mfaLevelAfter'"
+            [label]="''"
+            [formControl]="
+              detail().data.mfaLevel.after == 1 | asReadonlyFormControl
+            "
+          />
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.verificationLevel &&
+      detail().data.verificationLevel.before !=
+        detail().data.verificationLevel.after
+    ) {
+      <tr>
+        <th>Úroveň ověření</th>
+        <td>
+          {{ formatVerificationLevel(detail().data.verificationLevel.before) }}
+        </td>
+        <td>
+          {{ formatVerificationLevel(detail().data.verificationLevel.after) }}
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.explicitContentFilter &&
+      detail().data.explicitContentFilter.before !=
+        detail().data.explicitContentFilter.after
+    ) {
+      <tr>
+        <th>Filtr explicitního obsahu</th>
+        <td>
+          {{
+            formatExplicitContentFilter(
+              detail().data.explicitContentFilter.before
+            )
+          }}
+        </td>
+        <td>
+          {{
+            formatExplicitContentFilter(
+              detail().data.explicitContentFilter.after
+            )
+          }}
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.features &&
+      detail().data.features.before != detail().data.features.after
+    ) {
+      <tr>
+        <th>Funkcionalita</th>
+        <td>
+          {{ detail().data.features.before }}
+          ({{ detail().data.features.before | asBitmaskString: 64 }})
+        </td>
+        <td>
+          {{ detail().data.features.after }}
+          ({{ detail().data.features.after | asBitmaskString: 64 }})
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.premiumTier &&
+      detail().data.premiumTier.before != detail().data.premiumTier.after
+    ) {
+      <tr>
+        <th>Úroveň vylepšení</th>
+        <td>
+          @if (detail().data.premiumTier.before === 0) {
+            Žádná úroveň
+          } @else {
+            Tier{{ detail().data.premiumTier.before }}
+          }
+        </td>
+        <td>
+          @if (detail().data.premiumTier.after === 0) {
+            Žádná úroveň
+          } @else {
+            Tier{{ detail().data.premiumTier.after }}
+          }
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.systemChannelFlags &&
+      detail().data.systemChannelFlags.before !=
+        detail().data.systemChannelFlags.after
+    ) {
+      <tr>
+        <th>Nastavení systémového kanálu</th>
+        <td>
+          {{ detail().data.systemChannelFlags.before }}
+          ({{ detail().data.systemChannelFlags.before | asBitmaskString: 64 }})
+        </td>
+        <td>
+          {{ detail().data.systemChannelFlags.after }}
+          ({{ detail().data.systemChannelFlags.after | asBitmaskString: 64 }})
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.nsfwLevel &&
+      detail().data.nsfwLevel.before != detail().data.nsfwLevel.after
+    ) {
+      <tr>
+        <th>Úroveň NSFW</th>
+        <td>{{ formatNsfwLevel(detail().data.nsfwLevel.before) }}</td>
+        <td>{{ formatNsfwLevel(detail().data.nsfwLevel.after) }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

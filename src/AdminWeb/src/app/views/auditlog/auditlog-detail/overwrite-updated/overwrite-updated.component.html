@@ -1,0 +1,70 @@
+<c-row>
+  <c-col md="8">
+    @switch (detail().data.targetType) {
+      @case (0) {
+        <app-info-row
+          key="Role"
+          [value]="detail().data.targetId | roleLookup | async"
+        />
+      }
+
+      @case (1) {
+        <app-info-row
+          key="Uživatel"
+          [value]="detail().data.targetId | userLookup | async"
+        />
+      }
+    }
+  </c-col>
+</c-row>
+
+<table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
+  <thead>
+    <tr>
+      <th>Položka</th>
+      <th>Před</th>
+      <th>Po</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (detail().data.allow) {
+      <tr>
+        <th>Povolené oprávnění</th>
+        <td>
+          <ul class="m-0">
+            @for (perm of detail().data.allow.before; track $index) {
+              <li>{{ perm }}</li>
+            }
+          </ul>
+        </td>
+        <td>
+          <ul class="m-0">
+            @for (perm of detail().data.allow.after; track $index) {
+              <li>{{ perm }}</li>
+            }
+          </ul>
+        </td>
+      </tr>
+    }
+
+    @if (detail().data.deny) {
+      <tr>
+        <th>Zakázané oprávnění</th>
+        <td>
+          <ul class="m-0">
+            @for (perm of detail().data.deny.before; track $index) {
+              <li>{{ perm }}</li>
+            }
+          </ul>
+        </td>
+        <td>
+          <ul class="m-0">
+            @for (perm of detail().data.deny.after; track $index) {
+              <li>{{ perm }}</li>
+            }
+          </ul>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

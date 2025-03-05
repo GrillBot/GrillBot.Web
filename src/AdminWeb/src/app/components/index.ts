@@ -9,3 +9,4 @@ export * from './paginated-grid/paginated-grid.component';
 export * from './paginated-grid/paginated-grid.models';
 export * from './list.component.base';
 export * from './modal';
+export * from './info-row/info-row.component';

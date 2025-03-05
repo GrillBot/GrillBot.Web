@@ -1,0 +1,105 @@
+<table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
+  <thead>
+    <tr>
+      <th>Položka</th>
+      <th>Před</th>
+      <th>Po</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (
+      detail().data.bitrate &&
+      detail().data.bitrate.before != detail().data.bitrate.after
+    ) {
+      <tr>
+        <th>Bitrate</th>
+        <td>{{ detail().data.bitrate.before | spacedNumber }} bps</td>
+        <td>{{ detail().data.bitrate.after | spacedNumber }} bps</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.flags &&
+      detail().data.flags.before != detail().data.flags.after
+    ) {
+      <tr>
+        <th>Příznaky</th>
+        <td>
+          {{ detail().data.flags.before }}
+          ({{ detail().data.flags.before | asBitmaskString: 32 }})
+        </td>
+        <td>
+          {{ detail().data.flags.after }}
+          ({{ detail().data.flags.after | asBitmaskString: 32 }})
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.position &&
+      detail().data.position.before != detail().data.position.after
+    ) {
+      <tr>
+        <th>Pozice</th>
+        <td>{{ detail().data.position.before | spacedNumber }}</td>
+        <td>{{ detail().data.position.after | spacedNumber }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.slowMode &&
+      detail().data.slowMode.before != detail().data.slowMode.after
+    ) {
+      <tr>
+        <th>Slowmode</th>
+        <td>{{ detail().data.slowMode.before * 1000 | timespan }}</td>
+        <td>{{ detail().data.slowMode.after * 1000 | timespan }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.isNsfw &&
+      detail().data.isNsfw.before != detail().data.isNsfw.after
+    ) {
+      <tr>
+        <th>NSFW</th>
+        <td>
+          <app-checkbox
+            checkboxId="isNsfw"
+            [label]="''"
+            [formControl]="detail().data.isNsfw.before | asReadonlyFormControl"
+          />
+        </td>
+        <td>
+          <app-checkbox
+            checkboxId="isNsfw"
+            [label]="''"
+            [formControl]="detail().data.isNsfw.after | asReadonlyFormControl"
+          />
+        </td>
+      </tr>
+    }
+
+    @if (
+      detail().data.topic &&
+      detail().data.topic.before != detail().data.topic.after
+    ) {
+      <tr>
+        <th>Popis</th>
+        <td>{{ detail().data.topic.before }}</td>
+        <td>{{ detail().data.topic.after }}</td>
+      </tr>
+    }
+
+    @if (
+      detail().data.name &&
+      detail().data.name.before != detail().data.name.after
+    ) {
+      <tr>
+        <th>Název</th>
+        <td>{{ detail().data.name.before }}</td>
+        <td>{{ detail().data.name.after }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
