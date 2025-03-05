@@ -20,6 +20,7 @@ import { MemberUpdatedComponent } from "./member-updated/member-updated.componen
 import { GuildUpdatedComponent } from "./guild-updated/guild-updated.component";
 import { ThreadUpdatedComponent } from "./thread-updated/thread-updated.component";
 import { MessageDeletedComponent } from "./message-deleted/message-deleted.component";
+import { InteractionCommandComponent } from "./interaction-command/interaction-command.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -44,7 +45,8 @@ import { MessageDeletedComponent } from "./message-deleted/message-deleted.compo
     MemberUpdatedComponent,
     GuildUpdatedComponent,
     ThreadUpdatedComponent,
-    MessageDeletedComponent
+    MessageDeletedComponent,
+    InteractionCommandComponent
   ]
 })
 export class AuditLogDetailComponent {

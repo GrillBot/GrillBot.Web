@@ -94,6 +94,10 @@
               <app-message-deleted [detail]="response.value" />
             }
 
+            @case (20) {
+              <app-interaction-command [detail]="response.value" />
+            }
+
             @case (24) {
               <app-thread-updated [detail]="response.value" />
             }
