@@ -89,153 +89,17 @@
             @case (15) {
               <app-guild-updated [detail]="response.value" />
             }
-          }
 
-          @if ([24].includes(response.value.type)) {
-            <ng-container
-              [ngTemplateOutlet]="diffTable"
-              [ngTemplateOutletContext]="{
-                data: response.value.data,
-                type: response.value.type,
-              }"
-            />
-          }
+            @case (19) {
+              <app-message-deleted [detail]="response.value" />
+            }
 
-          @if (response.value.type === 19) {
-            <ng-container
-              [ngTemplateOutlet]="messageDeleted"
-              [ngTemplateOutletContext]="{ data: response.value.data }"
-            />
+            @case (24) {
+              <app-thread-updated [detail]="response.value" />
+            }
           }
         }
       }
     </c-card-body>
   </c-card>
 </c-container>
-
-<ng-template #diffTable let-data="data" let-type="type">
-  <table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
-    <thead>
-      <tr>
-        <th>Položka</th>
-        <th>Před</th>
-        <th>Po</th>
-      </tr>
-    </thead>
-    <tbody>
-      @switch (type) {
-        @case (24) {
-          <ng-container
-            [ngTemplateOutlet]="threadUpdatedDiff"
-            [ngTemplateOutletContext]="{ data }"
-          />
-        }
-      }
-    </tbody>
-  </table>
-</ng-template>
-
-<ng-template #threadUpdatedDiff let-data="data">
-  @if (data.tags) {
-    <tr>
-      <th>Tagy</th>
-      <td>
-        <ul class="m-0">
-          @for (tag of data.tags.before; track $index) {
-            <li>{{ tag }}</li>
-          }
-        </ul>
-      </td>
-      <td>
-        <ul class="m-0">
-          @for (tag of data.tags.after; track $index) {
-            <li>{{ tag }}</li>
-          }
-        </ul>
-      </td>
-    </tr>
-  }
-</ng-template>
-
-<ng-template #messageDeleted let-data="data">
-  <app-info-row key="Autor" [value]="data.authorId | userLookup | async" />
-
-  <app-info-row
-    key="Zpráva vytvořena"
-    [value]="data.messageCreatedAt | localeDatePipe"
-  />
-
-  @if (data.content && data.content.length > 0) {
-    <c-alert color="secondary" class="mt-2 mb-0">
-      <pre class="m-0">{{ data.content }}</pre>
-    </c-alert>
-  }
-
-  @if (data.embeds && data.embeds.length > 0) {
-    <div class="mt-2">
-      @for (embed of data.embeds; track $index) {
-        <ng-container
-          [ngTemplateOutlet]="embedCard"
-          [ngTemplateOutletContext]="{ data: embed }"
-        />
-      }
-    </div>
-  }
-</ng-template>
-
-<ng-template #embedCard let-data="data">
-  <c-card>
-    <c-card-body>
-      @if (data.title) {
-        <app-info-row key="Titulek" [value]="data.title" />
-      }
-
-      <app-info-row key="Typ" [value]="data.type" />
-
-      @if (data.imageInfo) {
-        <app-info-row key="Obrázek" [value]="data.imageInfo" />
-      }
-
-      @if (data.videoInfo) {
-        <app-info-row key="Video" [value]="data.videoInfo" />
-      }
-
-      @if (data.authorName) {
-        <app-info-row key="Autor" [value]="data.authorName" />
-      }
-
-      @if (data.providerName) {
-        <app-info-row key="Provider" [value]="data.providerName" />
-      }
-
-      @if (data.thumbnailInfo) {
-        <app-info-row key="Thumbnail" [value]="data.thumbnailInfo" />
-      }
-
-      <div class="mt-2 mb-2">
-        <app-checkbox
-          [checkboxId]="'containsFooter'"
-          [label]="'Obsahuje patičku'"
-          [formControl]="data.containsFooter | asReadonlyFormControl"
-        />
-      </div>
-
-      @for (field of data.fields; track $index) {
-        <c-card class="mb-2">
-          <c-card-body>
-            <app-info-row key="Název" [value]="field.name" />
-            <app-info-row key="Hodnota" [value]="field.value" />
-
-            <div class="mt-2">
-              <app-checkbox
-                [checkboxId]="'Inline'"
-                [label]="'Inline'"
-                [formControl]="field.inline | asReadonlyFormControl"
-              />
-            </div>
-          </c-card-body>
-        </c-card>
-      }
-    </c-card-body>
-  </c-card>
-</ng-template>

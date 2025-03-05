@@ -1,0 +1,27 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row
+      key="Autor"
+      [value]="detail().data.authorId | userLookup | async"
+    />
+
+    <app-info-row
+      key="Zpráva vytvořena"
+      [value]="detail().data.messageCreatedAt | localeDatePipe"
+    />
+  </c-col>
+</c-row>
+
+@if (detail().data.content?.length > 0) {
+  <c-alert color="secondary" class="mt-2 mb-0">
+    <pre class="m-0">{{ detail().data.content }}</pre>
+  </c-alert>
+}
+
+@if (detail().data.embeds?.length > 0) {
+  <div class="mt-3">
+    @for (embed of detail().data.embeds; track $index) {
+      <app-message-embed [embed]="embed" />
+    }
+  </div>
+}

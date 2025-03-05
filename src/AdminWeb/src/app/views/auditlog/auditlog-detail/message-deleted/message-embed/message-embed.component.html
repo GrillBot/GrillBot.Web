@@ -1,0 +1,66 @@
+<c-card>
+  <c-card-body>
+    <c-row>
+      <c-col md="8">
+        @if (embed().title) {
+          <app-info-row key="Titulek" [value]="embed().title" />
+        }
+
+        <app-info-row key="Typ" [value]="embed().type" />
+
+        @if (embed().imageInfo) {
+          <app-info-row key="Obrázek" [value]="embed().imageInfo" />
+        }
+
+        @if (embed().videoInfo) {
+          <app-info-row key="Video" [value]="embed().videoInfo" />
+        }
+
+        @if (embed().authorName) {
+          <app-info-row key="Autor" [value]="embed().authorName" />
+        }
+
+        @if (embed().providerName) {
+          <app-info-row key="Provider" [value]="embed().providerName" />
+        }
+
+        @if (embed().thumbnailInfo) {
+          <app-info-row key="Thumbnail" [value]="embed().thumbnailInfo" />
+        }
+      </c-col>
+
+      <c-col>
+        <app-checkbox
+          [checkboxId]="'containsFooter'"
+          [label]="'Obsahuje patičku'"
+          [formControl]="embed().containsFooter | asReadonlyFormControl"
+        />
+      </c-col>
+    </c-row>
+
+    <table cTable [small]="true" [striped]="true">
+      <thead>
+        <tr>
+          <th>Název</th>
+          <th>Hodnota</th>
+          <th>Inline</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (field of embed().fields; track $index) {
+          <tr>
+            <td>{{ field.name }}</td>
+            <td>{{ field.value }}</td>
+            <td>
+              <app-checkbox
+                [checkboxId]="'-'"
+                [label]="''"
+                [formControl]="field.inline | asReadonlyFormControl"
+              />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </c-card-body>
+</c-card>

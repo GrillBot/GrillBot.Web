@@ -1,0 +1,30 @@
+<table cTable class="mb-0 mt-2" [small]="true" [striped]="true">
+  <thead>
+    <tr>
+      <th>Položka</th>
+      <th>Před</th>
+      <th>Po</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (detail().data.tags) {
+      <tr>
+        <th>Tagy</th>
+        <td>
+          <ul class="m-0">
+            @for (tag of detail().data.tags.before; track $index) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+        </td>
+        <td>
+          <ul class="m-0">
+            @for (tag of detail().data.tags.after; track $index) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
