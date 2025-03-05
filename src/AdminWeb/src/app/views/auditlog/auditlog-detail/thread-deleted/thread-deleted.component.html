@@ -1,0 +1,35 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row key="Název" [value]="detail().data.name" />
+
+    <app-info-row
+      key="Slowmode"
+      [value]="
+        detail().data.slowMode === 0
+          ? 'Neaktivní'
+          : (detail().data.slowMode | timespan)
+      "
+    />
+
+    <app-info-row key="Typ" [value]="formatThreadType(detail().data.type)" />
+
+    <app-info-row
+      key="Doba do archivace"
+      [value]="formatArchiveDuration(detail().data.archivedDuration)"
+    />
+  </c-col>
+
+  <c-col class="d-flex flex-column">
+    <app-checkbox
+      checkboxId="isArchive"
+      label="Archivován"
+      [formControl]="detail().data.isArchived | asReadonlyFormControl"
+    />
+
+    <app-checkbox
+      checkboxId="isLocked"
+      label="Uzamčeno"
+      [formControl]="detail().data.isLocked | asReadonlyFormControl"
+    />
+  </c-col>
+</c-row>
