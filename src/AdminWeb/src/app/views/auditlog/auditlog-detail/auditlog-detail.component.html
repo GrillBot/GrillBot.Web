@@ -106,6 +106,10 @@
               <app-job-completed [detail]="response.value" />
             }
 
+            @case (23) {
+              <app-api-request [detail]="response.value" />
+            }
+
             @case (24) {
               <app-thread-updated [detail]="response.value" />
             }

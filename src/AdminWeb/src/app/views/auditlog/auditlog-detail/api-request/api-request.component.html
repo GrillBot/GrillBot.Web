@@ -1,0 +1,92 @@
+<c-tabs activeItemKey="commonInfo">
+  <c-tabs-list variant="tabs">
+    <button cTab itemKey="commonInfo">Základní info</button>
+
+    @if (hasParameters()) {
+      <button cTab itemKey="parameters">Parametry</button>
+    }
+
+    @if (hasHeaders()) {
+      <button cTab itemKey="headers">Hlavičky</button>
+    }
+  </c-tabs-list>
+  <c-tabs-content>
+    <c-tab-panel class="p-2" itemKey="commonInfo">
+      <app-info-row key="Controller" [value]="detail().data.controllerName" />
+      <app-info-row key="Akce" [value]="detail().data.actionName" />
+
+      <app-info-row
+        key="Začátek"
+        [value]="detail().data.startAt | localeDatePipe"
+      />
+
+      <app-info-row
+        key="Konec"
+        [value]="detail().data.endAt | localeDatePipe"
+      />
+      <app-info-row key="Trvání" [value]="duration() | timespan" />
+      <app-info-row key="Cesta" [value]="detail().data.path" />
+      <app-info-row key="Šablona cesty" [value]="detail().data.templatePath" />
+      <app-info-row key="Jazyk" [value]="detail().data.language" />
+      <app-info-row key="Verze API" [value]="detail().data.apiGroupName" />
+      <app-info-row key="Identifikace" [value]="detail().data.identification" />
+      <app-info-row key="Výsledek" [value]="detail().data.result" />
+
+      @if (detail().data.role?.length > 0) {
+        <app-info-row key="Role" [value]="detail().data.role" />
+      }
+
+      @if (detail().data.forwardedIp) {
+        <app-info-row
+          key="IP adresa"
+          [value]="detail().data.ip + ' (' + detail().data.forwardedIp + ')'"
+        />
+      } @else {
+        <app-info-row key="IP adresa" [value]="detail().data.ip" />
+      }
+    </c-tab-panel>
+    <c-tab-panel class="p-2" itemKey="parameters">
+      <table cTable class="mb-0" [small]="true" [striped]="true">
+        <thead>
+          <tr>
+            <th>Název</th>
+            <th>Hodnota</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (
+            parameter of detail().data.parameters | dictToList;
+            track $index
+          ) {
+            <tr>
+              <th>{{ parameter.key }}</th>
+              <td>
+                <pre class="mb-0">{{ parameter.value }}</pre>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </c-tab-panel>
+    <c-tab-panel class="p-2" itemKey="headers">
+      <table cTable class="mb-0" [small]="true" [striped]="true">
+        <thead>
+          <tr>
+            <th>Název</th>
+            <th>Hodnota</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (header of detail().data.headers | dictToList; track $index) {
+            <tr>
+              <th>{{ header.key }}</th>
+              <td>
+                <pre class="mb-0">{{ header.value }}</pre>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </c-tab-panel>
+  </c-tabs-content>
+</c-tabs>

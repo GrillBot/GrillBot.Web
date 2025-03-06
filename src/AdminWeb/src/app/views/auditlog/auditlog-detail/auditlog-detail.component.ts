@@ -24,6 +24,7 @@ import { InteractionCommandComponent } from "./interaction-command/interaction-c
 import { ThreadDeletedComponent } from "./thread-deleted/thread-deleted.component";
 import { JobCompletedComponent } from "./job-completed/job-completed.component";
 import { RoleDeletedComponent } from "./role-deleted/role-deleted.component";
+import { ApiRequestComponent } from "./api-request/api-request.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -52,7 +53,8 @@ import { RoleDeletedComponent } from "./role-deleted/role-deleted.component";
     InteractionCommandComponent,
     ThreadDeletedComponent,
     JobCompletedComponent,
-    RoleDeletedComponent
+    RoleDeletedComponent,
+    ApiRequestComponent
   ]
 })
 export class AuditLogDetailComponent {
