@@ -1,0 +1,31 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row key="ID" [value]="detail().data.roleId" />
+    <app-info-row key="Název" [value]="detail().data.name" />
+    <app-info-row key="Barva" [value]="detail().data.color" />
+    <app-info-row key="ID ikony" [value]="detail().data.iconId ?? '-'" />
+  </c-col>
+
+  <c-col class="d-flex flex-column">
+    <app-checkbox
+      checkboxId="isMentionable"
+      label="Lze tagnout"
+      [formControl]="detail().data.isMentionable | asReadonlyFormControl"
+    />
+
+    <app-checkbox
+      checkboxId="isHoisted"
+      label="Vyčleněno v panelu"
+      [formControl]="detail().data.isHoisted | asReadonlyFormControl"
+    />
+  </c-col>
+</c-row>
+
+@if (detail().data.permissions?.length > 0) {
+  <h5 class="mt-3">Oprávnění</h5>
+  <ul class="mb-0">
+    @for (perm of detail().data.permissions; track $index) {
+      <li>{{ perm }}</li>
+    }
+  </ul>
+}

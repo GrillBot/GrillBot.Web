@@ -1,0 +1,39 @@
+<c-row>
+  <c-col md="8">
+    <app-info-row key="Název" [value]="detail().data.jobName" />
+
+    <app-info-row
+      key="Začátek"
+      [value]="detail().data.startAt | localeDatePipe"
+    />
+
+    <app-info-row
+      key="Začátek"
+      [value]="detail().data.endAt | localeDatePipe"
+    />
+
+    <app-info-row key="Trvání" [value]="duration() | timespan" />
+
+    @if (detail().data.startUserId) {
+      <app-info-row
+        key="Spustil"
+        [value]="detail().data.startUserId | userLookup | async"
+      />
+    }
+  </c-col>
+
+  <c-col class="d-flex flex-column">
+    <app-checkbox
+      checkboxId="wasError"
+      label="Neúspěšný"
+      [formControl]="detail().data.wasError | asReadonlyFormControl"
+    />
+  </c-col>
+</c-row>
+
+<c-alert
+  [color]="detail().data.wasError ? 'danger' : 'success'"
+  class="mb-0 mt-3"
+>
+  <pre class="mb-0">{{ detail().data.result }}</pre>
+</c-alert>

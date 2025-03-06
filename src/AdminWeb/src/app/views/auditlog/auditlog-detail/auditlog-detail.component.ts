@@ -22,6 +22,8 @@ import { ThreadUpdatedComponent } from "./thread-updated/thread-updated.componen
 import { MessageDeletedComponent } from "./message-deleted/message-deleted.component";
 import { InteractionCommandComponent } from "./interaction-command/interaction-command.component";
 import { ThreadDeletedComponent } from "./thread-deleted/thread-deleted.component";
+import { JobCompletedComponent } from "./job-completed/job-completed.component";
+import { RoleDeletedComponent } from "./role-deleted/role-deleted.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -48,7 +50,9 @@ import { ThreadDeletedComponent } from "./thread-deleted/thread-deleted.componen
     ThreadUpdatedComponent,
     MessageDeletedComponent,
     InteractionCommandComponent,
-    ThreadDeletedComponent
+    ThreadDeletedComponent,
+    JobCompletedComponent,
+    RoleDeletedComponent
   ]
 })
 export class AuditLogDetailComponent {

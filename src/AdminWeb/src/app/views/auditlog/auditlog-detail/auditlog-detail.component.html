@@ -102,8 +102,16 @@
               <app-thread-deleted [detail]="response.value" />
             }
 
+            @case (22) {
+              <app-job-completed [detail]="response.value" />
+            }
+
             @case (24) {
               <app-thread-updated [detail]="response.value" />
+            }
+
+            @case (25) {
+              <app-role-deleted [detail]="response.value" />
             }
           }
         }
