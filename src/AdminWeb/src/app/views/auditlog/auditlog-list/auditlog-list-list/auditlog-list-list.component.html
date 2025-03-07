@@ -6,3 +6,35 @@
     [height]="'700px'"
   />
 </div>
+
+<app-modal
+  #removeItemModal
+  title="Smazání záznamu"
+  size="lg"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    Opravdu si přeješ smazat tenhle záznam?
+    <b>Tato akce je nevratná!</b>
+  </ng-container>
+
+  <ng-container footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="confirmItemRemove()"
+    >
+      Potvrdit
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="removeItemModal.close()"
+    >
+      Zrušit
+    </button>
+  </ng-container>
+</app-modal>

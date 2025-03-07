@@ -24,4 +24,7 @@ export class AuditLogClient extends BaseClient {
 
   getDetail = (id: string) =>
     this.getRequest<Detail>(`service/auditlog/${id}`);
+
+  deleteItem = (id: string) =>
+    this.deleteRequest(`service/auditlog/${id}`);
 }

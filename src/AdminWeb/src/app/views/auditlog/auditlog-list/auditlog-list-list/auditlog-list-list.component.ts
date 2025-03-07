@@ -1,7 +1,7 @@
-import { Component, inject, isDevMode } from "@angular/core";
+import { Component, inject, isDevMode, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
-  ListBaseComponent, PaginatedGridComponent, UserLookupPipe
+  ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { FormSearchRequest, LogListItem, SearchRequest } from "../../../../core/models/audit-log";
 import { GridOptions } from "ag-grid-community";
@@ -11,19 +11,25 @@ import { mapAuditLogSearchRequest } from "../../../../core/mappers/auditlog.mapp
 import { AuditLogClient, LookupClient } from "../../../../core/clients";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { Router } from "@angular/router";
+import { ButtonDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-auditlog-list-list',
   templateUrl: './auditlog-list-list.component.html',
   standalone: true,
   imports: [
-    PaginatedGridComponent
+    PaginatedGridComponent,
+    ModalComponent,
+    ButtonDirective
   ]
 })
 export class AuditLogListListComponent extends ListBaseComponent<FormSearchRequest, LogListItem> {
   readonly #client = inject(AuditLogClient);
   readonly #lookupClient = inject(LookupClient);
   readonly #router = inject(Router);
+
+  removeItemModal = viewChild<ModalComponent>('removeItemModal');
+  rowInModal?: LogListItem;
 
   override createGridOptions(): GridOptions {
     return {
@@ -109,7 +115,10 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
               {
                 id: 'remove',
                 title: 'Smazat',
-                action: (row: LogListItem) => alert(row),
+                action: (row: LogListItem) => this.removeItemModal()?.open(
+                  () => this.rowInModal = row,
+                  () => this.rowInModal = undefined
+                ),
                 size: 'sm',
                 color: 'danger'
               }
@@ -139,5 +148,17 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
       orderBy: 'CreatedAt',
       descending: true
     };
+  }
+
+  confirmItemRemove(): void {
+    const modal = this.removeItemModal();
+    if (!modal || !this.rowInModal) {
+      return;
+    }
+
+    this.#client.deleteItem(this.rowInModal.id).subscribe(() => {
+      modal.close();
+      this.reload();
+    });
   }
 }
