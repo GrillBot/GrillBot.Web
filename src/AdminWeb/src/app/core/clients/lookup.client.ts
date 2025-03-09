@@ -5,6 +5,7 @@ import { Guild } from "../models/guilds/guild";
 import { filter, map } from "rxjs";
 import { Channel } from "../models/channels/channel";
 import { Role } from "../models/roles/role";
+import { MessageResponse } from "../models/common";
 
 @Injectable({ providedIn: 'root' })
 export class LookupClient extends BaseClient {
@@ -33,4 +34,9 @@ export class LookupClient extends BaseClient {
   );
 
   resolveUserList = () => this.getRequest<User[]>('lookup/user/list');
+
+  resolveSasLink = (filename: string) => this.getRequest<MessageResponse>('lookup/sas', { filename }).pipe(
+    filter(res => res.type === 'finish'),
+    map(res => res.value?.message ?? '')
+  );
 }

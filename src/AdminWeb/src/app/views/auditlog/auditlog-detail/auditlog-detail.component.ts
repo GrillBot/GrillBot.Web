@@ -25,6 +25,7 @@ import { ThreadDeletedComponent } from "./thread-deleted/thread-deleted.componen
 import { JobCompletedComponent } from "./job-completed/job-completed.component";
 import { RoleDeletedComponent } from "./role-deleted/role-deleted.component";
 import { ApiRequestComponent } from "./api-request/api-request.component";
+import { FilesListComponent } from "./files-list/files-list.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -54,7 +55,8 @@ import { ApiRequestComponent } from "./api-request/api-request.component";
     ThreadDeletedComponent,
     JobCompletedComponent,
     RoleDeletedComponent,
-    ApiRequestComponent
+    ApiRequestComponent,
+    FilesListComponent
   ]
 })
 export class AuditLogDetailComponent {

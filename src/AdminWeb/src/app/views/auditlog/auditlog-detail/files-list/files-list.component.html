@@ -1,0 +1,15 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <h5 cCardTitle>Soubory</h5>
+
+    <ul class="mb-0">
+      @for (file of files(); track $index) {
+        <li>
+          <a [href]="file.filename | sasLinkLookup | async" target="_blank" class="text-dark-emphasis">
+            {{ file.filename }} ({{ file.size | filesize }})
+          </a>
+        </li>
+      }
+    </ul>
+  </c-card-body>
+</c-card>

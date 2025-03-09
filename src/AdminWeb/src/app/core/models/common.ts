@@ -43,3 +43,7 @@ export interface ValidationProblemDetails {
   status: number;
   title: string;
 }
+
+export interface MessageResponse {
+  message: string;
+}

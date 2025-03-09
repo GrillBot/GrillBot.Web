@@ -1,7 +1,7 @@
 <c-container>
-  <c-card class="mb-3">
-    <c-card-body>
-      @if (logItemRequest$() | withLoading | async; as response) {
+  @if (logItemRequest$() | withLoading | async; as response) {
+    <c-card class="mb-3">
+      <c-card-body>
         @if (response.loading) {
           <app-loading
             [center]="false"
@@ -48,11 +48,15 @@
             }
           </div>
         }
-      }
-    </c-card-body>
-  </c-card>
+      </c-card-body>
+    </c-card>
 
-  <c-card class="mb-2">
+    @if (response.value && response.value.files.length > 0) {
+      <app-files-list [files]="response.value.files" />
+    }
+  }
+
+  <c-card class="mb-3">
     <c-card-body>
       @if (detailRequest$() | withLoading | async; as response) {
         @if (response.loading) {
