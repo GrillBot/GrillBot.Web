@@ -38,12 +38,15 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
         {
           field: 'id',
           headerName: 'ID',
-          tooltipField: 'id'
+          tooltipField: 'id',
+          resizable: true,
+          width: 150
         },
         {
           field: 'type',
           headerName: 'Typ',
-          maxWidth: 250,
+          width: 230,
+          resizable: true,
           valueFormatter: params => (AuditLogTypeLocalization as any)[AuditLogType[params.value]]
         },
         {
@@ -53,7 +56,8 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           cellRendererParams: {
             sourceGenerator: (guildId: string | null) => guildId ? GuildLookupPipe.processTransform(guildId, this.#lookupClient) : null
           },
-          maxWidth: 300
+          resizable: true,
+          width: 300
         },
         {
           field: 'userId',
@@ -61,7 +65,9 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
             sourceGenerator: (userId: string) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null
-          }
+          },
+          resizable: true,
+          width: 300
         },
         {
           field: 'channelId',
@@ -69,12 +75,15 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           cellRenderer: AsyncLookupCellRendererComponent,
           cellRendererParams: {
             sourceGenerator: (channelId: string) => channelId ? ChannelLookupPipe.processTransform(channelId, this.#lookupClient) : null
-          }
+          },
+          resizable: true,
+          width: 300
         },
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',
-          maxWidth: 200,
+          resizable: true,
+          width: 200,
           sortable: true,
           initialSort: 'desc',
           context: {
@@ -85,19 +94,21 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
         {
           field: 'files',
           headerName: 'Souborů',
-          maxWidth: 110,
+          width: 100,
+          resizable: true,
           valueFormatter: params => params.value.length,
           cellDataType: 'spacedNumber'
         },
         {
           field: 'preview',
           headerName: 'Náhled',
+          resizable: true,
           cellRenderer: PreviewCellRendererComponent
         },
         {
           headerName: 'Akce',
           colId: 'actions',
-          maxWidth: 200,
+          width: 200,
           cellRenderer: ButtonsCellRendererComponent,
           cellRendererParams: {
             buttons: [
