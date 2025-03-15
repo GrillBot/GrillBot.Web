@@ -1,0 +1,12 @@
+<span>{{ preview().userId | userLookup | async }}</span>
+
+@if (isSomeChanged()) {
+  <div>
+    Změněno:
+    <ul class="mb-0">
+      @for (item of changedItems(); track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </div>
+}

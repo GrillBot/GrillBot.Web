@@ -1,0 +1,5 @@
+<div>{{ preview().path }}</div>
+<div>{{ preview().action }}</div>
+
+<app-info-row key="Výsledek" [value]="preview().result" />
+<app-info-row key="Trvání" [value]="preview().duration | timespan" />

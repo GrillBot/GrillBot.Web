@@ -1,0 +1,21 @@
+<app-info-row key="Název" [value]="preview().name" />
+<app-info-row key="Typ" [value]="preview().type" />
+
+@if (preview().slowmode) {
+  <app-info-row key="Slowmode" [value]="preview().slowmode * 1000 | timespan" />
+}
+
+@if (preview().bitrate != undefined) {
+  <app-info-row
+    key="Bitrate"
+    [value]="(preview().bitrate | spacedNumber) + ' bps'"
+  />
+}
+
+@if (preview().isNsfw != undefined) {
+  <app-checkbox
+    checkboxId="isNsfw"
+    label="NSFW kanál"
+    [formControl]="preview().isNsfw | asReadonlyFormControl"
+  />
+}

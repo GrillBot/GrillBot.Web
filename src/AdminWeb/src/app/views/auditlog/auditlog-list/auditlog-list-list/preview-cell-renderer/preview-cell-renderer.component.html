@@ -1,1 +1,65 @@
-TODO
+@switch (this.type) {
+  @case (5) {
+    <app-channel-preview [preview]="preview" />
+  }
+
+  @case (6) {
+    <app-channel-preview [preview]="preview" />
+  }
+
+  @case (7) {
+    <app-channel-updated-preview [preview]="preview" />
+  }
+
+  @case (8) {
+    <app-emote-deleted-preview [preview]="preview" />
+  }
+
+  @case (12) {
+    <app-unban-preview [preview]="preview" />
+  }
+
+  @case (13) {
+    <app-member-updated-preview [preview]="preview" />
+  }
+
+  @case (14) {
+    <app-member-role-updated-preview [preview]="preview" />
+  }
+
+  @case (15) {
+    <app-guild-updated-preview [preview]="preview" />
+  }
+
+  @case (16) {
+    <app-user-left-preview [preview]="preview" />
+  }
+
+  @case (17) {
+    <app-user-joined-preview [preview]="preview" />
+  }
+
+  @case (20) {
+    <app-interaction-command-preview [preview]="preview" />
+  }
+
+  @case (21) {
+    <app-thread-deleted-preview [preview]="preview" />
+  }
+
+  @case (22) {
+    <app-job-completed-preview [preview]="preview" />
+  }
+
+  @case (23) {
+    <app-api-preview [preview]="preview" />
+  }
+
+  @case (24) {
+    <app-thread-updated-preview [preview]="preview" />
+  }
+
+  @case (25) {
+    <app-role-deleted-preview [preview]="preview" />
+  }
+}

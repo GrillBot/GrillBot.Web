@@ -1,0 +1,9 @@
+<span>{{ preview().userId | userLookup | async }}</span>
+
+<div>
+  @for (item of preview().modifiedRoles | dictToList; track $index) {
+    <c-badge [color]="item.value ? 'success' : 'danger'">
+      {{ item.key }}
+    </c-badge>
+  }
+</div>

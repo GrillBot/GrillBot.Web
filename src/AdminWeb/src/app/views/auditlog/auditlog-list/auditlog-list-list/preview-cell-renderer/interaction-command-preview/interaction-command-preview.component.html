@@ -1,0 +1,19 @@
+<span [title]="preview().name">{{ preview().name }}</span>
+
+<div class="d-flex flex-column">
+  <app-checkbox
+    checkboxId="hasResponded"
+    label="Bot odpověděl"
+    [formControl]="preview().hasResponded | asReadonlyFormControl"
+  />
+
+  <app-checkbox
+    checkboxId="isSuccess"
+    label="Dokončen úspěšně"
+    [formControl]="preview().isSuccess | asReadonlyFormControl"
+  />
+
+  @if (!preview().isSuccess) {
+    <app-info-row key="Kód chyby" [value]="commandErrorText()" />
+  }
+</div>

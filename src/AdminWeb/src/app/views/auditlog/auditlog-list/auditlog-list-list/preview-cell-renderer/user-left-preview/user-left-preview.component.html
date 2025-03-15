@@ -1,0 +1,12 @@
+<span>{{ this.preview().userId | userLookup | async }}</span>
+
+<app-info-row
+  key="Počet uživatelů"
+  [value]="this.preview().memberCount | spacedNumber"
+/>
+
+@if (preview().isBan) {
+  <c-badge color="danger" [title]="preview().banReason ?? 'Bez udání důvodu'">
+    BAN
+  </c-badge>
+}
