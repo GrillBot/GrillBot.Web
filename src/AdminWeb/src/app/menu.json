@@ -40,8 +40,7 @@
     "permissions": [
       "AuditLog(Admin)"
     ],
-    "childItems": [],
-    "productionDisabled": true
+    "childItems": []
   },
   {
     "name": "Body",
