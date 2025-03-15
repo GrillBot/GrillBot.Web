@@ -1,3 +1,4 @@
+import { MessageEditedPreview } from './message-edited-preview/message-edited-preview.component';
 import { ICellRendererParams } from 'ag-grid-community';
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
@@ -17,6 +18,9 @@ import { JobCompletedPreviewComponent } from './job-completed-preview/job-comple
 import { ApiPreviewComponent } from './api-preview/api-preview.component';
 import { ThreadUpdatedPreviewComponent } from './thread-updated-preview/thread-updated-preview.component';
 import { RoleDeletedPreviewComponent } from './role-deleted-preview/role-deleted-preview.component';
+import { MessageDeletedPreviewComponent } from './message-deleted-preview/message-deleted-preview.component';
+import { OverwritePreviewComponent } from './overwrite-preview/overwrite-preview.component';
+import { TextPreviewComponent } from './text-preview/text-preview.component';
 
 
 @Component({
@@ -37,7 +41,11 @@ import { RoleDeletedPreviewComponent } from './role-deleted-preview/role-deleted
     JobCompletedPreviewComponent,
     ApiPreviewComponent,
     ThreadUpdatedPreviewComponent,
-    RoleDeletedPreviewComponent
+    RoleDeletedPreviewComponent,
+    MessageDeletedPreviewComponent,
+    MessageEditedPreview,
+    OverwritePreviewComponent,
+    TextPreviewComponent
   ]
 })
 export class PreviewCellRendererComponent implements ICellRendererAngularComp {

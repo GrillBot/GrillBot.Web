@@ -1,0 +1,27 @@
+<app-info-row key="Autor" [value]="preview().authorId | userLookup | async" />
+
+<app-info-row
+  key="Zpráva vytvořena"
+  [value]="preview().messageCreatedAt | localeDatePipe"
+/>
+
+@if (preview().contentLength > 0) {
+  <app-info-row
+    key="Délka zprávy"
+    [value]="preview().contentLength | spacedNumber"
+  />
+}
+
+@if (preview().embedCount > 0) {
+  <app-info-row
+    key="Počet embedů"
+    [value]="preview().embedCount | spacedNumber"
+  />
+}
+
+@if (preview().embedFieldsCount > 0) {
+  <app-info-row
+    key="Počet embed polí"
+    [value]="preview().embedFieldsCount | spacedNumber"
+  />
+}

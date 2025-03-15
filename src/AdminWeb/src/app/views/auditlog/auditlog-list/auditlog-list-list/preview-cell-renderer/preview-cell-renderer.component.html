@@ -1,4 +1,16 @@
 @switch (this.type) {
+  @case (1) {
+    <app-text-preview [preview]="preview" />
+  }
+
+  @case (2) {
+    <app-text-preview [preview]="preview" />
+  }
+
+  @case (3) {
+    <app-text-preview [preview]="preview" />
+  }
+
   @case (5) {
     <app-channel-preview [preview]="preview" />
   }
@@ -13,6 +25,18 @@
 
   @case (8) {
     <app-emote-deleted-preview [preview]="preview" />
+  }
+
+  @case (9) {
+    <app-overwrite-preview [preview]="preview" />
+  }
+
+  @case (10) {
+    <app-overwrite-preview [preview]="preview" />
+  }
+
+  @case (11) {
+    <app-overwrite-preview [preview]="preview" />
   }
 
   @case (12) {
@@ -37,6 +61,14 @@
 
   @case (17) {
     <app-user-joined-preview [preview]="preview" />
+  }
+
+  @case (18) {
+    <app-message-edited-preview [preview]="preview" />
+  }
+
+  @case (19) {
+    <app-message-deleted-preview [preview]="preview" />
   }
 
   @case (20) {

@@ -1,0 +1,11 @@
+<app-info-row
+  key="Délka zprávy před"
+  [value]="preview().contentLengthBefore | spacedNumber"
+/>
+
+<app-info-row
+  key="Délka zprávy po"
+  [value]="preview().contentLengthAfter | spacedNumber"
+/>
+
+<a [href]="preview().jumpUrl" target="_blank">Přejít na zprávu</a>

@@ -1,0 +1,15 @@
+@switch (preview().targetType) {
+  @case (0) {
+    <app-info-row
+      key="Role"
+      [value]="preview().targetId | roleLookup | async"
+    />
+  }
+
+  @case (1) {
+    <app-info-row
+      key="Uživatel"
+      [value]="preview().targetId | userLookup | async"
+    />
+  }
+}
