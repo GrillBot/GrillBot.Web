@@ -92,8 +92,6 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
               {
                 id: 'show-detail',
                 title: 'Smazat',
-                size: 'sm',
-                variant: 'ghost',
                 color: 'danger',
                 action: row => this.removeUserStatisticsRowModal()?.open(
                   () => this.userUsageItemRow = row,

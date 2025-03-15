@@ -112,8 +112,6 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
                   () => this.rowInModal = row,
                   () => this.rowInModal = undefined
                 ),
-                size: 'sm',
-                variant: 'ghost',
                 color: 'danger'
               },
             ] as ButtonDef[]

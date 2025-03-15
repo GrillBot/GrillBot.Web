@@ -7,6 +7,4 @@ export interface ButtonDef {
   isVisible?: (row: any) => boolean;
   id: string;
   color?: Colors;
-  size?: 'sm' | 'lg';
-  variant?: 'ghost' | 'outline';
 }

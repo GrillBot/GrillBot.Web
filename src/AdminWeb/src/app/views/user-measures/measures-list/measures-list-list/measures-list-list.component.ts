@@ -99,8 +99,6 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
               {
                 id: 'show-full-reason',
                 title: 'Zobrazit celý důvod',
-                size: 'sm',
-                variant: 'ghost',
                 color: 'primary',
                 action: row => this.openFullReasonModal()?.open(
                   () => this.reasonInModal = row.reason,
@@ -111,8 +109,6 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
               {
                 id: 'remove-measure',
                 title: 'Smazat opatření',
-                size: 'sm',
-                variant: 'ghost',
                 color: 'danger',
                 action: row => this.removeMeasureModal()?.open(
                   () => this.rowInModal = row,

@@ -111,8 +111,6 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
               {
                 id: 'show-detail',
                 title: 'Detail',
-                size: 'sm',
-                variant: 'ghost',
                 color: 'primary',
                 action: row => this.openDetail(row)
               }

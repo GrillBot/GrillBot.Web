@@ -12,6 +12,7 @@ import { AuditLogClient, LookupClient } from "../../../../core/clients";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { Router } from "@angular/router";
 import { ButtonDirective } from "@coreui/angular";
+import { PreviewCellRendererComponent } from "./preview-cell-renderer/preview-cell-renderer.component";
 
 @Component({
   selector: 'app-auditlog-list-list',
@@ -89,26 +90,21 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           cellDataType: 'spacedNumber'
         },
         {
+          field: 'preview',
+          headerName: 'Náhled',
+          cellRenderer: PreviewCellRendererComponent
+        },
+        {
           headerName: 'Akce',
           colId: 'actions',
-          maxWidth: 300,
+          maxWidth: 200,
           cellRenderer: ButtonsCellRendererComponent,
           cellRendererParams: {
             buttons: [
               {
-                id: 'show-preview',
-                title: 'Náhled',
-                action: row => alert(row),
-                size: 'sm',
-                variant: 'ghost',
-                color: 'primary'
-              },
-              {
                 id: 'detail',
                 title: 'Detail',
                 action: (row: LogListItem) => this.#router.navigate(['/web/auditlog/', row.id]),
-                size: 'sm',
-                variant: 'ghost',
                 isVisible: (row: LogListItem) => row.isDetailAvailable,
                 color: 'primary'
               },
@@ -119,7 +115,6 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
                   () => this.rowInModal = row,
                   () => this.rowInModal = undefined
                 ),
-                size: 'sm',
                 color: 'danger'
               }
             ] as ButtonDef[]
@@ -152,13 +147,12 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
 
   confirmItemRemove(): void {
     const modal = this.removeItemModal();
-    if (!modal || !this.rowInModal) {
-      return;
-    }
 
-    this.#client.deleteItem(this.rowInModal.id).subscribe(() => {
-      modal.close();
-      this.reload();
-    });
+    if (modal && this.rowInModal) {
+      this.#client.deleteItem(this.rowInModal.id).subscribe(() => {
+        modal.close();
+        this.reload();
+      });
+    }
   }
 }
