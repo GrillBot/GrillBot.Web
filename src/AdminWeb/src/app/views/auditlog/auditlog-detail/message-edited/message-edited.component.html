@@ -1,0 +1,20 @@
+<a [href]="detail().data.jumpLink" target="_blank">Přejít na zprávu</a>
+
+<h5 class="mt-3">Původní zpráva</h5>
+<c-alert color="secondary" class="mb-0">
+  <pre class="mb-0">{{ detail().data.contentBefore }}</pre>
+</c-alert>
+
+<h5 class="mt-3">Nová zpráva</h5>
+<c-alert color="secondary" class="mb-0">
+  <pre class="mb-0">{{ detail().data.contentAfter }}</pre>
+</c-alert>
+
+<h5 class="mt-3">Rozdíl</h5>
+<c-alert color="secondary" class="mb-0">
+  <pre class="mb-0">{{
+    (detail().data.contentAfter | stringDiff: detail().data.contentBefore).join(
+      "\n"
+    )
+  }}</pre>
+</c-alert>

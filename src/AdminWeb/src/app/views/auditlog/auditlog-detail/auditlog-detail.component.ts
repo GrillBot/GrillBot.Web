@@ -26,6 +26,8 @@ import { JobCompletedComponent } from "./job-completed/job-completed.component";
 import { RoleDeletedComponent } from "./role-deleted/role-deleted.component";
 import { ApiRequestComponent } from "./api-request/api-request.component";
 import { FilesListComponent } from "./files-list/files-list.component";
+import { MessageEditedComponent } from "./message-edited/message-edited.component";
+import { OverwriteComponent } from "./overwrite/overwrite.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -56,7 +58,9 @@ import { FilesListComponent } from "./files-list/files-list.component";
     JobCompletedComponent,
     RoleDeletedComponent,
     ApiRequestComponent,
-    FilesListComponent
+    FilesListComponent,
+    MessageEditedComponent,
+    OverwriteComponent
   ]
 })
 export class AuditLogDetailComponent {

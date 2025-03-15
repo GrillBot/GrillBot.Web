@@ -1,0 +1,43 @@
+<c-row>
+  <c-col md="8">
+    @switch (detail().data.targetType) {
+      @case (0) {
+        <app-info-row
+          key="Role"
+          [value]="detail().data.targetId | roleLookup | async"
+        />
+      }
+
+      @case (1) {
+        <app-info-row
+          key="Uživatel"
+          [value]="detail().data.targetId | userLookup | async"
+        />
+      }
+    }
+  </c-col>
+</c-row>
+
+<c-row>
+  @if (detail().data.allow?.length > 0) {
+    <c-col md="6">
+      <h5 class="mb-0 mt-3">Povolená oprávnění</h5>
+      <ul class="mb-0">
+        @for (perm of detail().data.allow; track $index) {
+          <li>{{ perm }}</li>
+        }
+      </ul>
+    </c-col>
+  }
+
+  @if (detail().data.deny?.length > 0) {
+    <c-col md="6">
+      <h5 class="mb-0 mt-3">Zakázaná oprávnění</h5>
+      <ul class="mb-0">
+        @for (perm of detail().data.deny; track $index) {
+          <li>{{ perm }}</li>
+        }
+      </ul>
+    </c-col>
+  }
+</c-row>

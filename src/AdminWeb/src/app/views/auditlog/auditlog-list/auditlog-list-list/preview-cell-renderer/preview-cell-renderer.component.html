@@ -1,42 +1,22 @@
+@if ([1, 2, 3].includes(this.type)) {
+  <app-text-preview [preview]="preview" />
+}
+
+@if ([5, 6].includes(this.type)) {
+  <app-channel-preview [preview]="preview" />
+}
+
+@if ([9, 10, 11].includes(this.type)) {
+  <app-overwrite-preview [preview]="preview" />
+}
+
 @switch (this.type) {
-  @case (1) {
-    <app-text-preview [preview]="preview" />
-  }
-
-  @case (2) {
-    <app-text-preview [preview]="preview" />
-  }
-
-  @case (3) {
-    <app-text-preview [preview]="preview" />
-  }
-
-  @case (5) {
-    <app-channel-preview [preview]="preview" />
-  }
-
-  @case (6) {
-    <app-channel-preview [preview]="preview" />
-  }
-
   @case (7) {
     <app-channel-updated-preview [preview]="preview" />
   }
 
   @case (8) {
     <app-emote-deleted-preview [preview]="preview" />
-  }
-
-  @case (9) {
-    <app-overwrite-preview [preview]="preview" />
-  }
-
-  @case (10) {
-    <app-overwrite-preview [preview]="preview" />
-  }
-
-  @case (11) {
-    <app-overwrite-preview [preview]="preview" />
   }
 
   @case (12) {

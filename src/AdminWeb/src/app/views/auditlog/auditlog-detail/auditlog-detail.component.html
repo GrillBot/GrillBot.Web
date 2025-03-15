@@ -77,6 +77,10 @@
             <app-detail-text [detail]="response.value" />
           }
 
+          @if ([9, 10].includes(response.value.type)) {
+            <app-overwrite [detail]="response.value" />
+          }
+
           @switch (response.value.type) {
             @case (7) {
               <app-channel-updated [detail]="response.value" />
@@ -92,6 +96,10 @@
 
             @case (15) {
               <app-guild-updated [detail]="response.value" />
+            }
+
+            @case (18) {
+              <app-message-edited [detail]="response.value" />
             }
 
             @case (19) {
