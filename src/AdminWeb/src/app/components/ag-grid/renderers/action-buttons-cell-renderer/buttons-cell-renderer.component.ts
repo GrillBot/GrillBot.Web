@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { ICellRendererParams } from "ag-grid-community";
 import { ButtonDef } from "./buttons-cell-renderer.models";
 import { ICellRendererAngularComp } from "ag-grid-angular";
-import { from } from 'typescript-extended-linq';
 import { ButtonDirective } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { VisibilityDirective } from "../../../../core/directives";
@@ -30,10 +29,10 @@ export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
   }
 
   refresh(params: ButtonsCellRendererParams): boolean {
-    const oldButtons = from(this.buttons).select(o => o.id).orderBy(o => o).toArray();
-    const newButtons = from(params.buttons).select(o => o.id).orderBy(o => o).toArray();
+    const oldButtons = this.buttons.map(o => o.id).sort();
+    const newButtons = params.buttons.map(o => o.id).sort();
 
-    if (from(oldButtons).sequenceEqual(newButtons)) {
+    if (oldButtons.length === newButtons.length && oldButtons.every((val, index) => val === newButtons[index])) {
       return false;
     }
 
