@@ -38,6 +38,13 @@
                 [ngTemplateOutletContext]="{ error: error[1] }"
               />
             }
+
+            @case ("maxlength") {
+              <ng-container
+                [ngTemplateOutlet]="maxLengthError"
+                [ngTemplateOutletContext]="{ error: error[1] }"
+              />
+            }
           }
         </li>
       }
@@ -61,6 +68,10 @@
 
 <ng-template #minLengthError let-error="error">
   Minimální povolená délka je {{ error.requiredLength }}
+</ng-template>
+
+<ng-template #maxLengthError let-error="error">
+  Maximální povolená délka je {{ error.requiredLength }}
 </ng-template>
 
 <ng-template #customValidationError let-error="error">

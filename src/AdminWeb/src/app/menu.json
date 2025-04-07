@@ -122,6 +122,30 @@
     "childItems": []
   },
   {
+    "name": "Pozvánky",
+    "url": "/web/invite",
+    "icon": "cil-envelope-open",
+    "permissions": [
+      "Invite(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Použité pozvánky",
+        "url": "/web/invite/used-invites",
+        "permissions": [
+          "Invite(Admin)"
+        ]
+      },
+      {
+        "name": "Cache",
+        "url": "/web/invite/cached-invites",
+        "permissions": [
+          "Invite(Admin)"
+        ]
+      }
+    ]
+  },
+  {
     "name": "Reminder",
     "url": "/web/reminder",
     "icon": "cil-clock",

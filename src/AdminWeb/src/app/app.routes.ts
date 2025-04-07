@@ -63,6 +63,13 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
+      },
+      {
+        path: 'invite',
+        loadChildren: () => import('./views/invite/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
       }
     ]
   },

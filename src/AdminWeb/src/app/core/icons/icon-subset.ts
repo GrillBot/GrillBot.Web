@@ -1,6 +1,5 @@
 import * as icons from '@coreui/icons';
 
-
 export const iconSubset = {
   cibDiscord: icons.cibDiscord,
   cibGithub: icons.cibGithub,
@@ -35,5 +34,6 @@ export const iconSubset = {
   cilArrowThickToRight: icons.cilArrowThickToRight,
   cilSmile: icons.cilSmile,
   cilShare: icons.cilShare,
-  cilDescription: icons.cilDescription
+  cilDescription: icons.cilDescription,
+  cilEnvelopeOpen: icons.cilEnvelopeOpen,
 };
