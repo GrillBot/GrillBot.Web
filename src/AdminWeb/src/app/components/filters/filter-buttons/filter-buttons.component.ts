@@ -13,12 +13,4 @@ import { FilterBaseComponent } from "../filter.component.base";
 export class FilterButtonsComponent {
   disabled = input.required<boolean>();
   filterComponent = input.required<FilterBaseComponent<any>>();
-
-  refreshClick() {
-    this.filterComponent().submitForm();
-  }
-
-  resetClick() {
-    this.filterComponent().resetFilter();
-  }
 }

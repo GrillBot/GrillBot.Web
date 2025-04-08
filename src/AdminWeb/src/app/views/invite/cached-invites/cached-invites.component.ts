@@ -3,7 +3,10 @@ import { InvitesListFilterComponent } from "../used-invites/invites-list-filter/
 import { CachedInvitesListComponent } from "./cached-invites-list/cached-invites-list.component";
 
 @Component({
-  template: '<app-invites-list-filter (filterEvent)="list.onFilterChanged($event)" /><app-cached-invites-list #list />',
+  template: `
+    <app-invites-list-filter (filterEvent)="list.onFilterChanged($event)" [allowSynchronization]="true" />
+    <app-cached-invites-list #list />
+  `,
   standalone: true,
   imports: [InvitesListFilterComponent, CachedInvitesListComponent]
 })

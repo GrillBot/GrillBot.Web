@@ -1,12 +1,14 @@
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent,
-  FormCardBodyComponent, GuildLookupComponent, UserLookupComponent, ValidationErrorsComponent
+  FormCardBodyComponent, GuildLookupComponent, GuildLookupPipe, ModalComponent, UserLookupComponent, ValidationErrorsComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { InviteListRequest } from "../../../../core/models/invite";
-import { Component } from "@angular/core";
-import { CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { Component, computed, inject, input, viewChild } from "@angular/core";
+import { ButtonDirective, CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { AsyncPipe } from "@angular/common";
+import { InviteClient } from "../../../../core/clients/invite.client";
 
 @Component({
   selector: 'app-invites-list-filter',
@@ -28,10 +30,23 @@ import { CardComponent, CardFooterComponent, ColComponent, FormControlDirective,
     CheckboxComponent,
     CardFooterComponent,
     FilterStoreComponent,
-    InputGroupComponent
+    InputGroupComponent,
+    ButtonDirective,
+    ModalComponent,
+    GuildLookupPipe,
+    AsyncPipe
   ]
 })
 export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRequest> {
+  readonly #client = inject(InviteClient);
+
+  allowSynchronization = input<boolean>(false);
+
+  isSynchronizationEnabled = computed(() => this.allowSynchronization() && this.form.value.guildId);
+  guildId = computed(() => this.form.value.guildId as string | null);
+
+  synchronizationModal = viewChild<ModalComponent>('synchronizationModal');
+
   override configure(): void {
     this.filterId = 'invite/invites-list';
   }
@@ -64,4 +79,17 @@ export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRe
     };
   }
 
+  confirmSynchronization(): void {
+    const modal = this.synchronizationModal();
+    const guildId = this.guildId();
+
+    if (!modal || !this.isSynchronizationEnabled() || !guildId) {
+      return;
+    }
+
+    this.#client.synchronizeGuildInvites(guildId).subscribe(() => {
+      this.submitForm();
+      modal.close();
+    });
+  }
 }

@@ -6,6 +6,19 @@
       <c-col>
         <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
+
+        @if (isSynchronizationEnabled()) {
+          <button
+            cButton
+            color="transparent"
+            size="sm"
+            class="btn-link"
+            variant="ghost"
+            (click)="synchronizationModal.open()"
+          >
+            Synchronizovat server
+          </button>
+        }
       </c-col>
 
       <c-col>
@@ -58,3 +71,35 @@
     </c-row>
   </c-card-footer>
 </c-card>
+
+<app-modal
+  #synchronizationModal
+  [title]="'Synchronizace serveru'"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    Opravdu si přejete synchronizovat cache pozvánek pro server "{{
+      guildId() | guildLookup | async
+    }}"?
+  </ng-container>
+
+  <ng-container footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="confirmSynchronization()"
+    >
+      Potvrdit
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="synchronizationModal.close()"
+    >
+      Zrušit
+    </button>
+  </ng-container>
+</app-modal>

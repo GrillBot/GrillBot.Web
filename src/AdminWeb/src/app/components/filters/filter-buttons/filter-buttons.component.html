@@ -3,12 +3,17 @@
   [disabled]="disabled()"
   [variant]="'ghost'"
   [color]="'dark'"
-  (click)="refreshClick()"
+  (click)="filterComponent().submitForm()"
   class="text-decoration-underline me-2"
 >
   Obnovit
 </button>
 
-<button cButton [color]="'danger'" [variant]="'outline'" (click)="resetClick()">
+<button
+  cButton
+  [color]="'danger'"
+  [variant]="'outline'"
+  (click)="filterComponent().resetFilter()"
+>
   Smazat filtr
 </button>
