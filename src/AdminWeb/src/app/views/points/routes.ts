@@ -14,7 +14,8 @@ export const routes: Routes = [
     loadComponent: () => import('./transactions/transactions.component').then(m => m.TransactionsComponent),
     data: {
       title: 'Body / Transakce',
-      canActivate: (perms: string[]) => perms.includes('Points(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Points(Admin)'),
+      filterId: 'points/transactions'
     }
   },
   {
@@ -22,7 +23,8 @@ export const routes: Routes = [
     loadComponent: () => import('./stats/stats.component').then(m => m.ChartsComponent),
     data: {
       title: 'Body / Statistiky',
-      canActivate: (perms: string[]) => perms.includes('Points(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Points(Admin)'),
+      filterId: 'points/stats'
     }
   },
   {

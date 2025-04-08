@@ -4,7 +4,7 @@ import { LocalStorageService } from "@coreui/angular";
 import { IForm } from "../../core/models/common";
 import { catchError, debounceTime, EMPTY, filter } from "rxjs";
 import { Router } from "@angular/router";
-import { mapQueryParamsFromSnapshot } from "../../core/mappers/router.mapper";
+import { mapDataFromSnapshot, mapQueryParamsFromSnapshot } from "../../core/mappers/router.mapper";
 import { NotificationsManager } from "../../core/managers/notifications.manager";
 import { FiltersClient } from "../../core/clients/filters.client";
 
@@ -28,6 +28,9 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> implements O
   }
 
   constructor() {
+    const routeData = mapDataFromSnapshot(this.#router.routerState.snapshot.root);
+    this.filterId = routeData['filterId'] || null;
+
     this.configure();
     this.form = this.#formBuilder.group<IForm<TFilter>>(this.createForm());
 

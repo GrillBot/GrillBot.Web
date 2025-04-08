@@ -8,6 +8,10 @@ export const mapQueryParamsFromSnapshot = (snapshot: ActivatedRouteSnapshot): Pa
   return mapPropertyFromSnapshot(snapshot, s => s.queryParams);
 }
 
+export const mapDataFromSnapshot = (snapshot: ActivatedRouteSnapshot): Params => {
+  return mapPropertyFromSnapshot(snapshot, s => s.data);
+}
+
 export const mapPropertyFromSnapshot = (
   snapshot: ActivatedRouteSnapshot,
   selector: (snapshot: ActivatedRouteSnapshot) => Params

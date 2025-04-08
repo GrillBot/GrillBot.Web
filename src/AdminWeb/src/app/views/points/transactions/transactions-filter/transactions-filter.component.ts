@@ -35,9 +35,7 @@ import { FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent } fro
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {
-  override configure(): void {
-    this.filterId = 'points/transactions';
-  }
+  override configure(): void { }
 
   override createForm(): IForm<AdminListRequest> {
     return {

@@ -11,7 +11,8 @@ export const routes: Routes = [
     loadComponent: () => import('./used-invites/used-invites.component').then(c => c.UsedInvitesComponent),
     data: {
       title: 'Použité pozvánky',
-      canActivate: (perms: string[]) => perms.includes('Invite(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Invite(Admin)'),
+      filterId: 'invite/used-invites'
     }
   },
   {
@@ -19,7 +20,8 @@ export const routes: Routes = [
     loadComponent: () => import('./cached-invites/cached-invites.component').then(c => c.CachedInvitesComponent),
     data: {
       title: 'Cache',
-      canActivate: (perms: string[]) => perms.includes('Invite(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Invite(Admin)'),
+      filterId: 'invite/cached-invites'
     }
   }
 ];
