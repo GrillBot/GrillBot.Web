@@ -68,6 +68,21 @@
             <th>Platné do</th>
             <td>{{ modalRows[0].validToUtc | localeDatePipe }}</td>
           </tr>
+
+          <tr>
+            <th>Server</th>
+            <td>{{ modalRows[0].guildId | guildLookup | async }}</td>
+          </tr>
+
+          <tr>
+            <th>Uživatel</th>
+            <td>{{ modalRows[0].userId | userLookup | async }}</td>
+          </tr>
+
+          <tr>
+            <th>Kanál</th>
+            <td>{{ modalRows[0].channelId | channelLookup | async }}</td>
+          </tr>
         }
       </table>
     }

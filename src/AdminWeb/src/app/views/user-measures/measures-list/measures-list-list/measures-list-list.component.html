@@ -38,6 +38,21 @@
           <th>Vytvořeno</th>
           <td>{{ rowInModal.createdAtUtc | localeDatePipe }}</td>
         </tr>
+
+        <tr>
+          <th>Server</th>
+          <td>{{ rowInModal.guildId | guildLookup | async }}</td>
+        </tr>
+
+        <tr>
+          <th>Moderátor</th>
+          <td>{{ rowInModal.moderatorId | userLookup | async }}</td>
+        </tr>
+
+        <tr>
+          <th>Uživatel</th>
+          <td>{{ rowInModal.userId | userLookup | async }}</td>
+        </tr>
       </table>
     }
   </ng-container>

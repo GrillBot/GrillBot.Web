@@ -24,6 +24,14 @@
           <td>{{ rowInModal.messageId }}</td>
         </tr>
         <tr>
+          <th>Server</th>
+          <td>{{ rowInModal.guildId | guildLookup | async }}</td>
+        </tr>
+        <tr>
+          <th>Uživatel</th>
+          <td>{{ rowInModal.userId | userLookup | async }}</td>
+        </tr>
+        <tr>
           <th>Vytvořeno</th>
           <td>{{ rowInModal.createdAt | localeDatePipe }}</td>
         </tr>

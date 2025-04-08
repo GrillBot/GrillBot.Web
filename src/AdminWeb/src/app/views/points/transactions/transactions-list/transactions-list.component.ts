@@ -13,6 +13,7 @@ import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
 import { ButtonDirective, TableDirective } from "@coreui/angular";
+import { AsyncPipe } from "@angular/common";
 
 @Component({
   selector: 'app-transactions-list',
@@ -23,7 +24,10 @@ import { ButtonDirective, TableDirective } from "@coreui/angular";
     ModalComponent,
     TableDirective,
     LocaleDatePipe,
-    ButtonDirective
+    ButtonDirective,
+    GuildLookupPipe,
+    UserLookupPipe,
+    AsyncPipe
   ]
 })
 export class TransactionsListComponent extends ListBaseComponent<AdminListRequest, TransactionItem> {

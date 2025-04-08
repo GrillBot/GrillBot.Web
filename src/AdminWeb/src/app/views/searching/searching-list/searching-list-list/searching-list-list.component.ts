@@ -13,6 +13,7 @@ import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import * as rxjs from 'rxjs';
 import { AlertComponent, ButtonDirective, ColComponent, RowComponent, TableDirective } from "@coreui/angular";
+import { AsyncPipe } from "@angular/common";
 
 @Component({
   selector: 'app-searching-list-list',
@@ -27,7 +28,11 @@ import { AlertComponent, ButtonDirective, ColComponent, RowComponent, TableDirec
     AlertComponent,
     TableDirective,
     PropsPipe,
-    LocaleDatePipe
+    LocaleDatePipe,
+    GuildLookupPipe,
+    UserLookupPipe,
+    ChannelLookupPipe,
+    AsyncPipe,
   ]
 })
 export class SearchingListListComponent extends ListBaseComponent<SearchingListRequest, SearchListItem> {

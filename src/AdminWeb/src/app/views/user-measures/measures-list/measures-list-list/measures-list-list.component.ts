@@ -13,6 +13,7 @@ import { UserMeasuresClient } from "../../../../core/clients/user-measures.clien
 import { CutStringPipe, LocaleDatePipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { ButtonDirective, TableDirective } from "@coreui/angular";
+import { AsyncPipe } from "@angular/common";
 
 const MAX_REASON_CELL_LENGTH = 30;
 
@@ -25,7 +26,10 @@ const MAX_REASON_CELL_LENGTH = 30;
     ModalComponent,
     TableDirective,
     LocaleDatePipe,
-    ButtonDirective
+    ButtonDirective,
+    UserLookupPipe,
+    GuildLookupPipe,
+    AsyncPipe
   ]
 })
 export class MeasuresListListComponent extends ListBaseComponent<MeasuresListParams, MeasuresItem> {
