@@ -1,3 +1,4 @@
+import { DateRange } from "../../../components";
 import { AdvancedSearchRequest } from "./advanced-search-request";
 import { ApiSearchRequest } from "./api-search-request";
 import { ExecutionSearchRequest } from "./execution-search-request";
@@ -11,8 +12,7 @@ export interface FormSearchRequest {
   channelId: string | null;
   showTypes: number[];
   ignoreTypes: number[];
-  createdFrom: string | null;
-  createdTo: string | null;
+  created: DateRange | null;
   onlyWithFiles: boolean;
   ids: string | null;
 

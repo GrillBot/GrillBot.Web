@@ -29,8 +29,8 @@ export const mapAuditLogSearchRequest = (request: FormSearchRequest): SearchRequ
   return {
     guildId: request.guildId,
     channelId: request.channelId,
-    createdFrom: request.createdFrom ? `${request.createdFrom}Z` : null,
-    createdTo: request.createdTo ? `${request.createdTo}Z` : null,
+    createdFrom: request.created?.from ?? null,
+    createdTo: request.created?.to ?? null,
     ids: request.ids?.split(',').map(o => o.trim()) ?? null,
     ignoreTypes: request.ignoreTypes ?? [],
     onlyWithFiles: request.onlyWithFiles,

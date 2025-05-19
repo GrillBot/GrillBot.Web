@@ -1,10 +1,10 @@
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
 import { Component, computed } from "@angular/core";
-import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
+import { DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
-import { ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbox.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
@@ -20,8 +20,6 @@ import { AdvancedFilters } from '../advanced-filters';
     RowComponent,
     ColComponent,
     GuildLookupComponent,
-    FormControlDirective,
-    InputGroupComponent,
     FormLabelDirective,
     ChannelLookupComponent,
     CheckboxComponent,
@@ -31,7 +29,8 @@ import { AdvancedFilters } from '../advanced-filters';
     NgSelectorDirective,
     ...AdvancedFilters,
     FilterCardComponent,
-    TextInputComponent
+    TextInputComponent,
+    DatetimeRangeComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {
@@ -50,8 +49,7 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       channelId: this.createControl(),
       showTypes: this.createControl(),
       ignoreTypes: this.createControl({ validators: [] }, [AuditLogType.Api]),
-      createdFrom: this.createControl(),
-      createdTo: this.createControl(),
+      created: this.createControl(),
       onlyWithFiles: this.createControl({ validators: [] }, false),
       ids: this.createControl(),
 
