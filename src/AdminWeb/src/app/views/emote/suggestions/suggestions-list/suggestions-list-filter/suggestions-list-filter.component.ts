@@ -1,11 +1,14 @@
 import { Component } from "@angular/core";
 import {
-  FilterBaseComponent, FilterCardComponent, TextInputComponent
+  DatetimeRangeComponent,
+  FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent,
+  UserLookupComponent
 } from "../../../../../components";
 import { IForm } from "../../../../../core/models/common";
-import { EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
+import { EmoteSuggestionsListFilter, EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
+import { ColComponent, RowComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-suggestions-list-filter',
@@ -15,20 +18,25 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
     ReactiveFormsModule,
     TriStateCheckboxModule,
     FilterCardComponent,
-    TextInputComponent
+    TextInputComponent,
+    GuildLookupComponent,
+    UserLookupComponent,
+    TriStateCheckboxModule,
+    RowComponent,
+    ColComponent,
+    DatetimeRangeComponent
   ]
 })
-export class SuggestionsListFilterComponent extends FilterBaseComponent<EmoteSuggestionsListRequest> {
+export class SuggestionsListFilterComponent extends FilterBaseComponent<EmoteSuggestionsListFilter> {
   override configure(): void {
     this.filterId = 'emote/suggestions-list';
   }
 
-  override createForm(): IForm<EmoteSuggestionsListRequest> {
+  override createForm(): IForm<EmoteSuggestionsListFilter> {
     return {
       guildId: this.createControl(),
       fromUserId: this.createControl(),
-      suggestedFrom: this.createControl(),
-      suggestedTo: this.createControl(),
+      suggested: this.createControl(),
       nameContains: this.createControl(),
       approvalState: this.createControl(),
     };

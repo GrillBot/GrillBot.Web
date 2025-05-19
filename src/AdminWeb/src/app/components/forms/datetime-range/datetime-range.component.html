@@ -1,0 +1,17 @@
+<label cLabel>{{ label() }} (OD - DO)</label>
+
+<c-input-group [sizing]="sizing()">
+  <input
+    cFormControl
+    type="datetime-local"
+    [formControl]="fromControl()"
+    [sizing]="sizing()"
+  />
+
+  <input
+    cFormControl
+    type="datetime-local"
+    [formControl]="toControl()"
+    [sizing]="sizing()"
+  />
+</c-input-group>

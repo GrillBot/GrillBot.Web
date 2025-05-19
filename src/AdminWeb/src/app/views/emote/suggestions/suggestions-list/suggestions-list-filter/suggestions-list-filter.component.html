@@ -1,3 +1,29 @@
 <app-filter-card [form]="form" [parentFilterComponent]="this">
-  <app-text-input label="Název obsahuje" formControlName="nameContains" />
+  <c-row>
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
+
+    <c-col>
+      <app-user-lookup formControlName="fromUserId" label="Navrhovatel" />
+    </c-col>
+  </c-row>
+
+  <c-row class="mt-2">
+    <c-col>
+      <app-datetime-range formControlName="suggested" label="Navrhnuto" />
+    </c-col>
+
+    <c-col md="4">
+      <app-text-input formControlName="nameContains" label="Název" />
+    </c-col>
+
+    <c-col class="d-flex align-items-center" md="2">
+      <p-triStateCheckbox
+        inputId="approvalState"
+        formControlName="approvalState"
+        label="Schváleno / Zamítnuto"
+      />
+    </c-col>
+  </c-row>
 </app-filter-card>
