@@ -4,7 +4,6 @@
   <app-form-card-body [form]="form" [header]="header">
     <c-row class="mb-1">
       <c-col>
-        <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
 
         @if (isSynchronizationEnabled()) {
@@ -22,8 +21,7 @@
       </c-col>
 
       <c-col>
-        <label cLabel for="creatorId">Zakladatel</label>
-        <app-user-lookup formControlName="creatorId" />
+        <app-user-lookup formControlName="creatorId" label="Zakladatel" />
         <app-checkbox
           checkboxId="onlyWithoutCreator"
           formControlName="onlyWithoutCreator"

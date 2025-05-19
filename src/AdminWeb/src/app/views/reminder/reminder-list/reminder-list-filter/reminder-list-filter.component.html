@@ -4,13 +4,11 @@
   <app-form-card-body [form]="form" [header]="header">
     <c-row class="mb-1">
       <c-col>
-        <label cLabel for="fromUserId">Od uživatele</label>
-        <app-user-lookup formControlName="fromUserId" />
+        <app-user-lookup formControlName="fromUserId" label="Od uživatele" />
       </c-col>
 
       <c-col>
-        <label cLabel for="toUserId">Pro uživatele</label>
-        <app-user-lookup formControlName="toUserId" />
+        <app-user-lookup formControlName="toUserId" label="Pro uživatele" />
       </c-col>
 
       <c-col>

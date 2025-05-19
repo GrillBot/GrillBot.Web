@@ -3,7 +3,7 @@ import { FilterBaseComponent, FilterStoreComponent } from "../../../../component
 import { UserListRequest } from "../../../../core/models/points/user-list-request";
 import { IForm } from "../../../../core/models/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardComponent, CardFooterComponent, ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
+import { CardComponent, CardFooterComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { CardHeaderComponent, FormCardBodyComponent } from "../../../../components";
 import { GuildLookupComponent } from "../../../../components/lookups";
 import { FilterButtonsComponent } from "../../../../components/filters/filter-buttons/filter-buttons.component";
@@ -18,7 +18,6 @@ import { FilterButtonsComponent } from "../../../../components/filters/filter-bu
     CardHeaderComponent,
     RowComponent,
     ColComponent,
-    FormLabelDirective,
     GuildLookupComponent,
     FilterButtonsComponent,
     FormCardBodyComponent,

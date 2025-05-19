@@ -5,14 +5,13 @@
     <form [formGroup]="form">
       <c-row class="mb-1">
         <c-col>
-          <label cLabel for="authorId">Autor</label>
-          <app-user-lookup formControlName="authorId" />
+          <app-user-lookup formControlName="authorId" label="Autor" />
         </c-col>
       </c-row>
 
       <c-row>
         <c-col md="6">
-          <label cLabel for="contentContains">Text obashuje</label>
+          <label cLabel for="contentContains">Text obsahuje</label>
           <input
             cFormControl
             formControlName="contentContains"

@@ -3,7 +3,7 @@ import { EmoteClient } from "../../../../core/clients";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   AlertComponent, ButtonDirective, CardBodyComponent, CardComponent, CardTitleDirective,
-  ColComponent, Colors, FormDirective, FormLabelDirective, RowComponent
+  ColComponent, Colors, FormDirective, RowComponent
 } from "@coreui/angular";
 import { LoadingComponent, ValidationErrorsComponent } from "../../../../components";
 import { SupportedEmotesLookupComponent } from "../../../../components/lookups";
@@ -29,7 +29,6 @@ export type MergeState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     FormDirective,
     RowComponent,
     ColComponent,
-    FormLabelDirective,
     ValidationErrorsComponent,
     SupportedEmotesLookupComponent,
     ButtonDirective,

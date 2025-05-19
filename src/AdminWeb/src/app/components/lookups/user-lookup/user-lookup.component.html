@@ -1,4 +1,6 @@
 @if (userLookup$ | withLoading | async; as lookup) {
+  <label cLabel>{{ label() ?? "Uživatel" }}</label>
+
   <ng-select
     ngSelector
     [loading]="lookup.loading"

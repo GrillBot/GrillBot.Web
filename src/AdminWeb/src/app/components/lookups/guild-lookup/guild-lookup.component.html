@@ -1,4 +1,6 @@
 @if (guildLookupSource$ | withLoading | async; as lookup) {
+  <label cLabel>{{ label() ?? "Server" }}</label>
+
   <ng-select
     ngSelector
     [loading]="lookup.loading"

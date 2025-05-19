@@ -5,10 +5,10 @@
     <form cForm [formGroup]="form" class="mb-3">
       <c-row class="mb-2">
         <c-col>
-          <label cLabel for="destinationEmoteId">Cílový emote</label>
           <app-supported-emotes-lookup
             [guildId]="guildId()"
             formControlName="destinationEmoteId"
+            [label]="'Cílový emote'"
           />
           <app-validation-errors
             [form]="form"

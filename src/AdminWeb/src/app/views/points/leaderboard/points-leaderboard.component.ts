@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from "@angular/core";
-import { CardComponent, CardFooterComponent, FormLabelDirective } from "@coreui/angular";
+import { CardComponent, CardFooterComponent } from "@coreui/angular";
 import { AsyncLookupCellRendererComponent, CardHeaderComponent, FormCardBodyComponent, STRIPED_ROW_STYLE } from "../../../components";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
@@ -21,7 +21,6 @@ import { ValidationErrorsComponent } from "../../../components/forms/validation-
     CardComponent,
     CardHeaderComponent,
     ReactiveFormsModule,
-    FormLabelDirective,
     AgGridComponent,
     GuildLookupComponent,
     FormCardBodyComponent,

@@ -7,6 +7,7 @@ import { NgSelectorDirective } from "../../../core/directives";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
 import { Channel } from "../../../core/models/channels/channel";
+import { FormLabelDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-channel-lookup',
@@ -19,7 +20,8 @@ import { Channel } from "../../../core/models/channels/channel";
     NgSelectorDirective,
     ReactiveFormsModule,
     NgOptionTemplateDirective,
-    NgOptionHighlightDirective
+    NgOptionHighlightDirective,
+    FormLabelDirective
   ],
   providers: [
     {

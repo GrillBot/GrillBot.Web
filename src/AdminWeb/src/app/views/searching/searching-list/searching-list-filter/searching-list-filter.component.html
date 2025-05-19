@@ -4,17 +4,14 @@
   <app-form-card-body [form]="form" [header]="header">
     <c-row class="mb-1">
       <c-col>
-        <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
       </c-col>
 
       <c-col>
-        <label cLabel for="userId">Uživatel</label>
         <app-user-lookup formControlName="userId" />
       </c-col>
 
       <c-col>
-        <label cLabel for="channelId">Kanál</label>
         <app-channel-lookup formControlName="channelId" />
       </c-col>
     </c-row>

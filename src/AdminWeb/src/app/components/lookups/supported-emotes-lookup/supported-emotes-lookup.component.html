@@ -1,4 +1,6 @@
 @if (emotesLookup$() | withLoading | async; as lookup) {
+  <label cLabel>{{ label() ?? "Emote" }}</label>
+
   <ng-select
     ngSelector
     [loading]="lookup.loading"

@@ -6,6 +6,7 @@ import { WithLoadingPipe } from "../../../core/pipes";
 import { NgSelectorDirective } from "../../../core/directives";
 import { LookupBaseComponent } from "../lookup.component.base";
 import { Guild } from "../../../core/models/guilds";
+import { FormLabelDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-guild-lookup',
@@ -16,7 +17,8 @@ import { Guild } from "../../../core/models/guilds";
     WithLoadingPipe,
     NgSelectComponent,
     NgSelectorDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormLabelDirective
   ],
   providers: [
     {

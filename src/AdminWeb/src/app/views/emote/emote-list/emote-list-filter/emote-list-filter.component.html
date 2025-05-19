@@ -4,13 +4,11 @@
   <app-form-card-body [form]="form" [header]="header">
     <c-row class="mb-1">
       <c-col>
-        <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
       </c-col>
 
       <c-col>
-        <label cLabel for="userId">Použil uživatel</label>
-        <app-user-lookup formControlName="userId" />
+        <app-user-lookup formControlName="userId" label="Použil uživatel" />
       </c-col>
     </c-row>
 

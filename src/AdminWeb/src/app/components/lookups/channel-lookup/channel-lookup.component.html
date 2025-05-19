@@ -1,4 +1,6 @@
 @if (channelLookupSource$ | withLoading | async; as lookup) {
+  <label cLabel>{{ label() ?? "Kanál" }}</label>
+
   <ng-select
     ngSelector
     [loading]="lookup.loading"

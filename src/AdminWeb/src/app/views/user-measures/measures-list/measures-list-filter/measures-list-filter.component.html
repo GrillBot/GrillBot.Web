@@ -36,20 +36,17 @@
 
     <c-row class="mb-1">
       <c-col>
-        <label cLabel for="guildId">Server</label>
         <app-guild-lookup formControlName="guildId" />
       </c-col>
 
       <c-col>
-        <label cLabel for="userId">Uživatel</label>
         <app-user-lookup formControlName="userId" />
       </c-col>
     </c-row>
 
     <c-row>
       <c-col>
-        <label cLabel for="moderatorId">Moderátor</label>
-        <app-user-lookup formControlName="moderatorId" />
+        <app-user-lookup formControlName="moderatorId" label="Moderátor" />
       </c-col>
     </c-row>
   </app-form-card-body>

@@ -4,13 +4,14 @@
       <form cForm [formGroup]="form">
         <c-row>
           <c-col>
-            <label cLabel for="guildId">Server</label>
             <app-guild-lookup formControlName="guildId" />
             <app-validation-errors [form]="form" controlName="guildId" />
           </c-col>
           <c-col>
-            <label cLabel for="fromUserId">Od uživatele</label>
-            <app-user-lookup formControlName="fromUserId" />
+            <app-user-lookup
+              formControlName="fromUserId"
+              label="Od uživatele"
+            />
             <app-validation-errors [form]="form" controlName="fromUserId" />
           </c-col>
         </c-row>
@@ -23,8 +24,10 @@
           </c-col>
 
           <c-col>
-            <label cLabel for="toUserId">Cílový uživatel</label>
-            <app-user-lookup formControlName="toUserId" />
+            <app-user-lookup
+              formControlName="toUserId"
+              label="Cílový uživatel"
+            />
             <app-validation-errors [form]="form" controlName="toUserId" />
           </c-col>
         </c-row>

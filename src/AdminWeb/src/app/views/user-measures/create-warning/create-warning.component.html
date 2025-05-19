@@ -4,13 +4,11 @@
       <form cForm [formGroup]="form">
         <c-row class="mb-1">
           <c-col>
-            <label cLabel for="guildId">Server</label>
             <app-guild-lookup formControlName="guildId" />
             <app-validation-errors [form]="form" controlName="guildId" />
           </c-col>
 
           <c-col>
-            <label cLabel for="userId">Uživatel</label>
             <app-user-lookup formControlName="userId" />
             <app-validation-errors [form]="form" controlName="userId" />
           </c-col>
