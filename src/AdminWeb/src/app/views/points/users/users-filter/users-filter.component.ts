@@ -1,12 +1,10 @@
 import { Component } from "@angular/core";
-import { FilterBaseComponent, FilterStoreComponent } from "../../../../components/filters";
+import { FilterBaseComponent, FilterCardComponent } from "../../../../components/filters";
 import { UserListRequest } from "../../../../core/models/points/user-list-request";
 import { IForm } from "../../../../core/models/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardComponent, CardFooterComponent, ColComponent, RowComponent } from "@coreui/angular";
-import { CardHeaderComponent, FormCardBodyComponent } from "../../../../components";
+import { ColComponent, RowComponent } from "@coreui/angular";
 import { GuildLookupComponent } from "../../../../components/lookups";
-import { FilterButtonsComponent } from "../../../../components/filters/filter-buttons/filter-buttons.component";
 
 @Component({
   selector: 'app-users-filter',
@@ -14,15 +12,10 @@ import { FilterButtonsComponent } from "../../../../components/filters/filter-bu
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CardComponent,
-    CardHeaderComponent,
     RowComponent,
     ColComponent,
     GuildLookupComponent,
-    FilterButtonsComponent,
-    FormCardBodyComponent,
-    CardFooterComponent,
-    FilterStoreComponent
+    FilterCardComponent
   ]
 })
 export class UsersFilterComponent extends FilterBaseComponent<UserListRequest> {

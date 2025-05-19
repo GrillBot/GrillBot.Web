@@ -1,97 +1,75 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <app-guild-lookup formControlName="guildId" />
-      </c-col>
+    <c-col>
+      <app-user-lookup formControlName="userId" />
+    </c-col>
+  </c-row>
 
-      <c-col>
-        <app-user-lookup formControlName="userId" />
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-1">
-      <c-col>
-        <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdTo"
-          />
-        </c-input-group>
-      </c-col>
-
-      <c-col>
-        <label cLabel for="messageId">ID zprávy</label>
+  <c-row class="mb-1">
+    <c-col>
+      <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+      <c-input-group>
         <input
           cFormControl
-          type="text"
-          formControlName="messageId"
-          autocomplete="off"
+          type="datetime-local"
+          formControlName="createdFrom"
         />
-        <app-validation-errors [form]="form" controlName="messageId" />
-      </c-col>
-    </c-row>
 
-    <c-row>
-      <c-col>
-        <label cLabel for="showMerged">Typ transakcí</label>
-        <app-radio-group
-          radioId="showMerged"
-          [items]="[
-            { label: 'Aktivní', value: false },
-            { label: 'Archivované', value: true },
-          ]"
-          formControlName="showMerged"
-        />
-      </c-col>
+        <input cFormControl type="datetime-local" formControlName="createdTo" />
+      </c-input-group>
+    </c-col>
 
-      <c-col>
-        <label cLabel>&nbsp;</label>
+    <c-col>
+      <label cLabel for="messageId">ID zprávy</label>
+      <input
+        cFormControl
+        type="text"
+        formControlName="messageId"
+        autocomplete="off"
+      />
+      <app-validation-errors [form]="form" controlName="messageId" />
+    </c-col>
+  </c-row>
 
-        <c-row>
-          <c-col>
-            <app-checkbox
-              checkboxId="onlyMessages"
-              label="Pouze zprávy"
-              formControlName="onlyMessages"
-            />
-          </c-col>
+  <c-row>
+    <c-col>
+      <label cLabel for="showMerged">Typ transakcí</label>
+      <app-radio-group
+        radioId="showMerged"
+        [items]="[
+          { label: 'Aktivní', value: false },
+          { label: 'Archivované', value: true },
+        ]"
+        formControlName="showMerged"
+      />
+    </c-col>
 
-          <c-col>
-            <app-checkbox
-              checkboxId="onlyReactions"
-              label="Pouze reakce"
-              formControlName="onlyReactions"
-            />
-          </c-col>
-        </c-row>
+    <c-col>
+      <label cLabel>&nbsp;</label>
 
-        <div></div>
-      </c-col>
-    </c-row>
-  </app-form-card-body>
+      <c-row>
+        <c-col>
+          <app-checkbox
+            checkboxId="onlyMessages"
+            label="Pouze zprávy"
+            formControlName="onlyMessages"
+          />
+        </c-col>
 
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
-        <app-filter-buttons
-          [disabled]="form.invalid"
-          [filterComponent]="this"
-        />
-      </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+        <c-col>
+          <app-checkbox
+            checkboxId="onlyReactions"
+            label="Pouze reakce"
+            formControlName="onlyReactions"
+          />
+        </c-col>
+      </c-row>
+
+      <div></div>
+    </c-col>
+  </c-row>
+</app-filter-card>

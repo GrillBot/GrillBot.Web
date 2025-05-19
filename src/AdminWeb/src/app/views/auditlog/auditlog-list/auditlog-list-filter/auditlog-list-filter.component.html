@@ -1,190 +1,165 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <label cLabel for="ids">ID záznamů (oddělovat čárkou)</label>
+      <input cFormControl type="text" formControlName="ids" />
+    </c-col>
+  </c-row>
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <label cLabel for="ids">ID záznamů (oddělovat čárkou)</label>
-        <input cFormControl type="text" formControlName="ids" />
+  <c-row class="mb-1">
+    <c-col md="4">
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
+
+    <c-col md="4">
+      <app-user-lookup formControlName="userId" />
+    </c-col>
+
+    <c-col md="4">
+      <app-channel-lookup formControlName="channelId" />
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-1">
+    <c-col md="4">
+      <label cLabel for="showTypes">Zobrazit operace</label>
+      <ng-select
+        ngSelector
+        [items]="logTypes()"
+        formControlName="showTypes"
+        multiple="true"
+      />
+    </c-col>
+
+    <c-col md="4">
+      <label cLabel for="ignoreTypes">Vynechat operace</label>
+      <ng-select
+        ngSelector
+        [items]="logTypes()"
+        formControlName="ignoreTypes"
+        multiple="true"
+      />
+    </c-col>
+
+    <c-col md="4">
+      <label cLabel for="createdFrom">Vytvořeno (OD-DO)</label>
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="createdFrom"
+        />
+
+        <input cFormControl type="datetime-local" formControlName="createdTo" />
+      </c-input-group>
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-2">
+    <c-col>
+      <app-checkbox
+        checkboxId="onlyWithFiles"
+        formControlName="onlyWithFiles"
+        label="Pouze se soubory"
+      />
+    </c-col>
+  </c-row>
+
+  <c-row>
+    @if (canShowAdvancedFilter(AuditLogType.Info)) {
+      <c-col md="6">
+        <app-text-search formControlName="adv_info" title="Informační zpráva" />
       </c-col>
-    </c-row>
+    }
 
-    <c-row class="mb-1">
-      <c-col md="4">
-        <app-guild-lookup formControlName="guildId" />
+    @if (canShowAdvancedFilter(AuditLogType.Warning)) {
+      <c-col md="6">
+        <app-text-search formControlName="adv_warning" title="Varování" />
       </c-col>
+    }
 
-      <c-col md="4">
-        <app-user-lookup formControlName="userId" />
+    @if (canShowAdvancedFilter(AuditLogType.Error)) {
+      <c-col md="6">
+        <app-text-search formControlName="adv_error" title="Chyba" />
       </c-col>
+    }
 
-      <c-col md="4">
-        <app-channel-lookup formControlName="channelId" />
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-1">
-      <c-col md="4">
-        <label cLabel for="showTypes">Zobrazit operace</label>
-        <ng-select
-          ngSelector
-          [items]="logTypes()"
-          formControlName="showTypes"
-          multiple="true"
+    @if (canShowAdvancedFilter(AuditLogType.InteractionCommand)) {
+      <c-col md="6">
+        <app-execution-search
+          formControlName="adv_interaction"
+          title="Příkazy"
         />
       </c-col>
+    }
 
-      <c-col md="4">
-        <label cLabel for="ignoreTypes">Vynechat operace</label>
-        <ng-select
-          ngSelector
-          [items]="logTypes()"
-          formControlName="ignoreTypes"
-          multiple="true"
+    @if (canShowAdvancedFilter(AuditLogType.JobCompleted)) {
+      <c-col md="6">
+        <app-execution-search
+          formControlName="adv_jobs"
+          title="Naplánované úlohy"
         />
       </c-col>
+    }
 
-      <c-col md="4">
-        <label cLabel for="createdFrom">Vytvořeno (OD-DO)</label>
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdTo"
-          />
-        </c-input-group>
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-2">
-      <c-col>
-        <app-checkbox
-          checkboxId="onlyWithFiles"
-          formControlName="onlyWithFiles"
-          label="Pouze se soubory"
+    @if (canShowAdvancedFilter(AuditLogType.OverwriteCreated)) {
+      <c-col md="6">
+        <app-user-search
+          formControlName="adv_overwriteCreated"
+          title="Vytvoření výjimky do kanálu"
         />
       </c-col>
-    </c-row>
+    }
 
-    <c-row>
-      @if (canShowAdvancedFilter(AuditLogType.Info)) {
-        <c-col md="6">
-          <app-text-search
-            formControlName="adv_info"
-            title="Informační zpráva"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.Warning)) {
-        <c-col md="6">
-          <app-text-search formControlName="adv_warning" title="Varování" />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.Error)) {
-        <c-col md="6">
-          <app-text-search formControlName="adv_error" title="Chyba" />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.InteractionCommand)) {
-        <c-col md="6">
-          <app-execution-search
-            formControlName="adv_interaction"
-            title="Příkazy"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.JobCompleted)) {
-        <c-col md="6">
-          <app-execution-search
-            formControlName="adv_jobs"
-            title="Naplánované úlohy"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.OverwriteCreated)) {
-        <c-col md="6">
-          <app-user-search
-            formControlName="adv_overwriteCreated"
-            title="Vytvoření výjimky do kanálu"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.OverwriteDeleted)) {
-        <c-col md="6">
-          <app-user-search
-            formControlName="adv_overwriteDeleted"
-            title="Smazání výjimky do kanálu"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.OverwriteUpdated)) {
-        <c-col md="6">
-          <app-user-search
-            formControlName="adv_overwriteUpdated"
-            title="Úprava výjimky do kanálu"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.MemberUpdated)) {
-        <c-col md="6">
-          <app-user-search
-            formControlName="adv_memberUpdated"
-            title="Upraven uživatel"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.MemberRoleUpdated)) {
-        <c-col md="6">
-          <app-user-search
-            formControlName="adv_memberRolesUpdated"
-            title="Úprava rolí uživatele"
-          />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.Api)) {
-        <c-col md="6">
-          <app-api-search formControlName="adv_api" title="API požadavek" />
-        </c-col>
-      }
-
-      @if (canShowAdvancedFilter(AuditLogType.MessageDeleted)) {
-        <c-col md="6">
-          <app-message-deleted-search
-            formControlName="adv_messageDeleted"
-            title="Zpráva odebrána"
-          />
-        </c-col>
-      }
-    </c-row>
-  </app-form-card-body>
-
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
-        <app-filter-buttons
-          [disabled]="form.invalid"
-          [filterComponent]="this"
+    @if (canShowAdvancedFilter(AuditLogType.OverwriteDeleted)) {
+      <c-col md="6">
+        <app-user-search
+          formControlName="adv_overwriteDeleted"
+          title="Smazání výjimky do kanálu"
         />
       </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+    }
+
+    @if (canShowAdvancedFilter(AuditLogType.OverwriteUpdated)) {
+      <c-col md="6">
+        <app-user-search
+          formControlName="adv_overwriteUpdated"
+          title="Úprava výjimky do kanálu"
+        />
+      </c-col>
+    }
+
+    @if (canShowAdvancedFilter(AuditLogType.MemberUpdated)) {
+      <c-col md="6">
+        <app-user-search
+          formControlName="adv_memberUpdated"
+          title="Upraven uživatel"
+        />
+      </c-col>
+    }
+
+    @if (canShowAdvancedFilter(AuditLogType.MemberRoleUpdated)) {
+      <c-col md="6">
+        <app-user-search
+          formControlName="adv_memberRolesUpdated"
+          title="Úprava rolí uživatele"
+        />
+      </c-col>
+    }
+
+    @if (canShowAdvancedFilter(AuditLogType.Api)) {
+      <c-col md="6">
+        <app-api-search formControlName="adv_api" title="API požadavek" />
+      </c-col>
+    }
+
+    @if (canShowAdvancedFilter(AuditLogType.MessageDeleted)) {
+      <c-col md="6">
+        <app-message-deleted-search
+          formControlName="adv_messageDeleted"
+          title="Zpráva odebrána"
+        />
+      </c-col>
+    }
+  </c-row>
+</app-filter-card>

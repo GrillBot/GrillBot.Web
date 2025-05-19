@@ -1,13 +1,13 @@
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
-  CardHeaderComponent, CheckboxComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent,
-  FormCardBodyComponent, GuildLookupComponent, GuildLookupPipe, ModalComponent, UserLookupComponent, ValidationErrorsComponent
+  CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, GuildLookupPipe,
+  ModalComponent, UserLookupComponent, ValidationErrorsComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { InviteListRequest } from "../../../../core/models/invite";
 import { Component, computed, inject, input, viewChild } from "@angular/core";
 import {
-  ButtonDirective, CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent,
+  ButtonDirective, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent,
   RowComponent
 } from "@coreui/angular";
 import { AsyncPipe } from "@angular/common";
@@ -19,9 +19,6 @@ import { InviteClient } from "../../../../core/clients/invite.client";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CardComponent,
-    CardHeaderComponent,
-    FormCardBodyComponent,
     RowComponent,
     ColComponent,
     FormLabelDirective,
@@ -29,15 +26,13 @@ import { InviteClient } from "../../../../core/clients/invite.client";
     GuildLookupComponent,
     UserLookupComponent,
     ValidationErrorsComponent,
-    FilterButtonsComponent,
     CheckboxComponent,
-    CardFooterComponent,
-    FilterStoreComponent,
     InputGroupComponent,
     ButtonDirective,
     ModalComponent,
     GuildLookupPipe,
-    AsyncPipe
+    AsyncPipe,
+    FilterCardComponent
   ]
 })
 export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRequest> {

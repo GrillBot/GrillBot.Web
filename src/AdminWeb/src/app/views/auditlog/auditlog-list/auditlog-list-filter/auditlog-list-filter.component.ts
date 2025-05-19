@@ -1,13 +1,10 @@
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
 import { Component, computed } from "@angular/core";
-import {
-  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent, FormCardBodyComponent,
-  GuildLookupComponent, UserLookupComponent
-} from "../../../../components";
+import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent, UserLookupComponent } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
-import { CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
 import { CheckboxComponent } from "../../../../components/forms/checkbox/checkbox.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
@@ -20,25 +17,20 @@ import { AdvancedFilters } from '../advanced-filters';
   templateUrl: './auditlog-list-filter.component.html',
   standalone: true,
   imports: [
-    CardComponent,
-    CardHeaderComponent,
-    FormCardBodyComponent,
     RowComponent,
     ColComponent,
     GuildLookupComponent,
     FormControlDirective,
     InputGroupComponent,
     FormLabelDirective,
-    CardFooterComponent,
-    FilterStoreComponent,
-    FilterButtonsComponent,
     ChannelLookupComponent,
     CheckboxComponent,
     ReactiveFormsModule,
     UserLookupComponent,
     NgSelectComponent,
     NgSelectorDirective,
-    ...AdvancedFilters
+    ...AdvancedFilters,
+    FilterCardComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {

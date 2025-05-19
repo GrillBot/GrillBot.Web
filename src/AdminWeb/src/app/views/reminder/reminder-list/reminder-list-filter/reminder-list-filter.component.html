@@ -1,82 +1,64 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <app-user-lookup formControlName="fromUserId" label="Od uživatele" />
+    </c-col>
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <app-user-lookup formControlName="fromUserId" label="Od uživatele" />
-      </c-col>
+    <c-col>
+      <app-user-lookup formControlName="toUserId" label="Pro uživatele" />
+    </c-col>
 
-      <c-col>
-        <app-user-lookup formControlName="toUserId" label="Pro uživatele" />
-      </c-col>
-
-      <c-col>
-        <label cLabel for="notifyAt">Oznámit v (OD - DO)</label>
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="notifyAtFromUtc"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="notifyAtToUtc"
-          />
-        </c-input-group>
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-2">
-      <c-col>
-        <label cLabel for="commandMessageId">ID zprávy</label>
-        <input cFormControl type="text" formControlName="commandMessageId" />
-        <app-validation-errors controlName="commandMessageId" [form]="form" />
-      </c-col>
-
-      <c-col>
-        <label cLabel for="messageContains">Zpráva obsahuje</label>
-        <input cFormControl type="text" formControlName="messageContains" />
-      </c-col>
-    </c-row>
-
-    <c-row>
-      <c-col>
-        <c-row>
-          <c-col>
-            <p-triStateCheckbox
-              inputId="onlyInProcess"
-              formControlName="onlyInProcess"
-              class="me-2"
-              label="Zpracovávané"
-            />
-          </c-col>
-
-          <c-col>
-            <p-triStateCheckbox
-              inputId="onlyPending"
-              formControlName="onlyPending"
-              label="Čekající"
-            />
-          </c-col>
-        </c-row>
-      </c-col>
-    </c-row>
-  </app-form-card-body>
-
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-      <c-col cCol="auto" class="d-flex justify-content-end">
-        <app-filter-buttons
-          [filterComponent]="this"
-          [disabled]="form.invalid"
+    <c-col>
+      <label cLabel for="notifyAt">Oznámit v (OD - DO)</label>
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="notifyAtFromUtc"
         />
-      </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="notifyAtToUtc"
+        />
+      </c-input-group>
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-2">
+    <c-col>
+      <label cLabel for="commandMessageId">ID zprávy</label>
+      <input cFormControl type="text" formControlName="commandMessageId" />
+      <app-validation-errors controlName="commandMessageId" [form]="form" />
+    </c-col>
+
+    <c-col>
+      <label cLabel for="messageContains">Zpráva obsahuje</label>
+      <input cFormControl type="text" formControlName="messageContains" />
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col>
+      <c-row>
+        <c-col>
+          <p-triStateCheckbox
+            inputId="onlyInProcess"
+            formControlName="onlyInProcess"
+            class="me-2"
+            label="Zpracovávané"
+          />
+        </c-col>
+
+        <c-col>
+          <p-triStateCheckbox
+            inputId="onlyPending"
+            formControlName="onlyPending"
+            label="Čekající"
+          />
+        </c-col>
+      </c-row>
+    </c-col>
+  </c-row>
+</app-filter-card>

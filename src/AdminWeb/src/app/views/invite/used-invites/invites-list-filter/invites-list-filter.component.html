@@ -1,74 +1,52 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <app-guild-lookup formControlName="guildId" />
+      @if (isSynchronizationEnabled()) {
+        <button
+          cButton
+          color="transparent"
+          size="sm"
+          class="btn-link"
+          variant="ghost"
+          (click)="synchronizationModal.open()"
+        >
+          Synchronizovat server
+        </button>
+      }
+    </c-col>
 
-        @if (isSynchronizationEnabled()) {
-          <button
-            cButton
-            color="transparent"
-            size="sm"
-            class="btn-link"
-            variant="ghost"
-            (click)="synchronizationModal.open()"
-          >
-            Synchronizovat server
-          </button>
-        }
-      </c-col>
+    <c-col>
+      <app-user-lookup formControlName="creatorId" label="Zakladatel" />
+      <app-checkbox
+        checkboxId="onlyWithoutCreator"
+        formControlName="onlyWithoutCreator"
+        label="Pouze pozvánky bez zakladatele"
+      />
+    </c-col>
 
-      <c-col>
-        <app-user-lookup formControlName="creatorId" label="Zakladatel" />
-        <app-checkbox
-          checkboxId="onlyWithoutCreator"
-          formControlName="onlyWithoutCreator"
-          label="Pouze pozvánky bez zakladatele"
+    <c-col>
+      <label cLabel for="code">Kód pozvánky</label>
+      <input cFormControl type="text" formControlName="code" maxlength="10" />
+      <app-validation-errors controlName="code" [form]="form" />
+    </c-col>
+
+    <c-col>
+      <label cLabel for="created">Vytvoření pozvánky (OD - DO)</label>
+
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="createdFrom"
         />
-      </c-col>
 
-      <c-col>
-        <label cLabel for="code">Kód pozvánky</label>
-        <input cFormControl type="text" formControlName="code" maxlength="10" />
-        <app-validation-errors controlName="code" [form]="form" />
-      </c-col>
-
-      <c-col>
-        <label cLabel for="created">Vytvoření pozvánky (OD - DO)</label>
-
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdTo"
-          />
-        </c-input-group>
-      </c-col>
-    </c-row>
-  </app-form-card-body>
-
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-      <c-col cCol="auto" class="d-flex justify-content-end">
-        <app-filter-buttons
-          [filterComponent]="this"
-          [disabled]="form.invalid"
-        />
-      </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+        <input cFormControl type="datetime-local" formControlName="createdTo" />
+      </c-input-group>
+    </c-col>
+  </c-row>
+</app-filter-card>
 
 <app-modal
   #synchronizationModal

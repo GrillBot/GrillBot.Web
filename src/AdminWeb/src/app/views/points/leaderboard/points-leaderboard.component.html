@@ -1,17 +1,9 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
-
-  <app-form-card-body [form]="form" [header]="header">
-    <div>
-      <app-guild-lookup formControlName="guildId" />
-      <app-validation-errors [form]="form" controlName="guildId" />
-    </div>
-  </app-form-card-body>
-
-  <c-card-footer>
-    <app-filter-store [form]="form" />
-  </c-card-footer>
-</c-card>
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <div>
+    <app-guild-lookup formControlName="guildId" />
+    <app-validation-errors [form]="form" controlName="guildId" />
+  </div>
+</app-filter-card>
 
 <div class="mb-3">
   <app-ag-grid

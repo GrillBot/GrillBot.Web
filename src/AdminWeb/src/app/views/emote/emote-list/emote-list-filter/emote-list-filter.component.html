@@ -1,103 +1,85 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <app-guild-lookup formControlName="guildId" />
-      </c-col>
+    <c-col>
+      <app-user-lookup formControlName="userId" label="Použil uživatel" />
+    </c-col>
+  </c-row>
 
-      <c-col>
-        <app-user-lookup formControlName="userId" label="Použil uživatel" />
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-1">
-      <c-col>
-        <label cLabel for="firstOccurence">První výskyt (OD-DO)</label>¨
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="firstOccurenceFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="firstOccurenceTo"
-          />
-        </c-input-group>
-      </c-col>
-
-      <c-col>
-        <label cLabel for="lastOccurence">Poslední výskyt (OD-DO)</label>
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="lastOccurenceFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="lastOccurenceTo"
-          />
-        </c-input-group>
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-2">
-      <c-col md="6">
-        <label cLabel for="useCount">Počet použití (OD-DO)</label>
-        <c-input-group>
-          <input cFormControl type="number" formControlName="useCountFrom" />
-          <input cFormControl type="number" formControlName="useCountTo" />
-        </c-input-group>
-      </c-col>
-
-      <c-col>
-        <label cLabel for="emoteName">Název</label>
-        <input cFormControl type="text" formControlName="emoteName" />
-      </c-col>
-
-      <c-col>
-        <label cLabel for="emoteFullId">ID (v plném formátu)</label>
-        <input cFormControl type="text" formControlName="emoteFullId" />
-      </c-col>
-    </c-row>
-
-    <c-row>
-      <c-col md="6">
-        <app-radio-group
-          radioId="'unsupported'"
-          formControlName="unsupported"
-          [items]="unsupportedItems"
+  <c-row class="mb-1">
+    <c-col>
+      <label cLabel for="firstOccurence">První výskyt (OD-DO)</label>¨
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="firstOccurenceFrom"
         />
-      </c-col>
 
-      <c-col>
-        <app-checkbox
-          formControlName="ignoreAnimated"
-          checkboxId="ignoreAnimated"
-          label="Skrýt animované"
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="firstOccurenceTo"
         />
-      </c-col>
-    </c-row>
-  </app-form-card-body>
+      </c-input-group>
+    </c-col>
 
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
-        <app-filter-buttons
-          [disabled]="form.invalid"
-          [filterComponent]="this"
+    <c-col>
+      <label cLabel for="lastOccurence">Poslední výskyt (OD-DO)</label>
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="lastOccurenceFrom"
         />
-      </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="lastOccurenceTo"
+        />
+      </c-input-group>
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-2">
+    <c-col md="6">
+      <label cLabel for="useCount">Počet použití (OD-DO)</label>
+      <c-input-group>
+        <input cFormControl type="number" formControlName="useCountFrom" />
+        <input cFormControl type="number" formControlName="useCountTo" />
+      </c-input-group>
+    </c-col>
+
+    <c-col>
+      <label cLabel for="emoteName">Název</label>
+      <input cFormControl type="text" formControlName="emoteName" />
+    </c-col>
+
+    <c-col>
+      <label cLabel for="emoteFullId">ID (v plném formátu)</label>
+      <input cFormControl type="text" formControlName="emoteFullId" />
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col md="6">
+      <app-radio-group
+        radioId="'unsupported'"
+        formControlName="unsupported"
+        [items]="unsupportedItems"
+      />
+    </c-col>
+
+    <c-col>
+      <app-checkbox
+        formControlName="ignoreAnimated"
+        checkboxId="ignoreAnimated"
+        label="Skrýt animované"
+      />
+    </c-col>
+  </c-row>
+</app-filter-card>

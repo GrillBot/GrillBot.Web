@@ -1,6 +1,5 @@
 import { Component, DestroyRef, inject } from "@angular/core";
-import { CardComponent, CardFooterComponent } from "@coreui/angular";
-import { AsyncLookupCellRendererComponent, CardHeaderComponent, FormCardBodyComponent, STRIPED_ROW_STYLE } from "../../../components";
+import { AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE } from "../../../components";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
 import { LookupClient } from "../../../core/clients/lookup.client";
@@ -11,22 +10,18 @@ import { BoardItem } from '../../../core/models/points/board-item';
 import { LeaderboardFilter } from '../../../core/models/points/leaderboard-filter';
 import { IForm } from '../../../core/models/common';
 import { GuildLookupComponent, UserLookupPipe } from '../../../components/lookups';
-import { FilterBaseComponent, FilterStoreComponent } from "../../../components/filters";
+import { FilterBaseComponent, FilterCardComponent } from "../../../components/filters";
 import { ValidationErrorsComponent } from "../../../components/forms/validation-errors/validation-errors.component";
 
 @Component({
   templateUrl: './points-leaderboard.component.html',
   standalone: true,
   imports: [
-    CardComponent,
-    CardHeaderComponent,
     ReactiveFormsModule,
     AgGridComponent,
     GuildLookupComponent,
-    FormCardBodyComponent,
-    FilterStoreComponent,
-    CardFooterComponent,
-    ValidationErrorsComponent
+    ValidationErrorsComponent,
+    FilterCardComponent
   ]
 })
 export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardFilter> {

@@ -1,68 +1,45 @@
-<c-card class="mb-3">
-  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <label cLabel for="type">Typ</label>
+      <ng-select
+        formControlName="type"
+        ngSelector
+        [items]="[
+          { key: 'Warning', value: 'Varování' },
+          { key: 'Unverify', value: 'Unverify' },
+          { key: 'Timeout', value: 'Timeout' },
+        ]"
+      ></ng-select>
+    </c-col>
 
-  <app-form-card-body [form]="form" [header]="header">
-    <c-row class="mb-1">
-      <c-col>
-        <label cLabel for="type">Typ</label>
-        <ng-select
-          formControlName="type"
-          ngSelector
-          [items]="[
-            { key: 'Warning', value: 'Varování' },
-            { key: 'Unverify', value: 'Unverify' },
-            { key: 'Timeout', value: 'Timeout' },
-          ]"
-        ></ng-select>
-      </c-col>
-
-      <c-col>
-        <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
-        <c-input-group>
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdFrom"
-          />
-
-          <input
-            cFormControl
-            type="datetime-local"
-            formControlName="createdTo"
-          />
-        </c-input-group>
-      </c-col>
-    </c-row>
-
-    <c-row class="mb-1">
-      <c-col>
-        <app-guild-lookup formControlName="guildId" />
-      </c-col>
-
-      <c-col>
-        <app-user-lookup formControlName="userId" />
-      </c-col>
-    </c-row>
-
-    <c-row>
-      <c-col>
-        <app-user-lookup formControlName="moderatorId" label="Moderátor" />
-      </c-col>
-    </c-row>
-  </app-form-card-body>
-
-  <c-card-footer>
-    <c-row>
-      <c-col>
-        <app-filter-store [form]="form" />
-      </c-col>
-
-      <c-col cCol="auto" class="d-flex align-items-end justify-content-end">
-        <app-filter-buttons
-          [disabled]="form.invalid"
-          [filterComponent]="this"
+    <c-col>
+      <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
+      <c-input-group>
+        <input
+          cFormControl
+          type="datetime-local"
+          formControlName="createdFrom"
         />
-      </c-col>
-    </c-row>
-  </c-card-footer>
-</c-card>
+
+        <input cFormControl type="datetime-local" formControlName="createdTo" />
+      </c-input-group>
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-1">
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
+
+    <c-col>
+      <app-user-lookup formControlName="userId" />
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col>
+      <app-user-lookup formControlName="moderatorId" label="Moderátor" />
+    </c-col>
+  </c-row>
+</app-filter-card>

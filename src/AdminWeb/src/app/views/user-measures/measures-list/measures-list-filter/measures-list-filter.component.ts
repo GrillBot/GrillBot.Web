@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
-  CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterStoreComponent, FormCardBodyComponent, GuildLookupComponent, UserLookupComponent
+  FilterBaseComponent, FilterCardComponent, GuildLookupComponent, UserLookupComponent
 } from "../../../../components";
 import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { IForm } from "../../../../core/models/common";
-import { CardComponent, CardFooterComponent, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
 import { NgSelectorDirective } from "../../../../core/directives/ng-selector.directive";
 import { NgSelectComponent } from "@ng-select/ng-select";
 
@@ -15,21 +15,16 @@ import { NgSelectComponent } from "@ng-select/ng-select";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CardComponent,
-    CardHeaderComponent,
     FormLabelDirective,
     GuildLookupComponent,
     UserLookupComponent,
     FormControlDirective,
-    FilterButtonsComponent,
     RowComponent,
     ColComponent,
     NgSelectComponent,
     NgSelectorDirective,
     InputGroupComponent,
-    FormCardBodyComponent,
-    CardFooterComponent,
-    FilterStoreComponent
+    FilterCardComponent
   ]
 })
 export class MeasuresListFilterComponent extends FilterBaseComponent<MeasuresListParams> {
