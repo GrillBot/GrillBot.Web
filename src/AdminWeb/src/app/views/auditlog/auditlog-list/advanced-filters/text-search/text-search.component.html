@@ -5,28 +5,19 @@
     <form [formGroup]="form">
       <c-row>
         <c-col md="4">
-          <label cLabel for="text">Obsah</label>
-          <input cFormControl sizing="sm" type="text" formControlName="text" />
+          <app-text-input formControlName="text" label="Obsah" sizing="sm" />
         </c-col>
 
         <c-col md="4">
-          <label cLabel for="sourceAppName">Aplikace</label>
-          <input
-            cFormControl
-            sizing="sm"
-            type="text"
+          <app-text-input
             formControlName="sourceAppName"
+            label="Aplikace"
+            sizing="sm"
           />
         </c-col>
 
         <c-col md="4">
-          <label cLabel for="source">Zdroj</label>
-          <input
-            cFormControl
-            sizing="sm"
-            type="text"
-            formControlName="source"
-          />
+          <app-text-input formControlName="source" label="Zdroj" sizing="sm" />
         </c-col>
       </c-row>
     </form>

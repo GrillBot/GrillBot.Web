@@ -1,8 +1,10 @@
 <app-filter-card [form]="form" [parentFilterComponent]="this">
   <c-row class="mb-1">
     <c-col>
-      <label cLabel for="ids">ID záznamů (oddělovat čárkou)</label>
-      <input cFormControl type="text" formControlName="ids" />
+      <app-text-input
+        formControlName="ids"
+        label="ID záznamů (oddělovat čárkou)"
+      />
     </c-col>
   </c-row>
 

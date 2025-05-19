@@ -27,9 +27,11 @@
     </c-col>
 
     <c-col>
-      <label cLabel for="code">Kód pozvánky</label>
-      <input cFormControl type="text" formControlName="code" maxlength="10" />
-      <app-validation-errors controlName="code" [form]="form" />
+      <app-text-input
+        formControlName="code"
+        label="Kód pozvánky"
+        [validators]="form.get('code')!.validator"
+      />
     </c-col>
 
     <c-col>
@@ -57,7 +59,7 @@
     Opravdu si přejete synchronizovat cache pozvánek pro server "{{
       guildId() | guildLookup | async
     }}"?
-  </ng-container>
+  </ng-container>cd
 
   <ng-container footer>
     <button

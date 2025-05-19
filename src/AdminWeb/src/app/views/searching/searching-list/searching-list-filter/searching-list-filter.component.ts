@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import {
-  CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, UserLookupComponent
+  CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent
 } from "../../../../components";
 import { SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -23,7 +23,8 @@ import { ChannelLookupComponent } from "../../../../components/lookups/channel-l
     GuildLookupComponent,
     ChannelLookupComponent,
     CheckboxComponent,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class SearchingListFilterComponent extends FilterBaseComponent<SearchingListRequest> {

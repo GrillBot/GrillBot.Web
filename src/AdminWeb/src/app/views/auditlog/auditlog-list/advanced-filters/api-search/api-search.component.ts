@@ -3,9 +3,13 @@ import { ApiSearchRequest } from "../../../../../core/models/audit-log";
 import { AdvancedFilterBase } from "../advanced-filter.component.base";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { IForm } from "../../../../../core/models/common";
-import { CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import {
+  CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, FormControlDirective,
+  FormLabelDirective, InputGroupComponent, RowComponent
+} from "@coreui/angular";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { NgSelectorDirective } from "../../../../../core/directives";
+import { TextInputComponent } from "../../../../../components";
 
 @Component({
   selector: 'app-api-search',
@@ -22,7 +26,8 @@ import { NgSelectorDirective } from "../../../../../core/directives";
     NgSelectorDirective,
     FormLabelDirective,
     FormControlDirective,
-    InputGroupComponent
+    InputGroupComponent,
+    TextInputComponent
   ],
   providers: [
     {

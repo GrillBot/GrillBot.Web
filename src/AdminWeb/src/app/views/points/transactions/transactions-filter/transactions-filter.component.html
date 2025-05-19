@@ -24,14 +24,12 @@
     </c-col>
 
     <c-col>
-      <label cLabel for="messageId">ID zprávy</label>
-      <input
-        cFormControl
-        type="text"
+      <app-text-input
         formControlName="messageId"
-        autocomplete="off"
+        label="ID zprávy"
+        [autocomplete]="false"
+        [validators]="form.get('messageId')!.validator"
       />
-      <app-validation-errors [form]="form" controlName="messageId" />
     </c-col>
   </c-row>
 

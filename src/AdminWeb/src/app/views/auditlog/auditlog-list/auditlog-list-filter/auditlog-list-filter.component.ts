@@ -1,6 +1,6 @@
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
 import { Component, computed } from "@angular/core";
-import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent, UserLookupComponent } from "../../../../components";
+import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
@@ -30,7 +30,8 @@ import { AdvancedFilters } from '../advanced-filters';
     NgSelectComponent,
     NgSelectorDirective,
     ...AdvancedFilters,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchRequest> {

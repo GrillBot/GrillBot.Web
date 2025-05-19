@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
-import {
-  FilterBaseComponent, FilterCardComponent, UserLookupComponent, ValidationErrorsComponent
-} from "../../../../components";
+import { FilterBaseComponent, FilterCardComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
 import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
 import { IForm } from "../../../../core/models/common";
 import {
@@ -22,9 +20,9 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     InputGroupComponent,
     FormControlDirective,
     UserLookupComponent,
-    ValidationErrorsComponent,
     TriStateCheckboxModule,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class ReminderListFilterComponent extends FilterBaseComponent<ReminderListRequest> {

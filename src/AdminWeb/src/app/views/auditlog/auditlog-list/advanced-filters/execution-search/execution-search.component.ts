@@ -8,6 +8,7 @@ import {
   FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
+import { TextInputComponent } from "../../../../../components";
 
 @Component({
   selector: 'app-execution-search',
@@ -23,7 +24,8 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
     RowComponent,
     ColComponent,
     InputGroupComponent,
-    TriStateCheckboxModule
+    TriStateCheckboxModule,
+    TextInputComponent
   ],
   providers: [
     {

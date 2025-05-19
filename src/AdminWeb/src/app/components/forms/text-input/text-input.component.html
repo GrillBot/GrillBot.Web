@@ -1,6 +1,13 @@
 <label cLabel>{{ label() }}</label>
-<input cFormControl [formControl]="formControl()" type="text" />
+
+<input
+  cFormControl
+  [formControl]="formControl()"
+  type="text"
+  [sizing]="sizing()"
+  [attr.autocomplete]="autocomplete() ? 'on' : 'off'"
+/>
 
 @if (hasValidations()) {
-  <app-validation-errors [formControl]="formControl()" />
+  <app-validation-errors [formControlObject]="formControl()" />
 }

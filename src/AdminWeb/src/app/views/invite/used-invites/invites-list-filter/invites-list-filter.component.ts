@@ -1,8 +1,7 @@
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, GuildLookupPipe,
-  ModalComponent, UserLookupComponent, ValidationErrorsComponent
-} from "../../../../components";
+  ModalComponent, TextInputComponent, UserLookupComponent} from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { InviteListRequest } from "../../../../core/models/invite";
 import { Component, computed, inject, input, viewChild } from "@angular/core";
@@ -25,14 +24,14 @@ import { InviteClient } from "../../../../core/clients/invite.client";
     FormControlDirective,
     GuildLookupComponent,
     UserLookupComponent,
-    ValidationErrorsComponent,
     CheckboxComponent,
     InputGroupComponent,
     ButtonDirective,
     ModalComponent,
     GuildLookupPipe,
     AsyncPipe,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRequest> {

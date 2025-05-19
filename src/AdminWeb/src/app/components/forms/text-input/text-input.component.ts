@@ -26,6 +26,8 @@ export class TextInputComponent implements ControlValueAccessor {
 
   label = input.required<string>();
   validators = input<ValidatorFn | ValidatorFn[] | null>();
+  sizing = input<'sm' | 'lg' | ''>();
+  autocomplete = input<boolean>(true);
 
   formControl = computed(() =>
     this.#formBuilder.control<string | null>(null, { validators: this.validators() })

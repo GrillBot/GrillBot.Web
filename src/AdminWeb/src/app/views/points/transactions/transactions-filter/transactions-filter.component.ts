@@ -4,7 +4,7 @@ import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
 import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
-import { CheckboxComponent, RadioGroupComponent, ValidationErrorsComponent } from "../../../../components/forms";
+import { CheckboxComponent, RadioGroupComponent, TextInputComponent } from "../../../../components/forms";
 import { FilterBaseComponent, FilterCardComponent } from "../../../../components/filters";
 
 @Component({
@@ -20,10 +20,10 @@ import { FilterBaseComponent, FilterCardComponent } from "../../../../components
     FormControlDirective,
     GuildLookupComponent,
     UserLookupComponent,
-    ValidationErrorsComponent,
     CheckboxComponent,
     RadioGroupComponent,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {

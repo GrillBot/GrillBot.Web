@@ -5,31 +5,25 @@
     <form [formGroup]="form">
       <c-row class="mb-1">
         <c-col md="4">
-          <label cLabel for="controllerName">Controller</label>
-          <input
-            cFormControl
+          <app-text-input
             formControlName="controllerName"
-            type="text"
+            label="Controller"
             sizing="sm"
           />
         </c-col>
 
         <c-col md="4">
-          <label cLabel for="actionName">Akce</label>
-          <input
-            cFormControl
+          <app-text-input
             formControlName="actionName"
-            type="text"
+            label="Akce"
             sizing="sm"
           />
         </c-col>
 
         <c-col md="4">
-          <label cLabel for="pathTemplate">Šablona cesty</label>
-          <input
-            cFormControl
+          <app-text-input
             formControlName="pathTemplate"
-            type="text"
+            label="Šablona cesty"
             sizing="sm"
           />
         </c-col>
@@ -60,11 +54,9 @@
         </c-col>
 
         <c-col md="8">
-          <label cLabel for="identification">Identifikace</label>
-          <input
-            cFormControl
+          <app-text-input
             formControlName="identification"
-            type="text"
+            label="Identifikace"
             sizing="sm"
           />
         </c-col>

@@ -28,14 +28,19 @@
 
   <c-row class="mb-2">
     <c-col>
-      <label cLabel for="commandMessageId">ID zprávy</label>
-      <input cFormControl type="text" formControlName="commandMessageId" />
-      <app-validation-errors controlName="commandMessageId" [form]="form" />
+      <app-text-input
+        formControlName="commandMessageId"
+        label="ID zprávy"
+        [validators]="form.get('commandMessageId')!.validator"
+        [autocomplete]="false"
+      />
     </c-col>
 
     <c-col>
-      <label cLabel for="messageContains">Zpráva obsahuje</label>
-      <input cFormControl type="text" formControlName="messageContains" />
+      <app-text-input
+        formControlName="messageContains"
+        label="Zpráva obsahuje"
+      />
     </c-col>
   </c-row>
 

@@ -14,14 +14,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 export class ValidationErrorsComponent implements OnInit {
   form = input<FormGroup<any>>();
   controlName = input<string>();
-  formControl = input<FormControl<any>>();
+  formControlObject = input<FormControl<any>>();
 
   control = computed(() => {
-    if (this.formControl()) {
-      return this.formControl();
+    if (this.formControlObject()) {
+      return this.formControlObject();
     }
 
-    return this.form()?.get(this.controlName() ?? '');
+    return !this.form() || !this.controlName() ? null : this.form()?.get(this.controlName() ?? '');
   });
 
   hasAnyError: boolean = false;

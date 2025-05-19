@@ -5,11 +5,9 @@
     <form [formGroup]="form">
       <c-row>
         <c-col md="4">
-          <label cLabel for="actionName">Název</label>
-          <input
-            cFormControl
-            type="text"
+          <app-text-input
             formControlName="actionName"
+            label="Název"
             sizing="sm"
           />
         </c-col>

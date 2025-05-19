@@ -55,13 +55,14 @@
     </c-col>
 
     <c-col>
-      <label cLabel for="emoteName">Název</label>
-      <input cFormControl type="text" formControlName="emoteName" />
+      <app-text-input formControlName="emoteName" label="Název" />
     </c-col>
 
     <c-col>
-      <label cLabel for="emoteFullId">ID (v plném formátu)</label>
-      <input cFormControl type="text" formControlName="emoteFullId" />
+      <app-text-input
+        formControlName="emoteFullId"
+        label="ID (v plném formátu)"
+      />
     </c-col>
   </c-row>
 

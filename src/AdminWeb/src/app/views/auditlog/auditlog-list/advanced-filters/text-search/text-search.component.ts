@@ -1,12 +1,12 @@
-import { Component, forwardRef, input } from "@angular/core";
+import { Component, forwardRef } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import {
-  CardBodyComponent, CardComponent, CardTitleDirective, ColComponent,
-  FormControlDirective, FormLabelDirective, RowComponent
+  CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent
 } from "@coreui/angular";
 import { IForm } from "../../../../../core/models/common";
 import { TextSearchRequest } from "../../../../../core/models/audit-log";
 import { AdvancedFilterBase } from "../advanced-filter.component.base";
+import { TextInputComponent } from "../../../../../components";
 
 @Component({
   selector: 'app-text-search',
@@ -18,9 +18,8 @@ import { AdvancedFilterBase } from "../advanced-filter.component.base";
     CardTitleDirective,
     RowComponent,
     ColComponent,
-    FormLabelDirective,
-    FormControlDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TextInputComponent
   ],
   providers: [
     {

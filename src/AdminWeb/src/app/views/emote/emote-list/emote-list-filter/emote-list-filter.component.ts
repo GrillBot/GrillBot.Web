@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import {
   CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, RadioGroupComponent,
-  RadioItem, UserLookupComponent
+  RadioItem, TextInputComponent, UserLookupComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { EmoteStatisticsListRequest } from "../../../../core/models/emote/emote-statistics-list-request";
@@ -25,7 +25,8 @@ import {
     GuildLookupComponent,
     CheckboxComponent,
     RadioGroupComponent,
-    FilterCardComponent
+    FilterCardComponent,
+    TextInputComponent
   ]
 })
 export class EmoteListFilterComponent extends FilterBaseComponent<EmoteStatisticsListRequest> {

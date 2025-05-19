@@ -4,10 +4,9 @@ import { AdvancedFilterBase } from "../advanced-filter.component.base";
 import { MessageDeletedSearchRequest } from "../../../../../core/models/audit-log";
 import { IForm } from "../../../../../core/models/common";
 import {
-  CardBodyComponent, CardComponent, CardTitleDirective, ColComponent,
-  FormControlDirective, FormLabelDirective, RowComponent
+  CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent
 } from "@coreui/angular";
-import { UserLookupComponent } from "../../../../../components";
+import { TextInputComponent, UserLookupComponent } from "../../../../../components";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 
 @Component({
@@ -22,9 +21,8 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
     ColComponent,
     UserLookupComponent,
     TriStateCheckboxModule,
-    FormLabelDirective,
-    FormControlDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TextInputComponent
   ],
   providers: [
     {
