@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from "@angular/common";
 import { Component, computed, input, OnInit } from "@angular/core";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-validation-errors',
@@ -12,10 +12,17 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
   ]
 })
 export class ValidationErrorsComponent implements OnInit {
-  form = input.required<FormGroup<any>>();
-  controlName = input.required<string>();
+  form = input<FormGroup<any>>();
+  controlName = input<string>();
+  formControl = input<FormControl<any>>();
 
-  control = computed(() => this.form().get(this.controlName()));
+  control = computed(() => {
+    if (this.formControl()) {
+      return this.formControl();
+    }
+
+    return this.form()?.get(this.controlName() ?? '');
+  });
 
   hasAnyError: boolean = false;
   errors: string[][] = [];

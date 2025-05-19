@@ -1,0 +1,6 @@
+<label cLabel>{{ label() }}</label>
+<input cFormControl [formControl]="formControl()" type="text" />
+
+@if (hasValidations()) {
+  <app-validation-errors [formControl]="formControl()" />
+}

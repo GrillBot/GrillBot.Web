@@ -1,13 +1,10 @@
 import { Injectable } from "@angular/core";
 import { BaseClient } from "./base.client";
 import { PaginatedResponse, WithSortAndPagination } from "../models/common";
-import { EmoteStatisticsListRequest } from "../models/emote/emote-statistics-list-request";
-import { EmoteStatisticsItem } from "../models/emote/emote-statistics-item";
-import { EmoteInfo } from "../models/emote/emote-info";
-import { MergeStatisticsResult } from "../models/emote/merge-statistics-result";
-import { EmoteUserUsageListRequest } from "../models/emote/emote-user-usage-list-request";
-import { EmoteUserUsageItem } from "../models/emote/emote-user-usage-item";
-import { EmoteDefinition } from "../models/emote/emote-definition";
+import {
+  EmoteDefinition, EmoteInfo, EmoteStatisticsItem, EmoteStatisticsListRequest, EmoteSuggestionItem, EmoteSuggestionsListRequest,
+  EmoteSuggestionVoteItem, EmoteSuggestionVoteListRequest, EmoteUserUsageItem, EmoteUserUsageListRequest, MergeStatisticsResult
+} from "../models/emote";
 
 @Injectable({ providedIn: 'root' })
 export class EmoteClient extends BaseClient {
@@ -35,4 +32,16 @@ export class EmoteClient extends BaseClient {
 
   deleteStatistics = (guildId: string, emoteId: string, userId: string | null) =>
     this.deleteRequest(`service/Emote/${guildId}/${emoteId}`, userId ? { userId } : undefined);
+
+  getEmoteSuggestionsList = (request: WithSortAndPagination<EmoteSuggestionsListRequest>) =>
+    this.postRequest<PaginatedResponse<EmoteSuggestionItem>>(`service/Emote/emote-suggestions/list`, request);
+
+  setSuggestionApproval = (suggestionId: string, isApproved: boolean) =>
+    this.putRequest(`service/Emote/emote-suggestions/${suggestionId}`, null, { isApproved: isApproved ? 'true' : 'false' });
+
+  getEmoteSuggestionVotes = (suggestionId: string, request: WithSortAndPagination<EmoteSuggestionVoteListRequest>) =>
+    this.postRequest<PaginatedResponse<EmoteSuggestionVoteItem>>(`service/Emote/emote-suggestions/${suggestionId}/votes`, request);
+
+  emoteSuggestionsCancelVote = (suggestionId: string) =>
+    this.deleteRequest(`service/Emote/emote-suggestions/${suggestionId}/votes`);
 }

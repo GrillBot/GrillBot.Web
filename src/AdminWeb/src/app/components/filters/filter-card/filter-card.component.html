@@ -1,0 +1,21 @@
+<c-card class="mb-3">
+  <app-card-header #header icon="cilSearch" title="Vyhledávání" />
+
+  <app-form-card-body [form]="form()" [header]="header">
+    <ng-content></ng-content>
+  </app-form-card-body>
+
+  <c-card-footer>
+    <c-row>
+      <c-col>
+        <app-filter-store [form]="form()" />
+      </c-col>
+      <c-col cCol="auto" class="d-flex justify-content-end align-items-end">
+        <app-filter-buttons
+          [disabled]="form().invalid"
+          [filterComponent]="parentFilterComponent()"
+        />
+      </c-col>
+    </c-row>
+  </c-card-footer>
+</c-card>

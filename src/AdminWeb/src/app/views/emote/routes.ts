@@ -24,5 +24,13 @@ export const routes: Routes = [
       title: 'Detail emote',
       canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
     }
+  },
+  {
+    path: 'suggestions',
+    loadChildren: () => import('./suggestions/routes').then(m => m.routes),
+    data: {
+      title: 'Návrhy',
+      canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
+    }
   }
 ]
