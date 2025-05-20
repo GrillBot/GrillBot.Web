@@ -4,7 +4,7 @@ import {
   ListBaseComponent, ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
-import { ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
+import { ReminderListFilter, ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
@@ -27,7 +27,7 @@ import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-r
     ButtonDirective
   ]
 })
-export class ReminderListListComponent extends ListBaseComponent<ReminderListRequest, RemindMessageItem> {
+export class ReminderListListComponent extends ListBaseComponent<ReminderListFilter, RemindMessageItem> {
   readonly #client = inject(ReminderClient);
   readonly #lookupClient = inject(LookupClient);
 
@@ -143,17 +143,22 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListReq
     };
   }
 
-  override createRequest(request: WithSortAndPagination<ReminderListRequest>)
+  override createRequest(request: WithSortAndPagination<ReminderListFilter>)
     : rxjs.Observable<RawHttpResponse<PaginatedResponse<RemindMessageItem>>> {
-    if (request.notifyAtFromUtc) {
-      request.notifyAtFromUtc = `${request.notifyAtFromUtc}Z`;
-    }
+    const requestData: WithSortAndPagination<ReminderListRequest> = {
+      commandMessageId: request.commandMessageId,
+      fromUserId: request.fromUserId,
+      messageContains: request.messageContains,
+      notifyAtFromUtc: request.notifyAt?.from ?? null,
+      notifyAtToUtc: request.notifyAt?.to ?? null,
+      onlyInProcess: request.onlyInProcess,
+      onlyPending: request.onlyPending,
+      pagination: request.pagination,
+      sort: request.sort,
+      toUserId: request.toUserId
+    };
 
-    if (request.notifyAtToUtc) {
-      request.notifyAtToUtc = `${request.notifyAtToUtc}Z`;
-    }
-
-    return this.#client.getReminderList(request);
+    return this.#client.getReminderList(requestData);
   }
 
   override createDefaultSort(): SortParameters {

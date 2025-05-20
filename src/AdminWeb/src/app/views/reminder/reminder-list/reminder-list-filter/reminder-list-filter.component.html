@@ -9,20 +9,7 @@
     </c-col>
 
     <c-col>
-      <label cLabel for="notifyAt">Oznámit v (OD - DO)</label>
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="notifyAtFromUtc"
-        />
-
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="notifyAtToUtc"
-        />
-      </c-input-group>
+      <app-datetime-range formControlName="notifyAt" label="Oznámit v" />
     </c-col>
   </c-row>
 
