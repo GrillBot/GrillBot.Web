@@ -6,7 +6,7 @@ import {
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
-import { SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
+import { SearchingListFilter, SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
 import { Component, computed, inject, signal, viewChild } from "@angular/core";
 import { SearchingClient } from "../../../../core/clients/searching.client";
 import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
@@ -35,7 +35,7 @@ import { AsyncPipe } from "@angular/common";
     AsyncPipe,
   ]
 })
-export class SearchingListListComponent extends ListBaseComponent<SearchingListRequest, SearchListItem> {
+export class SearchingListListComponent extends ListBaseComponent<SearchingListFilter, SearchListItem> {
   readonly #client = inject(SearchingClient);
   readonly #lookupClient = inject(LookupClient);
 
@@ -144,14 +144,24 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListR
     };
   }
 
-  override createRequest(request: WithSortAndPagination<SearchingListRequest>)
+  override createRequest(request: WithSortAndPagination<SearchingListFilter>)
     : Observable<RawHttpResponse<PaginatedResponse<SearchListItem>>> {
-    if (request.createdFrom) { request.createdFrom = `${request.createdFrom}Z` };
-    if (request.createdTo) { request.createdTo = `${request.createdTo}Z` };
-    if (request.validFrom) { request.validFrom = `${request.validFrom}Z` };
-    if (request.validTo) { request.validTo = `${request.validTo}Z` };
+    const requestData: WithSortAndPagination<SearchingListRequest> = {
+      channelId: request.channelId,
+      createdFrom: request.created?.from ?? null,
+      createdTo: request.created?.to ?? null,
+      guildId: request.guildId,
+      hideInvalid: request.hideInvalid,
+      messageQuery: request.messageQuery,
+      pagination: request.pagination,
+      showDeleted: request.showDeleted,
+      sort: request.sort,
+      userId: request.userId,
+      validFrom: request.valid?.from ?? null,
+      validTo: request.valid?.to ?? null
+    };
 
-    return this.#client.getSearchingList(request);
+    return this.#client.getSearchingList(requestData);
   }
 
   override createDefaultSort(): SortParameters {

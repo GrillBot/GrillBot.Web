@@ -15,25 +15,11 @@
 
   <c-row class="mb-2">
     <c-col>
-      <label cLabel for="created">Vytvořeno (OD - DO)</label>
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="createdFrom"
-        />
-
-        <input cFormControl type="datetime-local" formControlName="createdTo" />
-      </c-input-group>
+      <app-datetime-range formControlName="created" label="Vytvořeno" />
     </c-col>
 
     <c-col>
-      <label cLabel for="validity">Platnost (OD - DO)</label>
-      <c-input-group>
-        <input cFormControl type="datetime-local" formControlName="validFrom" />
-
-        <input cFormControl type="datetime-local" formControlName="validTo" />
-      </c-input-group>
+      <app-datetime-range formControlName="valid" label="Platnost" />
     </c-col>
   </c-row>
 
