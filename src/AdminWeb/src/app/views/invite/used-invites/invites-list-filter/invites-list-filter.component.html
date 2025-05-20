@@ -35,17 +35,10 @@
     </c-col>
 
     <c-col>
-      <label cLabel for="created">Vytvoření pozvánky (OD - DO)</label>
-
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="createdFrom"
-        />
-
-        <input cFormControl type="datetime-local" formControlName="createdTo" />
-      </c-input-group>
+      <app-datetime-range
+        formControlName="created"
+        label="Vytvoření pozvánky"
+      />
     </c-col>
   </c-row>
 </app-filter-card>
@@ -59,7 +52,7 @@
     Opravdu si přejete synchronizovat cache pozvánek pro server "{{
       guildId() | guildLookup | async
     }}"?
-  </ng-container>cd
+  </ng-container>
 
   <ng-container footer>
     <button

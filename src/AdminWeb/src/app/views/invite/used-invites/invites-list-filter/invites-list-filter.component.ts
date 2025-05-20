@@ -1,14 +1,12 @@
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
-  CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, GuildLookupPipe,
-  ModalComponent, TextInputComponent, UserLookupComponent} from "../../../../components";
+  CheckboxComponent, DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, GuildLookupPipe,
+  ModalComponent, TextInputComponent, UserLookupComponent
+} from "../../../../components";
 import { IForm } from "../../../../core/models/common";
-import { InviteListRequest } from "../../../../core/models/invite";
+import { InviteListFilter } from "../../../../core/models/invite";
 import { Component, computed, inject, input, viewChild } from "@angular/core";
-import {
-  ButtonDirective, ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent,
-  RowComponent
-} from "@coreui/angular";
+import { ButtonDirective, ColComponent, RowComponent } from "@coreui/angular";
 import { AsyncPipe } from "@angular/common";
 import { InviteClient } from "../../../../core/clients/invite.client";
 
@@ -20,21 +18,19 @@ import { InviteClient } from "../../../../core/clients/invite.client";
     ReactiveFormsModule,
     RowComponent,
     ColComponent,
-    FormLabelDirective,
-    FormControlDirective,
     GuildLookupComponent,
     UserLookupComponent,
     CheckboxComponent,
-    InputGroupComponent,
     ButtonDirective,
     ModalComponent,
     GuildLookupPipe,
     AsyncPipe,
     FilterCardComponent,
-    TextInputComponent
+    TextInputComponent,
+    DatetimeRangeComponent
   ]
 })
-export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRequest> {
+export class InvitesListFilterComponent extends FilterBaseComponent<InviteListFilter> {
   readonly #client = inject(InviteClient);
 
   allowSynchronization = input<boolean>(false);
@@ -46,7 +42,7 @@ export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRe
 
   override configure(): void { }
 
-  override createForm(): IForm<InviteListRequest> {
+  override createForm(): IForm<InviteListFilter> {
     const creatorId = this.createControl();
     const onlyWithoutCreator = this.createControl({ validators: [] }, false);
 
@@ -69,8 +65,7 @@ export class InvitesListFilterComponent extends FilterBaseComponent<InviteListRe
           Validators.maxLength(10)
         ]
       }, null),
-      createdFrom: this.createControl(),
-      createdTo: this.createControl()
+      created: this.createControl()
     };
   }
 
