@@ -1,7 +1,7 @@
 import { ButtonsCellRendererComponent } from './../../../../../components/ag-grid/renderers/action-buttons-cell-renderer/buttons-cell-renderer.component';
 import { Component, inject, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ListBaseComponent,
+  AsyncLookupCellRendererComponent, CheckboxCellRenderer, CheckboxComponent, GuildLookupPipe, InfoRowComponent, ListBaseComponent,
   ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../../components";
 import { EmoteSuggestionItem, EmoteSuggestionsListFilter, EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
@@ -9,13 +9,28 @@ import { EmoteClient, LookupClient } from "../../../../../core/clients";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../../core/models/common";
+import { FormControlDirective } from '@coreui/angular';
+import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe } from '../../../../../core/pipes';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-suggestions-list-list',
   templateUrl: './suggestions-list-list.component.html',
   standalone: true,
   imports: [
-    PaginatedGridComponent
+    PaginatedGridComponent,
+    ModalComponent,
+    LocaleDatePipe,
+    UserLookupPipe,
+    GuildLookupPipe,
+    InfoRowComponent,
+    AsyncPipe,
+    AsReadonlyFormControlPipe,
+    ReactiveFormsModule,
+    CheckboxComponent,
+    FormControlDirective,
+    SpacedNumberPipe
   ]
 })
 export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggestionsListFilter, EmoteSuggestionItem> {

@@ -6,3 +6,107 @@
     (reloadRequested)="reload()"
   />
 </div>
+
+<app-modal #detailModal title="Podrobnosti návrhu">
+  <ng-container body>
+    @if (rowInModal) {
+      <app-info-row key="ID" [value]="rowInModal.id" />
+
+      <app-info-row
+        key="Server"
+        [value]="rowInModal.guildId | guildLookup | async"
+      />
+
+      <app-info-row
+        key="Od uživatele"
+        [value]="rowInModal.fromUserId | userLookup | async"
+      />
+
+      <app-info-row key="Název" [value]="rowInModal.name" />
+
+      <app-info-row
+        key="Navrhnuto"
+        [value]="rowInModal.suggestedAtUtc | localeDatePipe"
+      />
+
+      <app-info-row
+        key="ID notifikační zprávy"
+        [value]="rowInModal.notificationMessageId"
+      />
+
+      <div class="mt-3 border-top">
+        <b>Schválení</b>
+
+        <div class="mb-2">
+          <app-checkbox
+            checkboxId="approvedForVote"
+            [formControl]="rowInModal.approvedForVote | asReadonlyFormControl"
+            label="Schváleno / Zamítnuto"
+          />
+        </div>
+
+        @if (
+          rowInModal.approvalUserId && rowInModal.approvalUserId.length > 0
+        ) {
+          <app-info-row
+            key="Schvalovatel"
+            [value]="rowInModal.approvalUserId | userLookup | async"
+          />
+        }
+
+        @if (rowInModal.approvedAtUtc) {
+          <app-info-row
+            key="Posl. schválení"
+            [value]="rowInModal.approvedAtUtc | localeDatePipe"
+          />
+        }
+      </div>
+
+      @if (rowInModal.voteStartAt) {
+        <div class="mt-3 border-top">
+          <b>Hlasování</b>
+
+          <app-info-row
+            key="Zahájeno"
+            [value]="rowInModal.voteStartAt | localeDatePipe"
+          />
+
+          @if (rowInModal.voteEndAt) {
+            <app-info-row
+              key="Předpokládaný konec"
+              [value]="rowInModal.voteEndAt | localeDatePipe"
+            />
+          }
+
+          @if (rowInModal.voteKilledAt) {
+            <app-info-row
+              key="Předčasně ukončeno"
+              [value]="rowInModal.voteKilledAt | localeDatePipe"
+            />
+          }
+
+          @if (rowInModal.upVotes != undefined) {
+            <app-info-row
+              key="Pozitivních hlasů"
+              [value]="rowInModal.upVotes | spacedNumber"
+            />
+          }
+
+          @if (rowInModal.downVotes != undefined) {
+            <app-info-row
+              key="Negativních hlasů"
+              [value]="rowInModal.downVotes | spacedNumber"
+            />
+          }
+        </div>
+      }
+
+      <p class="mt-3">
+        <b>Důvod přidání</b>:
+        <textarea cFormControl disabled style="height: 150px">{{
+          rowInModal.reasonToAdd
+        }}</textarea>
+      </p>
+    }
+  </ng-container>
+</app-modal>
