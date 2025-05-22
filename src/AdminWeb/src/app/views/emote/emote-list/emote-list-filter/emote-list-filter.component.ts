@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import {
-  CheckboxComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, RadioGroupComponent,
+  CheckboxComponent, DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, RadioGroupComponent,
   RadioItem, TextInputComponent, UserLookupComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
-import { EmoteStatisticsListRequest } from "../../../../core/models/emote/emote-statistics-list-request";
+import { EmoteStatisticsListFilter } from "../../../../core/models/emote/emote-statistics-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
   ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent
@@ -26,10 +26,11 @@ import {
     CheckboxComponent,
     RadioGroupComponent,
     FilterCardComponent,
-    TextInputComponent
+    TextInputComponent,
+    DatetimeRangeComponent
   ]
 })
-export class EmoteListFilterComponent extends FilterBaseComponent<EmoteStatisticsListRequest> {
+export class EmoteListFilterComponent extends FilterBaseComponent<EmoteStatisticsListFilter> {
   unsupportedItems: RadioItem[] = [
     { label: 'Podporované', value: false },
     { label: 'Nepodporované', value: true }
@@ -39,17 +40,15 @@ export class EmoteListFilterComponent extends FilterBaseComponent<EmoteStatistic
     this.filterId = 'emote/emote-list';
   }
 
-  override createForm(): IForm<EmoteStatisticsListRequest> {
+  override createForm(): IForm<EmoteStatisticsListFilter> {
     return {
       unsupported: this.createControl({ validators: [] }, false),
       guildId: this.createControl(),
       userId: this.createControl(),
       useCountFrom: this.createControl(),
       useCountTo: this.createControl(),
-      firstOccurenceFrom: this.createControl(),
-      firstOccurenceTo: this.createControl(),
-      lastOccurenceFrom: this.createControl(),
-      lastOccurenceTo: this.createControl(),
+      firstOccurence: this.createControl(),
+      lastOccurence: this.createControl(),
       ignoreAnimated: this.createControl({ validators: [] }, false),
       emoteName: this.createControl(),
       emoteFullId: this.createControl()

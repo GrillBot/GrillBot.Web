@@ -8,7 +8,7 @@ import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { Router } from "@angular/router";
 import { EmoteClient, LookupClient } from "../../../../core/clients";
-import { EmoteStatisticsItem, EmoteStatisticsListRequest } from "../../../../core/models/emote";
+import { EmoteStatisticsItem, EmoteStatisticsListFilter, EmoteStatisticsListRequest } from "../../../../core/models/emote";
 
 @Component({
   selector: 'app-emote-list-list',
@@ -18,7 +18,7 @@ import { EmoteStatisticsItem, EmoteStatisticsListRequest } from "../../../../cor
     PaginatedGridComponent
   ]
 })
-export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsListRequest, EmoteStatisticsItem> {
+export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsListFilter, EmoteStatisticsItem> {
   readonly #client = inject(EmoteClient);
   readonly #lookupClient = inject(LookupClient);
   readonly #router = inject(Router);
@@ -123,14 +123,26 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
     }
   }
 
-  override createRequest(request: WithSortAndPagination<EmoteStatisticsListRequest>)
+  override createRequest(request: WithSortAndPagination<EmoteStatisticsListFilter>)
     : rxjs.Observable<RawHttpResponse<PaginatedResponse<EmoteStatisticsItem>>> {
-    if (request.firstOccurenceFrom) { request.firstOccurenceFrom = `${request.firstOccurenceFrom}Z`; }
-    if (request.firstOccurenceTo) { request.firstOccurenceTo = `${request.firstOccurenceTo}Z`; }
-    if (request.lastOccurenceFrom) { request.lastOccurenceFrom = `${request.lastOccurenceFrom}Z`; }
-    if (request.lastOccurenceTo) { request.lastOccurenceTo = `${request.lastOccurenceTo}Z`; }
+    const requestData: WithSortAndPagination<EmoteStatisticsListRequest> = {
+      emoteFullId: request.emoteFullId,
+      emoteName: request.emoteName,
+      guildId: request.guildId,
+      ignoreAnimated: request.ignoreAnimated,
+      firstOccurenceFrom: request.firstOccurence?.from ?? null,
+      firstOccurenceTo: request.firstOccurence?.to ?? null,
+      lastOccurenceFrom: request.lastOccurence?.from ?? null,
+      lastOccurenceTo: request.lastOccurence?.to ?? null,
+      pagination: request.pagination,
+      sort: request.sort,
+      unsupported: request.unsupported,
+      useCountFrom: request.useCountFrom,
+      useCountTo: request.useCountTo,
+      userId: request.userId
+    };
 
-    return this.#client.getEmoteStatisticsList(request);
+    return this.#client.getEmoteStatisticsList(requestData);
   }
 
   override createDefaultSort(): SortParameters {

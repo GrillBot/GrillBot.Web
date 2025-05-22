@@ -11,37 +11,17 @@
 
   <c-row class="mb-1">
     <c-col>
-      <label cLabel for="firstOccurence">První výskyt (OD-DO)</label>¨
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="firstOccurenceFrom"
-        />
-
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="firstOccurenceTo"
-        />
-      </c-input-group>
+      <app-datetime-range
+        formControlName="firstOccurence"
+        label="První výskyt"
+      />
     </c-col>
 
     <c-col>
-      <label cLabel for="lastOccurence">Poslední výskyt (OD-DO)</label>
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="lastOccurenceFrom"
-        />
-
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="lastOccurenceTo"
-        />
-      </c-input-group>
+      <app-datetime-range
+        formControlName="lastOccurence"
+        label="Poslední výskyt"
+      />
     </c-col>
   </c-row>
 
