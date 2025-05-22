@@ -1,5 +1,5 @@
 import { PipeTransform } from "@angular/core";
-import { ValueFormatterLiteParams, ValueFormatterParams } from "ag-grid-community";
+import { ColDef, ValueFormatterLiteParams, ValueFormatterParams } from "ag-grid-community";
 
 function usePipeTransformInternal<TPipe extends PipeTransform>(
   value: any,

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ICellRendererParams } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { ButtonDef } from "./buttons-cell-renderer.models";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ButtonDirective } from "@coreui/angular";
@@ -39,6 +39,16 @@ export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
     this.buttons = params.buttons;
     this.rowData = params.data;
     return true;
+  }
+
+  static createColumnDef(buttons: ButtonDef[], maxWidth?: number): ColDef {
+    return {
+      headerName: 'Akce',
+      colId: 'actions',
+      cellRenderer: ButtonsCellRendererComponent,
+      cellRendererParams: { buttons },
+      maxWidth: maxWidth
+    };
   }
 
 }
