@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
-import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
+import { AdminListFilter } from "../../../../core/models/points/admin-list-request";
 import { GuildLookupComponent, UserLookupComponent } from "../../../../components/lookups";
-import { CheckboxComponent, RadioGroupComponent, TextInputComponent } from "../../../../components/forms";
+import { CheckboxComponent, DatetimeRangeComponent, RadioGroupComponent, TextInputComponent } from "../../../../components/forms";
 import { FilterBaseComponent, FilterCardComponent } from "../../../../components/filters";
 
 @Component({
@@ -16,24 +16,22 @@ import { FilterBaseComponent, FilterCardComponent } from "../../../../components
     RowComponent,
     ColComponent,
     FormLabelDirective,
-    InputGroupComponent,
-    FormControlDirective,
     GuildLookupComponent,
     UserLookupComponent,
     CheckboxComponent,
     RadioGroupComponent,
     FilterCardComponent,
-    TextInputComponent
+    TextInputComponent,
+    DatetimeRangeComponent
   ]
 })
-export class TransactionsFilterComponent extends FilterBaseComponent<AdminListRequest> {
+export class TransactionsFilterComponent extends FilterBaseComponent<AdminListFilter> {
   override configure(): void { }
 
-  override createForm(): IForm<AdminListRequest> {
+  override createForm(): IForm<AdminListFilter> {
     return {
       guildId: this.createControl(),
-      createdFrom: this.createControl(),
-      createdTo: this.createControl(),
+      created: this.createControl(),
       messageId: this.createControl({
         validators: [Validators.pattern(/\d+/)]
       }),

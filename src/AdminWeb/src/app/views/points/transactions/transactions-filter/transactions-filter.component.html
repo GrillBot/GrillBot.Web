@@ -11,16 +11,7 @@
 
   <c-row class="mb-1">
     <c-col>
-      <label cLabel for="createdFrom">Vytvořeno (OD - DO)</label>
-      <c-input-group>
-        <input
-          cFormControl
-          type="datetime-local"
-          formControlName="createdFrom"
-        />
-
-        <input cFormControl type="datetime-local" formControlName="createdTo" />
-      </c-input-group>
+      <app-datetime-range formControlName="created" label="Vytvořeno" />
     </c-col>
 
     <c-col>
