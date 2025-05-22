@@ -1,8 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform,
-  UserLookupPipe
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform, UserLookupPipe
 } from "../../../../components";
 import { MeasuresListFilter, MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
@@ -63,30 +62,21 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListFil
           maxWidth: 200,
           cellDataType: 'localeDatetime'
         },
-        {
-          field: 'moderatorId',
-          headerName: 'Moderátor',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'moderatorId',
+          'Moderátor',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
+        ),
         {
           field: 'reason',
           headerName: 'Důvod',
@@ -94,34 +84,27 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListFil
           valueFormatter: params => usePipeTransform(params, CutStringPipe, MAX_REASON_CELL_LENGTH, false),
           maxWidth: 300
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'show-full-reason',
-                title: 'Zobrazit celý důvod',
-                color: 'primary',
-                action: row => this.openFullReasonModal()?.open(
-                  () => this.reasonInModal = row.reason,
-                  () => this.reasonInModal = undefined
-                ),
-                isVisible: row => row.reason.length >= MAX_REASON_CELL_LENGTH
-              },
-              {
-                id: 'remove-measure',
-                title: 'Smazat opatření',
-                color: 'danger',
-                action: row => this.removeMeasureModal()?.open(
-                  () => this.rowInModal = row,
-                  () => this.rowInModal = undefined
-                )
-              }
-            ] as ButtonDef[]
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'show-full-reason',
+            title: 'Zobrazit celý důvod',
+            color: 'primary',
+            action: row => this.openFullReasonModal()?.open(
+              () => this.reasonInModal = row.reason,
+              () => this.reasonInModal = undefined
+            ),
+            isVisible: row => row.reason.length >= MAX_REASON_CELL_LENGTH
+          },
+          {
+            id: 'remove-measure',
+            title: 'Smazat opatření',
+            color: 'danger',
+            action: row => this.removeMeasureModal()?.open(
+              () => this.rowInModal = row,
+              () => this.rowInModal = undefined
+            )
           }
-        }
+        ])
       ],
       getRowClass: params => params.data.type === 'Warning' ? ['bg-warning-subtle'] : undefined,
       getRowStyle: STRIPED_ROW_STYLE

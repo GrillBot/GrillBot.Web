@@ -26,29 +26,20 @@ export class UsersListComponent extends ListBaseComponent<UserListRequest, UserL
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          },
-          maxWidth: 500
-        },
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient),
+          {
+            maxWidth: 500
           }
-        },
-        {
-          field: 'pointsDeactivated',
-          headerName: 'Body deaktivované',
-          cellRenderer: CheckboxCellRenderer,
-          maxWidth: 180
-        },
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
+        CheckboxCellRenderer.createColDef('pointsDeactivated', 'Body deaktivované', { maxWidth: 180 }),
         {
           field: 'activePoints',
           headerName: 'Aktivní body',

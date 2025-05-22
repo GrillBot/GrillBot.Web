@@ -43,14 +43,11 @@ export class PointsLeaderboardComponent extends FilterBaseComponent<LeaderboardF
 
     this.gridOptions = {
       columnDefs: [
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
         {
           field: 'yearBack',
           headerName: 'Za posl. rok',

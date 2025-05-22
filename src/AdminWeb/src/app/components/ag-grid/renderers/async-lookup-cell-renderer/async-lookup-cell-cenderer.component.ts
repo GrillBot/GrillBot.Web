@@ -1,7 +1,7 @@
 import { AsyncPipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
-import { ICellRendererParams } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { LoadingComponent } from "../../../loading/loading.component";
 
@@ -34,5 +34,20 @@ export class AsyncLookupCellRendererComponent implements ICellRendererAngularCom
     this.source = params.sourceGenerator(params.value);
 
     return true;
+  }
+
+  static createColDef(
+    field: string,
+    headerName: string,
+    sourceGenerator: (value: any) => Observable<any> | null,
+    additionalConfiguration: ColDef = {}
+  ): ColDef {
+    return {
+      field,
+      headerName,
+      cellRenderer: AsyncLookupCellRendererComponent,
+      cellRendererParams: { sourceGenerator },
+      ...additionalConfiguration
+    }
   }
 }

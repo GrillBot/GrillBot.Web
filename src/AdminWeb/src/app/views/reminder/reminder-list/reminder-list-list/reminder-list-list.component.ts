@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent,
+  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
 import { ReminderListFilter, ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
@@ -46,22 +46,16 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListFil
           maxWidth: 100,
           cellDataType: 'spacedNumber'
         },
-        {
-          field: 'fromUserId',
-          headerName: 'Od uživatele',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'toUserId',
-          headerName: 'Komu',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'fromUserId',
+          'Od uživatele',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'toUserId',
+          'Komu',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
         {
           field: 'notifyAtUtc',
           headerName: 'Datum a čas oznámení',
@@ -82,13 +76,10 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListFil
           },
           cellDataType: 'spacedNumber'
         },
-        {
-          field: 'notificationMessageId',
-          headerName: 'Oznámeno',
+        CheckboxCellRenderer.createColDef('notificationMessageId', 'Oznámeno', {
           valueGetter: params => this.isNotified(params.data),
-          cellRenderer: CheckboxCellRenderer,
           maxWidth: 110
-        },
+        }),
         {
           field: 'language',
           headerName: 'Jazyk',
@@ -99,44 +90,37 @@ export class ReminderListListComponent extends ListBaseComponent<ReminderListFil
           headerName: 'ID zprávy',
           maxWidth: 230
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'show-message',
-                title: 'Zobrazit zprávu',
-                color: 'primary',
-                action: row => this.messageModal()?.open(
-                  () => this.modalRow = row,
-                  () => this.modalRow = undefined
-                )
-              },
-              {
-                id: 'cancel-and-notify',
-                title: 'Oznámit a stornovat',
-                color: 'dark',
-                action: row => this.cancelModal()?.open(
-                  () => this.cancelModalRow = { notify: true, row },
-                  () => this.cancelModalRow = undefined
-                ),
-                isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
-              },
-              {
-                id: 'cancel',
-                title: 'Stornovat',
-                color: 'dark',
-                action: row => this.cancelModal()?.open(
-                  () => this.cancelModalRow = { notify: false, row },
-                  () => this.cancelModalRow = undefined
-                ),
-                isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
-              }
-            ] as ButtonDef[]
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'show-message',
+            title: 'Zobrazit zprávu',
+            color: 'primary',
+            action: row => this.messageModal()?.open(
+              () => this.modalRow = row,
+              () => this.modalRow = undefined
+            )
+          },
+          {
+            id: 'cancel-and-notify',
+            title: 'Oznámit a stornovat',
+            color: 'dark',
+            action: row => this.cancelModal()?.open(
+              () => this.cancelModalRow = { notify: true, row },
+              () => this.cancelModalRow = undefined
+            ),
+            isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
+          },
+          {
+            id: 'cancel',
+            title: 'Stornovat',
+            color: 'dark',
+            action: row => this.cancelModal()?.open(
+              () => this.cancelModalRow = { notify: false, row },
+              () => this.cancelModalRow = undefined
+            ),
+            isVisible: row => !this.isNotified(row) && String(row.notificationMessageId ?? '').length === 0
           }
-        }
+        ])
       ],
       getRowClass: params => params.data.isSendInProgress ? ['bg-success-subtle'] : undefined,
       getRowStyle: STRIPED_ROW_STYLE

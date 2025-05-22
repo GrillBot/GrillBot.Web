@@ -1,6 +1,6 @@
 import { Component, inject, isDevMode, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
   ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { FormSearchRequest, LogListItem, SearchRequest } from "../../../../core/models/audit-log";
@@ -49,36 +49,33 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           resizable: true,
           valueFormatter: params => (AuditLogTypeLocalization as any)[AuditLogType[params.value]]
         },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string | null) => guildId ? GuildLookupPipe.processTransform(guildId, this.#lookupClient) : null
-          },
-          resizable: true,
-          width: 300
-        },
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null
-          },
-          resizable: true,
-          width: 300
-        },
-        {
-          field: 'channelId',
-          headerName: 'Kanál',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (channelId: string) => channelId ? ChannelLookupPipe.processTransform(channelId, this.#lookupClient) : null
-          },
-          resizable: true,
-          width: 300
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string | null) => guildId ? GuildLookupPipe.processTransform(guildId, this.#lookupClient) : null,
+          {
+            resizable: true,
+            width: 300
+          }
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null,
+          {
+            resizable: true,
+            width: 300
+          }
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'channelId',
+          'Kanál',
+          (channelId: string) => channelId ? ChannelLookupPipe.processTransform(channelId, this.#lookupClient) : null,
+          {
+            resizable: true,
+            width: 300
+          }
+        ),
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',
@@ -105,32 +102,24 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           resizable: true,
           cellRenderer: PreviewCellRendererComponent
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          width: 200,
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'detail',
-                title: 'Detail',
-                action: (row: LogListItem) => this.#router.navigate(['/web/auditlog/', row.id]),
-                isVisible: (row: LogListItem) => row.isDetailAvailable,
-                color: 'primary'
-              },
-              {
-                id: 'remove',
-                title: 'Smazat',
-                action: (row: LogListItem) => this.removeItemModal()?.open(
-                  () => this.rowInModal = row,
-                  () => this.rowInModal = undefined
-                ),
-                color: 'danger'
-              }
-            ] as ButtonDef[]
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'detail',
+            title: 'Detail',
+            action: (row: LogListItem) => this.#router.navigate(['/web/auditlog/', row.id]),
+            isVisible: (row: LogListItem) => row.isDetailAvailable,
+            color: 'primary'
+          },
+          {
+            id: 'remove',
+            title: 'Smazat',
+            action: (row: LogListItem) => this.removeItemModal()?.open(
+              () => this.rowInModal = row,
+              () => this.rowInModal = undefined
+            ),
+            color: 'danger'
           }
-        }
+        ])
       ]
     };
   }

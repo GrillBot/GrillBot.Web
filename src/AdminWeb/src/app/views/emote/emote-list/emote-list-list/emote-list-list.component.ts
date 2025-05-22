@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, CheckboxCellRenderer,
-  GuildLookupPipe, ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe,
+  ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
 } from "../../../../components";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import * as rxjs from "rxjs";
@@ -26,29 +26,17 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'emoteUrl',
-          headerName: 'Emote',
-          cellRenderer: ImageCellRendererComponent,
-          cellRendererParams: {
-            width: 64,
-            height: 64
-          },
-          maxWidth: 100
-        },
+        ImageCellRendererComponent.createColDef('emoteUrl', 'Emote', 64, 64, { maxWidth: 100 }),
         {
           field: 'emoteId',
           headerName: 'ID',
           maxWidth: 200,
           hide: true
         },
-        {
-          field: 'emoteIsAnimated',
-          headerName: 'Animovaný',
-          cellRenderer: CheckboxCellRenderer,
+        CheckboxCellRenderer.createColDef('emoteIsAnimated', 'Animovaný', {
           maxWidth: 150,
           hide: true
-        },
+        }),
         {
           field: 'emoteName',
           headerName: 'Název'
@@ -93,31 +81,22 @@ export class EmoteListListComponent extends ListBaseComponent<EmoteStatisticsLis
             sortingKey: 'UsersCount'
           }
         },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          },
-          maxWidth: 500
-        },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'show-detail',
-                title: 'Detail',
-                color: 'primary',
-                action: row => this.openDetail(row)
-              }
-            ] as ButtonDef[]
-          },
-          maxWidth: 200
-        }
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient),
+          {
+            maxWidth: 500
+          }
+        ),
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'show-detail',
+            title: 'Detail',
+            color: 'primary',
+            action: row => this.openDetail(row)
+          }
+        ], 200)
       ],
       getRowStyle: STRIPED_ROW_STYLE
     }

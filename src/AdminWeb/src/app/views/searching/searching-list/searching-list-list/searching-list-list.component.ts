@@ -1,7 +1,7 @@
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
   ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
@@ -60,30 +60,21 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListF
           sort: 'desc',
           cellDataType: 'spacedNumber'
         },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'channelId',
-          headerName: 'Kanál',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (channelId: string) => ChannelLookupPipe.processTransform(channelId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'channelId',
+          'Kanál',
+          (channelId: string) => ChannelLookupPipe.processTransform(channelId, this.#lookupClient)
+        ),
         {
           field: 'createdAtUtc',
           headerName: 'Vytvořeno',
@@ -104,34 +95,27 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListF
           },
           cellDataType: 'localeDatetime'
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'show-message',
-                title: 'Zobrazit zprávu',
-                color: 'primary',
-                action: row => this.messageModal()?.open(
-                  () => this.modalRows = [row],
-                  () => this.modalRows = undefined
-                )
-              },
-              {
-                id: 'remove-message',
-                title: 'Smazat zprávu',
-                color: 'danger',
-                action: row => this.removeModal()?.open(
-                  () => this.modalRows = [row],
-                  () => this.modalRows = undefined
-                ),
-                isVisible: row => !row.isDeleted
-              }
-            ] as ButtonDef[]
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'show-message',
+            title: 'Zobrazit zprávu',
+            color: 'primary',
+            action: row => this.messageModal()?.open(
+              () => this.modalRows = [row],
+              () => this.modalRows = undefined
+            )
+          },
+          {
+            id: 'remove-message',
+            title: 'Smazat zprávu',
+            color: 'danger',
+            action: row => this.removeModal()?.open(
+              () => this.modalRows = [row],
+              () => this.modalRows = undefined
+            ),
+            isVisible: row => !row.isDeleted
           }
-        }
+        ])
       ],
       selection: {
         mode: 'multiRow',

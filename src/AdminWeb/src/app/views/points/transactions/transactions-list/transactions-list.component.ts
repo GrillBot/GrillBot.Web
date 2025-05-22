@@ -4,9 +4,8 @@ import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE,
-  UserLookupPipe
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent, ModalComponent,
+  PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { LocaleDatePipe } from "../../../../core/pipes";
@@ -40,23 +39,19 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListFilter
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          },
-          maxWidth: 500
-        },
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient),
+          {
+            maxWidth: 500
           }
-        },
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',
@@ -102,25 +97,17 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListFilter
           hide: true,
           cellDataType: 'localeDatetime'
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          maxWidth: 200,
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'remove-transaction',
-                title: 'Smazat transakci',
-                action: row => this.removeTransactionModal()?.open(
-                  () => this.rowInModal = row,
-                  () => this.rowInModal = undefined
-                ),
-                color: 'danger'
-              },
-            ] as ButtonDef[]
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'remove-transaction',
+            title: 'Smazat transakci',
+            action: row => this.removeTransactionModal()?.open(
+              () => this.rowInModal = row,
+              () => this.rowInModal = undefined
+            ),
+            color: 'danger'
           }
-        }
+        ], 200)
       ],
       getRowStyle: STRIPED_ROW_STYLE
     };

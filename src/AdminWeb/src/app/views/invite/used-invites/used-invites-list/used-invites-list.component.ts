@@ -35,22 +35,16 @@ export class UsedInvitesListComponent extends ListBaseComponent<InviteListFilter
             sortKey: 'Code'
           }
         },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          },
-        },
-        {
-          field: 'creatorId',
-          headerName: 'Zakladatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string | null) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'creatorId',
+          'Zakladatel',
+          (userId: string | null) => userId ? UserLookupPipe.processTransform(userId, this.#lookupClient) : null
+        ),
         {
           field: 'createdAt',
           headerName: 'Vytvořeno',

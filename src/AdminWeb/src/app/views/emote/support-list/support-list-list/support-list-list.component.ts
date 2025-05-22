@@ -25,17 +25,10 @@ export class SupportListListComponent extends ListBaseComponent<{ guildId: strin
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'fullId',
-          headerName: 'Emote',
+        ImageCellRendererComponent.createColDef('fullId', 'Emote', 64, 64, {
           maxWidth: 100,
-          cellRenderer: ImageCellRendererComponent,
-          cellRendererParams: {
-            width: 64,
-            height: 64
-          },
           valueGetter: params => mapEmoteIdToUrl(params.data.fullId)
-        },
+        }),
         {
           colId: 'id',
           headerName: 'ID',
@@ -47,22 +40,18 @@ export class SupportListListComponent extends ListBaseComponent<{ guildId: strin
           headerName: 'Název',
           valueGetter: params => mapEmoteIdToName(params.data.fullId)
         },
-        {
-          colId: 'animated',
-          headerName: 'Animovaný',
+        CheckboxCellRenderer.createColDef('animated', 'Animovaný', {
           valueGetter: params => mapEmoteIdToAnimatedFlag(params.data.fullId),
-          cellRenderer: CheckboxCellRenderer,
           maxWidth: 150
-        },
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          },
-          maxWidth: 500
-        },
+        }),
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient),
+          {
+            maxWidth: 500
+          }
+        ),
         {
           field: 'fullId',
           headerName: 'Plné ID'

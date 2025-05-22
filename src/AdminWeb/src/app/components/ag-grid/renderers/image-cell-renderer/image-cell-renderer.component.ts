@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
-import { ICellRendererParams } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 
 export type ImageCellRendererParams = ICellRendererParams & {
   width: number,
@@ -24,5 +24,21 @@ export class ImageCellRendererComponent implements ICellRendererAngularComp {
     this.params = params;
 
     return true;
+  }
+
+  static createColDef(
+    field: string,
+    headerName: string,
+    width: number,
+    height: number,
+    additional: ColDef = {}
+  ): ColDef {
+    return {
+      field,
+      headerName,
+      cellRenderer: ImageCellRendererComponent,
+      cellRendererParams: { width, height },
+      ...additional
+    };
   }
 }

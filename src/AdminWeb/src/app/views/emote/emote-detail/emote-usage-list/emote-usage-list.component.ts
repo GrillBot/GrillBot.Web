@@ -1,7 +1,6 @@
 import { Component, computed, inject, input, OnInit, output, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonDef, ButtonsCellRendererComponent,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent,
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ListBaseComponent, ModalComponent, PaginatedGridComponent,
   UserLookupPipe
 } from "../../../../components";
 import { EmoteUserUsageItem, EmoteUserUsageListRequest } from "../../../../core/models/emote";
@@ -45,14 +44,11 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'userId',
-          headerName: 'Uživatel',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'userId',
+          'Uživatel',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
         {
           field: 'firstOccurence',
           headerName: 'Prvně použito',
@@ -83,25 +79,17 @@ export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageLis
             sortingKey: 'UseCount'
           }
         },
-        {
-          headerName: 'Akce',
-          colId: 'actions',
-          cellRenderer: ButtonsCellRendererComponent,
-          cellRendererParams: {
-            buttons: [
-              {
-                id: 'show-detail',
-                title: 'Smazat',
-                color: 'danger',
-                action: row => this.removeUserStatisticsRowModal()?.open(
-                  () => this.userUsageItemRow = row,
-                  () => this.userUsageItemRow = undefined
-                )
-              }
-            ] as ButtonDef[]
-          },
-          maxWidth: 200
-        }
+        ButtonsCellRendererComponent.createColumnDef([
+          {
+            id: 'show-detail',
+            title: 'Smazat',
+            color: 'danger',
+            action: row => this.removeUserStatisticsRowModal()?.open(
+              () => this.userUsageItemRow = row,
+              () => this.userUsageItemRow = undefined
+            )
+          }
+        ], 200)
       ]
     };
   }

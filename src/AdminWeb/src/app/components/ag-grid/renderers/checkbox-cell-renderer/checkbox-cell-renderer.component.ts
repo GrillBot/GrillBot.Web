@@ -1,7 +1,7 @@
 import { Component, signal } from "@angular/core";
 import { FormCheckInputDirective } from "@coreui/angular";
 import { ICellRendererAngularComp } from "ag-grid-angular";
-import { ICellRendererParams } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 
 @Component({
   template: '<input cFormCheckInput disabled [checked]="value()" [id]="checkboxId()" />',
@@ -25,6 +25,19 @@ export class CheckboxCellRenderer implements ICellRendererAngularComp {
   refresh(params: ICellRendererParams<any, boolean, any>): boolean {
     this.value.set(params.value ?? false);
     return true;
+  }
+
+  static createColDef(
+    field: string,
+    headerName: string,
+    additional: ColDef = {}
+  ): ColDef {
+    return {
+      field,
+      headerName,
+      cellRenderer: CheckboxCellRenderer,
+      ...additional
+    };
   }
 
 }

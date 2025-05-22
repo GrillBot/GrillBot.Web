@@ -1,4 +1,4 @@
-import { ButtonsCellRendererComponent, ButtonsCellRendererParams } from './../../../../../components/ag-grid/renderers/action-buttons-cell-renderer/buttons-cell-renderer.component';
+import { ButtonsCellRendererComponent } from './../../../../../components/ag-grid/renderers/action-buttons-cell-renderer/buttons-cell-renderer.component';
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ListBaseComponent,
@@ -6,7 +6,6 @@ import {
 } from "../../../../../components";
 import { EmoteSuggestionItem, EmoteSuggestionsListFilter, EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
 import { EmoteClient, LookupClient } from "../../../../../core/clients";
-import { Router } from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../../core/models/common";
@@ -29,22 +28,16 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
   override createGridOptions(): GridOptions {
     return {
       columnDefs: [
-        {
-          field: 'guildId',
-          headerName: 'Server',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
-          }
-        },
-        {
-          field: 'fromUserId',
-          headerName: 'Od uživatele',
-          cellRenderer: AsyncLookupCellRendererComponent,
-          cellRendererParams: {
-            sourceGenerator: (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
-          }
-        },
+        AsyncLookupCellRendererComponent.createColDef(
+          'guildId',
+          'Server',
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
+        ),
+        AsyncLookupCellRendererComponent.createColDef(
+          'fromUserId',
+          'Od uživatele',
+          (userId: string) => UserLookupPipe.processTransform(userId, this.#lookupClient)
+        ),
         {
           field: 'name',
           headerName: 'Název'
@@ -60,18 +53,8 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
             sortingKey: 'SuggestedAt'
           }
         },
-        {
-          field: 'approvedForVote',
-          headerName: 'Schváleno',
-          cellRenderer: CheckboxCellRenderer,
-          maxWidth: 120
-        },
-        {
-          field: 'voteStartAt',
-          headerName: 'Hlasování',
-          cellRenderer: CheckboxCellRenderer,
-          maxWidth: 120
-        },
+        CheckboxCellRenderer.createColDef('approvedForVote', 'Schváleno', { maxWidth: 120 }),
+        CheckboxCellRenderer.createColDef('voteStartAt', 'Hlasování', { maxWidth: 120 }),
         ButtonsCellRendererComponent.createColumnDef([
           {
             id: 'show-detail',
