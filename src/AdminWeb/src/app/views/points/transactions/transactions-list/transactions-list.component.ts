@@ -1,5 +1,5 @@
 import { Component, inject, viewChild } from "@angular/core";
-import { AdminListRequest } from "../../../../core/models/points/admin-list-request";
+import { AdminListFilter, AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
@@ -30,7 +30,7 @@ import { AsyncPipe } from "@angular/common";
     AsyncPipe
   ]
 })
-export class TransactionsListComponent extends ListBaseComponent<AdminListRequest, TransactionItem> {
+export class TransactionsListComponent extends ListBaseComponent<AdminListFilter, TransactionItem> {
   readonly #pointsClient = inject(PointsClient);
   readonly #lookupClient = inject(LookupClient);
 
@@ -126,9 +126,22 @@ export class TransactionsListComponent extends ListBaseComponent<AdminListReques
     };
   }
 
-  override createRequest(request: WithSortAndPagination<AdminListRequest>)
+  override createRequest(request: WithSortAndPagination<AdminListFilter>)
     : rxjs.Observable<RawHttpResponse<PaginatedResponse<TransactionItem>>> {
-    return this.#pointsClient.getTransactionList(request);
+    const requestData: WithSortAndPagination<AdminListRequest> = {
+      createdFrom: request.created?.from ?? null,
+      createdTo: request.created?.to ?? null,
+      guildId: request.guildId,
+      messageId: request.messageId,
+      onlyMessages: request.onlyMessages,
+      onlyReactions: request.onlyReactions,
+      pagination: request.pagination,
+      showMerged: request.showMerged,
+      sort: request.sort,
+      userId: request.userId
+    };
+
+    return this.#pointsClient.getTransactionList(requestData);
   }
 
   override createDefaultSort(): SortParameters {

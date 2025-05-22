@@ -4,7 +4,7 @@ import {
   ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform,
   UserLookupPipe
 } from "../../../../components";
-import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
+import { MeasuresListFilter, MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
@@ -32,7 +32,7 @@ const MAX_REASON_CELL_LENGTH = 30;
     AsyncPipe
   ]
 })
-export class MeasuresListListComponent extends ListBaseComponent<MeasuresListParams, MeasuresItem> {
+export class MeasuresListListComponent extends ListBaseComponent<MeasuresListFilter, MeasuresItem> {
   readonly #client = inject(UserMeasuresClient);
   readonly #lookupClient = inject(LookupClient);
 
@@ -128,9 +128,20 @@ export class MeasuresListListComponent extends ListBaseComponent<MeasuresListPar
     };
   }
 
-  override createRequest(request: WithSortAndPagination<MeasuresListParams>)
+  override createRequest(request: WithSortAndPagination<MeasuresListFilter>)
     : Observable<RawHttpResponse<PaginatedResponse<MeasuresItem>>> {
-    return this.#client.getMeasuresList(request);
+    const requestData: WithSortAndPagination<MeasuresListParams> = {
+      createdFrom: request.created?.from ?? null,
+      createdTo: request.created?.to ?? null,
+      guildId: request.guildId,
+      moderatorId: request.moderatorId,
+      pagination: request.pagination,
+      sort: request.sort,
+      type: request.type,
+      userId: request.userId
+    };
+
+    return this.#client.getMeasuresList(requestData);
   }
 
   override createDefaultSort(): SortParameters {

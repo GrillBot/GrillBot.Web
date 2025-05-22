@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
+  DatetimeRangeComponent,
   FilterBaseComponent, FilterCardComponent, GuildLookupComponent, UserLookupComponent
 } from "../../../../components";
-import { MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
+import { MeasuresListFilter } from "../../../../core/models/user-measures/measures-list-params";
 import { IForm } from "../../../../core/models/common";
-import { ColComponent, FormControlDirective, FormLabelDirective, InputGroupComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { NgSelectorDirective } from "../../../../core/directives/ng-selector.directive";
 import { NgSelectComponent } from "@ng-select/ng-select";
 
@@ -18,28 +19,26 @@ import { NgSelectComponent } from "@ng-select/ng-select";
     FormLabelDirective,
     GuildLookupComponent,
     UserLookupComponent,
-    FormControlDirective,
     RowComponent,
     ColComponent,
     NgSelectComponent,
     NgSelectorDirective,
-    InputGroupComponent,
-    FilterCardComponent
+    FilterCardComponent,
+    DatetimeRangeComponent
   ]
 })
-export class MeasuresListFilterComponent extends FilterBaseComponent<MeasuresListParams> {
+export class MeasuresListFilterComponent extends FilterBaseComponent<MeasuresListFilter> {
   override configure(): void {
     this.filterId = 'user-measures/measures-list';
   }
 
-  override createForm(): IForm<MeasuresListParams> {
+  override createForm(): IForm<MeasuresListFilter> {
     return {
       type: this.createControl(),
       guildId: this.createControl(),
       userId: this.createControl(),
       moderatorId: this.createControl(),
-      createdFrom: this.createControl(),
-      createdTo: this.createControl()
+      created: this.createControl()
     };
   }
 }
