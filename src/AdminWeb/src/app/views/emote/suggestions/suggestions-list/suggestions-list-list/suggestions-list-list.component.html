@@ -41,7 +41,7 @@
           <app-checkbox
             checkboxId="approvedForVote"
             [formControl]="rowInModal.approvedForVote | asReadonlyFormControl"
-            label="Schváleno / Zamítnuto"
+            [label]="rowInModal.approvedForVote ? 'Schváleno' : 'Zamítnuto'"
           />
         </div>
 
@@ -118,5 +118,29 @@
         </c-col>
       </c-row>
     }
+  </ng-container>
+</app-modal>
+
+<app-modal #cancelVoteModal title="Zrušení hlasování" [enableFooter]="true">
+  <ng-container body>Opravdu si přejete zrušit hlasování?</ng-container>
+
+  <ng-container footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="cancelVote()"
+    >
+      Ano
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="cancelVoteModal.close()"
+    >
+      Ne
+    </button>
   </ng-container>
 </app-modal>

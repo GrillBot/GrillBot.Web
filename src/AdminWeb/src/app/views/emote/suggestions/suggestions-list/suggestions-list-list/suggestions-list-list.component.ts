@@ -9,10 +9,11 @@ import { EmoteClient, LookupClient } from "../../../../../core/clients";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../../core/models/common";
-import { ColComponent, FormControlDirective, RowComponent } from '@coreui/angular';
+import { ButtonDirective, ColComponent, FormControlDirective, RowComponent } from '@coreui/angular';
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe } from '../../../../../core/pipes';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-suggestions-list-list',
@@ -32,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormControlDirective,
     SpacedNumberPipe,
     RowComponent,
-    ColComponent
+    ColComponent,
+    ButtonDirective
   ]
 })
 export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggestionsListFilter, EmoteSuggestionItem> {
@@ -41,6 +43,7 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
 
   rowInModal?: EmoteSuggestionItem;
   detailsModal = viewChild<ModalComponent>('detailModal');
+  cancelVoteModal = viewChild<ModalComponent>('cancelVoteModal');
 
   override createGridOptions(): GridOptions {
     return {
@@ -65,13 +68,37 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
           cellDataType: 'localeDatetime',
           maxWidth: 200,
           sortable: true,
-          sort: 'asc',
+          sort: 'desc',
           context: {
             sortingKey: 'SuggestedAt'
           }
         },
         CheckboxCellRenderer.createColDef('approvedForVote', 'Schváleno', { maxWidth: 120 }),
-        CheckboxCellRenderer.createColDef('voteStartAt', 'Hlasování', { maxWidth: 120 }),
+        {
+          colId: 'voteInfo',
+          headerName: 'Hlasování',
+          maxWidth: 130,
+          valueGetter: params => {
+            const row = params.data as EmoteSuggestionItem;
+
+            if (!row.voteEndAt) { return 'Nespuštěno'; }
+            if (row.voteKilledAt) { return 'Zrušeno'; }
+
+            return DateTime.fromISO(row.voteEndAt).diffNow().toMillis() > 0 ? 'Probíhá' : 'Skončilo';
+          },
+          cellClass: params => {
+            switch (params.value) {
+              case 'Probíhá':
+                return 'bg-warning-subtle';
+              case 'Skončilo':
+                return 'bg-success-subtle';
+              case 'Zrušeno':
+                return 'bg-danger-subtle';
+              default:
+                return undefined;
+            }
+          }
+        },
         ButtonsCellRendererComponent.createColumnDef([
           {
             id: 'show-detail',
@@ -93,8 +120,19 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
             id: 'cancel-vote',
             title: 'Zrušit hlasování',
             color: 'danger',
-            action: row => this.cancelVote(row),
-            isVisible: (row: EmoteSuggestionItem) => row.approvedForVote && !!row.voteStartAt
+            action: row => this.cancelVoteModal()?.open(
+              () => this.rowInModal = row,
+              () => this.rowInModal = undefined
+            ),
+            isVisible: (row: EmoteSuggestionItem) => {
+              // Non-started or killed votes.
+              if (!row.voteStartAt || row.voteKilledAt || !row.voteEndAt) {
+                return false;
+              }
+
+              // Unfinished votes.
+              return DateTime.fromISO(row.voteEndAt).diffNow().toMillis() > 0;
+            }
           }
         ])
       ],
@@ -120,7 +158,7 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
 
   override createDefaultSort(): SortParameters {
     return {
-      descending: false,
+      descending: true,
       orderBy: 'SuggestedAt'
     };
   }
@@ -128,6 +166,17 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
   openSuggestionVotesPage(row: EmoteSuggestionItem): void {
   }
 
-  cancelVote(row: EmoteSuggestionItem): void {
+  cancelVote(): void {
+    const modal = this.cancelVoteModal();
+    if (!modal || !this.rowInModal) {
+      return;
+    }
+
+    this.#client.emoteSuggestionsCancelVote(this.rowInModal.id)
+      .pipe(rxjs.delay(1000))
+      .subscribe(() => {
+        this.reload();
+        modal.close();
+      });
   }
 }
