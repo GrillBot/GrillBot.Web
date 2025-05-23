@@ -9,7 +9,7 @@ import { EmoteClient, LookupClient } from "../../../../../core/clients";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../../core/models/common";
-import { FormControlDirective } from '@coreui/angular';
+import { ColComponent, FormControlDirective, RowComponent } from '@coreui/angular';
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe } from '../../../../../core/pipes';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +30,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     CheckboxComponent,
     FormControlDirective,
-    SpacedNumberPipe
+    SpacedNumberPipe,
+    RowComponent,
+    ColComponent
   ]
 })
 export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggestionsListFilter, EmoteSuggestionItem> {

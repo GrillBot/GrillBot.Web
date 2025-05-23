@@ -1,3 +1,4 @@
+import { AdminListFilter } from './../../../core/models/points/admin-list-request';
 import { RawHttpResponse } from '../../../core/models/common';
 import { Component, inject, LOCALE_ID } from "@angular/core";
 import { TransactionsFilterComponent } from "../transactions/transactions-filter/transactions-filter.component";
@@ -23,8 +24,19 @@ export class ChartsComponent {
   messagePointsSource$: Observable<RawHttpResponse<PointsMessagesChartItem[]>> | null = null;
   reactionPointsSource$: Observable<RawHttpResponse<PointsReactionsChartItem[]>> | null = null;
 
-  onFilterChanged(filter: AdminListRequest) {
-    const request = this.#pointsClient.getChartData(filter);
+  onFilterChanged(filter: AdminListFilter) {
+    const requestData: AdminListRequest = {
+      createdFrom: filter.created?.from ?? null,
+      createdTo: filter.created?.to ?? null,
+      guildId: filter.guildId,
+      messageId: filter.messageId,
+      onlyMessages: filter.onlyMessages,
+      onlyReactions: filter.onlyReactions,
+      showMerged: filter.showMerged,
+      userId: filter.userId
+    };
+
+    const request = this.#pointsClient.getChartData(requestData);
 
     const showAll = !filter.onlyMessages && !filter.onlyReactions;
     const showMessages = showAll || filter.onlyMessages;
