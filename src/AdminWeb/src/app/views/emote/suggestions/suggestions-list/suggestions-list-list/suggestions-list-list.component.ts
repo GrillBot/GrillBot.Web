@@ -14,6 +14,7 @@ import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe } from '../
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateTime } from 'luxon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-suggestions-list-list',
@@ -40,6 +41,7 @@ import { DateTime } from 'luxon';
 export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggestionsListFilter, EmoteSuggestionItem> {
   readonly #client = inject(EmoteClient);
   readonly #lookupClient = inject(LookupClient);
+  readonly #router = inject(Router);
 
   rowInModal?: EmoteSuggestionItem;
   detailsModal = viewChild<ModalComponent>('detailModal');
@@ -113,8 +115,11 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
             id: 'show-votes',
             title: 'Hlasování',
             color: 'primary',
-            action: row => this.openSuggestionVotesPage(row),
-            isVisible: (row: EmoteSuggestionItem) => row.approvedForVote && !!row.voteStartAt
+            action: row => this.#router.navigate(['web/emote/suggestions', row.id, 'votes']),
+            isVisible: (row: EmoteSuggestionItem) =>
+              row.approvedForVote &&
+              !!row.voteEndAt &&
+              ((row.upVotes ?? 0) + (row.downVotes ?? 0)) > 0
           },
           {
             id: 'cancel-vote',
@@ -161,9 +166,6 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
       descending: true,
       orderBy: 'SuggestedAt'
     };
-  }
-
-  openSuggestionVotesPage(row: EmoteSuggestionItem): void {
   }
 
   cancelVote(): void {

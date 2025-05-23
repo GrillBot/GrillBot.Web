@@ -8,5 +8,13 @@ export const routes: Routes = [
       title: 'Návrhy',
       canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
     }
+  },
+  {
+    path: ':suggestionId/votes',
+    loadComponent: () => import('./votes-list/votes-list.component').then(m => m.VotesListComponent),
+    data: {
+      title: 'Hlasování',
+      canActivate: (perms: string[]) => perms.includes('Emote(Admin)')
+    }
   }
 ];
