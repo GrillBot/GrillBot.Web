@@ -64,6 +64,7 @@ export class AgGridComponent {
         this.onGridReady.emit($event);
       },
       onRowDataUpdated: $event => {
+        $event.api.autoSizeAllColumns();
         this.rowsUpdated.emit($event);
       },
       onRowSelected: $event => {

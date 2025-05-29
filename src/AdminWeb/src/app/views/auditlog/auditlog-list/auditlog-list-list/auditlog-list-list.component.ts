@@ -81,6 +81,7 @@ export class AuditLogListListComponent extends ListBaseComponent<FormSearchReque
           headerName: 'Vytvořeno',
           resizable: true,
           width: 200,
+          minWidth: 200,
           sortable: true,
           initialSort: 'desc',
           context: {
