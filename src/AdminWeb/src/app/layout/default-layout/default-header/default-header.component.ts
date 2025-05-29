@@ -1,12 +1,10 @@
-import { NgTemplateOutlet, NgStyle } from "@angular/common";
+import { NgTemplateOutlet } from "@angular/common";
 import { Component, computed, inject, input } from "@angular/core";
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import {
-  AvatarComponent, BadgeComponent, BreadcrumbRouterComponent, ColorModeService, ContainerComponent,
-  DropdownComponent, DropdownDividerDirective, DropdownHeaderDirective, DropdownItemDirective,
-  DropdownMenuDirective, DropdownToggleDirective, HeaderComponent, HeaderNavComponent, HeaderTogglerDirective,
-  NavItemComponent, NavLinkDirective, ProgressBarDirective, ProgressComponent, SidebarToggleDirective,
-  TextColorDirective, ThemeDirective
+  AvatarComponent, BreadcrumbRouterComponent, ColorModeService, ContainerComponent, DropdownComponent, DropdownDividerDirective,
+  DropdownHeaderDirective, DropdownItemDirective, DropdownMenuDirective, DropdownToggleDirective, HeaderComponent, HeaderNavComponent,
+  HeaderTogglerDirective, SidebarToggleDirective, TextColorDirective, ThemeDirective
 } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { AuthManager } from "../../../core/managers/auth.manager";
@@ -21,10 +19,7 @@ import { AuthManager } from "../../../core/managers/auth.manager";
     SidebarToggleDirective,
     IconDirective,
     HeaderNavComponent,
-    NavItemComponent,
-    NavLinkDirective,
     RouterLink,
-    RouterLinkActive,
     NgTemplateOutlet,
     BreadcrumbRouterComponent,
     ThemeDirective,
@@ -35,11 +30,7 @@ import { AuthManager } from "../../../core/managers/auth.manager";
     DropdownMenuDirective,
     DropdownHeaderDirective,
     DropdownItemDirective,
-    BadgeComponent,
-    DropdownDividerDirective,
-    ProgressBarDirective,
-    ProgressComponent,
-    NgStyle
+    DropdownDividerDirective
   ]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
@@ -57,10 +48,6 @@ export class DefaultHeaderComponent extends HeaderComponent {
     const currentMode = this.colorMode();
     return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
   });
-
-  constructor() {
-    super();
-  }
 
   sidebarId = input('sidebar1');
 }
