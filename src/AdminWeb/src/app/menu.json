@@ -40,7 +40,22 @@
     "permissions": [
       "AuditLog(Admin)"
     ],
-    "childItems": []
+    "childItems": [
+      {
+        "name": "Seznam",
+        "url": "/web/auditlog/list",
+        "permissions": [
+          "AuditLog(Admin)"
+        ]
+      },
+      {
+        "name": "Statistiky",
+        "url": "/web/auditlog/statistics",
+        "permissions": [
+          "AuditLog(Admin)"
+        ]
+      }
+    ]
   },
   {
     "name": "Body",

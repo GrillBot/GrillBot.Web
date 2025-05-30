@@ -1,0 +1,17 @@
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row>
+    <c-col>
+      <label cLabel for="endpoints">Statistika</label>
+      <ng-select ngSelector [items]="endpoints" formControlName="endpoint" />
+    </c-col>
+
+    <c-col>
+      <label cLabel for="groupingKey">Seskupení</label>
+      <app-radio-group
+        radioId="groupingKey"
+        [items]="groupingKeys"
+        formControlName="groupingKey"
+      />
+    </c-col>
+  </c-row>
+</app-filter-card>

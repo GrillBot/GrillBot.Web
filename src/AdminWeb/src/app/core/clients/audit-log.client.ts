@@ -27,4 +27,13 @@ export class AuditLogClient extends BaseClient {
 
   deleteItem = (id: string) =>
     this.deleteRequest(`service/auditlog/${id}`);
+
+  getApiPeriodStatistics = (apiGroups: string[], groupingKey: string) =>
+    this.getRequest<{ [key: string]: number }>('service/auditlog/statistics/api/periodstats', { groupingKey, group: apiGroups });
+
+  getAuditLogPeriodStatistics = (groupingKey: string) =>
+    this.getRequest<{ [key: string]: number }>('service/auditlog/statistics/auditlog/periodstats', { groupingKey });
+
+  getInteractionsPeriodStatistics = (groupingKey: string) =>
+    this.getRequest<{ [key: string]: number }>('service/auditlog/statistics/interactions/periodstats', { groupingKey });
 }

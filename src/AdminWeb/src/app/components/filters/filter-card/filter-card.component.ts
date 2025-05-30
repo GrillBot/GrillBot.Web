@@ -32,6 +32,7 @@ import { FilterBaseComponent } from "../filter.component.base";
 export class FilterCardComponent implements OnInit {
   form = input.required<FormGroup<any>>();
   parentFilterComponent = input.required<FilterBaseComponent<any>>();
+  title = input<string>('Vyhledávání');
 
   constructor(private parentForm: FormGroupDirective) { }
 

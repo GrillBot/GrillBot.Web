@@ -6,7 +6,7 @@ import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
 import { RawHttpResponse } from "../models/common";
 
-export type HttpQueryParams = { [key: string]: string };
+export type HttpQueryParams = { [key: string]: string | string[] };
 
 export abstract class BaseClient {
   readonly #storage = inject(LocalStorageService);
@@ -42,8 +42,12 @@ export abstract class BaseClient {
 
     if (queryParams && Object.keys(queryParams).length > 0) {
       const parameters: string = Object
-        .keys(queryParams)
-        .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParams[k])}`)
+        .entries(queryParams)
+        .flatMap(([key, value]) =>
+          Array.isArray(value)
+            ? value.map(v => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`)
+            : [`${encodeURIComponent(key)}=${encodeURIComponent(value)}`]
+        )
         .join('&');
 
       url += `?${parameters}`;

@@ -42,11 +42,13 @@ export abstract class FilterBaseComponent<TFilter extends {} = any> implements O
   }
 
   ngOnInit(): void {
+    this.beforeFill();
     this.fillForm();
   }
 
   abstract configure(): void;
   abstract createForm(): IForm<TFilter>;
+  beforeFill(): void { }
 
   createControl(
     options: AbstractControlOptions | null = null,

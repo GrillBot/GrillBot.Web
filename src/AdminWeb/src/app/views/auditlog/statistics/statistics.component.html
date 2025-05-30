@@ -1,0 +1,10 @@
+<app-statistics-filter (filterEvent)="onFilterChanged($event)" />
+
+@if (dataSource$) {
+  <app-chart
+    [title]="title"
+    [source]="dataSource$"
+    bindValue="value"
+    bindLabel="key"
+  />
+}

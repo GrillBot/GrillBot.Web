@@ -10,3 +10,4 @@ export * from './search-request';
 export * from './text-search-request';
 export * from './today-avg-times';
 export * from './user-search-request';
+export * from './statistics-filter';
