@@ -82,13 +82,11 @@ export class FileExtensionStatistic {
 
 export class AuditLogStatistics {
     byType: Dictionary<string, number>;
-    byDate: Dictionary<string, number>;
     fileExtensionStatistics: List<FileExtensionStatistic>;
 
     static create(data: any): AuditLogStatistics {
         const statistics = new AuditLogStatistics();
 
-        statistics.byDate = Support.createDictFromObj(data.byDate);
         statistics.byType = Support.createDictFromObj(data.byType);
         statistics.fileExtensionStatistics = data.fileExtensionStatistics.map((o: any) => FileExtensionStatistic.create(o));
 
@@ -133,15 +131,10 @@ export class OperationStats {
 }
 
 export class ApiStatistics {
-    public byDateInternalApi: Dictionary<string, number>;
-    public byDatePublicApi: Dictionary<string, number>;
     public endpoints: List<StatisticItem>;
 
     static create(data: any): ApiStatistics {
         const result = new ApiStatistics();
-
-        result.byDateInternalApi = Support.createDictFromObj(data.byDateInternalApi);
-        result.byDatePublicApi = Support.createDictFromObj(data.byDatePublicApi);
         result.endpoints = data.endpoints.map((o: any) => StatisticItem.create(o));
 
         return result;
@@ -165,13 +158,10 @@ export class UserActionCountItem {
 }
 
 export class InteractionStatistics {
-    public byDate: Dictionary<string, number>;
     public commands: List<StatisticItem>;
 
     static create(data: any): InteractionStatistics {
         const statistics = new InteractionStatistics();
-
-        statistics.byDate = Support.createDictFromObj(data.byDate);
         statistics.commands = data.commands.map((o: any) => StatisticItem.create(o));
 
         return statistics;

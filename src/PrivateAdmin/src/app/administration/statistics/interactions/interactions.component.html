@@ -1,7 +1,4 @@
 <ng-container *ngIf="statistics$ | async as stats; else loading">
-    <h3 class="fw-normal">Podle období</h3>
-    <app-line-chart [data]="stats.byDate"></app-line-chart>
-
     <h3 class="fw-normal">Příkazy</h3>
     <table class="table table-sm table-bordered table-striped auto-column-width">
         <thead>
