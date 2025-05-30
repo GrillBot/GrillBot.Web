@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { LocalStorageService } from "@coreui/angular";
-import { Observable, concat, map, of } from 'rxjs';
+import { Observable, concat, from, map, of, switchMap } from 'rxjs';
 import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
 import { RawHttpResponse } from "../models/common";
@@ -62,6 +62,27 @@ export abstract class BaseClient {
   ): Observable<RawHttpResponse<TResponse>> {
     const url = this.createUrl(endpoint, queryParams);
     return this.createRequest<TResponse>(this.#http.get<TResponse>(url, this.requestHeaders));
+  }
+
+  protected getFile(
+    endpoint: string,
+    queryParams: HttpQueryParams = {}
+  ): Observable<RawHttpResponse<string>> {
+    const url = this.createUrl(endpoint, queryParams);
+
+    const request = this.#http
+      .get(url, { ...this.requestHeaders, responseType: 'blob' })
+      .pipe(switchMap(blob => {
+        return from(new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+
+          reader.readAsDataURL(blob);
+        }));
+      }));
+
+    return this.createRequest(request);
   }
 
   protected postRequest<TResponse>(

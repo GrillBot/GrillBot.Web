@@ -44,4 +44,7 @@ export class EmoteClient extends BaseClient {
 
   emoteSuggestionsCancelVote = (suggestionId: string) =>
     this.deleteRequest(`service/Emote/emote-suggestions/${suggestionId}/votes`);
+
+  getEmoteSuggestionImagePreview = (suggestionId: string) =>
+    this.getFile(`service/Emote/emote-suggestions/${suggestionId}/preview`);
 }

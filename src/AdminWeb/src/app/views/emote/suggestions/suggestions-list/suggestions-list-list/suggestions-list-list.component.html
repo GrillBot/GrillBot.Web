@@ -113,7 +113,23 @@
           <b>Náhled:</b>
 
           <div class="d-flex align-items-center justify-content-center h-100">
-            Někdy bude
+            @if (emotePreview$) {
+              @if (emotePreview$ | withLoading | async; as emotePreview) {
+                <app-loading
+                  [small]="true"
+                  [center]="true"
+                  [visible]="emotePreview.loading"
+                />
+
+                @if (!emotePreview.loading) {
+                  <img
+                    [src]="emotePreview.value"
+                    [attr.alt]="rowInModal.name"
+                    style="width: 128px; height: 128px"
+                  />
+                }
+              }
+            }
           </div>
         </c-col>
       </c-row>
