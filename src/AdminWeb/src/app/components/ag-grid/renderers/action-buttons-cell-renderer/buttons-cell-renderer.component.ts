@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { ButtonDef } from "./buttons-cell-renderer.models";
 import { ICellRendererAngularComp } from "ag-grid-angular";
-import { ButtonDirective } from "@coreui/angular";
+import { ButtonDirective, Colors } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { VisibilityDirective } from "../../../../core/directives";
 
@@ -41,6 +41,15 @@ export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
     return true;
   }
 
+  getButtonColor(button: ButtonDef, row: any): Colors {
+    const color = typeof button.color === 'function' ? button.color(row) : button.color;
+    return color ?? 'transparent';
+  }
+
+  getButtonTitle(button: ButtonDef, row: any): string | undefined {
+    return typeof button.title === 'function' ? button.title(row) : button.title;
+  }
+
   static createColumnDef(buttons: ButtonDef[], maxWidth?: number): ColDef {
     return {
       headerName: 'Akce',
@@ -50,5 +59,4 @@ export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
       maxWidth: maxWidth
     };
   }
-
 }

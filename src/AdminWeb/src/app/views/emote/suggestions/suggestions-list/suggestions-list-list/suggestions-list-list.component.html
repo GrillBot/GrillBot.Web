@@ -160,3 +160,43 @@
     </button>
   </ng-container>
 </app-modal>
+
+<app-modal
+  #approveModal
+  [title]="
+    (rowInModal?.approvedForVote ? 'Zamítnutí' : 'Schválení') + 'k hlasování'
+  "
+  [enableFooter]="true"
+>
+  <ng-container body>
+    Opravdu si přejete
+
+    @if (rowInModal?.approvedForVote) {
+      zamítnout
+    } @else {
+      schválit
+    }
+
+    emote k hlasování?
+  </ng-container>
+
+  <ng-container footer>
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'success'"
+      (click)="processApproval()"
+    >
+      Ano
+    </button>
+
+    <button
+      cButton
+      [variant]="'outline'"
+      [color]="'danger'"
+      (click)="cancelVoteModal.close()"
+    >
+      Ne
+    </button>
+  </ng-container>
+</app-modal>

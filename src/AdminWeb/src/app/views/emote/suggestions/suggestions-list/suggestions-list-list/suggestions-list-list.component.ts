@@ -51,6 +51,7 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
   emotePreview$?: rxjs.Observable<RawHttpResponse<string>>;
   detailsModal = viewChild<ModalComponent>('detailModal');
   cancelVoteModal = viewChild<ModalComponent>('cancelVoteModal');
+  approveModal = viewChild<ModalComponent>('approveModal');
 
   override createGridOptions(): GridOptions {
     return {
@@ -58,7 +59,10 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
         AsyncLookupCellRendererComponent.createColDef(
           'guildId',
           'Server',
-          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient)
+          (guildId: string) => GuildLookupPipe.processTransform(guildId, this.#lookupClient),
+          {
+            minWidth: 250
+          }
         ),
         AsyncLookupCellRendererComponent.createColDef(
           'fromUserId',
@@ -133,6 +137,16 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
               ((row.upVotes ?? 0) + (row.downVotes ?? 0)) > 0
           },
           {
+            id: 'vote-approval',
+            title: (row: EmoteSuggestionItem) => row.approvedForVote ? 'Zamítnout k hlasování' : 'Schválit k hlasování',
+            color: (row: EmoteSuggestionItem) => row.approvedForVote ? 'danger' : 'success',
+            isVisible: (row: EmoteSuggestionItem) => !row.voteStartAt,
+            action: (row: EmoteSuggestionItem) => this.approveModal()?.open(
+              () => this.rowInModal = row,
+              () => this.rowInModal = undefined
+            )
+          },
+          {
             id: 'cancel-vote',
             title: 'Zrušit hlasování',
             color: 'danger',
@@ -186,6 +200,20 @@ export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggest
     }
 
     this.#client.emoteSuggestionsCancelVote(this.rowInModal.id)
+      .pipe(rxjs.delay(1000))
+      .subscribe(() => {
+        this.reload();
+        modal.close();
+      });
+  }
+
+  processApproval(): void {
+    const modal = this.approveModal();
+    if (!modal || !this.rowInModal) {
+      return;
+    }
+
+    this.#client.setSuggestionApproval(this.rowInModal.id, !this.rowInModal.approvedForVote)
       .pipe(rxjs.delay(1000))
       .subscribe(() => {
         this.reload();

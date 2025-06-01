@@ -4,7 +4,7 @@
       cButton
       visibility
       [variant]="'ghost'"
-      [color]="button.color ?? 'transparent'"
+      [color]="getButtonColor(button, rowData)"
       [size]="'sm'"
       class="text-decoration-underline pt-0 pb-0 mb-1"
       (click)="button.action(rowData)"
@@ -13,7 +13,7 @@
       @if (button.icon) {
         <svg cIcon name="{{ button.icon }}"></svg>
       }
-      {{ button.title ?? "" }}
+      {{ getButtonTitle(button, rowData) }}
     </button>
   }
 }

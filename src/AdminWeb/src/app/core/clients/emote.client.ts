@@ -37,7 +37,7 @@ export class EmoteClient extends BaseClient {
     this.postRequest<PaginatedResponse<EmoteSuggestionItem>>(`service/Emote/emote-suggestions/list`, request);
 
   setSuggestionApproval = (suggestionId: string, isApproved: boolean) =>
-    this.putRequest(`service/Emote/emote-suggestions/${suggestionId}`, null, { isApproved: isApproved ? 'true' : 'false' });
+    this.putRequest(`service/Emote/emote-suggestions/approve/${suggestionId}`, null, { isApproved: isApproved ? 'true' : 'false' });
 
   getEmoteSuggestionVotes = (suggestionId: string, request: WithSortAndPagination<EmoteSuggestionVoteListRequest>) =>
     this.postRequest<PaginatedResponse<EmoteSuggestionVoteItem>>(`service/Emote/emote-suggestions/${suggestionId}/votes`, request);
