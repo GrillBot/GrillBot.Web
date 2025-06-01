@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, OnInit, output, viewChild } from "@angular/core";
 import {
-  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ListBaseComponent, ModalComponent, PaginatedGridComponent,
+  AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent,
   UserLookupPipe
 } from "../../../../components";
 import { EmoteUserUsageItem, EmoteUserUsageListRequest } from "../../../../core/models/emote";
@@ -9,7 +9,6 @@ import { Observable } from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { EmoteClient, LookupClient } from "../../../../core/clients";
 import { mapEmoteIdToName } from "../../../../core/mappers";
-import { ButtonDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-emote-usage-list',
@@ -17,8 +16,8 @@ import { ButtonDirective } from "@coreui/angular";
   standalone: true,
   imports: [
     PaginatedGridComponent,
-    ButtonDirective,
-    ModalComponent
+    ModalComponent,
+    ModalQuestionButtonsComponent
   ]
 })
 export class EmoteUsageListComponent extends ListBaseComponent<EmoteUserUsageListRequest, EmoteUserUsageItem> implements OnInit {

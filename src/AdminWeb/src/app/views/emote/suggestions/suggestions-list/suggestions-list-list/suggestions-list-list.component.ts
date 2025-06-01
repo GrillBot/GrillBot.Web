@@ -2,15 +2,14 @@ import { ButtonsCellRendererComponent } from './../../../../../components/ag-gri
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, CheckboxCellRenderer, CheckboxComponent, GuildLookupPipe, InfoRowComponent, ListBaseComponent,
-  LoadingComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
+  LoadingComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../../components";
 import { EmoteSuggestionItem, EmoteSuggestionsListFilter, EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
 import { EmoteClient, LookupClient } from "../../../../../core/clients";
 import { GridOptions } from "ag-grid-community";
 import * as rxjs from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../../core/models/common";
-import { ButtonDirective, ColComponent, FormControlDirective, RowComponent } from '@coreui/angular';
+import { ColComponent, FormControlDirective, RowComponent } from '@coreui/angular';
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe, WithLoadingPipe } from '../../../../../core/pipes';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,10 +35,10 @@ import { Router } from '@angular/router';
     SpacedNumberPipe,
     RowComponent,
     ColComponent,
-    ButtonDirective,
     AsyncPipe,
     WithLoadingPipe,
-    LoadingComponent
+    LoadingComponent,
+    ModalQuestionButtonsComponent
   ]
 })
 export class SuggestionsListListComponent extends ListBaseComponent<EmoteSuggestionsListFilter, EmoteSuggestionItem> {

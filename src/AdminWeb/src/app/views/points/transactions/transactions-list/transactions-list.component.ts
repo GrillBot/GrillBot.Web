@@ -5,13 +5,14 @@ import { PointsClient } from "../../../../core/clients/points.client";
 import * as rxjs from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent, ModalComponent,
+  ModalQuestionButtonsComponent,
   PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { LookupClient } from "../../../../core/clients/lookup.client";
 import { LocaleDatePipe } from "../../../../core/pipes";
 import { TransactionItem } from "../../../../core/models/points/transaction-item";
 import { RawHttpResponse, PaginatedResponse, SortParameters, WithSortAndPagination } from "../../../../core/models/common";
-import { ButtonDirective, TableDirective } from "@coreui/angular";
+import { TableDirective } from "@coreui/angular";
 import { AsyncPipe } from "@angular/common";
 
 @Component({
@@ -23,10 +24,10 @@ import { AsyncPipe } from "@angular/common";
     ModalComponent,
     TableDirective,
     LocaleDatePipe,
-    ButtonDirective,
     GuildLookupPipe,
     UserLookupPipe,
-    AsyncPipe
+    AsyncPipe,
+    ModalQuestionButtonsComponent
   ]
 })
 export class TransactionsListComponent extends ListBaseComponent<AdminListFilter, TransactionItem> {

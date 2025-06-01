@@ -1,0 +1,18 @@
+<button
+  cButton
+  [variant]="'outline'"
+  [color]="'success'"
+  (click)="onConfirm.emit()"
+>
+  {{ confirmTitle() }}
+</button>
+
+<button
+  cButton
+  [variant]="'outline'"
+  [color]="'danger'"
+  (click)="parentModal().close()"
+  class="ms-1"
+>
+  {{ cancelTitle() }}
+</button>

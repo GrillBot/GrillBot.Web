@@ -47,22 +47,9 @@
     }
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="confirmRemoveTransaction()"
-    >
-      Potvrdit
-    </button>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="removeTransactionModal.close()"
-    >
-      Zrušit
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="removeTransactionModal"
+    (onConfirm)="confirmRemoveTransaction()"
+  />
 </app-modal>

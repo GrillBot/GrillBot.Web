@@ -139,23 +139,9 @@
     Opravdu si přejete smazat všechny statistiky pro tento emote?
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="deleteAllStatistics('process')"
-    >
-      Ano
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="deleteAllStatisticsModal.close()"
-    >
-      Ne
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="deleteAllStatisticsModal"
+    (onConfirm)="deleteAllStatistics('process')"
+  />
 </app-modal>

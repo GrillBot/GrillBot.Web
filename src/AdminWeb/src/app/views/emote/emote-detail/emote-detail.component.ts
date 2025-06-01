@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 import { mapParamsFromSnapshot as mapParamsFromSnapshot } from "../../../core/mappers/router.mapper";
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe, WithLoadingPipe } from "../../../core/pipes";
 import { AsyncPipe } from "@angular/common";
-import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent } from "../../../components";
+import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent, ModalQuestionButtonsComponent } from "../../../components";
 import { IconDirective } from "@coreui/icons-angular";
 import { mapEmoteIdToNumberId } from "../../../core/mappers";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -41,11 +41,12 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
     GuildLookupPipe,
     LocaleDatePipe,
     SpacedNumberPipe,
-    ButtonDirective,
     ModalComponent,
     EmoteUsageListComponent,
     EmoteMergeComponent,
-    InfoRowComponent
+    InfoRowComponent,
+    ModalQuestionButtonsComponent,
+    ButtonDirective
   ]
 })
 export class EmoteDetailComponent {

@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
+  ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
 } from "../../../../components";
 import { RemindMessageItem } from "../../../../core/models/reminder/remind-message-item";
 import { ReminderListFilter, ReminderListRequest } from "../../../../core/models/reminder/reminder-list-request";
@@ -24,7 +24,7 @@ import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-r
     AlertComponent,
     TableDirective,
     LocaleDatePipe,
-    ButtonDirective
+    ModalQuestionButtonsComponent
   ]
 })
 export class ReminderListListComponent extends ListBaseComponent<ReminderListFilter, RemindMessageItem> {

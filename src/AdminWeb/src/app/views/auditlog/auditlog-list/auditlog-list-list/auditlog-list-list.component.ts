@@ -1,7 +1,7 @@
 import { Component, inject, isDevMode, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
+  ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { FormSearchRequest, LogListItem, SearchRequest } from "../../../../core/models/audit-log";
 import { GridOptions } from "ag-grid-community";
@@ -11,7 +11,6 @@ import { mapAuditLogSearchRequest } from "../../../../core/mappers/auditlog.mapp
 import { AuditLogClient, LookupClient } from "../../../../core/clients";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../../core/enums/audit-log-type";
 import { Router } from "@angular/router";
-import { ButtonDirective } from "@coreui/angular";
 import { PreviewCellRendererComponent } from "./preview-cell-renderer/preview-cell-renderer.component";
 
 @Component({
@@ -21,7 +20,7 @@ import { PreviewCellRendererComponent } from "./preview-cell-renderer/preview-ce
   imports: [
     PaginatedGridComponent,
     ModalComponent,
-    ButtonDirective
+    ModalQuestionButtonsComponent
   ]
 })
 export class AuditLogListListComponent extends ListBaseComponent<FormSearchRequest, LogListItem> {

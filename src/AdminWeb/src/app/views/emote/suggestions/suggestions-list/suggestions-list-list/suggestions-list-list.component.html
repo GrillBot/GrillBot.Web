@@ -140,25 +140,11 @@
 <app-modal #cancelVoteModal title="Zrušení hlasování" [enableFooter]="true">
   <ng-container body>Opravdu si přejete zrušit hlasování?</ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="cancelVote()"
-    >
-      Ano
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="cancelVoteModal.close()"
-    >
-      Ne
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="cancelVoteModal"
+    (click)="cancelVote()"
+  />
 </app-modal>
 
 <app-modal
@@ -180,23 +166,9 @@
     emote k hlasování?
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="processApproval()"
-    >
-      Ano
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="cancelVoteModal.close()"
-    >
-      Ne
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="approveModal"
+    (onConfirm)="processApproval()"
+  />
 </app-modal>

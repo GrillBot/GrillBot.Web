@@ -15,23 +15,9 @@
     Opravdu si přejete smazat statistiky pro uživatele?
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="deleteUserStatistics()"
-    >
-      Ano
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="removeUserStatisticsRowModal.close()"
-    >
-      Ne
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="removeUserStatisticsRowModal"
+    (onConfirm)="deleteUserStatistics()"
+  />
 </app-modal>

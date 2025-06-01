@@ -18,23 +18,11 @@
     <b>Tato akce je nevratná!</b>
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="confirmItemRemove()"
-    >
-      Potvrdit
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="removeItemModal.close()"
-    >
-      Zrušit
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    confirmTitle="Potvrdit"
+    cancelTitle="Zrušit"
+    [parentModal]="removeItemModal"
+    (onConfirm)="confirmItemRemove()"
+  />
 </app-modal>

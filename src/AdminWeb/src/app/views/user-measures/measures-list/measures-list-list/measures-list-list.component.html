@@ -57,22 +57,9 @@
     }
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="confirmRemoveMeasure()"
-    >
-      Potvrdit
-    </button>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="removeMeasureModal.close()"
-    >
-      Zrušit
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="removeMeasureModal"
+    (onConfirm)="(removeMeasureModal)"
+  />
 </app-modal>

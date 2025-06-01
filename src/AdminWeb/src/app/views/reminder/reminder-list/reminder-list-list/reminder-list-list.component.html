@@ -58,23 +58,9 @@
     </table>
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="confirmCancel()"
-    >
-      Potvrdit
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="cancelModal.close()"
-    >
-      Zrušit
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="cancelModal"
+    (onConfirm)="confirmCancel()"
+  />
 </app-modal>

@@ -1,7 +1,7 @@
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   CheckboxComponent, DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, GuildLookupPipe,
-  ModalComponent, TextInputComponent, UserLookupComponent
+  ModalComponent, ModalQuestionButtonsComponent, TextInputComponent, UserLookupComponent
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { InviteListFilter } from "../../../../core/models/invite";
@@ -27,7 +27,8 @@ import { InviteClient } from "../../../../core/clients/invite.client";
     AsyncPipe,
     FilterCardComponent,
     TextInputComponent,
-    DatetimeRangeComponent
+    DatetimeRangeComponent,
+    ModalQuestionButtonsComponent
   ]
 })
 export class InvitesListFilterComponent extends FilterBaseComponent<InviteListFilter> {
@@ -35,8 +36,8 @@ export class InvitesListFilterComponent extends FilterBaseComponent<InviteListFi
 
   allowSynchronization = input<boolean>(false);
 
-  isSynchronizationEnabled = computed(() => this.allowSynchronization() && this.form.value.guildId);
   guildId = computed(() => this.form.value.guildId as string | null);
+  isSynchronizationEnabled = computed(() => this.allowSynchronization() && this.guildId());
 
   synchronizationModal = viewChild<ModalComponent>('synchronizationModal');
 

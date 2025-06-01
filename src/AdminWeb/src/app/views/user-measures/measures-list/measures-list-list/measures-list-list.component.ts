@@ -1,7 +1,7 @@
 import { Component, inject, viewChild } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
-  ModalComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform, UserLookupPipe
+  ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform, UserLookupPipe
 } from "../../../../components";
 import { MeasuresListFilter, MeasuresListParams } from "../../../../core/models/user-measures/measures-list-params";
 import { MeasuresItem } from "../../../../core/models/user-measures/measures-item";
@@ -11,7 +11,7 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
 import { CutStringPipe, LocaleDatePipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
-import { ButtonDirective, TableDirective } from "@coreui/angular";
+import { TableDirective } from "@coreui/angular";
 import { AsyncPipe } from "@angular/common";
 
 const MAX_REASON_CELL_LENGTH = 30;
@@ -25,10 +25,10 @@ const MAX_REASON_CELL_LENGTH = 30;
     ModalComponent,
     TableDirective,
     LocaleDatePipe,
-    ButtonDirective,
     UserLookupPipe,
     GuildLookupPipe,
-    AsyncPipe
+    AsyncPipe,
+    ModalQuestionButtonsComponent
   ]
 })
 export class MeasuresListListComponent extends ListBaseComponent<MeasuresListFilter, MeasuresItem> {

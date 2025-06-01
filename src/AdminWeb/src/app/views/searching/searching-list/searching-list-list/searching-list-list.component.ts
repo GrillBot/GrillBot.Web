@@ -2,7 +2,7 @@ import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
-  ListBaseComponent, ModalComponent, PaginatedGridComponent, UserLookupPipe
+  ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, UserLookupPipe
 } from "../../../../components";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
@@ -33,6 +33,7 @@ import { AsyncPipe } from "@angular/common";
     UserLookupPipe,
     ChannelLookupPipe,
     AsyncPipe,
+    ModalQuestionButtonsComponent
   ]
 })
 export class SearchingListListComponent extends ListBaseComponent<SearchingListFilter, SearchListItem> {

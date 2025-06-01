@@ -54,23 +54,9 @@
     }}"?
   </ng-container>
 
-  <ng-container footer>
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'success'"
-      (click)="confirmSynchronization()"
-    >
-      Potvrdit
-    </button>
-
-    <button
-      cButton
-      [variant]="'outline'"
-      [color]="'danger'"
-      (click)="synchronizationModal.close()"
-    >
-      Zrušit
-    </button>
-  </ng-container>
+  <app-modal-question-buttons
+    footer
+    [parentModal]="synchronizationModal"
+    (onConfirm)="confirmSynchronization()"
+  />
 </app-modal>
