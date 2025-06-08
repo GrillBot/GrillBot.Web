@@ -73,16 +73,18 @@ export class DefaultLayoutComponent implements OnInit {
       map(response => response.value!)
     );
 
-    this.#notificationsManager.$notifications.subscribe(notification => {
-      const options = {
-        notification,
-        delay: 5000,
-        placement: 'top-end',
-        autohide: true,
-        color: 'info'
-      };
+    this.#notificationsManager.$notifications
+      .pipe(filter(_ => !!this.toaster()))
+      .subscribe(notification => {
+        const options = {
+          notification,
+          delay: 5000,
+          placement: 'top-end',
+          autohide: true,
+          color: 'info'
+        };
 
-      this.toaster()?.addToast(NotificationToastComponent, { ...options })
-    });
+        this.toaster()!.addToast(NotificationToastComponent, { ...options })
+      });
   }
 }

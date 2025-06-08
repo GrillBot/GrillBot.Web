@@ -60,5 +60,9 @@ body {
     .footer {
       --cui-footer-bg: var(--cui-body-bg);
     }
+
+    .toast-body {
+      color: black;
+    }
   }
 }
