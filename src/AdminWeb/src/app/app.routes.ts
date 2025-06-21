@@ -70,6 +70,13 @@ export const routes: Routes = [
         data: {
           canActivate: (_: string[]) => true
         }
+      },
+      {
+        path: 'auto-reply',
+        loadChildren: () => import('./views/auto-reply/routes').then(m => m.routes),
+        data: {
+          canActivate: (_: string[]) => true
+        }
       }
     ]
   },

@@ -1,0 +1,27 @@
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row mb-1>
+    <c-col>
+      <app-text-input
+        label="Šablona obsahuje"
+        formControlName="templateContains"
+      />
+    </c-col>
+
+    <c-col>
+      <app-text-input
+        label="Odpověď obsahuje"
+        formControlName="replyContains"
+      />
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col>
+      <app-checkbox
+        label="Skrýt neaktivní"
+        checkboxId="hideDisabled"
+        formControlName="hideDisabled"
+      />
+    </c-col>
+  </c-row>
+</app-filter-card>

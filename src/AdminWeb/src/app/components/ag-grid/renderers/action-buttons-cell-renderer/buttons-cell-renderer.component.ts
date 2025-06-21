@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { ButtonDef } from "./buttons-cell-renderer.models";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ButtonDirective, Colors } from "@coreui/angular";
 import { IconDirective } from "@coreui/icons-angular";
 import { VisibilityDirective } from "../../../../core/directives";
+import { Router } from "@angular/router";
 
 export type ButtonsCellRendererParams = ICellRendererParams & {
   buttons: ButtonDef[];
@@ -20,6 +21,8 @@ export type ButtonsCellRendererParams = ICellRendererParams & {
   ]
 })
 export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
+  readonly #router = inject(Router);
+
   buttons!: ButtonDef[];
   rowData!: any;
 
@@ -48,6 +51,15 @@ export class ButtonsCellRendererComponent implements ICellRendererAngularComp {
 
   getButtonTitle(button: ButtonDef, row: any): string | undefined {
     return typeof button.title === 'function' ? button.title(row) : button.title;
+  }
+
+  buttonClick(def: ButtonDef, row: any): void {
+    if (def.action) {
+      def.action(row);
+    } else if (def.redirectTo) {
+      const redirectUri = typeof def.redirectTo === 'function' ? def.redirectTo(row) : def.redirectTo;
+      this.#router.navigate([redirectUri]);
+    }
   }
 
   static createColumnDef(buttons: ButtonDef[], maxWidth?: number): ColDef {

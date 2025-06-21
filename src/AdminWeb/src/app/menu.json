@@ -58,6 +58,15 @@
     ]
   },
   {
+    "name": "Automatické odpovědi",
+    "url": "/web/auto-reply",
+    "icon": "cil-comment-square",
+    "permissions": [
+      "Message(Admin)"
+    ],
+    "childItems": []
+  },
+  {
     "name": "Body",
     "url": "/web/points",
     "icon": "cil-chat-bubble",
