@@ -39,6 +39,14 @@
       </div>
     </c-col>
 
+    @if (actionButtons().length > 0) {
+      <c-col class="d-flex align-items-center">
+        @for (button of actionButtons(); track button.id) {
+          <app-button [def]="button" [data]="selectedRows()" />
+        }
+      </c-col>
+    }
+
     @if (!singlePage()) {
       <c-col
         [md]="true"

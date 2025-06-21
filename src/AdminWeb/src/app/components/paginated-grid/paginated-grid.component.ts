@@ -9,10 +9,11 @@ import {
   ColComponent, FormControlDirective, FormFloatingDirective, FormLabelDirective, FormSelectDirective, RowComponent
 } from "@coreui/angular";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
-import { IconDirective } from "@coreui/icons-angular";
 import { PaginationComponent } from "../pagination/pagination.component";
 import { mapSortEventToSortingParams } from "../../core/mappers/grid.mapper";
 import { SpacedNumberPipe } from "../../core/pipes";
+import { ButtonComponent } from "../button/button.component";
+import { ButtonDef } from "../button/button.models";
 
 @Component({
   selector: 'app-paginated-grid',
@@ -29,7 +30,8 @@ import { SpacedNumberPipe } from "../../core/pipes";
     ReactiveFormsModule,
     PaginationComponent,
     FormControlDirective,
-    SpacedNumberPipe
+    SpacedNumberPipe,
+    ButtonComponent
   ],
   styleUrl: './paginated-grid.component.scss'
 })
@@ -43,12 +45,14 @@ export class PaginatedGridComponent {
   defaultPage = input(0);
   showTotalCount = input(true);
   singlePage = input(false);
+  actionButtons = input<ButtonDef[]>([]);
 
   rowsUpdated = output<RowDataUpdatedEvent>();
   reloadRequested = output();
   selectedRowsChanged = output<any[]>();
 
   loading = signal(false);
+  selectedRows = signal<any>([]);
 
   source$: Observable<any> = of(null);
   sorting?: SortParameters;
@@ -75,6 +79,9 @@ export class PaginatedGridComponent {
 
     this.currentPage.valueChanges
       .subscribe(_ => this.reloadRequested.emit());
+
+    this.selectedRowsChanged
+      .subscribe((rows: any[]) => this.selectedRows.set(rows));
   }
 
   loadData(

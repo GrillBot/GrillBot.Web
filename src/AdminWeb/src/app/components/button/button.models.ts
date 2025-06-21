@@ -8,4 +8,6 @@ export interface ButtonDef {
   id: string;
   color?: Colors | ((row: any) => Colors);
   redirectTo?: string | ((row: any) => string);
+  size?: '' | 'sm' | 'lg';
+  variant?: 'ghost' | 'outline' | undefined;
 }

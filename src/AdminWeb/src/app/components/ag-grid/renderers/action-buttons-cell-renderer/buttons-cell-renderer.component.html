@@ -1,19 +1,5 @@
 @if (buttons) {
   @for (button of buttons; track button.id) {
-    <button
-      cButton
-      visibility
-      [variant]="'ghost'"
-      [color]="getButtonColor(button, rowData)"
-      [size]="'sm'"
-      class="text-decoration-underline pt-0 pb-0 mb-1"
-      (click)="buttonClick(button, rowData)"
-      [isVisible]="button.isVisible ? button.isVisible(rowData) : true"
-    >
-      @if (button.icon) {
-        <svg cIcon name="{{ button.icon }}"></svg>
-      }
-      {{ getButtonTitle(button, rowData) }}
-    </button>
+    <app-button [def]="button" [data]="rowData" />
   }
 }

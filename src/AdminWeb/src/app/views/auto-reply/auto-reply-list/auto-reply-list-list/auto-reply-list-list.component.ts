@@ -1,22 +1,39 @@
 import { Component, inject, viewChild } from "@angular/core";
-import { ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, ModalComponent, PaginatedGridComponent } from "../../../../components";
+import { ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent } from "../../../../components";
 import { AutoReplyDefinition, AutoReplyDefinitionListRequest } from "../../../../core/models/message";
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { MessageClient } from "../../../../core/clients/message.client";
+import { AlertComponent } from "@coreui/angular";
+import { ButtonDef } from "../../../../components/button/button.models";
 
 @Component({
   selector: 'app-auto-reply-list-list',
   templateUrl: './auto-reply-list-list.component.html',
   standalone: true,
-  imports: [PaginatedGridComponent]
+  imports: [
+    PaginatedGridComponent,
+    ModalComponent,
+    AlertComponent,
+    ModalQuestionButtonsComponent
+  ]
 })
 export class AutoReplyListListComponent extends ListBaseComponent<AutoReplyDefinitionListRequest, AutoReplyDefinition> {
   readonly #client = inject(MessageClient);
 
   rowInModal?: AutoReplyDefinition;
   deleteModal = viewChild<ModalComponent>('deleteModal');
+
+  actionButtons: ButtonDef[] = [
+    {
+      id: 'create',
+      title: 'Vytvořit novou šablonu',
+      color: 'primary',
+      redirectTo: '/admin/auto-reply/create',
+      variant: 'outline'
+    }
+  ]
 
   override createGridOptions(): GridOptions {
     return {
@@ -73,5 +90,17 @@ export class AutoReplyListListComponent extends ListBaseComponent<AutoReplyDefin
       orderBy: 'template',
       descending: false
     }
+  }
+
+  confirmDelete(): void {
+    const modal = this.deleteModal();
+    if (!modal || !this.rowInModal) {
+      return;
+    }
+
+    this.#client.deleteAutoReplyDefinition(this.rowInModal.id).subscribe(() => {
+      modal.close();
+      this.reload();
+    });
   }
 }

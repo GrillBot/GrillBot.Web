@@ -4,5 +4,27 @@
     [gridOptions]="gridOptions"
     [height]="'700px'"
     (reloadRequested)="reload()"
+    [actionButtons]="actionButtons"
   />
 </div>
+
+<app-modal
+  #deleteModal
+  [title]="'Smazání automatické odpovědi'"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    Opravdu si přejete smazat automatickou odpověď?
+
+    <c-alert color="secondary" class="mb-0 mt-3">
+      <pre class="m-0">{{ rowInModal?.template }}</pre>
+    </c-alert>
+  </ng-container>
+
+  <ng-container footer>
+    <app-modal-question-buttons
+      [parentModal]="deleteModal"
+      (onConfirm)="confirmDelete()"
+    />
+  </ng-container>
+</app-modal>

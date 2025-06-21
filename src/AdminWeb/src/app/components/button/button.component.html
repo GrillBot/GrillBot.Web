@@ -1,0 +1,15 @@
+<button
+  cButton
+  visibility
+  [variant]="def().variant ?? 'ghost'"
+  [color]="color()"
+  [size]="def().size ?? 'sm'"
+  [classList]="classList()"
+  (click)="onClick()"
+  [isVisible]="isVisible()"
+>
+  @if (def().icon) {
+    <svg cIcon name="{{ def().icon }}"></svg>
+  }
+  {{ title() }}
+</button>
