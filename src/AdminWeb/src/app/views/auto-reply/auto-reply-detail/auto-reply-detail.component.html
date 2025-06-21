@@ -1,0 +1,125 @@
+<c-container>
+  <c-card class="mb-3">
+    <app-card-header
+      #header
+      [title]="
+        (this.isCreate() ? 'Vytvoření' : 'Detail') + ' automatické odpovědi'
+      "
+      [hideToggleVisibility]="true"
+    />
+
+    <app-form-card-body [form]="form" [header]="header">
+      @if (definitionSource$() | withLoading | async; as response) {
+        @if (response.loading) {
+          <app-loading />
+        }
+
+        @if (response.value) {
+          <app-text-input formControlName="id" label="ID" />
+
+          <c-row class="mt-2">
+            <c-col>
+              <app-text-input
+                formControlName="template"
+                label="Šablona"
+                [multiline]="true"
+                [validators]="form.get('template')?.validator"
+              />
+            </c-col>
+
+            <c-col>
+              <app-text-input
+                formControlName="reply"
+                label="Odpověď"
+                [multiline]="true"
+                [validators]="form.get('reply')?.validator"
+              />
+            </c-col>
+          </c-row>
+
+          <c-row class="mt-2">
+            <c-col class="d-flex justify-content-between" [md]="6">
+              <app-checkbox
+                checkboxId="isDisabled"
+                formControlName="isDisabled"
+                label="Deaktivováno"
+              />
+
+              <app-checkbox
+                checkboxId="isCaseSensitive"
+                formControlName="isCaseSensitive"
+                label="Rozlišovat velké a malé znaky"
+              />
+            </c-col>
+          </c-row>
+        }
+      }
+    </app-form-card-body>
+
+    <c-card-footer>
+      <c-row>
+        <c-col>
+          <c-alert
+            [color]="stateColor()"
+            [fade]="true"
+            [visible]="state() != 'not-started'"
+            class="mb-0"
+          >
+            @switch (state()) {
+              @case ("executing") {
+                <app-loading
+                  [rotating]="true"
+                  [center]="false"
+                  [customText]="
+                    isCreate()
+                      ? 'Vytváření automatické odpovědi'
+                      : 'Úprava automatické odpovědi'
+                  "
+                  [small]="true"
+                />
+              }
+
+              @case ("created") {
+                <div class="d-flex align-items-center">
+                  <svg cIcon name="cilCheckCircle"></svg>
+                  <p class="m-0 ms-2">
+                    Automatická odpověď byla úspěšně vytvořena.
+                  </p>
+                </div>
+              }
+
+              @case ("updated") {
+                <div class="d-flex align-items-center">
+                  <svg cIcon name="cilCheckCircle"></svg>
+                  <p class="m-0 ms-2">
+                    Automatická odpověď byla úspěšně upravena.
+                  </p>
+                </div>
+              }
+
+              @case ("failed") {
+                <div class="d-flex align-items-center">
+                  <svg cIcon name="cilXCircle"></svg>
+                  <p class="m-0 ms-2">
+                    Nepodařilo se založit automatickou odpověď. Zkontroluj, proč
+                    se nepodařilo provést vytvoření.
+                  </p>
+                </div>
+
+                <ul class="mb-0 mt-3">
+                  @for (message of saveErrorMessages(); track $index) {
+                    <li>{{ message }}</li>
+                  }
+                </ul>
+              }
+            }
+          </c-alert>
+        </c-col>
+
+        <c-col class="d-flex justify-content-end align-items-end" cCol="auto">
+          <app-button [def]="saveButtonDef" />
+        </c-col>
+      </c-row>
+    </c-card-footer>
+  </c-card>
+</c-container>

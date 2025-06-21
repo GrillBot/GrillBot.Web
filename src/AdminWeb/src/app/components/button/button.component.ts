@@ -38,12 +38,12 @@ export class ButtonComponent {
     return typeof def.title === 'function' ? def.title(this.data()) : def.title;
   });
 
-  classList = computed(() => {
+  class = computed(() => {
     switch (this.def().variant) {
       case 'outline':
-        return [];
+        return '';
       default:
-        return ['text-decoration-underline', 'pt-0', 'pb-0', 'mb-1'];
+        return 'text-decoration-underline pt-0 pb-0 mb-1';
     }
   });
 

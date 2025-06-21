@@ -30,7 +30,7 @@ export class AutoReplyListListComponent extends ListBaseComponent<AutoReplyDefin
       id: 'create',
       title: 'Vytvořit novou šablonu',
       color: 'primary',
-      redirectTo: '/admin/auto-reply/create',
+      redirectTo: '/web/auto-reply/create',
       variant: 'outline'
     }
   ]
@@ -46,14 +46,14 @@ export class AutoReplyListListComponent extends ListBaseComponent<AutoReplyDefin
         {
           field: 'template',
           headerName: 'Šablona',
-          width: 300,
+          maxWidth: 450,
           resizable: true,
           tooltipField: 'template'
         },
         {
           field: 'reply',
           headerName: 'Odpověď',
-          width: 300,
+          maxWidth: 450,
           resizable: true,
           tooltipField: 'reply',
         },
@@ -64,7 +64,7 @@ export class AutoReplyListListComponent extends ListBaseComponent<AutoReplyDefin
             id: 'detail',
             title: 'Detail',
             color: 'primary',
-            redirectTo: row => `/admin/auto-reply/${row.id}`
+            redirectTo: row => `/web/auto-reply/${row.id}`
           },
           {
             id: 'delete',

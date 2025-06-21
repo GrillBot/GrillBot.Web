@@ -28,8 +28,9 @@ export class TextInputComponent implements ControlValueAccessor {
   validators = input<ValidatorFn | ValidatorFn[] | null>();
   sizing = input<'sm' | 'lg' | ''>();
   autocomplete = input<boolean>(true);
+  multiline = input(false);
 
-  formControl = computed(() =>
+  formControlElement = computed(() =>
     this.#formBuilder.control<string | null>(null, { validators: this.validators() })
   );
 
@@ -42,22 +43,22 @@ export class TextInputComponent implements ControlValueAccessor {
   });
 
   writeValue(obj: string | any): void {
-    this.formControl().patchValue(obj, { emitEvent: false });
+    this.formControlElement().patchValue(obj, { emitEvent: false });
   }
 
   registerOnChange(fn: (val: string | null) => void): void {
-    this.formControl().valueChanges.subscribe(val => fn(val?.length == 0 ? null : val));
+    this.formControlElement().valueChanges.subscribe(val => fn(val?.length == 0 ? null : val));
   }
 
   registerOnTouched(fn: () => void): void {
-    this.formControl().statusChanges.subscribe(_ => fn());
+    this.formControlElement().statusChanges.subscribe(_ => fn());
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formControl().disable();
+      this.formControlElement().disable();
     } else {
-      this.formControl().enable();
+      this.formControlElement().enable();
     }
   }
 }

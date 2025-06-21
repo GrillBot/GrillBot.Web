@@ -4,7 +4,7 @@
   [variant]="def().variant ?? 'ghost'"
   [color]="color()"
   [size]="def().size ?? 'sm'"
-  [classList]="classList()"
+  [attr.class]="class()"
   (click)="onClick()"
   [isVisible]="isVisible()"
 >
