@@ -1,12 +1,16 @@
 import { Routes } from "@angular/router";
+import { AuditLogListFilterComponent } from "./auditlog-list/auditlog-list-filter/auditlog-list-filter.component";
+import { AuditLogListListComponent } from "./auditlog-list/auditlog-list-list/auditlog-list-list.component";
 
 export const routes: Routes = [
   {
     path: 'list',
-    loadComponent: () => import('./auditlog-list/auditlog-list.component').then(m => m.AuditLogListComponent),
+    loadComponent: () => import('../../components').then(m => m.ListContainerComponent),
     data: {
       title: 'Audit log',
-      canActivate: (perms: string[]) => perms.includes('AuditLog(Admin)')
+      canActivate: (perms: string[]) => perms.includes('AuditLog(Admin)'),
+      filterComponent: AuditLogListFilterComponent,
+      listComponent: AuditLogListListComponent
     }
   },
   {

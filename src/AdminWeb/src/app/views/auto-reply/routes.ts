@@ -1,12 +1,16 @@
 import { Routes } from "@angular/router";
+import { AutoReplyListFilterComponent } from "./auto-reply-list/auto-reply-list-filter/auto-reply-list-filter.component";
+import { AutoReplyListListComponent } from "./auto-reply-list/auto-reply-list-list/auto-reply-list-list.component";
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./auto-reply-list/auto-reply-list.component').then(c => c.AutoReplyListComponent),
+    loadComponent: () => import('../../components').then(m => m.ListContainerComponent),
     data: {
       title: 'Automatické odpovědi',
-      canActivate: (perms: string[]) => perms.includes('Message(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Message(Admin)'),
+      filterComponent: AutoReplyListFilterComponent,
+      listComponent: AutoReplyListListComponent
     }
   },
   {

@@ -1,4 +1,8 @@
 import { Routes } from "@angular/router";
+import { TransactionsFilterComponent } from "./transactions/transactions-filter/transactions-filter.component";
+import { TransactionsListComponent } from "./transactions/transactions-list/transactions-list.component";
+import { UsersFilterComponent } from "./users/users-filter/users-filter.component";
+import { UsersListComponent } from "./users/users-list/users-list.component";
 
 export const routes: Routes = [
   {
@@ -11,11 +15,13 @@ export const routes: Routes = [
   },
   {
     path: 'transactions',
-    loadComponent: () => import('./transactions/transactions.component').then(m => m.TransactionsComponent),
+    loadComponent: () => import('../../components').then(m => m.ListContainerComponent),
     data: {
       title: 'Body / Transakce',
       canActivate: (perms: string[]) => perms.includes('Points(Admin)'),
-      filterId: 'points/transactions'
+      filterId: 'points/transactions',
+      filterComponent: TransactionsFilterComponent,
+      listComponent: TransactionsListComponent
     }
   },
   {
@@ -29,10 +35,12 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    loadComponent: () => import('./users/users.component').then(m => m.UsersComponent),
+    loadComponent: () => import('../../components').then(m => m.ListContainerComponent),
     data: {
       title: 'Body / Uživatelé',
-      canActivate: (perms: string[]) => perms.includes('Points(Admin)')
+      canActivate: (perms: string[]) => perms.includes('Points(Admin)'),
+      filterComponent: UsersFilterComponent,
+      listComponent: UsersListComponent
     }
   },
   {

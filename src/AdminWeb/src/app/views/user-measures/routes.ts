@@ -1,12 +1,16 @@
 import { Routes } from "@angular/router";
+import { MeasuresListFilterComponent } from "./measures-list/measures-list-filter/measures-list-filter.component";
+import { MeasuresListListComponent } from "./measures-list/measures-list-list/measures-list-list.component";
 
 export const routes: Routes = [
   {
     path: 'measures-list',
-    loadComponent: () => import('./measures-list/measures-list.component').then(m => m.MeasuresListComponent),
+    loadComponent: () => import('../../components').then(m => m.ListContainerComponent),
     data: {
       title: 'Uživatelská opatření / Seznam opatření',
-      canActivate: (perms: string[]) => perms.includes('UserMeasures(Admin)')
+      canActivate: (perms: string[]) => perms.includes('UserMeasures(Admin)'),
+      filterComponent: MeasuresListFilterComponent,
+      listComponent: MeasuresListListComponent
     }
   },
   {
