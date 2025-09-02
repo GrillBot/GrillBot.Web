@@ -7,7 +7,6 @@ import { DatabaseComponent } from './database/database.component';
 import { UnverifyComponent } from './unverify/unverify.component';
 import { InteractionsComponent } from './interactions/interactions.component';
 import { ApiComponent } from './api/api.component';
-import { EventsComponent } from './events/events.component';
 import { AvgTimesComponent } from './avg-times/avg-times.component';
 import { OperationsComponent } from './operations/operations.component';
 import { InteractionsUsersComponent } from './interactions-users/interactions-users.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
             { path: 'unverify', component: UnverifyComponent },
             { path: 'interactions', component: InteractionsComponent },
             { path: 'api', component: ApiComponent },
-            { path: 'events', component: EventsComponent },
             { path: 'avgTimes', component: AvgTimesComponent },
             { path: 'operations', component: OperationsComponent },
             { path: 'interactions-users', component: InteractionsUsersComponent },
@@ -42,7 +40,6 @@ const routes: Routes = [
         UnverifyComponent,
         InteractionsComponent,
         ApiComponent,
-        EventsComponent,
         AvgTimesComponent,
         OperationsComponent,
         InteractionsUsersComponent,

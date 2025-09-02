@@ -1,4 +1,3 @@
-import { ObservableList } from './../models/common';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -17,15 +16,6 @@ export class SystemService {
         const headers = this.base.getHttpHeaders();
 
         return this.base.http.put(url, null, { headers }).pipe(
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
-    getEventLog(): ObservableList<string> {
-        const url = this.base.createUrl('system/eventLog');
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.get<string[]>(url, { headers }).pipe(
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }

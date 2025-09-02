@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Dictionary, ObservableDict, ObservableList } from '../models/common';
 import {
     ApiStatistics, AuditLogStatistics, AvgExecutionTimes,
-    DatabaseStatistics, InteractionStatistics, OperationStats, StatisticItem, UserActionCountItem
+    DatabaseStatistics, InteractionStatistics, OperationStats, UserActionCountItem
 } from '../models/statistics';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
@@ -50,10 +50,6 @@ export class StatisticsService {
 
     getUnverifyLogsStatisticsByDate(): ObservableDict<string, number> {
         return this.getDictionaryStatistics('stats/unverify-logs/date');
-    }
-
-    getEventStatistics(): ObservableDict<string, number> {
-        return this.getDictionaryStatistics('stats/events');
     }
 
     getAvgTimes(): Observable<AvgExecutionTimes> {
@@ -112,16 +108,6 @@ export class StatisticsService {
 
         return this.base.http.get<Dictionary<string, number>>(url, { headers }).pipe(
             map(data => Object.keys(data).map(k => ({ key: k, value: data[k] as number }))),
-            catchError((err: HttpErrorResponse) => this.base.catchError(err))
-        );
-    }
-
-    private getObjectStatistics(urlPart: string): ObservableList<StatisticItem> {
-        const url = this.base.createUrl(urlPart);
-        const headers = this.base.getHttpHeaders();
-
-        return this.base.http.get<StatisticItem[]>(url, { headers }).pipe(
-            map(data => data.map(o => StatisticItem.create(o))),
             catchError((err: HttpErrorResponse) => this.base.catchError(err))
         );
     }
