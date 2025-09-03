@@ -3,7 +3,6 @@ import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { AsyncPipe } from "@angular/common";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { HasPermissionDirective } from "../../../core/directives";
-import { IconDirective } from "@coreui/icons-angular";
 import { LoadingComponent } from "../../../components";
 import { ServiceInfoComponent } from "../components/service-info/service-info.component";
 import { WithLoadingPipe, ChunkPipe } from "../../../core/pipes";
@@ -22,8 +21,7 @@ import { WithLoadingPipe, ChunkPipe } from "../../../core/pipes";
     CardBodyComponent,
     ChunkPipe,
     ServiceInfoComponent,
-    HasPermissionDirective,
-    IconDirective
+    HasPermissionDirective
   ]
 })
 export class ServicesDashboardComponent {
