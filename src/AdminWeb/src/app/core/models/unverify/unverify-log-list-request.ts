@@ -1,0 +1,9 @@
+export interface UnverifyLogListRequest {
+  operation: number | null;
+  fromUserId: string | null;
+  toUserId: string | null;
+  createdFrom: string | null;
+  createdTo: string | null;
+  guildId: string | null;
+  parentLogItemId: string | null;
+}
