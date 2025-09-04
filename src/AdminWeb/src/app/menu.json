@@ -153,6 +153,44 @@
     "childItems": []
   },
   {
+    "name": "Odebrání přístupů",
+    "url": "/web/unverify",
+    "icon": "cil-user-unfollow",
+    "permissions": [
+      "Unverify(Admin)"
+    ],
+    "childItems": [
+      {
+        "name": "Aktuální stav",
+        "url": "/web/unverify/current-status",
+        "permissions": [
+          "Unverify(Admin)"
+        ]
+      },
+      {
+        "name": "Ponechatelné přístupy",
+        "url": "/web/unverify/keepables",
+        "permissions": [
+          "Unverify(Admin)"
+        ]
+      },
+      {
+        "name": "Log",
+        "url": "/web/unverify/log",
+        "permissions": [
+          "Unverify(Admin)"
+        ]
+      },
+      {
+        "name": "Statistiky",
+        "url": "/web/unverify/stats",
+        "permissions": [
+          "Unverify(Admin)"
+        ]
+      }
+    ]
+  },
+  {
     "name": "Pozvánky",
     "url": "/web/invite",
     "icon": "cil-envelope-open",

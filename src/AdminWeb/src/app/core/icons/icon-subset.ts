@@ -37,4 +37,5 @@ export const iconSubset = {
   cilDescription: icons.cilDescription,
   cilEnvelopeOpen: icons.cilEnvelopeOpen,
   cilCommentSquare: icons.cilCommentSquare,
+  cilUserUnfollow: icons.cilUserUnfollow
 };
