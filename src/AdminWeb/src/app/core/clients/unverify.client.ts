@@ -13,6 +13,7 @@ import { ActiveUnverifyListRequest } from "../models/unverify/active-unverify-li
 import { ActiveUnverifyListItemResponse } from "../models/unverify/active-unverify-list-item-response";
 import { UpdateUnverifyRequest } from "../models/unverify/update-unverify-request";
 import { ModifyUserRequest } from "../models/unverify/modify-user-request";
+import { UnverifyDetail } from "../models/unverify/unverify-detail";
 
 @Injectable({ providedIn: 'root' })
 export class UnverifyClient extends BaseClient {
@@ -42,6 +43,9 @@ export class UnverifyClient extends BaseClient {
 
   getActiveUnverifyList = (request: WithSortAndPagination<ActiveUnverifyListRequest>) =>
     this.postRequest<PaginatedResponse<ActiveUnverifyListItemResponse>>('service/unverify/unverify/list', request);
+
+  getActiveUnverifyDetailAsync = (guildId: string, userId: string) =>
+    this.getRequest<UnverifyDetail>(`service/unverify/unverify/${guildId}/${userId}`);
 
   removeUnverify = (guildId: string, userId: string, isForceRemove: boolean) =>
     this.deleteRequest(`service/unverify/unverify/${guildId}/${userId}`, { isForceRemove: isForceRemove ? 'true' : 'false' });
