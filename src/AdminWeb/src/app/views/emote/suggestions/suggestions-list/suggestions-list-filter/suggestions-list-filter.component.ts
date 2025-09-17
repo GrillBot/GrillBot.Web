@@ -1,14 +1,13 @@
 import { Component } from "@angular/core";
 import {
   DatetimeRangeComponent,
-  FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent,
+  FilterBaseComponent, FilterCardComponent, GuildLookupComponent, RadioGroupComponent, RadioItem, TextInputComponent,
   UserLookupComponent
 } from "../../../../../components";
 import { IForm } from "../../../../../core/models/common";
 import { EmoteSuggestionsListFilter, EmoteSuggestionsListRequest } from "../../../../../core/models/emote";
 import { ReactiveFormsModule } from "@angular/forms";
-import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
-import { ColComponent, RowComponent } from "@coreui/angular";
+import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-suggestions-list-filter',
@@ -16,18 +15,24 @@ import { ColComponent, RowComponent } from "@coreui/angular";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    TriStateCheckboxModule,
     FilterCardComponent,
     TextInputComponent,
     GuildLookupComponent,
     UserLookupComponent,
-    TriStateCheckboxModule,
     RowComponent,
     ColComponent,
-    DatetimeRangeComponent
-  ]
+    DatetimeRangeComponent,
+    RadioGroupComponent,
+    FormLabelDirective
+]
 })
 export class SuggestionsListFilterComponent extends FilterBaseComponent<EmoteSuggestionsListFilter> {
+  approveItems: RadioItem[] = [
+    { label: 'Schváleno', value: true },
+    { label: 'Zamítnuto', value: false },
+    { label: 'Nerozhoduje', value: null },
+  ];
+
   override configure(): void {
     this.filterId = 'emote/suggestions-list';
   }

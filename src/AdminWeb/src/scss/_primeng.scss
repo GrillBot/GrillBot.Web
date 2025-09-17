@@ -1,10 +1,12 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-
 @layer reset {
   .p-checkbox-label {
     color: #444;
     user-select: none;
+  }
+
+  :not(.p-checkbox-checked) > .p-checkbox-box,
+  .p-radiobutton-checked .p-radiobutton-box .p-radiobutton-icon {
+    background: white !important;
   }
 
   [data-coreui-theme="dark"] {

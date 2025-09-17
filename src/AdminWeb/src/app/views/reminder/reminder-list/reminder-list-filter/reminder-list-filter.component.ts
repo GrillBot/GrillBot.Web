@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
-import { DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
+import {
+  DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, RadioGroupComponent,
+  RadioItem, TextInputComponent, UserLookupComponent
+} from "../../../../components";
 import { ReminderListFilter } from "../../../../core/models/reminder/reminder-list-request";
 import { IForm } from "../../../../core/models/common";
-import { ColComponent, RowComponent } from "@coreui/angular";
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-reminder-list-filter',
@@ -15,13 +17,26 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     RowComponent,
     ColComponent,
     UserLookupComponent,
-    TriStateCheckboxModule,
     FilterCardComponent,
     TextInputComponent,
-    DatetimeRangeComponent
+    DatetimeRangeComponent,
+    RadioGroupComponent,
+    FormLabelDirective
   ]
 })
 export class ReminderListFilterComponent extends FilterBaseComponent<ReminderListFilter> {
+  onlyInProcessItems: RadioItem[] = [
+    { label: 'Zpracovávané', value: true },
+    { label: 'Nezpracovávané', value: false },
+    { label: 'Nerozhoduje', value: null }
+  ];
+
+  onlyPendingItems: RadioItem[] = [
+    { label: 'Čekající', value: true },
+    { label: 'Oznámené', value: false },
+    { label: 'Nerozhoduje', value: null }
+  ];
+
   override configure(): void {
     this.filterId = 'reminder/reminder-list';
   }

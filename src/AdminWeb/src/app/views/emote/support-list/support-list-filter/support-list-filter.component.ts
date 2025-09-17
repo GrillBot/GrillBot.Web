@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
-import { CardHeaderComponent, FilterBaseComponent, FilterButtonsComponent, FilterCardComponent, FilterStoreComponent, FormCardBodyComponent, GuildLookupComponent } from "../../../../components";
+import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardComponent, CardFooterComponent, ColComponent, RowComponent } from "@coreui/angular";
-import { VisibilityDirective } from "../../../../core/directives";
+import { ColComponent, RowComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-support-list-filter',
@@ -11,16 +10,9 @@ import { VisibilityDirective } from "../../../../core/directives";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CardComponent,
-    CardHeaderComponent,
     RowComponent,
     ColComponent,
-    VisibilityDirective,
     GuildLookupComponent,
-    FilterButtonsComponent,
-    FormCardBodyComponent,
-    CardFooterComponent,
-    FilterStoreComponent,
     FilterCardComponent
   ]
 })

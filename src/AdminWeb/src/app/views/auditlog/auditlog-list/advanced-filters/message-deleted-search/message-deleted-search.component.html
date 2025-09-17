@@ -18,11 +18,12 @@
           />
         </c-col>
 
-        <c-col md="6" class="d-flex align-items-end">
-          <p-triStateCheckbox
-            inputId="containsEmbed"
+        <c-col md="6">
+          <label cLabel>Obsahuje embed</label>
+          <app-radio-group
+            radioId="containsEmbed"
             formControlName="containsEmbed"
-            label="Obsahuje embed"
+            [items]="containsEmbedItems"
           />
         </c-col>
       </c-row>

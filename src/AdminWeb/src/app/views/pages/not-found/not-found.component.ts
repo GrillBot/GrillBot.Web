@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { ContainerComponent, RowComponent, ColComponent, ButtonDirective } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { ContainerComponent, RowComponent, ColComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-not-found',
@@ -9,9 +8,7 @@ import { IconDirective } from "@coreui/icons-angular";
   imports: [
     ContainerComponent,
     RowComponent,
-    ColComponent,
-    IconDirective,
-    ButtonDirective
+    ColComponent
   ]
 })
 export class NotFoundComponent { }

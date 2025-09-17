@@ -1,3 +1,5 @@
+@use "@coreui/coreui/scss/coreui" as *;
+
 @include color-mode(dark) {
   button {
     &.btn-ghost-dark {

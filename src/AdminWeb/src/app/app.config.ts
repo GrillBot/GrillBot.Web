@@ -3,13 +3,18 @@ import {
   provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withRouterConfig,
   withViewTransitions
 } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpCacheInterceptor, httpUnauthorizedInterceptor, httpLoggingInterceptor } from './core/interceptors';
 import { GlobalErrorHandler } from './core/handlers/error.handler';
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { providePrimeNG } from 'primeng/config';
+import PrimeNgTheme from '@primeuix/themes/aura';
+
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
-    provideAnimations(),
+    provideAnimationsAsync(),
     provideHttpClient(
       withInterceptors([
         httpUnauthorizedInterceptor(),
@@ -48,6 +53,11 @@ export const appConfig: ApplicationConfig = {
         httpLoggingInterceptor()
       ])
     ),
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    providePrimeNG({
+      theme: {
+        preset: PrimeNgTheme
+      }
+    })
   ]
 };

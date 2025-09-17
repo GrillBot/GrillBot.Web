@@ -1,4 +1,4 @@
-@import "scrollbar";
+@use "scrollbar" as *;
 
 .calendar-cell.today {
   --cui-calendar-cell-today-color: var(--cui-info) !important;

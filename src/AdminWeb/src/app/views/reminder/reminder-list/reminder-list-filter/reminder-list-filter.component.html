@@ -35,19 +35,20 @@
     <c-col>
       <c-row>
         <c-col>
-          <p-triStateCheckbox
-            inputId="onlyInProcess"
+          <label cLabel>Zpracovávané</label>
+          <app-radio-group
+            radioId="onlyInProcess"
             formControlName="onlyInProcess"
-            class="me-2"
-            label="Zpracovávané"
+            [items]="onlyInProcessItems"
           />
         </c-col>
 
         <c-col>
-          <p-triStateCheckbox
-            inputId="onlyPending"
+          <label cLabel>Čekající</label>
+          <app-radio-group
+            radioId="onlyPending"
             formControlName="onlyPending"
-            label="Čekající"
+            [items]="onlyPendingItems"
           />
         </c-col>
       </c-row>

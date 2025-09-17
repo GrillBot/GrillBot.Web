@@ -6,11 +6,11 @@ import {
 } from "@coreui/angular";
 import { GuildLookupComponent, LoadingComponent, UserLookupComponent, ValidationErrorsComponent } from "../../../components";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { IForm, ValidationProblemDetails } from "../../../core/models/common";
+import { IForm } from "../../../core/models/common";
 import { TransferPointsRequest } from "../../../core/models/points/transfer-points-request";
 import { PointsClient } from "../../../core/clients/points.client";
-import { IconComponent, IconDirective } from "@coreui/icons-angular";
-import { catchError, debounceTime, EMPTY, throwError } from "rxjs";
+import { IconComponent } from "@coreui/icons-angular";
+import { catchError, debounceTime, EMPTY } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapHttpErrors } from "../../../core/mappers/validations.mapper";
 

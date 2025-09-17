@@ -7,8 +7,8 @@ import {
   CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, FormControlDirective,
   FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
-import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
-import { TextInputComponent } from "../../../../../components";
+import { CheckboxModule } from "primeng/checkbox";
+import { RadioGroupComponent, RadioItem, TextInputComponent } from "../../../../../components";
 
 @Component({
   selector: 'app-execution-search',
@@ -24,8 +24,9 @@ import { TextInputComponent } from "../../../../../components";
     RowComponent,
     ColComponent,
     InputGroupComponent,
-    TriStateCheckboxModule,
-    TextInputComponent
+    TextInputComponent,
+    CheckboxModule,
+    RadioGroupComponent
   ],
   providers: [
     {
@@ -36,6 +37,12 @@ import { TextInputComponent } from "../../../../../components";
   ]
 })
 export class ExecutionSearchComponent extends AdvancedFilterBase<ExecutionSearchRequest> {
+  successItems: RadioItem[] = [
+    { label: 'Úspěšně', value: true },
+    { label: 'Neúspěšně', value: false },
+    { label: 'Nerozhoduje', value: null }
+  ];
+
   override createForm(): IForm<ExecutionSearchRequest> {
     return {
       actionName: this.formBuilder.control<string>(''),

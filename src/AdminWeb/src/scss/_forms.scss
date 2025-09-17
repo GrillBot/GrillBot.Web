@@ -1,3 +1,5 @@
+@use "@coreui/coreui/scss/coreui" as *;
+
 input.ng-dirty {
   &.ng-invalid {
     border-color: $danger;

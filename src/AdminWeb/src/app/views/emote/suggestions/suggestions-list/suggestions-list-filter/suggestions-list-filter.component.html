@@ -18,11 +18,12 @@
       <app-text-input formControlName="nameContains" label="Název" />
     </c-col>
 
-    <c-col class="d-flex align-items-center" md="2">
-      <p-triStateCheckbox
-        inputId="approvalState"
+    <c-col>
+      <label cLabel>Schváleno / Zamítnuto</label>
+      <app-radio-group
+        radioId="approvalState"
         formControlName="approvalState"
-        label="Schváleno / Zamítnuto"
+        [items]="approveItems"
       />
     </c-col>
   </c-row>

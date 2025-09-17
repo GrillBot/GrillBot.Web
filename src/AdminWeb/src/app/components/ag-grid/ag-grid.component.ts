@@ -36,6 +36,7 @@ export class AgGridComponent {
 
   options: Signal<GridOptions> = computed(() => {
     return {
+      theme: 'legacy',
       autoSizeStrategy: {
         type: 'fitGridWidth'
       },

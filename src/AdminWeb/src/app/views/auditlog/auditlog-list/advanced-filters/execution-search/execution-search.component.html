@@ -4,7 +4,7 @@
 
     <form [formGroup]="form">
       <c-row>
-        <c-col md="4">
+        <c-col md="3">
           <app-text-input
             formControlName="actionName"
             label="Název"
@@ -35,11 +35,12 @@
           </c-input-group>
         </c-col>
 
-        <c-col md="4" class="d-flex align-items-end">
-          <p-triStateCheckbox
-            inputId="success"
+        <c-col>
+          <label cLabel for="success">Dokončeno úspěšně</label>
+          <app-radio-group
+            radioId="success"
+            [items]="successItems"
             formControlName="success"
-            label="Dokončeno úspěšně"
           />
         </c-col>
       </c-row>
