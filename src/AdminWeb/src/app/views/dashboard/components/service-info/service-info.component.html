@@ -1,6 +1,11 @@
 @if ($getServiceInfo | withLoading | async; as serviceInfo) {
   @if (serviceInfo.loading) {
-    <c-widget-stat-f [value]="serviceId()" class="mb-3" color="secondary">
+    <c-widget-stat-f
+      [value]="serviceId()"
+      class="mb-3"
+      color="secondary"
+      textColor="white"
+    >
       <ng-template cTemplateId="widgetIconTemplate">
         <app-loading [small]="true" [showText]="false" />
       </ng-template>
@@ -23,6 +28,7 @@
         class="mb-3"
         [color]="serviceInfo.value.isAvailable ? 'success' : 'danger'"
         title="UP: {{ serviceInfo.value.uptime | timespan }}"
+        textColor="white"
       >
         <ng-template cTemplateId="widgetIconTemplate">
           <c-icon

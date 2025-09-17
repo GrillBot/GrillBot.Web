@@ -90,7 +90,13 @@
   let-icon="icon"
   let-color="color"
 >
-  <c-widget-stat-f [title]="title" class="mb-3" [color]="color" [value]="value">
+  <c-widget-stat-f
+    [title]="title"
+    class="mb-3"
+    [color]="color"
+    [value]="value"
+    textColor="white"
+  >
     <ng-template cTemplateId="widgetIconTemplate">
       <c-icon [name]="icon" size="xxl" />
     </ng-template>

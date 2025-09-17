@@ -4,7 +4,7 @@
   <ng-select
     ngSelector
     [loading]="lookup.loading"
-    [items]="lookup.value"
+    [items]="$any(lookup.value)"
     bindValue="id"
     bindLabel="username"
     [formControl]="formControl"

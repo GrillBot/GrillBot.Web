@@ -9,14 +9,16 @@ export class NgSelectorDirective {
   readonly #component = inject(NgSelectComponent);
 
   constructor() {
-    this.#component.loadingText = 'Probíhá načítání';
-    this.#component.notFoundText = 'Nejsou žádná data';
-    this.#component.virtualScroll = true;
-    this.#component.bindLabel ??= 'value';
-    this.#component.bindValue ??= 'key';
+    this.#component.config.loadingText = 'Probíhá načítání';
+    this.#component.config.notFoundText = 'Nejsou žádná data';
+    this.#component.config.disableVirtualScroll = false;
 
-    if (this.#component.multiple) {
-      this.#component.closeOnSelect = false;
+    if (!this.#component.bindLabel()) {
+      this.#component.bindLabel.set('value');
+    }
+
+    if (!this.#component.bindValue()) {
+      this.#component.bindValue.set('key');
     }
   }
 }

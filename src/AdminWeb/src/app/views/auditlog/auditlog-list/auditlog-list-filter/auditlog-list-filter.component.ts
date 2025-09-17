@@ -47,7 +47,7 @@ export class AuditLogListFilterComponent extends FilterBaseComponent<FormSearchR
       guildId: this.createControl(),
       userId: this.createControl(),
       channelId: this.createControl(),
-      showTypes: this.createControl(),
+      showTypes: this.createControl({ validators: [] }),
       ignoreTypes: this.createControl({ validators: [] }, [AuditLogType.Api]),
       created: this.createControl(),
       onlyWithFiles: this.createControl({ validators: [] }, false),

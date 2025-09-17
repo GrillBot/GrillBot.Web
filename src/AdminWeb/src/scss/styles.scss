@@ -1,14 +1,14 @@
-@import "variables";
+@use "variables" as *;
 
 // Lib styles
-@import "@coreui/coreui/scss/coreui";
-@import "bootstrap/dist/css/bootstrap.min.css";
-@import "@coreui/chartjs/scss/coreui-chartjs";
+@use "@coreui/coreui/scss/coreui" as *;
+@use "@coreui/chartjs/scss/coreui-chartjs" as *;
 
-@import 'ag-grid';
-@import 'ng-select';
-@import "theme";
-@import "custom";
-@import "forms";
-@import "primeng";
-@import "buttons";
+@use "ag-grid";
+@use "ng-select";
+@use "theme";
+@use "custom";
+@use "forms";
+@use "primeng";
+@use "buttons";
+

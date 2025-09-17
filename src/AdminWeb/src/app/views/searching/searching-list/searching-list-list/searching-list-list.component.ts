@@ -118,7 +118,7 @@ export class SearchingListListComponent extends ListBaseComponent<SearchingListF
           }
         ])
       ],
-      selection: {
+      rowSelection: {
         mode: 'multiRow',
         isRowSelectable: row => !row.data.isDeleted
       },

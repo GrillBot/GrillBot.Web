@@ -1,3 +1,5 @@
+@use "@coreui/coreui/scss/coreui" as *;
+
 @import "@ng-select/ng-select/themes/default.theme.css";
 
 @include color-mode(dark) {

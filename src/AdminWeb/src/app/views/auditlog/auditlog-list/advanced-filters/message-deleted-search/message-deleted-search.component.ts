@@ -6,8 +6,7 @@ import { IForm } from "../../../../../core/models/common";
 import {
   CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent
 } from "@coreui/angular";
-import { TextInputComponent, UserLookupComponent } from "../../../../../components";
-import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
+import { RadioGroupComponent, RadioItem, TextInputComponent, UserLookupComponent } from "../../../../../components";
 
 @Component({
   selector: 'app-message-deleted-search',
@@ -20,9 +19,9 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
     RowComponent,
     ColComponent,
     UserLookupComponent,
-    TriStateCheckboxModule,
     ReactiveFormsModule,
-    TextInputComponent
+    TextInputComponent,
+    RadioGroupComponent
   ],
   providers: [
     {
@@ -33,6 +32,12 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
   ]
 })
 export class MessageDeletedSearchComponent extends AdvancedFilterBase<MessageDeletedSearchRequest> {
+  containsEmbedItems: RadioItem[] = [
+    { label: 'Ano', value: true },
+    { label: 'Ne', value: false },
+    { label: 'Nerozhoduje', value: null },
+  ];
+
   override writeValue(obj: MessageDeletedSearchRequest | null): void {
     this.form.patchValue({
       authorId: obj?.authorId,

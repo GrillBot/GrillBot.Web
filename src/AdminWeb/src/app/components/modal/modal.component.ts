@@ -40,12 +40,14 @@ export class ModalComponent {
     modal.visible = true;
 
     if (afterClose) {
-      const visibleChange = modal.visibleChange
-        .pipe(filter(visible => !visible))
-        .subscribe(() => {
-          afterClose();
-          visibleChange.unsubscribe();
-        });
+      const visibleChange = modal.visibleChange.subscribe(visible => {
+        if (visible) {
+          return;
+        }
+
+        afterClose();
+        visibleChange.unsubscribe();
+      });
     }
   }
 
