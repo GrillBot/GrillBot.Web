@@ -1,0 +1,10 @@
+@if (roles().length > 0) {
+  @if (title()) {
+    <b> {{ title() }}</b>
+  }
+  <ul class="mb-0">
+    @for (role of roles(); track role) {
+      <li>{{ role | roleLookup | async }}</li>
+    }
+  </ul>
+}

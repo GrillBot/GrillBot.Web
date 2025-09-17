@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, input } from '@angular/core';
-import { ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent } from '@coreui/angular';
-import { IconDirective } from '@coreui/icons-angular';
+import { TemplateIdDirective, WidgetStatFComponent } from '@coreui/angular';
+import { IconComponent } from '@coreui/icons-angular';
 import { LoadingComponent } from '../../../../components';
 import { DashboardClient } from '../../../../core/clients/dashboard.client';
 import { Observable, of } from 'rxjs';
@@ -15,16 +15,14 @@ import { WithLoadingPipe, TimeSpanPipe } from '../../../../core/pipes';
   templateUrl: './service-info.component.html',
   standalone: true,
   imports: [
-    RowComponent,
-    ColComponent,
     WidgetStatFComponent,
-    IconDirective,
     TemplateIdDirective,
     LoadingComponent,
     WithLoadingPipe,
     AsyncPipe,
     TimeSpanPipe,
-    RouterLink
+    RouterLink,
+    IconComponent
   ]
 })
 export class ServiceInfoComponent implements OnInit {

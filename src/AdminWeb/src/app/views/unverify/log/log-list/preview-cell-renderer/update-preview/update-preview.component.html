@@ -1,0 +1,13 @@
+<app-info-row
+  key="Nový začátek"
+  [value]="preview().newStartAtUtc | localeDatePipe"
+/>
+
+<app-info-row
+  key="Nový konec"
+  [value]="preview().newEndAtUtc | localeDatePipe"
+/>
+
+@if (preview().reason && preview().reason.length > 0) {
+  <app-info-row key="Důvod" [value]="preview().reason | cutString: 50" />
+}

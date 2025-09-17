@@ -8,7 +8,7 @@
 
         @if (!chartResponse.loading) {
           <c-chart
-            [height]="300"
+            [height]="height()"
             [type]="type()"
             [data]="chartResponse.value"
             [options]="options"

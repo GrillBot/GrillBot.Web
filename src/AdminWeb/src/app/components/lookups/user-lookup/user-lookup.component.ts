@@ -5,7 +5,7 @@ import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-sele
 import { NgSelectorDirective } from "../../../core/directives";
 import { NgOptionHighlightDirective } from "@ng-select/ng-option-highlight";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { LookupBaseComponent } from "../lookup.component.base";
 import { User } from "../../../core/models/users/user";
 
@@ -21,7 +21,7 @@ import { User } from "../../../core/models/users/user";
     NgOptionHighlightDirective,
     ReactiveFormsModule,
     NgOptionTemplateDirective,
-    IconDirective
+    IconComponent
   ],
   providers: [
     {

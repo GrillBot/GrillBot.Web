@@ -2,5 +2,11 @@
   <c-col>
     <b>{{ key() }}:</b>
   </c-col>
-  <c-col>{{ value() }}</c-col>
+  <c-col>
+    @if (linkTo()) {
+      <a [routerLink]="linkTo()" class="text-dark">{{ value() }}</a>
+    } @else {
+      {{ value() }}
+    }
+  </c-col>
 </c-row>

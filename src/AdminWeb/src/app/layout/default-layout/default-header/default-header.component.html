@@ -8,7 +8,7 @@
       style="margin-inline-start: -14px"
       aria-label="Toggle sidebar navigation"
     >
-      <svg cIcon name="cilMenu" size="lg"></svg>
+      <c-icon name="cilMenu" size="lg" />
     </button>
 
     <!-- Sub-navigation (in the section) -->
@@ -38,7 +38,7 @@
 <ng-template #themeDropdown>
   <c-dropdown alignment="end" variant="nav-item">
     <button [caret]="false" cDropdownToggle aria-label="Open theme picker">
-      <svg cIcon [name]="icons()" size="lg"></svg>
+      <c-icon [name]="icons()" size="lg" />
     </button>
     <div cDropdownMenu>
       @for (mode of colorModes; track mode.name) {
@@ -48,7 +48,7 @@
           cDropdownItem
           class="d-flex align-items-center"
         >
-          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+          <c-icon class="me-2" [name]="mode.icon" size="lg" />
           {{ mode.text }}
         </button>
       }
@@ -87,7 +87,7 @@
       <li></li>
       <li>
         <a cDropdownItem routerLink="/web/users/{{ authManager.token.id }}">
-          <svg cIcon class="me-2" name="cilUser"></svg>
+          <c-icon class="me-2" name="cilUser" />
           Můj účet
         </a>
       </li>
@@ -96,7 +96,7 @@
       </li>
       <li>
         <button cDropdownItem (click)="authManager.logout()">
-          <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+          <c-icon class="me-2" name="cilAccountLogout" />
           Odhlásit se
         </button>
       </li>

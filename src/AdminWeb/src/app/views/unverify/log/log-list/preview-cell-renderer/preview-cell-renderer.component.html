@@ -1,0 +1,29 @@
+@switch (type) {
+  @case (0) {
+    <app-unverify-preview [preview]="preview" />
+  }
+
+  @case (1) {
+    <app-selfunverify-preview [preview]="preview" />
+  }
+
+  @case (2) {
+    <app-autoremove-preview [preview]="preview" />
+  }
+
+  @case (3) {
+    <app-manualremove-preview [preview]="preview" />
+  }
+
+  @case (4) {
+    <app-update-preview [preview]="preview" />
+  }
+
+  @case (5) {
+    <app-recovery-preview [preview]="preview" />
+  }
+
+  @default {
+    Neznámý náhled
+  }
+}

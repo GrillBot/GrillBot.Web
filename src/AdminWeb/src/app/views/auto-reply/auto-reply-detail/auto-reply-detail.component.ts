@@ -12,7 +12,7 @@ import { WithLoadingPipe } from "../../../core/pipes";
 import { AsyncPipe } from "@angular/common";
 import { ButtonComponent } from "../../../components/button/button.component";
 import { ButtonDef } from "../../../components/button/button.models";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapHttpErrors } from "../../../core/mappers";
 
@@ -37,7 +37,7 @@ type SaveState = 'not-started' | 'executing' | 'failed' | 'created' | 'updated';
     CardFooterComponent,
     ButtonComponent,
     AlertComponent,
-    IconDirective
+    IconComponent
   ]
 })
 export class AutoReplyDetailComponent {

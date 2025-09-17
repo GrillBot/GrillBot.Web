@@ -9,7 +9,7 @@ import { mapParamsFromSnapshot as mapParamsFromSnapshot } from "../../../core/ma
 import { AsReadonlyFormControlPipe, LocaleDatePipe, SpacedNumberPipe, WithLoadingPipe } from "../../../core/pipes";
 import { AsyncPipe } from "@angular/common";
 import { CheckboxComponent, GuildLookupPipe, LoadingComponent, ModalComponent, ModalQuestionButtonsComponent } from "../../../components";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { mapEmoteIdToNumberId } from "../../../core/mappers";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Observable, tap } from "rxjs";
@@ -32,7 +32,6 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
     CardBodyComponent,
     CardFooterComponent,
     AlertComponent,
-    IconDirective,
     CardTitleDirective,
     ColDirective,
     CheckboxComponent,
@@ -46,7 +45,8 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
     EmoteMergeComponent,
     InfoRowComponent,
     ModalQuestionButtonsComponent,
-    ButtonDirective
+    ButtonDirective,
+    IconComponent
   ]
 })
 export class EmoteDetailComponent {

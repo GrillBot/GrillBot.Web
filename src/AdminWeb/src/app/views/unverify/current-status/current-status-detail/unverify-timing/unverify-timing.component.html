@@ -1,0 +1,89 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <c-row>
+      <c-col>
+        <app-info-row
+          key="Začátek"
+          [value]="detail().startAtUtc | localeDatePipe"
+        />
+
+        <app-info-row
+          key="Konec"
+          [value]="detail().endAtUtc | localeDatePipe"
+        />
+      </c-col>
+
+      <c-col>
+        <app-info-row
+          key="Trvání"
+          [value]="
+            detail().startAtUtc | datetimeDiff: detail().endAtUtc | timespan
+          "
+        />
+
+        <app-info-row
+          key="Zbývá"
+          [value]="'now' | datetimeDiff: detail().endAtUtc | timespan"
+        />
+      </c-col>
+
+      <c-col cCol="auto">
+        <app-button [def]="modifyButtonDef" />
+      </c-col>
+    </c-row>
+  </c-card-body>
+
+  <app-form-card-footer [isVisible]="updateIsVisible()" [form]="updateForm">
+    <c-row>
+      <c-col>
+        <app-datetime-picker label="Nový konec" formControlName="newEndAtUtc" />
+      </c-col>
+
+      <c-col>
+        <app-text-input
+          label="Důvod"
+          formControlName="reason"
+          [validators]="updateForm.get('reason')?.validator"
+        />
+      </c-col>
+
+      <c-col cCol="auto" class="d-flex align-items-end">
+        <app-button [def]="saveModifyButtonDef" />
+      </c-col>
+    </c-row>
+
+    <c-alert
+      [fade]="true"
+      [visible]="updateState() != 'not-started'"
+      class="mt-2 mb-0"
+      [color]="updateStateColor()"
+    >
+      @switch (updateState()) {
+        @case ("processing") {
+          <app-loading
+            [rotating]="true"
+            [center]="false"
+            customText="Probíhá změna konce odebrání přístupu"
+            [small]="true"
+          />
+        }
+
+        @case ("processed") {
+          <div class="d-flex align-items-center">
+            <c-icon name="cilCheckCircle" />
+            <p class="m-0 ms-2">Konec odebrání přístupu byl úspěšně upraven.</p>
+          </div>
+        }
+
+        @case ("failed") {
+          <div class="d-flex align-items-center">
+            <c-icon name="cilCheckCircle" />
+            <p class="m-0 ms-2">
+              Konec odebrání přístupu se nepodařilo upravit.
+            </p>
+          </div>
+        }
+      }
+    </c-alert>
+  </app-form-card-footer>
+</c-card>

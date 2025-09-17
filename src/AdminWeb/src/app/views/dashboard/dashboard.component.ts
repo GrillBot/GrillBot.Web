@@ -3,7 +3,7 @@ import { DashboardClient } from "../../core/clients/dashboard.client";
 import {
   ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent
 } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { LoadingComponent } from "../../components";
 import { HasPermissionDirective } from '../../core/directives';
@@ -23,7 +23,6 @@ import { LocaleDatePipe } from "../../core/pipes/locale-date.pipe";
     ColComponent,
     WidgetStatFComponent,
     TemplateIdDirective,
-    IconDirective,
     TimeSpanPipe,
     FilesizePipe,
     AsyncPipe,
@@ -36,7 +35,8 @@ import { LocaleDatePipe } from "../../core/pipes/locale-date.pipe";
     InteractionsComponent,
     TodayAvgTimesComponent,
     JobsComponent,
-    LocaleDatePipe
+    LocaleDatePipe,
+    IconComponent
   ]
 })
 export class DashboardComponent {

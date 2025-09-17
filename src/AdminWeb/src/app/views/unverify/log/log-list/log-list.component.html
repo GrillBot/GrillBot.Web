@@ -1,0 +1,35 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    (reloadRequested)="reload()"
+    [height]="'750px'"
+  />
+</div>
+
+<app-modal
+  #recoveryModal
+  title="Obnovení původního stavu před odebráním přístupu"
+  [enableFooter]="!recoveryResult()"
+>
+  <ng-container body>
+    @if (rowInModal) {
+      Opravdu si přejete obnovit původní stav uživatele
+      {{ rowInModal.toUserId | userLookup | async }}?
+    } @else if (recoveryResult()) {
+      <ul class="mb-0">
+        @for (item of recoveryResult(); track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    }
+  </ng-container>
+
+  @if (!recoveryResult()) {
+    <app-modal-question-buttons
+      footer
+      [parentModal]="recoveryModal"
+      (onConfirm)="confirmRecovery()"
+    />
+  }
+</app-modal>

@@ -1,0 +1,44 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <c-row>
+      <c-col>
+        @if (data().language) {
+          <app-info-row key="Jazyk" [value]="data().language" />
+        }
+      </c-col>
+
+      <c-col class="d-flex flex-column">
+        @if (type() == 3) {
+          <app-checkbox
+            checkboxId="isFromWeb"
+            label="Provedeno z webu"
+            [formControl]="data().isFromWeb | asReadonlyFormControl"
+          />
+
+          <app-checkbox
+            checkboxId="isForceRemove"
+            label="Vynucené ukončení"
+            [formControl]="data().isForceRemove | asReadonlyFormControl"
+          />
+        }
+      </c-col>
+    </c-row>
+
+    <c-row>
+      @if (data().returnedRoles.length > 0) {
+        <c-col>
+          <app-role-list [roles]="data().returnedRoles" title="Vrácené role" />
+        </c-col>
+      }
+
+      @if (data().returnedChannels.length > 0) {
+        <c-col>
+          <app-channel-list
+            [channels]="data().returnedChannels"
+            title="Vrácené kanály"
+          />
+        </c-col>
+      }
+    </c-row>
+  </c-card-body>
+</c-card>

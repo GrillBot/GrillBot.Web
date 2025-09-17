@@ -3,5 +3,8 @@ export * from './checkbox/checkbox.component';
 export * from './radio-group/radio-group.component';
 export * from './radio-group/radio-group.models';
 export * from './form-card-body/form-card-body.component';
+export * from './form-card-footer/form-card-footer.component';
 export * from './text-input/text-input.component';
 export * from './datetime-range/datetime-range.component';
+export * from './datetime-picker/datetime-picker.component';
+export * from './datetime-picker/datetime-picker.directive';

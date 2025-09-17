@@ -1,0 +1,32 @@
+<app-info-row key="Začátek" [value]="preview().startAtUtc | localeDatePipe" />
+<app-info-row key="Konec" [value]="preview().endAtUtc | localeDatePipe" />
+
+@if (preview().removedRolesCount > 0) {
+  <app-info-row
+    key="Odebraných rolí"
+    [value]="preview().removedRolesCount | spacedNumber"
+  />
+}
+
+@if (preview().keepedRolesCount > 0) {
+  <app-info-row
+    key="Ponechaných rolí"
+    [value]="preview().keepedRolesCount | spacedNumber"
+  />
+}
+
+@if (preview().removedChnannelsCount > 0) {
+  <app-info-row
+    key="Odebraných kanálů"
+    [value]="preview().removedChnannelsCount | spacedNumber"
+  />
+}
+
+@if (preview().keepedChnannelsCount > 0) {
+  <app-info-row
+    key="Ponechaných kanálů"
+    [value]="preview().keepedChnannelsCount | spacedNumber"
+  />
+}
+
+<app-info-row key="Důvod" [value]="preview().reason | cutString:50" />

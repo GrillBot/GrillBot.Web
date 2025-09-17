@@ -4,8 +4,7 @@ import {
   TabDirective, TableDirective, TabPanelComponent, TabsComponent, TabsContentComponent, TabsListComponent
 } from "@coreui/angular";
 import { InfoRowComponent } from "../../../../components";
-import { DictToListPipe, LocaleDatePipe, TimeSpanPipe } from "../../../../core/pipes";
-import { DateTime } from "luxon";
+import { DatetimeDiffPipe, DictToListPipe, LocaleDatePipe, TimeSpanPipe } from "../../../../core/pipes";
 
 @Component({
   selector: 'app-api-request',
@@ -21,17 +20,12 @@ import { DateTime } from "luxon";
     TabsListComponent,
     TabsContentComponent,
     TabPanelComponent,
-    TabDirective
+    TabDirective,
+    DatetimeDiffPipe
   ]
 })
 export class ApiRequestComponent {
   detail = input.required<Detail>();
-
-  duration = computed(() => {
-    const startAt = DateTime.fromISO(this.detail().data.startAt);
-    const endAt = DateTime.fromISO(this.detail().data.endAt);
-    return endAt.diff(startAt).toMillis();
-  });
 
   hasParameters = computed(() => Object.keys(this.detail().data.parameters).length > 0);
   hasHeaders = computed(() => Object.keys(this.detail().data.headers).length > 0);

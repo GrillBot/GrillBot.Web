@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between">
   <div class="d-flex align-items-center">
     @if (icon()) {
-      <svg cIcon [name]="icon() ?? ''" [size]="size()" class="me-2"></svg>
+      <c-icon [name]="icon() ?? ''" [size]="size()" class="me-2" />
     }
 
     @switch (size()) {

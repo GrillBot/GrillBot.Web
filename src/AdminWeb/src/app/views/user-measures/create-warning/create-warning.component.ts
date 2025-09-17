@@ -9,8 +9,8 @@ import {
   FormDirective, FormLabelDirective, RowComponent
 } from "@coreui/angular";
 import { CheckboxComponent, GuildLookupComponent, LoadingComponent, UserLookupComponent, ValidationErrorsComponent } from "../../../components";
-import { IconDirective } from "@coreui/icons-angular";
-import { catchError, debounceTime, EMPTY, throwError } from "rxjs";
+import { IconComponent } from "@coreui/icons-angular";
+import { catchError, debounceTime, EMPTY } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapHttpErrors } from "../../../core/mappers/validations.mapper";
 
@@ -34,7 +34,7 @@ type CreateState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     ButtonDirective,
     AlertComponent,
     LoadingComponent,
-    IconDirective,
+    IconComponent,
     CheckboxComponent,
     FormControlDirective
   ],

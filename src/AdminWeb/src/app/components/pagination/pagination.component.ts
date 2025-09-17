@@ -1,7 +1,7 @@
 import { Component, computed, forwardRef, input } from "@angular/core";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { ButtonDirective, ButtonGroupComponent, FormControlDirective, InputGroupComponent } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { ButtonDirective, ButtonGroupComponent, FormControlDirective } from "@coreui/angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { noop } from "rxjs";
 
 type ButtonType = 'first' | 'prev' | 'next' | 'last';
@@ -13,9 +13,9 @@ type ButtonType = 'first' | 'prev' | 'next' | 'last';
   imports: [
     ButtonGroupComponent,
     ButtonDirective,
-    IconDirective,
     FormControlDirective,
-    FormsModule
+    FormsModule,
+    IconComponent
   ],
   providers: [
     {

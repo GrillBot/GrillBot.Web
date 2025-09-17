@@ -1,9 +1,9 @@
-import { Component, computed, inject, input, Signal } from "@angular/core";
-import { ButtonDirective, Colors } from "@coreui/angular";
+import { Component, computed, inject, input } from "@angular/core";
+import { ButtonDirective } from "@coreui/angular";
 import { VisibilityDirective } from "../../core/directives";
 import { ButtonDef } from "./button.models";
 import { Router } from "@angular/router";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 
 @Component({
   selector: 'app-button',
@@ -12,7 +12,7 @@ import { IconDirective } from "@coreui/icons-angular";
   imports: [
     ButtonDirective,
     VisibilityDirective,
-    IconDirective
+    IconComponent
   ]
 })
 export class ButtonComponent {

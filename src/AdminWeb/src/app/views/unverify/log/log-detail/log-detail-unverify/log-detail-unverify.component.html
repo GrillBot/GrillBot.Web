@@ -1,0 +1,89 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <c-row>
+      <c-col>
+        <app-info-row
+          key="Začátek"
+          [value]="data().startAtUtc | localeDatePipe"
+        />
+
+        <app-info-row key="Konec" [value]="data().endAtUtc | localeDatePipe" />
+      </c-col>
+
+      <c-col>
+        <app-info-row
+          key="Trvání"
+          [value]="data().durationMilliseconds | timespan"
+        />
+
+        <app-info-row key="Jazyk" [value]="data().language" />
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+
+@if (type() == 0) {
+  <c-card class="mb-3">
+    <app-card-header
+      title="Důvod"
+      icon="cilNotes"
+      [hideToggleVisibility]="true"
+    />
+
+    <c-card-body>
+      <app-text-input
+        [formControl]="data().reason | asReadonlyFormControl"
+        label=""
+        [multiline]="true"
+      />
+    </c-card-body>
+  </c-card>
+}
+
+<c-card class="mb-3">
+  <c-card-body>
+    <app-checkbox
+      checkboxId="keepMutedRole"
+      label="Ponechat umlčecí roli"
+      [formControl]="data().isMutedRoleKeeped | asReadonlyFormControl"
+    />
+
+    <c-row class="mt-2">
+      @if (data().removedRoles.length > 0) {
+        <c-col>
+          <app-role-list [roles]="data().removedRoles" title="Odebrané role" />
+        </c-col>
+      }
+
+      @if (data().keepedRoles.length > 0) {
+        <c-col>
+          <app-role-list [roles]="data().keepedRoles" title="Ponechané role" />
+        </c-col>
+      }
+    </c-row>
+  </c-card-body>
+</c-card>
+
+<c-card class="mb-3">
+  <c-card-body>
+    <c-row>
+      @if (data().removedChannels.length > 0) {
+        <c-col>
+          <app-channel-list
+            [channels]="data().removedChannels"
+            title="Odebrané kanály"
+          />
+        </c-col>
+      }
+
+      @if (data().keepedChannels.length > 0) {
+        <c-col>
+          <app-channel-list
+            [channels]="data().keepedChannels"
+            title="Ponechané kanály"
+          />
+        </c-col>
+      }
+    </c-row>
+  </c-card-body>
+</c-card>

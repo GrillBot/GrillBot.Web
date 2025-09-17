@@ -6,7 +6,7 @@ import {
   DropdownHeaderDirective, DropdownItemDirective, DropdownMenuDirective, DropdownToggleDirective, HeaderComponent, HeaderNavComponent,
   HeaderTogglerDirective, SidebarToggleDirective, TextColorDirective, ThemeDirective
 } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { AuthManager } from "../../../core/managers/auth.manager";
 
 @Component({
@@ -17,7 +17,6 @@ import { AuthManager } from "../../../core/managers/auth.manager";
     ContainerComponent,
     HeaderTogglerDirective,
     SidebarToggleDirective,
-    IconDirective,
     HeaderNavComponent,
     RouterLink,
     NgTemplateOutlet,
@@ -30,7 +29,8 @@ import { AuthManager } from "../../../core/managers/auth.manager";
     DropdownMenuDirective,
     DropdownHeaderDirective,
     DropdownItemDirective,
-    DropdownDividerDirective
+    DropdownDividerDirective,
+    IconComponent
   ]
 })
 export class DefaultHeaderComponent extends HeaderComponent {

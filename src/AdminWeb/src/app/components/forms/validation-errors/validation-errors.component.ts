@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, computed, input, OnInit } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { Component, computed, input, isDevMode, OnInit } from "@angular/core";
+import { AbstractControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-validation-errors',
@@ -14,7 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 export class ValidationErrorsComponent implements OnInit {
   form = input<FormGroup<any>>();
   controlName = input<string>();
-  formControlObject = input<FormControl<any>>();
+  formControlObject = input<AbstractControl<any>>();
 
   control = computed(() => {
     if (this.formControlObject()) {
