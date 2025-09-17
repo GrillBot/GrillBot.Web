@@ -4,7 +4,7 @@ import {
   ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardGroupComponent, ColComponent, ContainerComponent,
   LocalStorageService, RowComponent, TextColorDirective
 } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { AuthClient } from "../../../core/clients/auth.client";
 import { ActivatedRoute, Router } from "@angular/router";
 import { filter, tap } from "rxjs";
@@ -26,10 +26,10 @@ const REDIRECT_URI_KEY = 'X-GrillBot-RedirectUri';
     CardComponent,
     CardBodyComponent,
     CardFooterComponent,
-    IconDirective,
     ButtonDirective,
     NgStyle,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    IconComponent
   ]
 })
 export class LoginComponent {

@@ -1,0 +1,13 @@
+@if (preview().returnedRolesCount > 0) {
+  <app-info-row
+    key="Vrácených rolí"
+    [value]="preview().returnedRolesCount | spacedNumber"
+  />
+}
+
+@if (preview().returnedChannelsCount > 0) {
+  <app-info-row
+    key="Vrácených kanálů"
+    [value]="preview().returnedChannelsCount | spacedNumber"
+  />
+}

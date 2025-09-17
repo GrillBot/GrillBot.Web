@@ -1,0 +1,105 @@
+<c-container>
+  @if (detailRequest$() | withLoading | async; as response) {
+    <app-loading [visible]="response.loading" customText="Načítám detail" />
+
+    @if (!response.loading && !response.value) {
+      <c-alert color="danger" class="mb-0">
+        <div class="d-flex align-items-center">
+          <c-icon name="cilWarning" size="xl" class="me-2" />
+          Bohužel se nepodařilo načíst detail.
+        </div>
+      </c-alert>
+    }
+
+    @if (response.value) {
+      <app-unverify-common-info [detail]="response.value" />
+
+      <c-card class="mb-3">
+        <c-card-body>
+          <app-info-row
+            key="Server"
+            [value]="guildId() | guildLookup | async"
+          />
+
+          <app-info-row
+            key="Udělil uživatel"
+            [value]="response.value.fromUserId | userLookup | async"
+          />
+
+          <app-info-row
+            key="Cílový uživatel"
+            [value]="userId() | userLookup | async"
+          />
+        </c-card-body>
+      </c-card>
+
+      <app-unverify-timing [detail]="response.value" />
+
+      <c-card class="mb-3">
+        <c-card-body>
+          <app-info-row key="Jazyk" [value]="response.value.language" />
+
+          @if (response.value.reason) {
+            <c-alert class="mt-2 mb-0" color="secondary">{{
+              response.value.reason
+            }}</c-alert>
+          }
+        </c-card-body>
+      </c-card>
+
+      <c-card class="mb-3">
+        <c-card-body>
+          <app-checkbox
+            checkboxId="keepMutedRole"
+            label="Ponechat umlčecí roli po vrácení přístupu"
+            [formControl]="response.value.keepMutedRole | asReadonlyFormControl"
+          />
+
+          <c-row class="mt-2">
+            @if (response.value.removedRoles.length > 0) {
+              <c-col>
+                <app-role-list
+                  [roles]="response.value.removedRoles"
+                  title="Odebrané role"
+                />
+              </c-col>
+            }
+
+            @if (response.value.keepedRoles.length > 0) {
+              <c-col>
+                <app-role-list
+                  [roles]="response.value.keepedRoles"
+                  title="Ponechané role"
+                />
+              </c-col>
+            }
+          </c-row>
+        </c-card-body>
+      </c-card>
+
+      <c-card class="mb-3">
+        <c-card-body>
+          <c-row>
+            @if (response.value.removedChannels.length > 0) {
+              <c-col>
+                <app-channel-list
+                  [channels]="response.value.removedChannels"
+                  title="Odebrané kanály"
+                />
+              </c-col>
+            }
+
+            @if (response.value.keepedChannels.length > 0) {
+              <c-col>
+                <app-channel-list
+                  [channels]="response.value.keepedChannels"
+                  title="Ponechané kanály"
+                />
+              </c-col>
+            }
+          </c-row>
+        </c-card-body>
+      </c-card>
+    }
+  }
+</c-container>

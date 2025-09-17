@@ -1,23 +1,33 @@
-<label cLabel>{{ label() }}</label>
+@if (label()) {
+  <label cLabel>{{ label() }}</label>
+}
 
 @if (multiline()) {
   <textarea
     cFormControl
-    [formControl]="formControlElement()"
+    [disabled]="disabled()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
     [sizing]="sizing()"
     [attr.autocomplete]="autocomplete() ? 'on' : 'off'"
     style="height: 150px"
-  ></textarea>
+    [ngClass]="controlClasses"
+    >{{ value() ?? "" }}</textarea
+  >
 } @else {
   <input
     cFormControl
-    [formControl]="formControlElement()"
     type="text"
+    [value]="value() ?? ''"
+    [disabled]="disabled()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
     [sizing]="sizing()"
     [attr.autocomplete]="autocomplete() ? 'on' : 'off'"
+    [ngClass]="controlClasses"
   />
 }
 
-@if (hasValidations()) {
-  <app-validation-errors [formControlObject]="formControlElement()" />
+@if (validators()) {
+  <app-validation-errors [formControlObject]="ngControl.control!" />
 }

@@ -1,0 +1,29 @@
+@if (preview().returnedRolesCount > 0) {
+  <app-info-row
+    key="Vrácených rolí"
+    [value]="preview().returnedRolesCount | spacedNumber"
+  />
+}
+
+@if (preview().returnedChannelsCount > 0) {
+  <app-info-row
+    key="Vrácených kanálů"
+    [value]="preview().returnedChannelsCount | spacedNumber"
+  />
+}
+
+<div>
+  <app-checkbox
+    checkboxId="isFromWeb"
+    label="Z webu"
+    [formControl]="preview().isFromWeb | asReadonlyFormControl"
+  />
+</div>
+
+<div>
+  <app-checkbox
+    checkboxId="isForcedRemoval"
+    label="Vynucené smazání"
+    [formControl]="preview().isForcedRemoval | asReadonlyFormControl"
+  />
+</div>

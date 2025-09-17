@@ -10,7 +10,7 @@ import { RawHttpResponse, WithSortAndPagination } from "../../../core/models/com
 import { LogListItem, SearchRequest } from "../../../core/models/audit-log";
 import { AlertComponent, CardBodyComponent, CardComponent, ContainerComponent } from "@coreui/angular";
 import { InfoRowComponent } from "../../../components/info-row/info-row.component";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { AuditLogType, AuditLogTypeLocalization } from "../../../core/enums/audit-log-type";
 import { mapEnumToDict } from "../../../core/mappers";
 import { DetailTextComponent } from "./detail-text/detail-text.component";
@@ -40,7 +40,6 @@ import { OverwriteComponent } from "./overwrite/overwrite.component";
     CardBodyComponent,
     InfoRowComponent,
     AlertComponent,
-    IconDirective,
     LocaleDatePipe,
     GuildLookupPipe,
     UserLookupPipe,
@@ -60,7 +59,8 @@ import { OverwriteComponent } from "./overwrite/overwrite.component";
     ApiRequestComponent,
     FilesListComponent,
     MessageEditedComponent,
-    OverwriteComponent
+    OverwriteComponent,
+    IconComponent
   ]
 })
 export class AuditLogDetailComponent {

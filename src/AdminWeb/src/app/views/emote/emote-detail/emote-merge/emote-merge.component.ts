@@ -9,7 +9,7 @@ import { LoadingComponent, ValidationErrorsComponent } from "../../../../compone
 import { SupportedEmotesLookupComponent } from "../../../../components/lookups";
 import { IForm } from "../../../../core/models/common";
 import { MergeStatisticsResult } from "../../../../core/models/emote";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { SpacedNumberPipe } from "../../../../core/pipes";
 import { catchError, debounceTime, EMPTY, filter } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -33,9 +33,9 @@ export type MergeState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     SupportedEmotesLookupComponent,
     ButtonDirective,
     AlertComponent,
-    IconDirective,
     LoadingComponent,
-    SpacedNumberPipe
+    SpacedNumberPipe,
+    IconComponent
   ]
 })
 export class EmoteMergeComponent implements OnInit {

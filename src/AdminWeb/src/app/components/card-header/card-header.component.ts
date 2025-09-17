@@ -1,15 +1,15 @@
 import { Component, input, signal } from "@angular/core";
 import { ButtonDirective, CardTitleDirective, CardHeaderComponent as OriginalCardHeader, Sizes } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 
 @Component({
   selector: 'app-card-header',
   templateUrl: './card-header.component.html',
   standalone: true,
   imports: [
-    IconDirective,
     CardTitleDirective,
-    ButtonDirective
+    ButtonDirective,
+    IconComponent
   ]
 })
 export class CardHeaderComponent extends OriginalCardHeader {

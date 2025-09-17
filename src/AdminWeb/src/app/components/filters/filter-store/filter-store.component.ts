@@ -2,7 +2,7 @@ import { Component, computed, inject, input, OnInit, signal } from "@angular/cor
 import { AlertComponent, ButtonDirective } from "@coreui/angular";
 import { FiltersClient } from "../../../core/clients/filters.client";
 import { FormGroup } from "@angular/forms";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { LoadingComponent } from "../../loading/loading.component";
 import { LocaleDatePipe } from "../../../core/pipes";
 import { catchError, debounceTime, EMPTY } from "rxjs";
@@ -17,10 +17,10 @@ type State = 'not-started' | 'creating' | 'created' | 'failed';
   standalone: true,
   imports: [
     ButtonDirective,
-    IconDirective,
     AlertComponent,
     LoadingComponent,
-    LocaleDatePipe
+    LocaleDatePipe,
+    IconComponent
   ]
 })
 export class FilterStoreComponent implements OnInit {

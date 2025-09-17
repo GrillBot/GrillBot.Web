@@ -1,0 +1,37 @@
+<app-filter-card [form]="form" [parentFilterComponent]="this">
+  <c-row class="mb-1">
+    <c-col>
+      <app-text-input
+        formControlName="parentLogItemId"
+        label="ID rodičovského záznamu"
+      />
+    </c-col>
+
+    <c-col>
+      <label cLabel for="operation">Operace</label>
+      <ng-select
+        ngSelector
+        [items]="operationTypes()"
+        formControlName="operation"
+      />
+    </c-col>
+
+    <c-col>
+      <app-datetime-range label="Vytvořeno" formControlName="created" />
+    </c-col>
+  </c-row>
+
+  <c-row class="mb-1">
+    <c-col>
+      <app-guild-lookup formControlName="guildId" />
+    </c-col>
+
+    <c-col>
+      <app-user-lookup formControlName="fromUserId" label="Vykonavatel" />
+    </c-col>
+
+    <c-col>
+      <app-user-lookup formControlName="toUserId" label="Cílový uživatel" />
+    </c-col>
+  </c-row>
+</app-filter-card>

@@ -47,3 +47,8 @@ export interface ValidationProblemDetails {
 export interface MessageResponse {
   message: string;
 }
+
+export interface LocalizedMessageContent {
+  key: string;
+  args: string[];
+}

@@ -6,7 +6,7 @@
     (click)="storeFilter()"
     [variant]="'ghost'"
   >
-    <svg cIcon name="cilShare"></svg>
+    <c-icon name="cilShare" />
     <span class="ms-1 text-decoration-underline">Sdílet</span>
   </button>
 }
@@ -29,7 +29,7 @@
 
     @case ("created") {
       <div class="d-flex align-items-center">
-        <svg cIcon name="cilCheckCircle"></svg>
+        <c-icon name="cilCheckCircle" />
         <p class="m-0 ms-2">
           Pohled byl úspěšně uložen.<br />
           Adresa na tenhle pohled je
@@ -42,7 +42,7 @@
 
     @case ("failed") {
       <div class="d-flex align-items-center">
-        <svg cIcon name="cilXCircle"></svg>
+        <c-icon name="cilXCircle" />
         <p class="m-0 ms-2">
           Pohled se bohužel nepodařilo uložit.<br />
           {{ errorMessage() }}

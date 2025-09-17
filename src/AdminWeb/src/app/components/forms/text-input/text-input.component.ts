@@ -1,7 +1,8 @@
-import { Component, computed, forwardRef, inject, input } from "@angular/core";
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidatorFn } from "@angular/forms";
+import { Component, input, Optional, Self, signal } from "@angular/core";
+import { ControlValueAccessor, NgControl, ReactiveFormsModule, ValidatorFn } from "@angular/forms";
 import { FormControlDirective, FormLabelDirective } from "@coreui/angular";
 import { ValidationErrorsComponent } from "../validation-errors/validation-errors.component";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: 'app-text-input',
@@ -11,54 +12,66 @@ import { ValidationErrorsComponent } from "../validation-errors/validation-error
     ReactiveFormsModule,
     FormLabelDirective,
     FormControlDirective,
-    ValidationErrorsComponent
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextInputComponent),
-      multi: true
-    }
+    ValidationErrorsComponent,
+    NgClass
   ]
 })
 export class TextInputComponent implements ControlValueAccessor {
-  readonly #formBuilder = inject(FormBuilder);
-
   label = input.required<string>();
   validators = input<ValidatorFn | ValidatorFn[] | null>();
   sizing = input<'sm' | 'lg' | ''>();
   autocomplete = input<boolean>(true);
   multiline = input(false);
 
-  formControlElement = computed(() =>
-    this.#formBuilder.control<string | null>(null, { validators: this.validators() })
-  );
+  value = signal<string | null>(null);
+  disabled = signal<boolean>(false);
 
-  hasValidations = computed(() => {
-    if (!this.validators()) {
-      return false;
+  get controlClasses() {
+    const control = this.ngControl?.control;
+
+    return {
+      'ng-touched': control?.touched,
+      'ng-untouched': control && !control.touched,
+      'ng-dirty': control?.dirty,
+      'ng-pristine': control && !control.dirty,
+      'ng-valid': control?.valid,
+      'ng-invalid': control && !control.valid,
+    };
+  };
+
+  private onChange: (val: string | null) => void = () => { };
+  private onTouched: () => void = () => { };
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
     }
-
-    return Array.isArray(this.validators()) ? this.validators()!.length > 0 : true;
-  });
+  }
 
   writeValue(obj: string | any): void {
-    this.formControlElement().patchValue(obj, { emitEvent: false });
+    this.value.set(obj ?? null);
   }
 
   registerOnChange(fn: (val: string | null) => void): void {
-    this.formControlElement().valueChanges.subscribe(val => fn(val?.length == 0 ? null : val));
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    this.formControlElement().statusChanges.subscribe(_ => fn());
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formControlElement().disable();
-    } else {
-      this.formControlElement().enable();
-    }
+    this.disabled.set(isDisabled);
+  }
+
+  onInput(event: Event) {
+    const val = (event.target as HTMLInputElement).value;
+
+    this.value.set(val);
+    this.onChange(val.length === 0 ? null : val);
+  }
+
+  onBlur(): void {
+    this.onTouched();
   }
 }

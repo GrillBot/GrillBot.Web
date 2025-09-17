@@ -1,8 +1,9 @@
 <span>{{ preview().jobName }}</span>
 
-<app-info-row key="Začátek" [value]="preview().startAt | localeDatePipe" />
-<app-info-row key="Konec" [value]="preview().endAt | localeDatePipe" />
-<app-info-row key="Trvání" [value]="duration() | timespan" />
+<app-info-row
+  key="Trvání"
+  [value]="preview().startAt | datetimeDiff: preview().endAt | timespan"
+/>
 
 @if (preview().warError) {
   <c-badge color="danger">SELHAL</c-badge>

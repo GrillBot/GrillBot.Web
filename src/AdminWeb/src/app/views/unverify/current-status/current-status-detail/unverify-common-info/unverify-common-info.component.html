@@ -1,0 +1,65 @@
+<c-card class="mb-3">
+  <c-card-body>
+    <app-info-row
+      key="ID"
+      value="{{ detail().id }} (#{{ detail().logNumber }})"
+    />
+  </c-card-body>
+
+  <c-card-footer>
+    <div class="d-flex align-items-center">
+      @for (button of buttons; track button.id) {
+        <div class="me-2">
+          <app-button [def]="button" />
+        </div>
+      }
+
+      <app-loading
+        [center]="false"
+        [small]="true"
+        [customText]="
+          isForceRemove
+            ? 'Probíhá mazání odebrání přístupu'
+            : 'Probíhá vrácení přístupu'
+        "
+        [visible]="
+          removeAccessState() != 'not-started' &&
+          removeAccessState() != 'failed'
+        "
+      />
+
+      @if (removeAccessState() == "failed") {
+        <c-badge color="danger">
+          @if (this.isForceRemove) {
+            Mazání odebraného přístupu selhalo.
+          } @else {
+            Předčasné vrácení přístupu selhalo.
+          }
+        </c-badge>
+      }
+    </div>
+  </c-card-footer>
+</c-card>
+
+<app-modal
+  #removeQuestionModal
+  [title]="'Předčasné vrácení přístupu'"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    @if (this.isForceRemove) {
+      Opravdu si přejete vynuceně smazat odebrání přístupu
+      {{ userId() | userLookup | async }}?
+    } @else {
+      Opravdu si přejete předčasně vrátit přístup uživateli
+      {{ userId() | userLookup | async }}?
+    }
+  </ng-container>
+
+  <ng-container footer>
+    <app-modal-question-buttons
+      [parentModal]="removeQuestionModal"
+      (onConfirm)="removeUnverifyConfirmed()"
+    />
+  </ng-container>
+</app-modal>

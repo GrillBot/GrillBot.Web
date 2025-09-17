@@ -2,6 +2,7 @@ import { Component, computed, forwardRef, inject, input } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidatorFn } from "@angular/forms";
 import { FormControlDirective, FormLabelDirective, InputGroupComponent } from "@coreui/angular";
 import { DateTime } from "luxon";
+import { DatetimePickerDirective } from "../datetime-picker/datetime-picker.directive";
 
 export interface DateRange {
   from?: string;
@@ -16,7 +17,8 @@ export interface DateRange {
     FormControlDirective,
     FormLabelDirective,
     InputGroupComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatetimePickerDirective
   ],
   providers: [
     {
@@ -63,7 +65,7 @@ export class DatetimeRangeComponent implements ControlValueAccessor {
       const to = DateTime.fromISO(obj.to).setZone(localZone).toISO({ includeOffset: false });
       this.toControl().patchValue(to, { emitEvent: false });
     } else {
-      this.fromControl().patchValue(null, { emitEvent: false });
+      this.toControl().patchValue(null, { emitEvent: false });
     }
   }
 
@@ -88,12 +90,9 @@ export class DatetimeRangeComponent implements ControlValueAccessor {
   }
 
   private onChange(fn: (val: DateRange | null) => void): void {
-    const from = DateTime.fromISO(this.fromControl().value as string).toUTC().toISO();
-    const to = DateTime.fromISO(this.toControl().value as string).toUTC().toISO();
-
     fn({
-      from: from ?? undefined,
-      to: to ?? undefined
+      from: this.fromControl().value as string ?? undefined,
+      to: this.toControl().value as string ?? undefined
     });
   }
 }

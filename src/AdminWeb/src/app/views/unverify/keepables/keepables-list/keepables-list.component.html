@@ -1,0 +1,54 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    (reloadRequested)="reload()"
+    [actionButtons]="actionButtons"
+    [height]="'800px'"
+  />
+</div>
+
+<app-modal
+  #deleteConfirmModal
+  title="Odebrání ponechatelného přístupu"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    <div>Opravdu si přejete smazat ponechatelný přístup?</div>
+    <b>Tato akce je nevratná!</b>
+
+    @if (rowInModal) {
+      <h5 class="mt-3 mb-0">Rekapitulace</h5>
+
+      <table
+        cTable
+        bordered="true"
+        responsive="true"
+        small="true"
+        stripped="true"
+        class="mb-0"
+      >
+        <tr>
+          <th>Skupina</th>
+          <td>{{ rowInModal.group }}</td>
+        </tr>
+
+        <tr>
+          <th>Název</th>
+          <td>{{ rowInModal.name }}</td>
+        </tr>
+
+        <tr>
+          <th>Vytvořeno</th>
+          <td>{{ rowInModal.createdAtUtc | localeDatePipe }}</td>
+        </tr>
+      </table>
+    }
+  </ng-container>
+
+  <app-modal-question-buttons
+    footer
+    [parentModal]="deleteConfirmModal"
+    (onConfirm)="confirmKeepableDeletion()"
+  />
+</app-modal>

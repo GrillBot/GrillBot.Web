@@ -1,0 +1,110 @@
+<c-container class="mb-3">
+  @if (detailRequest$() | withLoading | async; as response) {
+    <app-loading [visible]="response.loading" customText="Načítám detail" />
+
+    @if (!response.loading && !response.value) {
+      <c-alert color="danger" class="mb-0">
+        <div class="d-flex align-items-center">
+          <c-icon name="cilWarning" size="xl" class="me-2" />
+          Bohužel se nepodařilo načíst detail.
+        </div>
+      </c-alert>
+    }
+
+    @if (response.value) {
+      <c-card class="mb-3">
+        <c-card-body>
+          <app-info-row
+            key="ID"
+            value="{{ response.value.id }} (#{{ response.value.logNumber }})"
+          />
+
+          <app-info-row
+            key="Typ"
+            value="{{ mapLogType(response.value.operationType) }}"
+          />
+
+          <app-info-row
+            key="Vytvořeno"
+            [value]="response.value.createdAtUtc | localeDatePipe"
+          />
+
+          <div class="mt-2">
+            <app-info-row
+              key="Server"
+              [value]="response.value.guildId | guildLookup | async"
+            />
+
+            <app-info-row
+              key="Vykonavatel"
+              [value]="response.value.fromUserId | userLookup | async"
+            />
+
+            <app-info-row
+              key="Cílový uživatel"
+              [value]="response.value.toUserId | userLookup | async"
+            />
+          </div>
+        </c-card-body>
+      </c-card>
+
+      @if (response.value.parentInfo) {
+        <c-card class="mb-3">
+          <app-card-header
+            title="Nadřazený objekt"
+            [hideToggleVisibility]="true"
+            icon="cilMediaSkipBackward"
+          />
+
+          <c-card-body>
+            <app-info-row
+              key="ID"
+              value="{{ response.value.parentInfo.id }} (#{{
+                response.value.parentInfo.logNumber
+              }})"
+              linkTo="/web/unverify/log/{{ response.value.parentInfo.id }}"
+            />
+
+            <app-info-row
+              key="Typ"
+              [value]="mapLogType(response.value.parentInfo.type)"
+            />
+
+            <app-info-row
+              key="Vytvořeno"
+              [value]="response.value.parentInfo.createdAtUtc | localeDatePipe"
+            />
+
+            <div class="mt-2">
+              <app-info-row
+                key="Vykonavatel"
+                [value]="
+                  response.value.parentInfo.fromUserId | userLookup | async
+                "
+              />
+
+              <app-info-row
+                key="Cílový uživatel"
+                [value]="
+                  response.value.parentInfo.toUserId | userLookup | async
+                "
+              />
+            </div>
+          </c-card-body>
+        </c-card>
+      }
+
+      @if ([0, 1].includes(response.value.operationType)) {
+        <app-log-detail-unverify [detail]="response.value" />
+      }
+
+      @if ([2, 3, 5].includes(response.value.operationType)) {
+        <app-log-detail-remove [detail]="response.value" />
+      }
+
+      @if ([4].includes(response.value.operationType)) {
+        <app-log-detail-update [detail]="response.value" />
+      }
+    }
+  }
+</c-container>

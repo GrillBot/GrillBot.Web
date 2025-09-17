@@ -29,6 +29,7 @@ export class ChartComponent {
   bindLabel = input.required<string>();
   type = input<ChartType>('line');
   color = input<Colors>('primary');
+  height = input<number>(300);
 
   source$ = computed(() => {
     const source = this.source();
@@ -62,6 +63,11 @@ export class ChartComponent {
     plugins: {
       legend: {
         display: false
+      }
+    },
+    scales: {
+      y: {
+        min: 0
       }
     }
   };

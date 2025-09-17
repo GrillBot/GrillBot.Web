@@ -1,0 +1,100 @@
+<c-container>
+  <c-card class="mb-3">
+    <app-card-header
+      #header
+      title="Vytvoření ponechatelných přístupů"
+      [hideToggleVisibility]="true"
+    />
+
+    <app-form-card-body [form]="form" [header]="header">
+      <div formArrayName="rows">
+        @for (row of rows; track row) {
+          <c-row [formGroupName]="$index">
+            <c-col>
+              <app-text-input
+                label="Skupina"
+                [autocomplete]="false"
+                sizing="sm"
+                formControlName="group"
+                [validators]="rows[$index].validator"
+              />
+            </c-col>
+
+            <c-col>
+              <app-text-input
+                label="Název"
+                [autocomplete]="false"
+                sizing="sm"
+                formControlName="name"
+                [validators]="rows[$index].validator"
+              />
+            </c-col>
+
+            @if (rows.length > 1) {
+              <c-col cCol="auto" class="d-flex align-items-end">
+                <app-button [def]="deleteRowButtonDef" [data]="$index" />
+              </c-col>
+            }
+          </c-row>
+        }
+      </div>
+    </app-form-card-body>
+
+    <c-card-footer>
+      <c-row>
+        <c-col cCol="auto">
+          <app-button [def]="addRowButtonDef" />
+        </c-col>
+
+        <c-col>
+          <c-alert
+            [fade]="true"
+            [visible]="state() != 'not-started'"
+            [color]="stateColor()"
+            class="mb-0"
+          >
+            @switch (state()) {
+              @case ("creating") {
+                <app-loading
+                  [rotating]="true"
+                  [center]="false"
+                  customText="Probíhá vytváření ponechatelných přístupů"
+                  [small]="true"
+                />
+              }
+
+              @case ("created") {
+                <div class="d-flex align-items-center">
+                  <c-icon name="cilCheckCircle" />
+                  <p class="m-0 ms-2">
+                    Ponechatelné přístupy byly úspěšně vytvořeny.<br />
+                    Do 5 vteřin budeš přesměrován zpět na
+                    <a routerLink="/web/unverify/keepables">
+                      seznam ponechatelných přístupů
+                    </a>
+                  </p>
+                </div>
+              }
+
+              @case ("failed") {
+                <div class="d-flex align-items-center">
+                  <c-icon name="cilXCircle" />
+                  <p class="m-0 ms-2">
+                    Bohužel se nepodařilo vytvořit ponechatelné přístupy.<br />
+                    {{ errorMessage() }}
+                  </p>
+                </div>
+              }
+            }
+          </c-alert>
+        </c-col>
+
+        <c-col class="d-flex justify-content-end" cCol="auto">
+          @if (canProcess()) {
+            <app-button [def]="processCreateButtonDef" />
+          }
+        </c-col>
+      </c-row>
+    </c-card-footer>
+  </c-card>
+</c-container>

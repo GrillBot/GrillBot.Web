@@ -20,13 +20,12 @@
                     (click)="startLogin()"
                   >
                     <div class="d-flex align-items-center">
-                      <svg
-                        cIcon
+                      <c-icon
                         name="cibDiscord"
                         size="xl"
                         title="Discord"
                         class="me-2"
-                      ></svg>
+                      />
                       Přihlásit přes Discord
                     </div>
                   </button>
@@ -53,7 +52,7 @@
                   [ngTemplateOutletContext]="{
                     link: 'https://karma.grillbot.eu',
                     icon: 'cilSpeech',
-                    title: 'Rubbergod karma'
+                    title: 'Rubbergod karma',
                   }"
                 ></ng-container>
 
@@ -62,7 +61,7 @@
                   [ngTemplateOutletContext]="{
                     link: 'https://docs.grillbot.eu/',
                     icon: 'cilBook',
-                    title: 'Dokumentace'
+                    title: 'Dokumentace',
                   }"
                 ></ng-container>
 
@@ -71,7 +70,7 @@
                   [ngTemplateOutletContext]="{
                     link: 'https://stats.uptimerobot.com/vQ40jHEJr3',
                     icon: 'cilCheckCircle',
-                    title: 'Uptime'
+                    title: 'Uptime',
                   }"
                 ></ng-container>
 
@@ -80,7 +79,7 @@
                   [ngTemplateOutletContext]="{
                     link: 'https://github.com/GrillBot',
                     icon: 'cibGithub',
-                    title: 'GitHub'
+                    title: 'GitHub',
                   }"
                 ></ng-container>
 
@@ -89,7 +88,7 @@
                   [ngTemplateOutletContext]="{
                     link: 'https://grillbot.eu/swagger/index.html?urls.primaryName=v2',
                     icon: 'cibSwagger',
-                    title: 'OpenApi'
+                    title: 'OpenApi',
                   }"
                 ></ng-container>
               </div>
@@ -104,13 +103,7 @@
 <ng-template #publicButton let-link="link" let-icon="icon" let-title="title">
   <a cButton color="dark" href="{{ link }}" target="_blank" class="me-2 mb-2">
     <div class="d-flex align-items-center">
-      <svg
-        cIcon
-        name="{{ icon }}"
-        size="xl"
-        title="{{ title }}"
-        class="me-2"
-      ></svg>
+      <c-icon name="{{ icon }}" size="xl" title="{{ title }}" class="me-2" />
       {{ title }}
     </div>
   </a>

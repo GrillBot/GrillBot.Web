@@ -9,7 +9,7 @@ import {
   AlertComponent, CardBodyComponent, CardComponent,
   CardTitleDirective, ColComponent, RowComponent
 } from "@coreui/angular";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent } from "@coreui/icons-angular";
 import { GridOptions } from "ag-grid-community";
 import { RequestStatistics } from '../../../core/models/dashboard/request-statistics';
 import {
@@ -31,7 +31,6 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
     AsyncPipe,
     LoadingComponent,
     AlertComponent,
-    IconDirective,
     RowComponent,
     ColComponent,
     CardComponent,
@@ -45,7 +44,8 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
     DictToListPipe,
     WithNestingPipe,
     LocaleDatePipe,
-    InfoRowComponent
+    InfoRowComponent,
+    IconComponent
   ]
 })
 export class ServiceDetailComponent {

@@ -5,5 +5,5 @@ export const mapEnumToDict = (enumType: any, localizationEnumType: any): { key: 
       key,
       value: localizationEnumType[Object.keys(enumType).find(x => enumType[x] === key) as string] as string
     }))
-    .filter(o => !isNaN(o.key) && o.key > 0);
+    .filter(o => !isNaN(o.key) && o.key >= 0);
 }

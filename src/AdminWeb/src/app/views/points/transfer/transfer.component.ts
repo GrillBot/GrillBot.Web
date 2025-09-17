@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { IForm, ValidationProblemDetails } from "../../../core/models/common";
 import { TransferPointsRequest } from "../../../core/models/points/transfer-points-request";
 import { PointsClient } from "../../../core/clients/points.client";
-import { IconDirective } from "@coreui/icons-angular";
+import { IconComponent, IconDirective } from "@coreui/icons-angular";
 import { catchError, debounceTime, EMPTY, throwError } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { mapHttpErrors } from "../../../core/mappers/validations.mapper";
@@ -35,7 +35,7 @@ export type TransferState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     ValidationErrorsComponent,
     AlertComponent,
     LoadingComponent,
-    IconDirective
+    IconComponent
   ]
 })
 export class TransferComponent implements OnInit {

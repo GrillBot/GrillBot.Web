@@ -5,7 +5,7 @@
     } @else if (!response.value) {
       <c-alert [color]="'danger'">
         <div class="d-flex align-items-center">
-          <svg cIcon name="cilWarning" size="xxl" class="me-3"></svg>
+          <c-icon name="cilWarning" size="xxl" class="me-3" />
           Při načítání podrobností o službě došlo k neočekávané situaci.
         </div>
       </c-alert>
@@ -13,7 +13,7 @@
       @if (response.value.apiErrorMessage) {
         <c-alert [color]="'warning'">
           <div class="d-flex align-items-center">
-            <svg cIcon name="cilWarning" size="xxl" class="me-3"></svg>
+            <c-icon name="cilWarning" size="xxl" class="me-3" />
             {{ response.value.apiErrorMessage }}
           </div>
         </c-alert>

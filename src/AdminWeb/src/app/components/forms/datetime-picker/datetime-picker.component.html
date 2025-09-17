@@ -1,0 +1,15 @@
+@if (label()) {
+  <label cLabel>{{ label() }}</label>
+}
+
+<input
+  cFormControl
+  type="datetime-local"
+  [value]="value() ?? ''"
+  [disabled]="disabled()"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  [sizing]="sizing()"
+  [attr.autocomplete]="'off'"
+  [ngClass]="controlClasses"
+/>

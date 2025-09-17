@@ -24,7 +24,14 @@
         key="Konec"
         [value]="detail().data.endAt | localeDatePipe"
       />
-      <app-info-row key="Trvání" [value]="duration() | timespan" />
+
+      <app-info-row
+        key="Trvání"
+        [value]="
+          detail().data.startAt | datetimeDiff: detail().data.endAt | timespan
+        "
+      />
+
       <app-info-row key="Cesta" [value]="detail().data.path" />
       <app-info-row key="Šablona cesty" [value]="detail().data.templatePath" />
       <app-info-row key="Jazyk" [value]="detail().data.language" />
