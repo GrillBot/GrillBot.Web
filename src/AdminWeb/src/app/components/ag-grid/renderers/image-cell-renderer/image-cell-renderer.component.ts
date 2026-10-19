@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 
@@ -10,6 +10,7 @@ export type ImageCellRendererParams = ICellRendererParams & {
 
 @Component({
   templateUrl: './image-cell-renderer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class ImageCellRendererComponent implements ICellRendererAngularComp {

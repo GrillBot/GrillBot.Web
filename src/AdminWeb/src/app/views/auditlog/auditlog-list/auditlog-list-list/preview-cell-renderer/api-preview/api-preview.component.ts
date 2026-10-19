@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { InfoRowComponent } from "../../../../../../components";
 import { TimeSpanPipe } from "../../../../../../core/pipes";
 
@@ -6,6 +6,7 @@ import { TimeSpanPipe } from "../../../../../../core/pipes";
   selector: 'app-api-preview',
   templateUrl: './api-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     TimeSpanPipe

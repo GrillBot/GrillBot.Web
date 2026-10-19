@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { AlertComponent } from "@coreui/angular";
 import { StringDiffPipe } from "../../../../core/pipes";
@@ -7,6 +7,7 @@ import { StringDiffPipe } from "../../../../core/pipes";
   selector: 'app-message-edited',
   templateUrl: './message-edited.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AlertComponent,
     StringDiffPipe

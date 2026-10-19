@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { CutStringPipe, LocaleDatePipe } from "../../../../../../core/pipes";
 import { InfoRowComponent } from "../../../../../../components";
 
@@ -6,6 +6,7 @@ import { InfoRowComponent } from "../../../../../../components";
   selector: 'app-update-preview',
   templateUrl: './update-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LocaleDatePipe,
     InfoRowComponent,

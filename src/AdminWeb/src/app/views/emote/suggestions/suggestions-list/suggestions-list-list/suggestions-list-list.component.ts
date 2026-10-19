@@ -1,5 +1,5 @@
 import { ButtonsCellRendererComponent } from './../../../../../components/ag-grid/renderers/action-buttons-cell-renderer/buttons-cell-renderer.component';
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, CheckboxCellRenderer, CheckboxComponent, GuildLookupPipe, InfoRowComponent, ListBaseComponent,
   LoadingComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
   selector: 'app-suggestions-list-list',
   templateUrl: './suggestions-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

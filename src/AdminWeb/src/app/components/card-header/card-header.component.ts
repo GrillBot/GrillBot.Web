@@ -1,4 +1,4 @@
-import { Component, input, signal } from "@angular/core";
+import { Component, input, signal, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonDirective, CardTitleDirective, CardHeaderComponent as OriginalCardHeader, Sizes } from "@coreui/angular";
 import { IconComponent } from "@coreui/icons-angular";
 
@@ -6,6 +6,7 @@ import { IconComponent } from "@coreui/icons-angular";
   selector: 'app-card-header',
   templateUrl: './card-header.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardTitleDirective,
     ButtonDirective,

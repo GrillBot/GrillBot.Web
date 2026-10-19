@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent, WidgetStatEComponent } from "@coreui/angular";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
@@ -9,6 +9,7 @@ import { WithLoadingPipe, TimeSpanPipe } from "../../../../core/pipes";
   selector: 'app-today-avg-times',
   templateUrl: './today-avg-times.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

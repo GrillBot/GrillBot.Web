@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -8,6 +8,7 @@ import { ColComponent, RowComponent } from "@coreui/angular";
   selector: 'app-support-list-filter',
   templateUrl: './support-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

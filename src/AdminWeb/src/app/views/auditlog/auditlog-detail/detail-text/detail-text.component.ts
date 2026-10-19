@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { AlertComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { InfoRowComponent } from "../../../../components";
@@ -8,6 +8,7 @@ import { AuditLogType } from "../../../../core/enums/audit-log-type";
   selector: 'app-detail-text',
   templateUrl: './detail-text.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

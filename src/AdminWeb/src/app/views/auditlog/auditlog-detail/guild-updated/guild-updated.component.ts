@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { TableDirective } from "@coreui/angular";
 import { ChannelLookupPipe, CheckboxComponent } from "../../../../components";
@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-guild-updated',
   templateUrl: './guild-updated.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     TableDirective,
     ChannelLookupPipe,

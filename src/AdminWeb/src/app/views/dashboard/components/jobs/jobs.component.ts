@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { map } from "rxjs";
@@ -10,6 +10,7 @@ import { AgGridComponent, COLUMN_FILTERS, CardHeaderComponent } from "../../../.
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardHeaderComponent,

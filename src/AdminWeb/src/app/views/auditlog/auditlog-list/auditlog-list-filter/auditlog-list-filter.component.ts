@@ -1,5 +1,5 @@
 import { ChannelLookupComponent } from './../../../../components/lookups/channel-lookup/channel-lookup.component';
-import { Component, computed } from "@angular/core";
+import { Component, computed, ChangeDetectionStrategy } from "@angular/core";
 import { DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
 import { FormSearchRequest } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
@@ -16,6 +16,7 @@ import { AdvancedFilters } from '../advanced-filters';
   selector: 'app-auditlog-list-filter',
   templateUrl: './auditlog-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

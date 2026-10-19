@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent,
   STRIPED_ROW_STYLE, UserLookupPipe
@@ -14,6 +14,7 @@ import { LookupClient } from "../../../../core/clients";
   selector: 'app-used-invites-list',
   templateUrl: './used-invites-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]

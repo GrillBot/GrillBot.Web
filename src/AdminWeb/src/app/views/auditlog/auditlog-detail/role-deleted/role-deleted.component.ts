@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { ColComponent, RowComponent } from "@coreui/angular";
 import { AsReadonlyFormControlPipe } from "../../../../core/pipes";
@@ -9,6 +9,7 @@ import { CheckboxComponent, InfoRowComponent } from "../../../../components";
   selector: 'app-role-deleted',
   templateUrl: './role-deleted.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

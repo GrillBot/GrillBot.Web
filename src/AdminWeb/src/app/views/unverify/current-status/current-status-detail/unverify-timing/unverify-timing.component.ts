@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, input, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { DatetimeDiffPipe, LocaleDatePipe, TimeSpanPipe } from "../../../../../core/pipes";
 import { AlertComponent, CardBodyComponent, CardComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { UnverifyDetail } from "../../../../../core/models/unverify/unverify-detail";
@@ -24,6 +24,7 @@ type UpdateState = 'not-started' | 'processing' | 'processed' | 'failed';
   selector: 'app-unverify-timing',
   templateUrl: './unverify-timing.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LocaleDatePipe,
     TimeSpanPipe,

@@ -1,4 +1,4 @@
-import { Component, computed } from "@angular/core";
+import { Component, computed, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent, RadioGroupComponent, RadioItem } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
@@ -13,6 +13,7 @@ import { StatisticsFilter } from "../../../../core/models/unverify/statistics-fi
   selector: 'app-statistics-filter',
   templateUrl: 'statistics-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

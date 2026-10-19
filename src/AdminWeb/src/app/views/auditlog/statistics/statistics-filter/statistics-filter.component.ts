@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent, RadioGroupComponent, RadioItem } from "../../../../components";
 import { StatisticsFilter } from "../../../../core/models/audit-log";
 import { IForm } from "../../../../core/models/common";
@@ -11,6 +11,7 @@ import { NgSelectorDirective } from "../../../../core/directives";
   selector: 'app-statistics-filter',
   templateUrl: 'statistics-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

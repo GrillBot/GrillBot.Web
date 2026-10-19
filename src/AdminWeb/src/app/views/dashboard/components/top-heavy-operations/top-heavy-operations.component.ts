@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, OnInit, inject, ChangeDetectionStrategy } from "@angular/core";
 import { DashboardClient } from "../../../../core/clients/dashboard.client";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { map } from 'rxjs';
@@ -11,6 +11,7 @@ import {
   selector: 'app-top-heavy-operations',
   templateUrl: './top-heavy-operations.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardHeaderComponent,

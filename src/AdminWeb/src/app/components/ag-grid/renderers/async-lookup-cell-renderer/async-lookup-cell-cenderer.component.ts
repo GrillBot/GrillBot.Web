@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { Observable } from "rxjs";
@@ -12,6 +12,7 @@ export type AsyncLookupCellRendererParams = ICellRendererParams & {
 @Component({
   templateUrl: './async-lookup-cell-cenderer.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AsyncPipe,
     LoadingComponent

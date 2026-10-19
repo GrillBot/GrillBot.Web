@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent } from "../../../../components/filters";
 import { UserListRequest } from "../../../../core/models/points/user-list-request";
 import { IForm } from "../../../../core/models/common";
@@ -10,6 +10,7 @@ import { GuildLookupComponent } from "../../../../components/lookups";
   selector: 'app-users-filter',
   templateUrl: './users-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

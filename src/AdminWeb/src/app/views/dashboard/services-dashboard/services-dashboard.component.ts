@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { AsyncPipe } from "@angular/common";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent } from "@coreui/angular";
@@ -11,6 +11,7 @@ import { WithLoadingPipe, ChunkPipe } from "../../../core/pipes";
   selector: 'app-services-dashboard',
   templateUrl: './services-dashboard.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AsyncPipe,
     WithLoadingPipe,

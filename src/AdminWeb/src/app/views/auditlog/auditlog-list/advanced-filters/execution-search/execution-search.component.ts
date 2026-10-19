@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { AdvancedFilterBase } from "../advanced-filter.component.base";
 import { ExecutionSearchRequest } from "../../../../../core/models/audit-log";
@@ -7,7 +7,6 @@ import {
   CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, FormControlDirective,
   FormLabelDirective, InputGroupComponent, RowComponent
 } from "@coreui/angular";
-import { CheckboxModule } from "primeng/checkbox";
 import { RadioGroupComponent, RadioItem, TextInputComponent } from "../../../../../components";
 
 @Component({
@@ -25,9 +24,9 @@ import { RadioGroupComponent, RadioItem, TextInputComponent } from "../../../../
     ColComponent,
     InputGroupComponent,
     TextInputComponent,
-    CheckboxModule,
     RadioGroupComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

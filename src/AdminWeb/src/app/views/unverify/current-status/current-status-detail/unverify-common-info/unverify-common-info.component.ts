@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal, viewChild } from "@angular/core";
+import { Component, computed, inject, input, signal, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { UnverifyDetail } from "../../../../../core/models/unverify/unverify-detail";
 import { BadgeComponent, CardBodyComponent, CardComponent, CardFooterComponent } from "@coreui/angular";
 import { ButtonComponent } from "../../../../../components/button/button.component";
@@ -16,6 +16,7 @@ type RemoveAccessState = 'not-started' | 'running' | 'failed';
   selector: 'app-unverify-common-info',
   templateUrl: './unverify-common-info.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

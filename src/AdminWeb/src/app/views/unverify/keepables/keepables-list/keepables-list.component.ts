@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   ButtonsCellRendererComponent, ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent
 } from "../../../../components";
@@ -15,6 +15,7 @@ import { LocaleDatePipe } from "../../../../core/pipes";
 @Component({
   templateUrl: './keepables-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

@@ -1,4 +1,4 @@
-import { Component, computed, forwardRef, inject, input } from "@angular/core";
+import { Component, computed, forwardRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidatorFn } from "@angular/forms";
 import { FormControlDirective, FormLabelDirective, InputGroupComponent } from "@coreui/angular";
 import { DateTime } from "luxon";
@@ -20,6 +20,7 @@ export interface DateRange {
     ReactiveFormsModule,
     DatetimePickerDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -33,7 +34,7 @@ export class DatetimeRangeComponent implements ControlValueAccessor {
 
   label = input.required<string>();
   validators = input<ValidatorFn | ValidatorFn[] | null>();
-  sizing = input<string | 'sm' | 'lg' | ''>('');
+  sizing = input<'sm' | 'lg' | ''>('');
 
   fromControl = computed(() =>
     this.#formBuilder.control<string | null>(null, { validators: this.validators() })

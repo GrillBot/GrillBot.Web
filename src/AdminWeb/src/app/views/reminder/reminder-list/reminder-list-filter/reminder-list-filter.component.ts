@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, RadioGroupComponent,
@@ -12,6 +12,7 @@ import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular"
   selector: 'app-reminder-list-filter',
   templateUrl: './reminder-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

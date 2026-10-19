@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonDirective } from "@coreui/angular";
 import { VisibilityDirective } from "../../core/directives";
 import { ButtonDef } from "./button.models";
@@ -9,6 +9,7 @@ import { IconComponent } from "@coreui/icons-angular";
   selector: 'app-button',
   templateUrl: './button.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ButtonDirective,
     VisibilityDirective,

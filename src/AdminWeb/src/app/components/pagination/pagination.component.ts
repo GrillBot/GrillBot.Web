@@ -1,4 +1,4 @@
-import { Component, computed, forwardRef, input } from "@angular/core";
+import { Component, computed, forwardRef, input, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { ButtonDirective, ButtonGroupComponent, FormControlDirective } from "@coreui/angular";
 import { IconComponent } from "@coreui/icons-angular";
@@ -24,6 +24,7 @@ type ButtonType = 'first' | 'prev' | 'next' | 'last';
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent implements ControlValueAccessor {

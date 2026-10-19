@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { UserLookupPipe } from "../../../../../../components";
 import { AsyncPipe } from "@angular/common";
 
@@ -6,6 +6,7 @@ import { AsyncPipe } from "@angular/common";
   selector: 'app-member-updated-preview',
   templateUrl: './member-updated-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     UserLookupPipe,
     AsyncPipe

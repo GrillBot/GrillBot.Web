@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewContainerRef, ComponentRef, AfterViewInit, Injector } from "@angular/core";
+import { Component, Input, ViewChild, ViewContainerRef, ComponentRef, AfterViewInit, Injector, ChangeDetectionStrategy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
     <ng-container #filterContainer></ng-container>
     <ng-container #listContainer></ng-container>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class ListContainerComponent implements AfterViewInit {

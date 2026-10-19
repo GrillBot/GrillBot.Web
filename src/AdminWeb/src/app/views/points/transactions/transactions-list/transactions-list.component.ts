@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { AdminListFilter, AdminListRequest } from "../../../../core/models/points/admin-list-request";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { PointsClient } from "../../../../core/clients/points.client";
@@ -19,6 +19,7 @@ import { AsyncPipe } from "@angular/common";
   selector: 'app-transactions-list',
   templateUrl: './transactions-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

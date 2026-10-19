@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { ColComponent, RowComponent, TableDirective } from "@coreui/angular";
 import { Detail } from "../../../../core/models/audit-log";
 import { InfoRowComponent, RoleLookupPipe, UserLookupPipe } from "../../../../components";
@@ -8,6 +8,7 @@ import { AsyncPipe } from "@angular/common";
   selector: 'app-overwrite-updated',
   templateUrl: './overwrite-updated.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     TableDirective,
     RowComponent,

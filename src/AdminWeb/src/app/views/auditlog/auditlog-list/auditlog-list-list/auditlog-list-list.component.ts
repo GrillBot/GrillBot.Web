@@ -1,4 +1,4 @@
-import { Component, inject, isDevMode, viewChild } from "@angular/core";
+import { Component, inject, isDevMode, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ChannelLookupPipe, GuildLookupPipe,
   ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, UserLookupPipe
@@ -17,6 +17,7 @@ import { PreviewCellRendererComponent } from "./preview-cell-renderer/preview-ce
   selector: 'app-auditlog-list-list',
   templateUrl: './auditlog-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

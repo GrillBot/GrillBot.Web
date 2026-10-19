@@ -1,4 +1,4 @@
-import { Component, input, output } from "@angular/core";
+import { Component, input, output, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonDirective } from "@coreui/angular";
 import { ModalComponent } from "../modal.component";
 
@@ -6,6 +6,7 @@ import { ModalComponent } from "../modal.component";
   selector: 'app-modal-question-buttons',
   templateUrl: './modal-question-buttons.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ButtonDirective]
 })
 export class ModalQuestionButtonsComponent {

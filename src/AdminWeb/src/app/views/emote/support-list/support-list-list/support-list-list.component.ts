@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe, ImageCellRendererComponent,
   ListBaseComponent, PaginatedGridComponent
@@ -14,6 +14,7 @@ import { mapEmoteIdToAnimatedFlag, mapEmoteIdToName, mapEmoteIdToNumberId, mapEm
   selector: 'app-support-list-list',
   templateUrl: './support-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]

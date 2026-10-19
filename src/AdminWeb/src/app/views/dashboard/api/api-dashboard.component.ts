@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent } from "@coreui/angular";
 import { AuditLogClient } from "../../../core/clients/audit-log.client";
 import { map } from "rxjs";
@@ -9,6 +9,7 @@ import { AgGridComponent, COLUMN_FILTERS, STRIPED_ROW_STYLE } from "../../../com
   selector: 'app-api-dashboard',
   templateUrl: './api-dashboard.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

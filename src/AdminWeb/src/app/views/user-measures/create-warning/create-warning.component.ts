@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { UserMeasuresClient } from "../../../core/clients/user-measures.client";
 import { IForm } from "../../../core/models/common";
@@ -38,6 +38,7 @@ type CreateState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
     CheckboxComponent,
     FormControlDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './create-warning.component.scss'
 })
 export class CreateWarningComponent implements OnInit {

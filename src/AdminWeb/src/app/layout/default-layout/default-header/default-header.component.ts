@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import {
   AvatarComponent, BreadcrumbRouterComponent, ColorModeService, ContainerComponent, DropdownComponent, DropdownDividerDirective,
@@ -13,6 +13,7 @@ import { AuthManager } from "../../../core/managers/auth.manager";
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ContainerComponent,
     HeaderTogglerDirective,

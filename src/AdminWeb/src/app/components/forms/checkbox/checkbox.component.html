@@ -1,8 +1,10 @@
-<p-checkbox
-  [inputId]="checkboxId()"
-  [formControl]="formControl"
-  [value]="true"
-  binary="true"
-/>
+<c-form-check>
+  <input
+    cFormCheckInput
+    type="checkbox"
+    [id]="checkboxId()"
+    [formControl]="formControl"
+  />
 
-<label [attr.for]="checkboxId()" class="ms-2">{{ label() }}</label>
+  <label cFormCheckLabel [attr.for]="checkboxId()">{{ label() }}</label>
+</c-form-check>

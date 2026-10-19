@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, viewChild } from "@angular/core";
+import { Component, OnInit, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import {
   SidebarComponent, SidebarHeaderComponent, SidebarBrandComponent, SidebarNavComponent,
@@ -26,6 +26,7 @@ const isOverflown = (element: HTMLElement) => {
   templateUrl: './default-layout.component.html',
   styleUrl: './default-layout.component.scss',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     SidebarComponent,
     SidebarHeaderComponent,

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { CheckboxComponent, FilterBaseComponent, FilterCardComponent, TextInputComponent } from "../../../../components";
 import { AutoReplyDefinitionListRequest } from "../../../../core/models/message";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -9,6 +9,7 @@ import { IForm } from "../../../../core/models/common";
   selector: 'app-auto-reply-list-filter',
   templateUrl: './auto-reply-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

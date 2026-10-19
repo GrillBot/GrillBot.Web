@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from "@angular/core";
+import { Component, input, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardComponent, CardFooterComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { CardHeaderComponent } from "../../card-header/card-header.component";
 import { FormCardBodyComponent } from "../../forms";
@@ -21,6 +21,7 @@ import { FilterBaseComponent } from "../filter.component.base";
     ColComponent,
     FilterButtonsComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: ControlContainer,

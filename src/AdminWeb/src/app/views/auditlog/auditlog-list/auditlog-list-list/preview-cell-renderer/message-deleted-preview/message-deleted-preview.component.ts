@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { InfoRowComponent, UserLookupPipe } from "../../../../../../components";
 import { AsyncPipe } from "@angular/common";
 import { LocaleDatePipe, SpacedNumberPipe } from "../../../../../../core/pipes";
@@ -7,6 +7,7 @@ import { LocaleDatePipe, SpacedNumberPipe } from "../../../../../../core/pipes";
   selector: 'app-message-deleted-preview',
   templateUrl: './message-deleted-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     UserLookupPipe,
     AsyncPipe,

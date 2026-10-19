@@ -1,5 +1,5 @@
 import { NgStyle, NgTemplateOutlet } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
   ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardGroupComponent, ColComponent, ContainerComponent,
   LocalStorageService, RowComponent, TextColorDirective
@@ -17,6 +17,7 @@ const REDIRECT_URI_KEY = 'X-GrillBot-RedirectUri';
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ContainerComponent,
     RowComponent,

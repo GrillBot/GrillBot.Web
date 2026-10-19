@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { InfoRowComponent, UserLookupPipe } from "../../../../../../components";
 import { AsyncPipe } from "@angular/common";
 import { SpacedNumberPipe } from "../../../../../../core/pipes";
@@ -8,6 +8,7 @@ import { BadgeComponent } from "@coreui/angular";
   selector: 'app-user-left-preview',
   templateUrl: './user-left-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     UserLookupPipe,
     AsyncPipe,

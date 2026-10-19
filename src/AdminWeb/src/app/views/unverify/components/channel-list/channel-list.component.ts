@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { ChannelOverride } from "../../../../core/models/unverify/channel-override";
 import { AsyncPipe } from "@angular/common";
 import { ChannelLookupPipe } from "../../../../components";
@@ -7,6 +7,7 @@ import { ChannelLookupPipe } from "../../../../components";
   selector: 'app-channel-list',
   templateUrl: './channel-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AsyncPipe,
     ChannelLookupPipe

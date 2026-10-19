@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { UserMeasuresClient } from "../../../../core/clients/user-measures.client";
 import { LookupClient } from '../../../../core/clients/lookup.client';
@@ -13,6 +13,7 @@ import {
   selector: 'app-user-measures',
   templateUrl: './user-measures.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardHeaderComponent,

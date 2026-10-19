@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, input, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { AlertComponent, ButtonDirective } from "@coreui/angular";
 import { FiltersClient } from "../../../core/clients/filters.client";
 import { FormGroup } from "@angular/forms";
@@ -15,6 +15,7 @@ type State = 'not-started' | 'creating' | 'created' | 'failed';
   selector: 'app-filter-store',
   templateUrl: './filter-store.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ButtonDirective,
     AlertComponent,

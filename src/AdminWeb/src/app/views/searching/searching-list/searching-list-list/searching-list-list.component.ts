@@ -7,7 +7,7 @@ import {
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from "../../../../core/models/common";
 import { SearchListItem } from "../../../../core/models/searching/search-list-item";
 import { SearchingListFilter, SearchingListRequest } from "../../../../core/models/searching/searching-list-request";
-import { Component, computed, inject, signal, viewChild } from "@angular/core";
+import { Component, computed, inject, signal, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { SearchingClient } from "../../../../core/clients/searching.client";
 import { LocaleDatePipe, PropsPipe } from "../../../../core/pipes";
 import { LookupClient } from "../../../../core/clients/lookup.client";
@@ -19,6 +19,7 @@ import { AsyncPipe } from "@angular/common";
   selector: 'app-searching-list-list',
   templateUrl: './searching-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     RowComponent,

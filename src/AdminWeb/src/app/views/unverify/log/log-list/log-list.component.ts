@@ -1,4 +1,4 @@
-import { Component, inject, signal, viewChild } from "@angular/core";
+import { Component, inject, signal, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent, ModalComponent,
   ModalQuestionButtonsComponent, PaginatedGridComponent, UserLookupPipe
@@ -18,6 +18,7 @@ import { mapHttpErrors } from "../../../../core/mappers";
 @Component({
   templateUrl: './log-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

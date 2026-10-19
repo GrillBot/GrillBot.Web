@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent, UserLookupComponent } from "../../../../../components";
 import { EmoteSuggestionVoteListRequest } from "../../../../../core/models/emote";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -9,6 +9,7 @@ import { IForm } from "../../../../../core/models/common";
   selector: 'app-votes-list-filter',
   templateUrl: './votes-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     FilterCardComponent,

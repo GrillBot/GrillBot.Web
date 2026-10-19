@@ -1,8 +1,9 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
   selector: 'app-thread-updated-preview',
   templateUrl: './thread-updated-preview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class ThreadUpdatedPreviewComponent {

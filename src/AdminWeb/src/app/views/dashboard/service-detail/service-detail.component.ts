@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { DashboardClient } from "../../../core/clients/dashboard.client";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
@@ -26,6 +26,7 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
   selector: 'app-service-detail',
   templateUrl: './service-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     WithLoadingPipe,
     AsyncPipe,

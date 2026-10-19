@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { UnverifyClient } from "../../../../core/clients";
 import { AlertComponent, CardBodyComponent, CardComponent, ContainerComponent } from "@coreui/angular";
@@ -15,6 +15,7 @@ import { LogDetailUpdateComponent } from "./log-detail-update/log-detail-update.
 @Component({
   templateUrl: './log-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ContainerComponent,
     LoadingComponent,

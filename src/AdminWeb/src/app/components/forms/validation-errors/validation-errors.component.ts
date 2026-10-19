@@ -1,11 +1,12 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, computed, input, isDevMode, OnInit } from "@angular/core";
+import { Component, computed, input, isDevMode, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { AbstractControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-validation-errors',
   templateUrl: './validation-errors.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     NgTemplateOutlet

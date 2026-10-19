@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { UnverifyLogDetail } from "../../../../../core/models/unverify/unverify-log-detail";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { CheckboxComponent, InfoRowComponent } from "../../../../../components";
@@ -10,6 +10,7 @@ import { ChannelListComponent, RoleListComponent } from "../../../components";
   selector: 'app-log-detail-remove',
   templateUrl: './log-detail-remove.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

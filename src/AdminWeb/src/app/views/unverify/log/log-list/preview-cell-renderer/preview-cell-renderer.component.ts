@@ -1,7 +1,7 @@
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { UnverifyOperationType } from "../../../../../core/enums/unverify-operation-type";
 import { ICellRendererParams } from "ag-grid-community";
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { UnverifyPreviewComponent } from "./unverify-preview/unverify-preview.component";
 import { SelfunverifyPreviewComponent } from "./selfunverify-preview/selfunverify-preview.component";
 import { AutoremovePreviewComponent } from "./autoremove-preview/autoremove-preview.component";
@@ -12,6 +12,7 @@ import { RecoveryPreviewComponent } from "./recovery-preview/recovery-preview.co
 @Component({
   templateUrl: './preview-cell-renderer.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     UnverifyPreviewComponent,
     SelfunverifyPreviewComponent,

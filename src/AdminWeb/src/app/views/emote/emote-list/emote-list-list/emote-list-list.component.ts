@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, GuildLookupPipe,
   ImageCellRendererComponent, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE
@@ -14,6 +14,7 @@ import { EmoteStatisticsItem, EmoteStatisticsListFilter, EmoteStatisticsListRequ
   selector: 'app-emote-list-list',
   templateUrl: './emote-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]

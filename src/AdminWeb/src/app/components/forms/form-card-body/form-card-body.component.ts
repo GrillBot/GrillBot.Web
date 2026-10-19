@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from "@angular/core";
+import { Component, input, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardBodyComponent, FormDirective } from "@coreui/angular";
 import { VisibilityDirective } from "../../../core/directives";
 import { ControlContainer, FormGroup, FormGroupDirective, ReactiveFormsModule } from "@angular/forms";
@@ -21,6 +21,7 @@ import { ControlContainer, FormGroup, FormGroupDirective, ReactiveFormsModule } 
   host: {
     class: 'pt-2'
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   hostDirectives: [
     {
       directive: VisibilityDirective,

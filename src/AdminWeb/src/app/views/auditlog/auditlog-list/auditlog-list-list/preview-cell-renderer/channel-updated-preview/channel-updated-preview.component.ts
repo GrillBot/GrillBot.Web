@@ -1,9 +1,10 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
   selector: 'app-channel-updated-preview',
   templateUrl: './channel-updated-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
 export class ChannelUpdatedPreviewComponent {

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ActivationEnd, Router, RouterOutlet } from '@angular/router';
 
@@ -12,6 +12,7 @@ import { delay, filter, map, tap } from 'rxjs';
   selector: 'app-root',
   template: '<router-outlet />',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterOutlet]
 })
 export class AppComponent implements OnInit {

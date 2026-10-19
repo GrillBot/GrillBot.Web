@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { RoleLookupPipe } from "../../../../components";
 import { AsyncPipe } from "@angular/common";
 
@@ -6,6 +6,7 @@ import { AsyncPipe } from "@angular/common";
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RoleLookupPipe,
     AsyncPipe

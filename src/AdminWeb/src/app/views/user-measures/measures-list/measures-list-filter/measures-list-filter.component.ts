@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
   DatetimeRangeComponent,
@@ -14,6 +14,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
   selector: 'app-measures-list-filter',
   templateUrl: './measures-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     FormLabelDirective,

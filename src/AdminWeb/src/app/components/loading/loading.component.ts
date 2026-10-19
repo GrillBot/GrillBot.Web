@@ -1,11 +1,12 @@
 import { NgClass } from "@angular/common";
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { SpinnerComponent } from "@coreui/angular";
 
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     SpinnerComponent,
     NgClass

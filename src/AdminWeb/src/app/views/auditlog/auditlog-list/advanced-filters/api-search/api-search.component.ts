@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { ApiSearchRequest } from "../../../../../core/models/audit-log";
 import { AdvancedFilterBase } from "../advanced-filter.component.base";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
@@ -29,6 +29,7 @@ import { TextInputComponent } from "../../../../../components";
     InputGroupComponent,
     TextInputComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

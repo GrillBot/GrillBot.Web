@@ -2,15 +2,20 @@
   <c-row>
     @for (item of row; track $index) {
       <c-col>
-        <p-radioButton
-          [formControl]="formControl"
-          [value]="item.value"
-          inputId="{{ radioId() }}-{{ item.value }}"
-        />
+        <c-form-check>
+          <input
+            cFormCheckInput
+            type="radio"
+            [name]="radioId()"
+            [formControl]="formControl"
+            [value]="item.value"
+            [id]="radioId() + '-' + item.value"
+          />
 
-        <label [attr.for]="radioId() + '-' + item.value" class="ms-2">
-          {{ item.label }}
-        </label>
+          <label cFormCheckLabel [attr.for]="radioId() + '-' + item.value">
+            {{ item.label }}
+          </label>
+        </c-form-check>
       </c-col>
     }
   </c-row>

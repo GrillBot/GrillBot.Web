@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { ILoadingCellRendererAngularComp } from "ag-grid-angular";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { ILoadingOverlayAngularComp } from "ag-grid-angular";
 import { ILoadingOverlayParams } from "ag-grid-community";
 import { LoadingComponent } from "../../../loading/loading.component";
 
@@ -13,11 +13,12 @@ export type LoadingOverlayParams = ILoadingOverlayParams & {
 @Component({
   templateUrl: './loading-overlay.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LoadingComponent
   ]
 })
-export class LoadingOverlayComponent implements ILoadingCellRendererAngularComp {
+export class LoadingOverlayComponent implements ILoadingOverlayAngularComp {
   params!: LoadingOverlayParams;
 
   agInit(params: LoadingOverlayParams): void {

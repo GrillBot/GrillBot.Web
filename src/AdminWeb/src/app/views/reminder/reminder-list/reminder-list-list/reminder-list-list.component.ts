@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent,
   ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe
@@ -18,6 +18,7 @@ import { CancelReminderRequest } from "../../../../core/models/reminder/cancel-r
   selector: 'app-reminder-list-list',
   templateUrl: './reminder-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

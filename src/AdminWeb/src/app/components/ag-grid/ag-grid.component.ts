@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from "@angular/common";
-import { Component, computed, inject, input, LOCALE_ID, output, Signal } from "@angular/core";
+import { Component, computed, inject, input, LOCALE_ID, output, Signal, ChangeDetectionStrategy } from "@angular/core";
 import { AgGridAngular } from "ag-grid-angular";
 import { CellClassParams, GridOptions, GridReadyEvent, RowDataUpdatedEvent } from "ag-grid-community";
 import { Observable } from "rxjs";
@@ -14,6 +14,7 @@ import { LocaleDatePipe, SpacedNumberPipe, TimeSpanPipe } from "../../core/pipes
   selector: 'app-ag-grid',
   templateUrl: './ag-grid.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AgGridAngular,
     AsyncPipe,

@@ -1,4 +1,4 @@
-import { Component, computed, input, Signal } from "@angular/core";
+import { Component, computed, input, Signal, ChangeDetectionStrategy } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { RawHttpResponse } from "../../core/models/common";
 import { CardBodyComponent, CardComponent, CardTitleDirective, Colors } from "@coreui/angular";
@@ -12,6 +12,7 @@ import { LoadingComponent } from "../loading/loading.component";
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

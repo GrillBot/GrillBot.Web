@@ -1,6 +1,6 @@
 import { AdminListFilter } from './../../../core/models/points/admin-list-request';
 import { RawHttpResponse } from '../../../core/models/common';
-import { Component, inject, LOCALE_ID } from "@angular/core";
+import { Component, inject, LOCALE_ID, ChangeDetectionStrategy } from "@angular/core";
 import { TransactionsFilterComponent } from "../transactions/transactions-filter/transactions-filter.component";
 import { ChartComponent } from "../../../components/chart/chart.component";
 import { PointsClient } from "../../../core/clients/points.client";
@@ -12,6 +12,7 @@ import { LocaleDatePipe } from '../../../core/pipes/locale-date.pipe';
 @Component({
   templateUrl: './stats.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     TransactionsFilterComponent,
     ChartComponent

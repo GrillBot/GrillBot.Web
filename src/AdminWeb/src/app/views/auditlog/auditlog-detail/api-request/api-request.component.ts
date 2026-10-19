@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import {
   TabDirective, TableDirective, TabPanelComponent, TabsComponent, TabsContentComponent, TabsListComponent
@@ -10,6 +10,7 @@ import { DatetimeDiffPipe, DictToListPipe, LocaleDatePipe, TimeSpanPipe } from "
   selector: 'app-api-request',
   templateUrl: './api-request.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     LocaleDatePipe,

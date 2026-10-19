@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { WithLoadingPipe } from "../../../core/pipes";
 import { NgOptionTemplateDirective, NgSelectComponent } from "@ng-select/ng-select";
 import { NgSelectorDirective } from "../../../core/directives";
@@ -23,6 +23,7 @@ import { User } from "../../../core/models/users/user";
     NgOptionTemplateDirective,
     IconComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { CheckboxComponent, InfoRowComponent } from "../../../../../../components";
 import { AsReadonlyFormControlPipe, SpacedNumberPipe, TimeSpanPipe } from "../../../../../../core/pipes";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-channel-preview',
   templateUrl: './channel-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     TimeSpanPipe,

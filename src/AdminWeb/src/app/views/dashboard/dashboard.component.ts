@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { DashboardClient } from "../../core/clients/dashboard.client";
 import {
   ColComponent, RowComponent, TemplateIdDirective, WidgetStatFComponent
@@ -18,6 +18,7 @@ import { LocaleDatePipe } from "../../core/pipes/locale-date.pipe";
 @Component({
   templateUrl: './dashboard.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

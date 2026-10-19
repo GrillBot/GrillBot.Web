@@ -1,6 +1,6 @@
 import { MessageEditedPreview } from './message-edited-preview/message-edited-preview.component';
 import { ICellRendererParams } from 'ag-grid-community';
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { AuditLogType } from '../../../../../core/enums/audit-log-type';
 import { ChannelPreviewComponent } from "./channel-preview/channel-preview.component";
@@ -26,6 +26,7 @@ import { TextPreviewComponent } from './text-preview/text-preview.component';
 @Component({
   templateUrl: './preview-cell-renderer.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ChannelPreviewComponent,
     ChannelUpdatedPreviewComponent,

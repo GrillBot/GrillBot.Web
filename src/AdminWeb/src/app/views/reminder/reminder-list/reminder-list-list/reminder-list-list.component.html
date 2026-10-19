@@ -10,7 +10,7 @@
 <app-modal
   #messageModal
   [size]="'xl'"
-  [title]="'Zpráva oznámení #' + modalRow?.id"
+  [title]="'Zpráva oznámení #' + $safeNavigationMigration(modalRow?.id)"
 >
   <ng-container body>
     <c-alert class="mb-0 p-0" color="transparent">
@@ -50,8 +50,7 @@
           <td>
             <pre class="m-0 p-0 text-wrap">
             {{ cancelModalRow.row.message }}
-          </pre
-            >
+          </pre>
           </td>
         </tr>
       }

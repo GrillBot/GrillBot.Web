@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FormControlDirective, FormLabelDirective } from "@coreui/angular";
 import { FormControlBase } from "../form-control.component.base";
@@ -9,6 +9,7 @@ import { NgClass } from "@angular/common";
   selector: 'app-datetime-picker',
   templateUrl: './datetime-picker.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FormControlDirective,
     FormLabelDirective,

@@ -1,4 +1,4 @@
-import { Component, computed } from "@angular/core";
+import { Component, computed, ChangeDetectionStrategy } from "@angular/core";
 import { DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent } from "../../../../components";
 import { UnverifyLogFilter } from "../../../../core/models/unverify/unverify-log-list-request";
 import { IForm } from "../../../../core/models/common";
@@ -12,6 +12,7 @@ import { UnverifyOperationLocalization, UnverifyOperationType } from "../../../.
 @Component({
   templateUrl: './log-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

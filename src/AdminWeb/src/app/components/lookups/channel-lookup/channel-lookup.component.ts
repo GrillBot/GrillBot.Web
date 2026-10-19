@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { LookupBaseComponent } from "../lookup.component.base";
 import { AsyncPipe } from "@angular/common";
 import { WithLoadingPipe } from "../../../core/pipes";
@@ -23,6 +23,7 @@ import { FormLabelDirective } from "@coreui/angular";
     NgOptionHighlightDirective,
     FormLabelDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

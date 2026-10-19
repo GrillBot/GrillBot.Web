@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, ChangeDetectionStrategy } from "@angular/core";
 import { AsReadonlyFormControlPipe, WithLoadingPipe } from "../../../../core/pipes";
 import {
   CheckboxComponent, GuildLookupPipe, InfoRowComponent, LoadingComponent, UserLookupPipe
@@ -17,6 +17,7 @@ import { RoleListComponent, ChannelListComponent } from "../../components";
 @Component({
   templateUrl: './current-status-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AsyncPipe,
     WithLoadingPipe,

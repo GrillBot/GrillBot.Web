@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { UnverifyLogDetail } from "../../../../../core/models/unverify/unverify-log-detail";
 import { CardBodyComponent, CardComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { AsReadonlyFormControlPipe, DatetimeDiffPipe, LocaleDatePipe, TimeSpanPipe } from "../../../../../core/pipes";
@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-log-detail-update',
   templateUrl: './log-detail-update.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

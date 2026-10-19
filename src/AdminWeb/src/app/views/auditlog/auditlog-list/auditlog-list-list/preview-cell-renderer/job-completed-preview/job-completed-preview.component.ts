@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { InfoRowComponent } from "../../../../../../components/info-row/info-row.component";
 import { DatetimeDiffPipe, TimeSpanPipe } from "../../../../../../core/pipes";
 import { BadgeComponent } from "@coreui/angular";
@@ -7,6 +7,7 @@ import { BadgeComponent } from "@coreui/angular";
   selector: 'app-job-completed-preview',
   templateUrl: './job-completed-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     TimeSpanPipe,

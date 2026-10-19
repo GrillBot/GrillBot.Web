@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { ColComponent, RowComponent } from "@coreui/angular";
 
@@ -6,6 +6,7 @@ import { ColComponent, RowComponent } from "@coreui/angular";
   selector: 'app-info-row',
   templateUrl: './info-row.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

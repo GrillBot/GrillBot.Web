@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, viewChild } from "@angular/core";
+import { Component, computed, inject, signal, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { EmoteClient } from "../../../core/clients";
 import {
   AlertComponent, ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardTitleDirective,
@@ -22,6 +22,7 @@ import { InfoRowComponent } from "../../../components/info-row/info-row.componen
 @Component({
   templateUrl: './emote-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     RowComponent,

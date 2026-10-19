@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { InfoRowComponent, UserLookupPipe } from "../../../../components";
 import { AlertComponent, ColComponent, RowComponent } from "@coreui/angular";
@@ -10,6 +10,7 @@ import { MessageEmbedComponent } from "./message-embed/message-embed.component";
   selector: 'app-message-deleted',
   templateUrl: './message-deleted.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     UserLookupPipe,
     InfoRowComponent,

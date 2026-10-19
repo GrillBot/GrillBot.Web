@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, input } from '@angular/core';
+import { Component, OnInit, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateIdDirective, WidgetStatFComponent } from '@coreui/angular';
 import { IconComponent } from '@coreui/icons-angular';
 import { LoadingComponent } from '../../../../components';
@@ -14,6 +14,7 @@ import { WithLoadingPipe, TimeSpanPipe } from '../../../../core/pipes';
   selector: 'app-service-info',
   templateUrl: './service-info.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     WidgetStatFComponent,
     TemplateIdDirective,

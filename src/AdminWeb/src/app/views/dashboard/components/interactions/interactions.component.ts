@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CardBodyComponent, CardComponent } from "@coreui/angular";
 import { AuditLogClient } from "../../../../core/clients/audit-log.client";
 import { DashboardInfoRow } from "../../../../core/models/audit-log/dashboard-info-row";
@@ -10,6 +10,7 @@ import { AgGridComponent, CardHeaderComponent, COLUMN_FILTERS } from "../../../.
   selector: 'app-interactions',
   templateUrl: './interactions.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardHeaderComponent,

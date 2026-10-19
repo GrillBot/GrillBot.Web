@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { UnverifyClient } from "../../../../core/clients";
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AlertComponent, CardComponent, CardFooterComponent, ColComponent, ContainerComponent, RowComponent } from "@coreui/angular";
@@ -21,6 +21,7 @@ type CreateState = 'not-started' | 'creating' | 'created' | 'failed';
 @Component({
   templateUrl: './keepables-create.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     ContainerComponent,

@@ -1,6 +1,6 @@
-import { Component, forwardRef, inject, input } from "@angular/core";
+import { Component, forwardRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { CheckboxModule } from 'primeng/checkbox';
+import { FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective } from "@coreui/angular";
 
 @Component({
   selector: 'app-checkbox',
@@ -8,7 +8,9 @@ import { CheckboxModule } from 'primeng/checkbox';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CheckboxModule
+    FormCheckComponent,
+    FormCheckInputDirective,
+    FormCheckLabelDirective
   ],
   providers: [
     {
@@ -17,6 +19,7 @@ import { CheckboxModule } from 'primeng/checkbox';
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './checkbox.component.scss'
 })
 export class CheckboxComponent implements ControlValueAccessor {

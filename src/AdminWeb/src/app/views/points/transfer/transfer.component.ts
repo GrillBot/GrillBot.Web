@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import {
   AlertComponent,
   ButtonDirective, CardBodyComponent, CardComponent, ColComponent, Colors, ContainerComponent, FormControlDirective,
@@ -19,6 +19,7 @@ export type TransferState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
 @Component({
   templateUrl: './transfer.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

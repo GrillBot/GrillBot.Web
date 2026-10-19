@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { WithLoadingPipe } from "../../../core/pipes";
@@ -20,6 +20,7 @@ import { FormLabelDirective } from "@coreui/angular";
     ReactiveFormsModule,
     FormLabelDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

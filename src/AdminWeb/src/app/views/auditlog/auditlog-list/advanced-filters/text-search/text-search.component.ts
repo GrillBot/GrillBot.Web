@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import {
   CardBodyComponent, CardComponent, CardTitleDirective, ColComponent, RowComponent
@@ -21,6 +21,7 @@ import { TextInputComponent } from "../../../../../components";
     ReactiveFormsModule,
     TextInputComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

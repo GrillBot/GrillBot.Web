@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from "@angular/core";
+import { Component, computed, input, output, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonDirective } from "@coreui/angular";
 import { FilterBaseComponent } from "../filter.component.base";
 
@@ -6,6 +6,7 @@ import { FilterBaseComponent } from "../filter.component.base";
   selector: 'app-filter-buttons',
   templateUrl: './filter-buttons.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ButtonDirective
   ]

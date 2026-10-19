@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, signal } from "@angular/core";
+import { Component, computed, inject, input, output, signal, ChangeDetectionStrategy } from "@angular/core";
 import { GridOptions, RowDataUpdatedEvent } from "ag-grid-community";
 import { AgGridComponent } from "../ag-grid/ag-grid.component";
 import { concat, map, Observable, of, tap } from "rxjs";
@@ -33,6 +33,7 @@ import { ButtonDef } from "../button/button.models";
     SpacedNumberPipe,
     ButtonComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './paginated-grid.component.scss'
 })
 export class PaginatedGridComponent {

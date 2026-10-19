@@ -2,7 +2,7 @@
   <c-modal-header>
     <h5 cModalTitle>{{ title() }}</h5>
 
-    <button cButtonClose (click)="modal.visible = false"></button>
+    <button cButtonClose (click)="modal.visible.set(false)"></button>
   </c-modal-header>
 
   <c-modal-body>

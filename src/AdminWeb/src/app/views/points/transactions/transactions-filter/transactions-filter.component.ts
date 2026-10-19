@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ColComponent, FormLabelDirective, RowComponent } from "@coreui/angular";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IForm } from "../../../../core/models/common";
@@ -11,6 +11,7 @@ import { FilterBaseComponent, FilterCardComponent } from "../../../../components
   selector: 'app-transactions-filter',
   templateUrl: './transactions-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

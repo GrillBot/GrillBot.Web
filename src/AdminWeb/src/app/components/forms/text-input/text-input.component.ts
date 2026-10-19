@@ -1,4 +1,4 @@
-import { Component, input, Optional, Self, signal } from "@angular/core";
+import { Component, input, Optional, Self, signal, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor, NgControl, ReactiveFormsModule, ValidatorFn } from "@angular/forms";
 import { FormControlDirective, FormLabelDirective } from "@coreui/angular";
 import { ValidationErrorsComponent } from "../validation-errors/validation-errors.component";
@@ -8,6 +8,7 @@ import { NgClass } from "@angular/common";
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     FormLabelDirective,

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import {
   CheckboxComponent, DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, TextInputComponent, UserLookupComponent
 } from "../../../../components";
@@ -12,6 +12,7 @@ import { ChannelLookupComponent } from "../../../../components/lookups/channel-l
   selector: 'app-searching-list-filter',
   templateUrl: './searching-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

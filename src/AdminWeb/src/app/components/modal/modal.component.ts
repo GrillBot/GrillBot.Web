@@ -1,12 +1,12 @@
-import { Component, input, viewChild } from "@angular/core";
+import { Component, input, viewChild, ChangeDetectionStrategy } from "@angular/core";
 
 import * as coreui from '@coreui/angular'
-import { filter } from "rxjs";
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     coreui.ModalComponent,
     coreui.ModalHeaderComponent,
@@ -37,7 +37,7 @@ export class ModalComponent {
       beforeOpen();
     }
 
-    modal.visible = true;
+    modal.visible.set(true);
 
     if (afterClose) {
       const visibleChange = modal.visibleChange.subscribe(visible => {
@@ -54,7 +54,7 @@ export class ModalComponent {
   close() {
     const modal = this.modal();
     if (modal) {
-      modal.visible = false;
+      modal.visible.set(false);
     }
   }
 }

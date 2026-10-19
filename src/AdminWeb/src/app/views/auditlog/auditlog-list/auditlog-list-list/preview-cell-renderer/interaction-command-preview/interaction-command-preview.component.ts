@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { CheckboxComponent, InfoRowComponent } from "../../../../../../components";
 import { AsReadonlyFormControlPipe } from "../../../../../../core/pipes";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-interaction-command-preview',
   templateUrl: './interaction-command-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     CheckboxComponent,

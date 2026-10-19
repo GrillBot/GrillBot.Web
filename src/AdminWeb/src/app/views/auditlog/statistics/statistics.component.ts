@@ -1,4 +1,4 @@
-import { Component, inject, LOCALE_ID } from "@angular/core";
+import { Component, inject, LOCALE_ID, ChangeDetectionStrategy } from "@angular/core";
 import { StatisticsFilterComponent } from "./statistics-filter/statistics-filter.component";
 import { AuditLogClient } from "../../../core/clients";
 import { map, Observable } from "rxjs";
@@ -10,6 +10,7 @@ import { LocaleDatePipe } from "../../../core/pipes";
 @Component({
   templateUrl: './statistics.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     StatisticsFilterComponent,
     ChartComponent

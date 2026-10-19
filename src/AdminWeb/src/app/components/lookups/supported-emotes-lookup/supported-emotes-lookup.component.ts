@@ -1,4 +1,4 @@
-import { Component, computed, forwardRef, inject, input } from "@angular/core";
+import { Component, computed, forwardRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { LookupBaseComponent } from "../lookup.component.base";
 import { AsyncPipe } from "@angular/common";
 import { WithLoadingPipe } from "../../../core/pipes";
@@ -23,6 +23,7 @@ import { mapEmoteIdToName, mapEmoteIdToUrl } from "../../../core/mappers";
     NgOptionTemplateDirective,
     NgLabelTemplateDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

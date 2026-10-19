@@ -63,7 +63,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: "24.8.0"
+          node-version: "24.20.0"
       - name: AdminWeb
         working-directory: ./src/AdminWeb
         if: needs.PathsFilter.outputs.AdminWeb == 'true'

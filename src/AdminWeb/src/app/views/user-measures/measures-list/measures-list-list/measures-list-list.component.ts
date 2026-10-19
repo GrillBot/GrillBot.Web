@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, GuildLookupPipe, ListBaseComponent,
   ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, usePipeTransform, UserLookupPipe
@@ -20,6 +20,7 @@ const MAX_REASON_CELL_LENGTH = 30;
   selector: 'app-measures-list-list',
   templateUrl: './measures-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

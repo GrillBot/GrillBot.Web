@@ -5,7 +5,7 @@ import {
 } from "../../../../components";
 import { IForm } from "../../../../core/models/common";
 import { InviteListFilter } from "../../../../core/models/invite";
-import { Component, computed, inject, input, viewChild } from "@angular/core";
+import { Component, computed, inject, input, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonDirective, ColComponent, RowComponent } from "@coreui/angular";
 import { AsyncPipe } from "@angular/common";
 import { InviteClient } from "../../../../core/clients/invite.client";
@@ -14,6 +14,7 @@ import { InviteClient } from "../../../../core/clients/invite.client";
   selector: 'app-invites-list-filter',
   templateUrl: './invites-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common";
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, forwardRef, Input, ChangeDetectionStrategy } from "@angular/core";
 import { ToastBodyComponent, ToastCloseDirective, ToastComponent, ToastHeaderComponent } from "@coreui/angular";
 
 @Component({
@@ -14,6 +14,7 @@ import { ToastBodyComponent, ToastCloseDirective, ToastComponent, ToastHeaderCom
     }
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ToastHeaderComponent,
     ToastBodyComponent,

@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { CheckboxComponent, InfoRowComponent } from "../../../../../../components";
 import { AsReadonlyFormControlPipe, SpacedNumberPipe } from "../../../../../../core/pipes";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-manualremove-preview',
   templateUrl: './manualremove-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InfoRowComponent,
     SpacedNumberPipe,

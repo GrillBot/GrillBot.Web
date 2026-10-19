@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { File } from "../../../../core/models/audit-log";
 import { CardBodyComponent, CardComponent, CardTitleDirective } from "@coreui/angular";
 import { SasLinkLookupPipe } from "../../../../components/lookups/pipes/sas-link-lookup.pipe";
@@ -9,6 +9,7 @@ import { FilesizePipe } from "../../../../core/pipes";
   selector: 'app-files-list',
   templateUrl: './files-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardBodyComponent,

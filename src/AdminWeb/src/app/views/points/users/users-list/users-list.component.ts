@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { UserListRequest } from "../../../../core/models/points/user-list-request";
 import { GridOptions } from "ag-grid-community";
 import { Observable } from "rxjs";
@@ -15,6 +15,7 @@ import { UserListItem } from "../../../../core/models/points/user-list-item";
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]

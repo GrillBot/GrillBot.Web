@@ -1,9 +1,10 @@
-import { Component, forwardRef, inject, input } from "@angular/core";
+import { Component, forwardRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { ColComponent, RowComponent } from "@coreui/angular";
+import {
+  ColComponent, FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective, RowComponent
+} from "@coreui/angular";
 import { RadioItem } from "./radio-group.models";
 import { ChunkPipe } from "../../../core/pipes";
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-radio-group',
@@ -14,7 +15,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ColComponent,
     ReactiveFormsModule,
     ChunkPipe,
-    RadioButtonModule
+    FormCheckComponent,
+    FormCheckInputDirective,
+    FormCheckLabelDirective
   ],
   providers: [
     {
@@ -23,6 +26,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './radio-group.component.scss'
 })
 export class RadioGroupComponent implements ControlValueAccessor {

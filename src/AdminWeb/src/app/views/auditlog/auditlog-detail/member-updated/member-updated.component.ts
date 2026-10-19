@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { ColComponent, RowComponent, TableDirective } from "@coreui/angular";
 import { CheckboxComponent, InfoRowComponent, UserLookupPipe } from "../../../../components";
@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-member-updated',
   templateUrl: './member-updated.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

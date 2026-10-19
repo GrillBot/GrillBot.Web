@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { Detail } from "../../../../core/models/audit-log";
 import { AlertComponent, ColComponent, RowComponent } from "@coreui/angular";
 import { CheckboxComponent, InfoRowComponent, UserLookupPipe } from "../../../../components";
@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: 'app-job-completed',
   templateUrl: './job-completed.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RowComponent,
     ColComponent,

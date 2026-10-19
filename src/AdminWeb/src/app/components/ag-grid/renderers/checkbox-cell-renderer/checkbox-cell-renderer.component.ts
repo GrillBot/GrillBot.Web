@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, signal, ChangeDetectionStrategy } from "@angular/core";
 import { FormCheckInputDirective } from "@coreui/angular";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
@@ -9,6 +9,7 @@ import { ColDef, ICellRendererParams } from "ag-grid-community";
   imports: [
     FormCheckInputDirective
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     'input:disabled { opacity: 1 !important }'
   ]

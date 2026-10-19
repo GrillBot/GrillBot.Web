@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, TextInputComponent } from "../../../../components";
 import { KeepablesListFilter } from "../../../../core/models/unverify/keepables-list-request";
 import { IForm } from "../../../../core/models/common";
@@ -8,6 +8,7 @@ import { ColComponent, RowComponent } from "@coreui/angular";
 @Component({
   templateUrl: './keepables-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

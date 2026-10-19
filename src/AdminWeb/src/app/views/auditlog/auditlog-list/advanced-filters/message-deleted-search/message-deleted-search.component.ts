@@ -1,4 +1,4 @@
-import { Component, forwardRef } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { AdvancedFilterBase } from "../advanced-filter.component.base";
 import { MessageDeletedSearchRequest } from "../../../../../core/models/audit-log";
@@ -23,6 +23,7 @@ import { RadioGroupComponent, RadioItem, TextInputComponent, UserLookupComponent
     TextInputComponent,
     RadioGroupComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

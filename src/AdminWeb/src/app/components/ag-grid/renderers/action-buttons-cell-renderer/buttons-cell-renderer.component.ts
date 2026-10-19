@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ButtonComponent } from "../../../button/button.component";
@@ -11,6 +11,7 @@ export type ButtonsCellRendererParams = ICellRendererParams & {
 @Component({
   templateUrl: './buttons-cell-renderer.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ButtonComponent]
 })
 export class ButtonsCellRendererComponent implements ICellRendererAngularComp {

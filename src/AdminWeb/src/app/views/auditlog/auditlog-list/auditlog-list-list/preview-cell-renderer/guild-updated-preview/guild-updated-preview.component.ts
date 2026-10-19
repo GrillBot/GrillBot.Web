@@ -1,9 +1,10 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
   selector: 'app-guild-updated-preview',
   templateUrl: './guild-updated-preview.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
   ]
 })

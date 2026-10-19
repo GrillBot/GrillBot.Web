@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from "@angular/core";
+import { Component, DestroyRef, inject, ChangeDetectionStrategy } from "@angular/core";
 import { AsyncLookupCellRendererComponent, STRIPED_ROW_STYLE } from "../../../components";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { AgGridComponent } from "../../../components/ag-grid/ag-grid.component";
@@ -16,6 +16,7 @@ import { ValidationErrorsComponent } from "../../../components/forms/validation-
 @Component({
   templateUrl: './points-leaderboard.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     AgGridComponent,

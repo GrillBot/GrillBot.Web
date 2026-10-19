@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import {
   CheckboxComponent, DatetimeRangeComponent, FilterBaseComponent, FilterCardComponent, GuildLookupComponent, RadioGroupComponent,
   RadioItem, TextInputComponent, UserLookupComponent
@@ -14,6 +14,7 @@ import {
   selector: 'app-emote-list-filter',
   templateUrl: './emote-list-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

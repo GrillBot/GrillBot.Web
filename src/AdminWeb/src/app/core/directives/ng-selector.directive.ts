@@ -13,7 +13,9 @@ export class NgSelectorDirective {
     this.#component.config.notFoundText = 'Nejsou žádná data';
     this.#component.config.disableVirtualScroll = false;
 
-    if (!this.#component.bindLabel()) {
+    // ng-select merges its global config in the constructor, so an unbound bindLabel already holds the default 'label'.
+    const defaultBindLabel = this.#component.config.bindLabel || 'label';
+    if (!this.#component.bindLabel() || this.#component.bindLabel() === defaultBindLabel) {
       this.#component.bindLabel.set('value');
     }
 

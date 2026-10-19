@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from "@angular/core";
+import { Component, computed, inject, input, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
 import { EmoteClient } from "../../../../core/clients";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import {
@@ -21,6 +21,7 @@ export type MergeState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
   selector: 'app-emote-merge',
   templateUrl: './emote-merge.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CardComponent,
     CardTitleDirective,

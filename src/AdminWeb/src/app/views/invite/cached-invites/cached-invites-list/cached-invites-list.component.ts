@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { AsyncLookupCellRendererComponent, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent, STRIPED_ROW_STYLE, UserLookupPipe } from "../../../../components";
 import { Invite, InviteListFilter, InviteListRequest } from "../../../../core/models/invite";
 import { GridOptions } from "ag-grid-community";
@@ -11,6 +11,7 @@ import { LookupClient } from "../../../../core/clients";
   selector: 'app-cached-invites-list',
   templateUrl: './cached-invites-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PaginatedGridComponent]
 })
 export class CachedInvitesListComponent extends ListBaseComponent<InviteListFilter, Invite> {

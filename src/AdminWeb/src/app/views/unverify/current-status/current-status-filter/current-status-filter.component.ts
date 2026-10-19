@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FilterBaseComponent, FilterCardComponent, GuildLookupComponent } from "../../../../components";
 import { ActiveUnverifyListRequest } from "../../../../core/models/unverify/active-unverify-list-request";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -8,6 +8,7 @@ import { IForm } from "../../../../core/models/common";
 @Component({
   templateUrl: './current-status-filter.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     RowComponent,

@@ -2,7 +2,7 @@ import { ActiveUnverifyListItemResponse } from './../../../../core/models/unveri
 import { AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, CheckboxCellRenderer, GuildLookupComponent, GuildLookupPipe, ListBaseComponent, PaginatedGridComponent, UserLookupPipe } from "../../../../components";
 import { ActiveUnverifyListRequest } from "../../../../core/models/unverify/active-unverify-list-request";
 import { LookupClient, UnverifyClient } from '../../../../core/clients';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParameters } from '../../../../core/models/common';
@@ -10,6 +10,7 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
 @Component({
   templateUrl: './current-status-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]

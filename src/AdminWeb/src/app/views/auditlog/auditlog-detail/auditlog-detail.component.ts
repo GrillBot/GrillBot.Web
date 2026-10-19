@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, ChangeDetectionStrategy } from "@angular/core";
 import { AuditLogClient } from "../../../core/clients";
 import { AsyncPipe } from "@angular/common";
 import { LocaleDatePipe, WithLoadingPipe } from "../../../core/pipes";
@@ -32,6 +32,7 @@ import { OverwriteComponent } from "./overwrite/overwrite.component";
 @Component({
   templateUrl: './auditlog-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     AsyncPipe,
     WithLoadingPipe,

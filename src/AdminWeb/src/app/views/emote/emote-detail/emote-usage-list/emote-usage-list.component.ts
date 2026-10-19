@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, output, viewChild } from "@angular/core";
+import { Component, computed, inject, input, OnInit, output, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import {
   AsyncLookupCellRendererComponent, ButtonsCellRendererComponent, ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent,
   UserLookupPipe
@@ -14,6 +14,7 @@ import { mapEmoteIdToName } from "../../../../core/mappers";
   selector: 'app-emote-usage-list',
   templateUrl: './emote-usage-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

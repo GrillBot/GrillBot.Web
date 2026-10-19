@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from "@angular/core";
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import { MessageClient } from "../../../core/clients/message.client";
 import { Router } from "@angular/router";
 import { mapParamsFromSnapshot } from "../../../core/mappers/router.mapper";
@@ -21,6 +21,7 @@ type SaveState = 'not-started' | 'executing' | 'failed' | 'created' | 'updated';
 @Component({
   templateUrl: './auto-reply-detail.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ContainerComponent,
     CardComponent,

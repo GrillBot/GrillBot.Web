@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from "@angular/core";
+import { Component, inject, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { ButtonsCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, ModalComponent, ModalQuestionButtonsComponent, PaginatedGridComponent } from "../../../../components";
 import { AutoReplyDefinition, AutoReplyDefinitionListRequest } from "../../../../core/models/message";
 import { GridOptions } from "ag-grid-community";
@@ -12,6 +12,7 @@ import { ButtonDef } from "../../../../components/button/button.models";
   selector: 'app-auto-reply-list-list',
   templateUrl: './auto-reply-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent,
     ModalComponent,

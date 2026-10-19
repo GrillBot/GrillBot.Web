@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { AsyncLookupCellRendererComponent, CheckboxCellRenderer, ListBaseComponent, PaginatedGridComponent, UserLookupPipe } from "../../../../../components";
 import { EmoteSuggestionVoteItem, EmoteSuggestionVoteListRequest } from "../../../../../core/models/emote";
 import { EmoteClient, LookupClient } from "../../../../../core/clients";
@@ -10,6 +10,7 @@ import { WithSortAndPagination, RawHttpResponse, PaginatedResponse, SortParamete
   selector: 'app-votes-list-list',
   templateUrl: './votes-list-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PaginatedGridComponent
   ]
