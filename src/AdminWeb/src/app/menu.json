@@ -5,7 +5,7 @@
     "icon": "cil-featured-playlist",
     "permissions": [
       "Dashboard(Admin)",
-      "UserMeasures(Admin)"
+      "Infractions(Admin)"
     ],
     "childItems": [
       {
@@ -13,7 +13,7 @@
         "url": "/web/dashboard/common",
         "permissions": [
           "Dashboard(Admin)",
-          "UserMeasures(Admin)"
+          "Infractions(Admin)"
         ]
       },
       {
@@ -225,24 +225,24 @@
   },
   {
     "name": "Uživatelská opatření",
-    "url": "/web/user-measures",
+    "url": "/web/infractions",
     "icon": "cil-shield-alt",
     "permissions": [
-      "UserMeasures(Admin)"
+      "Infractions(Admin)"
     ],
     "childItems": [
       {
         "name": "Seznam opatření",
-        "url": "/web/user-measures/measures-list",
+        "url": "/web/infractions/list",
         "permissions": [
-          "UserMeasures(Admin)"
+          "Infractions(Admin)"
         ]
       },
       {
         "name": "Vytvořit varování",
-        "url": "/web/user-measures/create-warning",
+        "url": "/web/infractions/create-warning",
         "permissions": [
-          "UserMeasures(Admin)"
+          "Infractions(Admin)"
         ]
       }
     ]

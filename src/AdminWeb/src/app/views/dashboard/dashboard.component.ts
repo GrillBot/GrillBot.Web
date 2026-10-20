@@ -8,7 +8,7 @@ import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { LoadingComponent } from "../../components";
 import { HasPermissionDirective } from '../../core/directives';
 import { TopHeavyOperationsComponent } from "./components/top-heavy-operations/top-heavy-operations.component";
-import { UserMeasuresComponent } from './components/user-measures/user-measures.component';
+import { InfractionsComponent } from './components/infractions/infractions.component';
 import { InteractionsComponent } from "./components/interactions/interactions.component";
 import { TodayAvgTimesComponent } from "./components/today-avg-times/today-avg-times.component";
 import { JobsComponent } from "./components/jobs/jobs.component";
@@ -32,7 +32,7 @@ import { LocaleDatePipe } from "../../core/pipes/locale-date.pipe";
     LoadingComponent,
     HasPermissionDirective,
     TopHeavyOperationsComponent,
-    UserMeasuresComponent,
+    InfractionsComponent,
     InteractionsComponent,
     TodayAvgTimesComponent,
     JobsComponent,

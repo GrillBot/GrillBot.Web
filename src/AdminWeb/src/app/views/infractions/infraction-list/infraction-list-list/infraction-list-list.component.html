@@ -1,0 +1,65 @@
+<div class="mb-3">
+  <app-paginated-grid
+    #grid
+    [gridOptions]="gridOptions"
+    [height]="'700px'"
+    (reloadRequested)="reload()"
+  />
+</div>
+
+<app-modal #openFullReasonModal size="xl" [title]="'Důvod opatření'">
+  <ng-container body>
+    {{ reasonInModal }}
+  </ng-container>
+</app-modal>
+
+<app-modal
+  #removeInfractionModal
+  [title]="'Smazání opatření'"
+  [size]="undefined"
+  [enableFooter]="true"
+>
+  <ng-container body>
+    Opravdu si přejete smazat tohle opatření?
+
+    @if (rowInModal) {
+      <table cTable bordered="true" class="mb-0 mt-3">
+        <tr>
+          <th>ID opatření</th>
+          <td>{{ rowInModal.infractionId }}</td>
+        </tr>
+
+        <tr>
+          <th>Typ opatření</th>
+          <td>{{ getInfractionType(rowInModal.type) }}</td>
+        </tr>
+
+        <tr>
+          <th>Vytvořeno</th>
+          <td>{{ rowInModal.createdAtUtc | localeDatePipe }}</td>
+        </tr>
+
+        <tr>
+          <th>Server</th>
+          <td>{{ rowInModal.guildId | guildLookup | async }}</td>
+        </tr>
+
+        <tr>
+          <th>Moderátor</th>
+          <td>{{ rowInModal.moderatorId | userLookup | async }}</td>
+        </tr>
+
+        <tr>
+          <th>Uživatel</th>
+          <td>{{ rowInModal.userId | userLookup | async }}</td>
+        </tr>
+      </table>
+    }
+  </ng-container>
+
+  <app-modal-question-buttons
+    footer
+    [parentModal]="removeInfractionModal"
+    (onConfirm)="confirmRemoveInfraction()"
+  />
+</app-modal>

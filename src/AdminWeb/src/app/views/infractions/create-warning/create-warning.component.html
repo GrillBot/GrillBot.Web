@@ -1,0 +1,93 @@
+<c-container>
+  <c-card class="mb-3">
+    <c-card-body>
+      <form cForm [formGroup]="form">
+        <c-row class="mb-1">
+          <c-col>
+            <app-guild-lookup formControlName="guildId" />
+            <app-validation-errors [form]="form" controlName="guildId" />
+          </c-col>
+
+          <c-col>
+            <app-user-lookup formControlName="userId" />
+            <app-validation-errors [form]="form" controlName="userId" />
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-1">
+          <c-col>
+            <app-checkbox
+              checkboxId="sendDmNotification"
+              label="Poslat soukromou zprávu uživateli"
+              formControlName="sendDmNotification"
+            />
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-3">
+          <c-col>
+            <label cLabel for="message">Zpráva</label>
+            <textarea cFormControl formControlName="message"></textarea>
+            <app-validation-errors [form]="form" controlName="message" />
+          </c-col>
+        </c-row>
+
+        <c-row>
+          <c-col class="d-flex justify-content-end">
+            <button
+              cButton
+              [variant]="'outline'"
+              [color]="'primary'"
+              [disabled]="form.invalid"
+              (click)="submitWarning()"
+            >
+              Vytvořit
+            </button>
+          </c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+
+  <c-alert
+    [color]="stateColor()"
+    [visible]="state() != 'NotStarted'"
+    [fade]="true"
+  >
+    @switch (state()) {
+      @case ("Executing") {
+        <app-loading
+          [rotating]="true"
+          [center]="false"
+          customText="Probíhá vytváření varování"
+          [small]="true"
+        />
+      }
+
+      @case ("Success") {
+        <div class="d-flex align-items-center">
+          <c-icon name="cilCheckCircle" />
+          <p class="m-0 ms-2">
+            Tvé varování bylo úspěšně vytvořeno a bude co nejdříve zpracováno.
+          </p>
+        </div>
+      }
+
+      @case ("Failed") {
+        <div class="d-flex align-items-center">
+          <c-icon name="cilXCircle" />
+          <p class="m-0 ms-2">
+            Tvé varování se nepodařilo vytvořit. Zkontroluj důvody, proč se
+            nepodařilo varování vytvořit.
+          </p>
+        </div>
+
+        <ul class="mb-0 mt-3">
+          @for (message of stateErrorMessages(); track $index) {
+            <li>{{ message }}</li>
+          }
+        </ul>
+      }
+    }
+  </c-alert>
+</c-container>

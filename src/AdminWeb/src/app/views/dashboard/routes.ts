@@ -7,7 +7,7 @@ export const routes: Routes = [
     data: {
       title: 'Dashboard / Bot',
       canActivate: (perms: string[]) =>
-        perms.includes('Dashboard(Admin)') || perms.includes('UserMeasures(Admin)')
+        perms.includes('Dashboard(Admin)') || perms.includes('Infractions(Admin)')
     }
   },
   {

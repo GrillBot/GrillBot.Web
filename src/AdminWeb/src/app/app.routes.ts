@@ -30,12 +30,15 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'user-measures',
-        loadChildren: () => import('./views/user-measures/routes').then(m => m.routes),
+        path: 'infractions',
+        loadChildren: () => import('./views/infractions/routes').then(m => m.routes),
         data: {
           canActivate: (_: string[]) => true
         }
       },
+      { path: 'user-measures', redirectTo: 'infractions', pathMatch: 'full' },
+      { path: 'user-measures/measures-list', redirectTo: 'infractions/list', pathMatch: 'full' },
+      { path: 'user-measures/create-warning', redirectTo: 'infractions/create-warning', pathMatch: 'full' },
       {
         path: 'reminder',
         loadChildren: () => import('./views/reminder/routes').then(m => m.routes),

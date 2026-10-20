@@ -1,0 +1,95 @@
+import { Component, computed, inject, OnInit, signal, ChangeDetectionStrategy } from "@angular/core";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { InfractionsClient } from "../../../core/clients/infractions.client";
+import { IForm } from "../../../core/models/common";
+import { CreateMemberWarningParams } from "../../../core/models/infractions/create-member-warning-params";
+import {
+  AlertComponent, ButtonDirective, CardBodyComponent, CardComponent, ColComponent, Colors, ContainerComponent,
+  FormControlDirective,
+  FormDirective, FormLabelDirective, RowComponent
+} from "@coreui/angular";
+import { CheckboxComponent, GuildLookupComponent, LoadingComponent, UserLookupComponent, ValidationErrorsComponent } from "../../../components";
+import { IconComponent } from "@coreui/icons-angular";
+import { catchError, debounceTime, EMPTY } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
+import { mapHttpErrors } from "../../../core/mappers/validations.mapper";
+
+type CreateState = 'NotStarted' | 'Executing' | 'Failed' | 'Success';
+
+@Component({
+  templateUrl: './create-warning.component.html',
+  standalone: true,
+  imports: [
+    ContainerComponent,
+    CardComponent,
+    CardBodyComponent,
+    FormDirective,
+    ReactiveFormsModule,
+    RowComponent,
+    ColComponent,
+    FormLabelDirective,
+    GuildLookupComponent,
+    UserLookupComponent,
+    ValidationErrorsComponent,
+    ButtonDirective,
+    AlertComponent,
+    LoadingComponent,
+    IconComponent,
+    CheckboxComponent,
+    FormControlDirective
+  ],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './create-warning.component.scss'
+})
+export class CreateWarningComponent implements OnInit {
+  readonly #formBuilder = inject(FormBuilder);
+  readonly #client = inject(InfractionsClient);
+
+  form!: FormGroup<IForm<CreateMemberWarningParams>>;
+  state = signal<CreateState>('NotStarted');
+  stateErrorMessages = signal<string[] | null>(null);
+
+  stateColor = computed<Colors>(() => {
+    switch (this.state()) {
+      case 'Executing': return 'primary';
+      case 'Success': return 'success';
+      case 'Failed': return 'danger';
+      default: return 'transparent';
+    }
+  });
+
+  ngOnInit(): void {
+    this.form = this.#formBuilder.group<IForm<CreateMemberWarningParams>>({
+      guildId: this.#formBuilder.control('', {
+        validators: [Validators.required]
+      }),
+      userId: this.#formBuilder.control('', {
+        validators: [Validators.required]
+      }),
+      message: this.#formBuilder.control('', {
+        validators: [Validators.required]
+      }),
+      sendDmNotification: this.#formBuilder.control(true)
+    });
+  }
+
+  submitWarning(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.state.set('Executing');
+
+    const request = this.form.value as CreateMemberWarningParams;
+    this.#client.createMemberWarning(request)
+      .pipe(
+        debounceTime(100),
+        catchError((err: HttpErrorResponse) => {
+          this.state.set('Failed');
+          this.stateErrorMessages.set(mapHttpErrors(err));
+
+          return EMPTY;
+        })
+      ).subscribe(() => { this.state.set('Success'); });
+  }
+}

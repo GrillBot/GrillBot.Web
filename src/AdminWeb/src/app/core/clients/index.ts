@@ -7,4 +7,4 @@ export * from './points.client';
 export * from './reminder.client';
 export * from './searching.client';
 export * from './unverify.client';
-export * from './user-measures.client';
+export * from './infractions.client';
