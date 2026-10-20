@@ -11,6 +11,7 @@ FROM nginx:alpine
 
 EXPOSE 80
 LABEL org.opencontainers.image.source=https://github.com/grillbot/grillbot.web
+LABEL org.opencontainers.image.licenses=MIT
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/admin-web/browser /usr/share/nginx/html

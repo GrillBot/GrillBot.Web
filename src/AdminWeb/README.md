@@ -22,3 +22,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+
+## Licence
+
+GrillBot is released under the [MIT License](../../LICENSE). Contributions are accepted under the same terms, see [CONTRIBUTING.md](../../CONTRIBUTING.md). Third-party notices are in [THIRD-PARTY-NOTICES.md](../../THIRD-PARTY-NOTICES.md).

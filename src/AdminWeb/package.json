@@ -10,6 +10,8 @@
     "production": "ng build --configuration=production"
   },
   "private": true,
+  "license": "MIT",
+  "author": "GrillBot contributors",
   "dependencies": {
     "@ag-grid-community/locale": "^36.2.0",
     "@angular/aria": "^22.2.3",

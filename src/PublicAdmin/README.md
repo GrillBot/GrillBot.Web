@@ -22,4 +22,4 @@ Latest docker image is published in GitHub packages.
 
 ## Licence
 
-GrillBot and any other related parts are licenced as All Rights Reserved. The source code is available for reading and contribution. Owner consent is required for use in a production environment or using some part of code in your project.
+GrillBot is released under the [MIT License](../../LICENSE). Contributions are accepted under the same terms, see [CONTRIBUTING.md](../../CONTRIBUTING.md). Third-party notices are in [THIRD-PARTY-NOTICES.md](../../THIRD-PARTY-NOTICES.md).

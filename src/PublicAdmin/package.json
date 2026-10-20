@@ -10,6 +10,8 @@
     "lint": "eslint -c .eslintrc.json --ext .ts ."
   },
   "private": true,
+  "license": "MIT",
+  "author": "GrillBot contributors",
   "dependencies": {
     "@angular/common": "^15.2.9",
     "@angular/compiler": "^15.2.9",

@@ -10,6 +10,7 @@ FROM nginx:alpine
 EXPOSE 80
 
 LABEL org.opencontainers.image.source https://github.com/grillbot/grillbot.web
+LABEL org.opencontainers.image.licenses=GPL-3.0-only
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=AngularBuild /usr/src/app/dist/web /usr/share/nginx/html

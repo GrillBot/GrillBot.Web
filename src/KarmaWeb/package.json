@@ -10,6 +10,8 @@
     "prod": "ng build --configuration=production"
   },
   "private": true,
+  "license": "GPL-3.0-only",
+  "author": "GrillBot contributors",
   "dependencies": {
     "@angular/animations": "^15.2.9",
     "@angular/common": "^15.2.9",

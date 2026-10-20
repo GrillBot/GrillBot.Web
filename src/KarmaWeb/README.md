@@ -22,4 +22,4 @@ Latest docker image is published in GitHub packages.
 
 ## Licence
 
-GrillBot and any other related parts are licenced as All Rights Reserved. The source code is available for reading and contribution. Owner consent is required for use in a production environment or using some part of code in your project.
+This application is licensed under the [GNU General Public License v3.0 only](LICENSE) (`GPL-3.0-only`), unlike the rest of this repository, which is MIT licensed. It is derived in part from [Rubbergod](https://github.com/vutfitdiscord/rubbergod), which is GPL-3.0 licensed, so the GPL applies to this directory. Contributions to `src/KarmaWeb` are accepted under the same GPL-3.0-only terms.
