@@ -1,0 +1,7 @@
+<app-info-row key="Událost" [value]="mapEventType(detail().data.eventType)" />
+<app-info-row key="Kde" [value]="mapChannel(detail().data.channel)" />
+<app-info-row key="IP adresa" [value]="detail().data.ipAddress ?? '-'" />
+
+@if (detail().data.reason) {
+  <app-info-row key="Důvod" [value]="detail().data.reason" />
+}

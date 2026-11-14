@@ -22,7 +22,8 @@ export enum AuditLogType {
   JobCompleted = 22,
   Api = 23,
   ThreadUpdated = 24,
-  RoleDeleted = 25
+  RoleDeleted = 25,
+  Identity = 27
 }
 
 export enum AuditLogTypeLocalization {
@@ -49,5 +50,6 @@ export enum AuditLogTypeLocalization {
   JobCompleted = 'Naplánovaná úloha',
   Api = 'API požadavek',
   ThreadUpdated = 'Vlákno upraveno',
-  RoleDeleted = 'Smazaná role'
+  RoleDeleted = 'Smazaná role',
+  Identity = 'Přihlášení a přístup'
 }

@@ -28,6 +28,7 @@ import { ApiRequestComponent } from "./api-request/api-request.component";
 import { FilesListComponent } from "./files-list/files-list.component";
 import { MessageEditedComponent } from "./message-edited/message-edited.component";
 import { OverwriteComponent } from "./overwrite/overwrite.component";
+import { IdentityEventComponent } from "./identity-event/identity-event.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -61,6 +62,7 @@ import { OverwriteComponent } from "./overwrite/overwrite.component";
     FilesListComponent,
     MessageEditedComponent,
     OverwriteComponent,
+    IdentityEventComponent,
     IconComponent
   ]
 })

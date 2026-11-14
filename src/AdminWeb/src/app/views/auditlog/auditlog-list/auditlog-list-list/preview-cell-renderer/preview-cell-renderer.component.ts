@@ -21,6 +21,7 @@ import { RoleDeletedPreviewComponent } from './role-deleted-preview/role-deleted
 import { MessageDeletedPreviewComponent } from './message-deleted-preview/message-deleted-preview.component';
 import { OverwritePreviewComponent } from './overwrite-preview/overwrite-preview.component';
 import { TextPreviewComponent } from './text-preview/text-preview.component';
+import { IdentityEventPreviewComponent } from './identity-event-preview/identity-event-preview.component';
 
 
 @Component({
@@ -46,7 +47,8 @@ import { TextPreviewComponent } from './text-preview/text-preview.component';
     MessageDeletedPreviewComponent,
     MessageEditedPreview,
     OverwritePreviewComponent,
-    TextPreviewComponent
+    TextPreviewComponent,
+    IdentityEventPreviewComponent
   ]
 })
 export class PreviewCellRendererComponent implements ICellRendererAngularComp {

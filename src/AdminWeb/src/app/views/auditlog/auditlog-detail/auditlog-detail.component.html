@@ -129,6 +129,10 @@
             @case (25) {
               <app-role-deleted [detail]="response.value" />
             }
+
+            @case (27) {
+              <app-identity-event [detail]="response.value" />
+            }
           }
         }
       }
