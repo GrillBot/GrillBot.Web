@@ -51,7 +51,7 @@ export class NavManager {
     }
 
     const checkPermissions: (perms: string[]) => boolean | undefined = item.attributes!["checkPermissions"];
-    if (checkPermissions && !checkPermissions(this.#authManager.token.permissions)) {
+    if (checkPermissions && !checkPermissions(this.#authManager.session.permissions)) {
       return null;
     }
 

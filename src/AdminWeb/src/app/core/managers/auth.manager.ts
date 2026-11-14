@@ -1,49 +1,59 @@
 import { Injectable, inject } from "@angular/core";
 import { LocalStorageService } from "@coreui/angular";
-import { OAuth2LoginToken } from "../models/auth/oauth2-login-token";
 import { Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { JwtToken } from "../models/auth/jwt-token";
+import { Observable, catchError, map, of } from "rxjs";
+import { AuthClient } from "../clients/auth.client";
+import { Session } from "../models/auth/session";
+import { environment } from "../../../environments/environment";
 
-export const ACCESS_TOKEN_KEY = 'X-GrillBot-Storage-AccessToken';
+/** Where the access token used to be kept, before sign-in moved to a server-side session. */
+const LEGACY_ACCESS_TOKEN_KEY = 'X-GrillBot-Storage-AccessToken';
 
 @Injectable({ providedIn: 'root' })
 export class AuthManager {
+  readonly #authClient = inject(AuthClient);
   readonly #storage = inject(LocalStorageService);
   readonly #router = inject(Router);
 
-  private get rawToken(): string {
-    return this.#storage.getItem(ACCESS_TOKEN_KEY);
+  #session = new Session(null);
+
+  get session(): Session {
+    return this.#session;
   }
 
-  private set rawToken(value: string) {
-    this.#storage.setItem(ACCESS_TOKEN_KEY, value);
+  /** Loads the signed-in user. Runs once on startup, before the first navigation. */
+  loadSession(): Observable<Session> {
+    // Tokens no longer live in the browser; drop one left behind by an older version.
+    this.#storage.removeItem(LEGACY_ACCESS_TOKEN_KEY);
+
+    return this.#authClient.getSession().pipe(
+      map(info => this.#session = new Session(info ?? null)),
+      catchError(() => of(this.#session = new Session(null)))
+    );
   }
 
-  get token(): JwtToken {
-    return new JwtToken(this.rawToken);
-  }
-
-  setToken(token: OAuth2LoginToken): boolean {
-    if (token.errorMessage) {
-      alert(token.errorMessage); // TODO Toast notifications
-      return false;
-    }
-
-    this.rawToken = token.accessToken!;
-    return true;
+  /** Leaves for Discord; the bot creates the session and redirects back to `returnUrl`. */
+  startLogin(returnUrl?: string): void {
+    location.href = `${environment.sessionLoginUri}?returnUrl=${encodeURIComponent(returnUrl || '/')}`;
   }
 
   logout(loginPath?: string | UrlTree): void {
-    this.#storage.removeItem(ACCESS_TOKEN_KEY);
+    const wasLogged = this.#session.isLogged;
+    this.#session = new Session(null);
+
+    if (wasLogged) {
+      this.#authClient.logout().subscribe({ error: () => { /* the session is gone either way */ } });
+    }
+
     this.#router.navigateByUrl(loginPath?.toString() ?? '/login');
   }
 
   hasPermission(permission: string): boolean {
-    return this.token.permissions.includes(permission);
+    return this.session.permissions.includes(permission);
   }
 
   hasAnyPermission(...permissions: string[]): boolean {
-    return permissions.some(p => this.token.permissions.includes(p));
+    return permissions.some(p => this.session.permissions.includes(p));
   }
 
   createLoginPath(state: RouterStateSnapshot): UrlTree {

@@ -1,4 +1,4 @@
-import { ApplicationConfig, ErrorHandler, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import {
   provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withRouterConfig,
   withViewTransitions
@@ -10,6 +10,8 @@ import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/ht
 import { httpCacheInterceptor, httpUnauthorizedInterceptor, httpLoggingInterceptor } from './core/interceptors';
 import { GlobalErrorHandler } from './core/handlers/error.handler';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { firstValueFrom } from 'rxjs';
+import { AuthManager } from './core/managers/auth.manager';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -50,6 +52,8 @@ export const appConfig: ApplicationConfig = {
         httpLoggingInterceptor()
       ])
     ),
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    // Who is signed in must be known before the guards run on the first navigation.
+    provideAppInitializer(() => firstValueFrom(inject(AuthManager).loadSession()))
   ]
 };

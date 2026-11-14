@@ -31,6 +31,14 @@
                   </button>
                 </c-col>
               </c-row>
+              @if (loginError) {
+                <p class="text-danger small mt-3 mb-0">{{ loginError }}</p>
+              }
+              <p class="text-body-secondary small mt-3 mb-0">
+                Přihlašuješ se přímo u Discordu. GrillBot žádná hesla nemá a od Discordu
+                dostane jen tvoje ID, jméno a avatar.
+                <a href="{{ privacyUrl }}" target="_blank" rel="noopener">Jak přihlášení funguje</a>
+              </p>
             </c-card-body>
 
             <c-card-footer class="text-secondary small">

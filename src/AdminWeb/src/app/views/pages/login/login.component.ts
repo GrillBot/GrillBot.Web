@@ -2,16 +2,12 @@ import { NgStyle, NgTemplateOutlet } from "@angular/common";
 import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
   ButtonDirective, CardBodyComponent, CardComponent, CardFooterComponent, CardGroupComponent, ColComponent, ContainerComponent,
-  LocalStorageService, RowComponent, TextColorDirective
+  RowComponent, TextColorDirective
 } from "@coreui/angular";
 import { IconComponent } from "@coreui/icons-angular";
-import { AuthClient } from "../../../core/clients/auth.client";
 import { ActivatedRoute, Router } from "@angular/router";
-import { filter, tap } from "rxjs";
 import { AuthManager } from "../../../core/managers/auth.manager";
 import { environment } from "../../../../environments/environment";
-
-const REDIRECT_URI_KEY = 'X-GrillBot-RedirectUri';
 
 @Component({
   selector: 'app-login',
@@ -34,37 +30,21 @@ const REDIRECT_URI_KEY = 'X-GrillBot-RedirectUri';
   ]
 })
 export class LoginComponent {
-  readonly #authClient = inject(AuthClient);
   readonly #authManager = inject(AuthManager);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  readonly #storage = inject(LocalStorageService);
+
+  /** Why the last sign-in was refused, as reported by the bot. */
+  readonly loginError: string | undefined = this.#route.snapshot.queryParams['loginError'] || undefined;
+  readonly privacyUrl = environment.privacyUrl;
 
   constructor() {
-    const isFromCallback = !this.#route.snapshot.queryParams['fromCallback'];
-    let redirectUri = this.#route.snapshot.queryParams['redirectUri'];
-
-    if (redirectUri) {
-      this.#storage.removeItem(REDIRECT_URI_KEY);
-      this.#storage.setItem(REDIRECT_URI_KEY, redirectUri);
-    } else {
-      redirectUri = this.#storage.getItem(REDIRECT_URI_KEY);
+    if (this.#authManager.session.isLogged) {
+      this.#router.navigateByUrl(this.#route.snapshot.queryParams['redirectUri'] ?? '/');
     }
-
-    if (isFromCallback) {
-      return;
-    }
-
-    this.#authClient.retrieveJwtToken().pipe(
-      filter(token => this.#authManager.setToken(token)),
-      tap(_ => {
-        this.#storage.removeItem(REDIRECT_URI_KEY);
-        this.#router.navigateByUrl(redirectUri ?? '/');
-      })
-    ).subscribe();
   }
 
   startLogin(): void {
-    location.href = environment.oauthApiUri;
+    this.#authManager.startLogin(this.#route.snapshot.queryParams['redirectUri']);
   }
 }

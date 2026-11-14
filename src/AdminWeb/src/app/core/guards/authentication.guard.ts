@@ -8,7 +8,7 @@ export class AuthenticationGuard implements CanActivateChild {
   readonly #router = inject(Router);
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    if (!this.#authManager.token.isLogged) {
+    if (!this.#authManager.session.isLogged) {
       const loginPath = this.#authManager.createLoginPath(state);
 
       this.#authManager.logout(loginPath);
@@ -16,10 +16,10 @@ export class AuthenticationGuard implements CanActivateChild {
     }
 
     const canActivate: (permissions: string[]) => boolean | undefined = childRoute.data['canActivate'];
-    const currentPermissions = this.#authManager.token.permissions;
+    const currentPermissions = this.#authManager.session.permissions;
 
     if (canActivate && !canActivate(currentPermissions)) {
-      const redirectUri = this.#router.parseUrl(`/web/users/${this.#authManager.token.id}`);
+      const redirectUri = this.#router.parseUrl(`/web/users/${this.#authManager.session.id}`);
       return new RedirectCommand(redirectUri);
     }
 

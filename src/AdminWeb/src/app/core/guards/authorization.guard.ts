@@ -9,7 +9,7 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     const loginPath = this.#authManager.createLoginPath(state);
 
-    if (!this.#authManager.token.isLogged) {
+    if (!this.#authManager.session.isLogged) {
       this.#authManager.logout(loginPath);
       return new RedirectCommand(loginPath);
     }

@@ -70,7 +70,7 @@
       <c-avatar
         shape="rounded-1"
         [size]="'md'"
-        [src]="authManager.token.avatarUrl"
+        [src]="authManager.session.avatarUrl"
         textColor="primary"
         alt="User avatar"
       />
@@ -81,12 +81,12 @@
           cDropdownHeader
           class="bg-body-secondary text-body-secondary fw-semibold py-2"
         >
-          {{ authManager.token.username }}
+          {{ authManager.session.username }}
         </h6>
       </li>
       <li></li>
       <li>
-        <a cDropdownItem routerLink="/web/users/{{ authManager.token.id }}">
+        <a cDropdownItem routerLink="/web/users/{{ authManager.session.id }}">
           <c-icon class="me-2" name="cilUser" />
           Můj účet
         </a>

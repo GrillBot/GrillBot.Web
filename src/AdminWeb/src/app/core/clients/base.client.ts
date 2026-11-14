@@ -1,38 +1,28 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { LocalStorageService } from "@coreui/angular";
 import { Observable, concat, from, map, of, switchMap } from 'rxjs';
-import { ACCESS_TOKEN_KEY } from '../managers/auth.manager';
 import { environment } from "../../../environments/environment";
 import { RawHttpResponse } from "../models/common";
 
 export type HttpQueryParams = { [key: string]: string | string[] };
 
 export abstract class BaseClient {
-  readonly #storage = inject(LocalStorageService);
   readonly #http = inject(HttpClient);
 
   get httpClient(): HttpClient {
     return this.#http;
   }
 
+  /**
+   * No Authorization header: the session cookie (HttpOnly, set by the bot) travels with every
+   * request, and the bot turns it into the access token on its side.
+   */
   get requestHeaders(): {
     headers: HttpHeaders,
     withCredentials: boolean
   } {
-    const token = this.#storage.getItem(ACCESS_TOKEN_KEY);
-
-    if (!token) {
-      return {
-        headers: new HttpHeaders({}),
-        withCredentials: true
-      };
-    }
-
     return {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      }),
+      headers: new HttpHeaders({}),
       withCredentials: true
     };
   }
