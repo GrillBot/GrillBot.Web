@@ -40,9 +40,9 @@ jobs:
       AdminWeb: ${{ steps.filter.outputs.AdminWeb }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Paths filter
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v4
         id: filter
         with:
           filters: |
@@ -59,7 +59,7 @@ jobs:
     needs: PathsFilter
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
@@ -79,15 +79,15 @@ jobs:
       packages: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Login to the container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: AdminWeb
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         if: needs.PathsFilter.outputs.AdminWeb == 'true'
         with:
           context: src/AdminWeb
@@ -97,10 +97,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: Production_AdminWeb
     needs: [PathsFilter, CreateDockerImage]
-    if: github.ref == 'refs/heads/master' && needs.PathsFilter.outputs.AdminWeb == 'true'
+    # TEMPORARY: CD paused (deploy target unavailable) - the image is still
+    # built and pushed, deploy it by hand. Remove "false &&" to re-enable.
+    if: false && github.ref == 'refs/heads/master' && needs.PathsFilter.outputs.AdminWeb == 'true'
     steps:
       - name: Execute deployment on SSH
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -117,9 +119,9 @@ jobs:
         working-directory: src/PrivateAdmin/
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: "16"
       - name: Install dependencies
@@ -137,15 +139,15 @@ jobs:
       packages: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Log in to the container repository
-        uses: docker/login-action@v2
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v7
         with:
           context: src/PrivateAdmin
           push: true
@@ -154,10 +156,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: "Production_PrivateAdmin"
     needs: PrivateAdmin_CreateDockerImage
-    if: github.ref == 'refs/heads/master'
+    # TEMPORARY: CD paused (deploy target unavailable) - the image is still
+    # built and pushed, deploy it by hand. Remove "false &&" to re-enable.
+    if: false && github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -174,9 +178,9 @@ jobs:
         working-directory: src/PublicAdmin/
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: "16"
       - name: Install dependencies
@@ -194,15 +198,15 @@ jobs:
       packages: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Log in to the container repository
-        uses: docker/login-action@v2
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v7
         with:
           context: src/PublicAdmin
           push: true
@@ -211,10 +215,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: "Production_PublicAdmin"
     needs: PublicAdmin_CreateDockerImage
-    if: github.ref == 'refs/heads/master'
+    # TEMPORARY: CD paused (deploy target unavailable) - the image is still
+    # built and pushed, deploy it by hand. Remove "false &&" to re-enable.
+    if: false && github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -231,9 +237,9 @@ jobs:
         working-directory: src/KarmaWeb/
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: "16"
       - name: Install dependencies
@@ -249,15 +255,15 @@ jobs:
       packages: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Log in to the container repository
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v7
         with:
           context: src/KarmaWeb
           push: true
@@ -266,10 +272,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: "Production_KarmaWeb"
     needs: KarmaWeb_CreateDockerImage
-    if: github.ref == 'refs/heads/master'
+    # TEMPORARY: CD paused (deploy target unavailable) - the image is still
+    # built and pushed, deploy it by hand. Remove "false &&" to re-enable.
+    if: false && github.ref == 'refs/heads/master'
     steps:
       - name: Execute deployment on SSH
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
