@@ -22,6 +22,7 @@ import { MessageDeletedPreviewComponent } from './message-deleted-preview/messag
 import { OverwritePreviewComponent } from './overwrite-preview/overwrite-preview.component';
 import { TextPreviewComponent } from './text-preview/text-preview.component';
 import { IdentityEventPreviewComponent } from './identity-event-preview/identity-event-preview.component';
+import { ArchivationPreviewComponent } from './archivation-preview/archivation-preview.component';
 
 
 @Component({
@@ -48,7 +49,8 @@ import { IdentityEventPreviewComponent } from './identity-event-preview/identity
     MessageEditedPreview,
     OverwritePreviewComponent,
     TextPreviewComponent,
-    IdentityEventPreviewComponent
+    IdentityEventPreviewComponent,
+    ArchivationPreviewComponent
   ]
 })
 export class PreviewCellRendererComponent implements ICellRendererAngularComp {

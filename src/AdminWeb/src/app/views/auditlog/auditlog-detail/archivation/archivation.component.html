@@ -1,0 +1,16 @@
+<app-info-row key="Archivováno" [value]="mapProcess(detail().data.processName)" />
+<app-info-row key="Počet záznamů" [value]="detail().data.totalRecordsCount | spacedNumber" />
+<app-info-row key="Velikost JSON" [value]="detail().data.jsonSize | filesize" />
+<app-info-row key="Velikost archivu" [value]="detail().data.archiveSize | filesize" />
+
+@if (detail().data.deletedFilesCount !== null && detail().data.deletedFilesCount !== undefined) {
+  <app-info-row key="Smazaných souborů" [value]="detail().data.deletedFilesCount | spacedNumber" />
+}
+
+@if (detail().data.deletedFilesSize !== null && detail().data.deletedFilesSize !== undefined) {
+  <app-info-row key="Velikost smazaných souborů" [value]="detail().data.deletedFilesSize | filesize" />
+}
+
+@if (detail().data.details) {
+  <pre class="mb-0 mt-3">{{ detail().data.details }}</pre>
+}

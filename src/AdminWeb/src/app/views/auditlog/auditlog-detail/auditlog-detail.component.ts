@@ -29,6 +29,7 @@ import { FilesListComponent } from "./files-list/files-list.component";
 import { MessageEditedComponent } from "./message-edited/message-edited.component";
 import { OverwriteComponent } from "./overwrite/overwrite.component";
 import { IdentityEventComponent } from "./identity-event/identity-event.component";
+import { ArchivationComponent } from "./archivation/archivation.component";
 
 @Component({
   templateUrl: './auditlog-detail.component.html',
@@ -63,6 +64,7 @@ import { IdentityEventComponent } from "./identity-event/identity-event.componen
     MessageEditedComponent,
     OverwriteComponent,
     IdentityEventComponent,
+    ArchivationComponent,
     IconComponent
   ]
 })
